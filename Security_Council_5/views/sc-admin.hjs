@@ -15,7 +15,11 @@
         <h3>Options Will Display Here</h3>
       </div>
       <div id="adminmainfooter">
-        <button type="submit">Accept and Create Room</button>
+        <form role="form" method="POST" action="/sc-admin/addroom">
+          <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
+          <button type="submit">Accept and Create Room</button>
+          <div><p>{{ roomname }}</p></div>
+        </form>
       </div>
     </div>
     <div id="adminside">
