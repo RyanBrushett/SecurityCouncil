@@ -4,9 +4,16 @@
  */
 
 var express = require('express');
+
+/** 
+ * I don't like how the routes are defined a bunch of times.
+ * I think there's a way around this.
+ * -Ryan 
+ */
 var routes = require('./routes');
 var admin = require('./routes/scadmin');
 var user = require('./routes/user');
+
 var http = require('http');
 var path = require('path');
 
