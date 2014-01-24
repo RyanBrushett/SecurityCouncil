@@ -11,7 +11,11 @@ function option1(){
     + "<input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\" placeholder=\"Password\">"
     + "</div>"
     + "<button type=\"submit\" class=\"btn btn-default\">Submit</button>"
-    + "</form>";
+    + "</form>"
+    + "<h3>I Just put this here to show that it changes.</h3>"
+    + "<p>We could do forms in here for like, adding users or checkboxes / buttons for sorting options.</p>"
+    + "<p>I'm not sure, mechanically, how this would work but I think Ajax/Json to create the room object on the fly would work.</p>"
+    + "<p>Then we could commit it at the end.</p>";
 }
 function option2(){
     var adminmain = document.getElementById("adminmaindisplay");
