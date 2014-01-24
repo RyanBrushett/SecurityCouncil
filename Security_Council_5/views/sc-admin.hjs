@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/js/adminFunctions.js'></script>
+  </head>
+  <body>
+  <div id="adminwrap">
+    <div id="adminhead">
+      <h2>Simulation Setup</h2>
+    </div>
+    <div id="adminmain">
+      <div id="adminmaindisplay">
+        <h3>Options Will Display Here</h3>
+      </div>
+      <div id="adminmainfooter">
+        <button type="submit">Accept and Create Room</button>
+      </div>
+    </div>
+    <div id="adminside">
+      <ul id="simoptions" class="buttonlist">
+        <li id="option1" class="buttonitem" onclick="option1()">Option1</li>
+        <li id="option2" class="buttonitem" onclick="option2()">Option2</li>
+      </ul>
+    </div>
+  </div>
+  </body>
+</html>

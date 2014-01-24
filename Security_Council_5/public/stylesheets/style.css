@@ -1,8 +1,48 @@
-body {
-  padding: 50px;
+body,html {
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-a {
-  color: #00B7FF;
+a{color: #000;}
+a:link {text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover, a:active {color:#00B7FF;}
+
+ul{
+  list-style-type:none;
+}
+
+/* Admin Section */
+#adminwrap{
+  width:800px;
+  margin:0 auto;
+}
+#adminmain{
+  float:right;
+  width:550px;
+}
+#adminside{
+  float:left;
+  width:250px;
+}
+ul.buttonlist{
+  padding-left:5px;
+  padding-right:5px;
+  list-style: none;
+  width:110px;
+}
+li.buttonitem{
+  /*background-color:#FFFFFF;*/
+  /*Firefox Gradient*/
+  /*background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);*/
+  /*Early Chrome and Safari*/
+  /*background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), * to(#DDDDDD));*/
+  /*More recent Chrome and Safari*/
+  /*background-image: -webkit-linear-gradient(#FFFFFF, #DDDDDD);*/
+  border: solid 1px #000;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 15px;
+  list-style-image:none; 
+  text-align:center;
 }
