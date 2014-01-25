@@ -12,7 +12,19 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-        <h3>Options Will Display Here</h3>
+        <h3>Options Will Display Here.<br />
+        We can set it up so the Simulation Customize one is default</h3>
+        <p>I slapped this together as a proof of concept. With this we can see how to pull in users and add them dynamically using moustache/hogan/whatever you call it.<br />
+        It also shows how we can send a POST request to create and 'store' a room in an in-memory DB.<br />
+        We also get some insight on some basic UI shit. Obviously all of this is well up for discussion.<br />
+        <br />
+        See:<ul>
+        <li>views/sc-admin.hjs</li>
+        <li>public/js/adminFunctions.js (this is definitely going out the window but it's a good example)</li>
+        <li>db.js</li>
+        <li>routes/scadmin.js (this one shows Hogan in action a little bit)</li>
+        </ul>
+        </p>
       </div>
       <div id="adminmainfooter">
         <form role="form" method="POST" action="/sc-admin/addroom">
@@ -20,11 +32,16 @@
           <button type="submit">Accept and Create Room</button>
           <div><p>{{ roomname }}</p></div>
         </form>
+        <ul>
+        <!-- This is pretty important. You have to use three {'s to render as HTML -->
+        <!-- Otherwise it's just text. -->
+        {{{ userlist }}}
+        </ul>
       </div>
     </div>
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
-        <li id="option1" class="buttonitem" onclick="option1()">Option1</li>
+        <li id="option1" class="buttonitem" onclick="teamSelection()">Team Selection</li>
         <li id="option2" class="buttonitem" onclick="option2()">Option2</li>
       </ul>
     </div>
