@@ -30,7 +30,7 @@ exports.postscadmin = function(req,res){
     });
 };
 
-exports.switchscadmin = function(req,res){
+exports.createroom = function(req,res){
     /** 
       * This fires back as the response to the XMLHttpRequest
       * so we can use it to replace parts of the page.
@@ -38,4 +38,9 @@ exports.switchscadmin = function(req,res){
       */
     var name = req.param('name');
     res.render('admin/createroom', {name: name});
+}
+
+exports.manageusers = function(req,res){
+    var page = req.param('page');
+    res.render('admin/manageusers', {page: page});
 }
