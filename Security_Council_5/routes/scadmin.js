@@ -1,9 +1,6 @@
 var rooms = require('../db').rooms;
 var users = require('../db').users;
 var Hogan = require('hjs');
-var path  = require('path');
-var fs    = require('fs');
-var util  = require('util');
 
 exports.getscadmin = function(req,res){
     var view     = {names: users};
@@ -37,10 +34,12 @@ exports.createroom = function(req,res){
       * We can do portions of pages like this with simple AJAX requests.
       */
     var name = req.param('name');
+    // Note that the name: name part is option and just for demonstration
     res.render('admin/createroom', {name: name});
 }
 
 exports.manageusers = function(req,res){
     var page = req.param('page');
+    // See above. We're rendering just a part of a page as a response to an AJAX request.
     res.render('admin/manageusers', {page: page});
 }

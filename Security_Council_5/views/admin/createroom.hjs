@@ -1,2 +1,5 @@
 <p> This is where I would put the create room stuff </p>
-{{ name }}
+<form role="form" method="POST" action="/sc-admin">
+  <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
+  <button type="submit">Accept and Create Room</button>
+</form>

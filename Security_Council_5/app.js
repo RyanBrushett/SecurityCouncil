@@ -42,7 +42,7 @@ app.get('/users', user.list);
 // Admin stuff
 app.get('/sc-admin', admin.getscadmin);
 app.post('/sc-admin', admin.postscadmin);
-// Talk to Dan about this
+// Routes to change the "main" section of the admin page
 app.post('/sc-admin/createroom', admin.createroom);
 app.post('/sc-admin/manageusers', admin.manageusers);
 

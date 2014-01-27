@@ -1,5 +1,8 @@
+// AJAX module for use without JQuery.
 var ajax = (function(){
 function ajax_req(jax){
+
+    // Defaults to GET
     var method = "GET";
     if ("method" in jax) method = jax.method;
     var url;

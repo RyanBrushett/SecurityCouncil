@@ -13,19 +13,7 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-    <!--
-        Options Will Display Here.
-        We can set it up so the Simulation Customize one is default</h3>
-        I slapped this together as a proof of concept. With this we can see how to pull in users and
-        add them dynamically using moustache/hogan/whatever you call it.
-        It also shows how we can send a POST request to create and 'store' a room in an in-memory DB.
-        We also get some insight on some basic UI shit. Obviously all of this is well up for discussion.
-        See:
-        - views/sc-admin.hjs
-        - public/js/adminFunctions.js (this is definitely going out the window but it's a good example)
-        - db.js
-        - routes/scadmin.js (this one shows Hogan in action a little bit)
-    -->
+      <p>I think we should have it default to the User Management stuff.</p>
       </div>
       <div id="adminmainfooter">
     <!--    
@@ -36,10 +24,6 @@
         </form>
         <ul>
     -->
-        <!-- This is pretty important. You have to use three {'s to render as HTML -->
-        <!-- Otherwise it's just text. -->
-        <!-- {{{ userlist }}} -->
-        <!-- </ul> -->
       </div>
     </div>
     <div id="adminside">
