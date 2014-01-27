@@ -43,7 +43,8 @@ app.get('/users', user.list);
 app.get('/sc-admin', admin.getscadmin);
 app.post('/sc-admin', admin.postscadmin);
 // Talk to Dan about this
-app.post('/sc-admin/switchui', admin.switchscadmin);
+app.post('/sc-admin/createroom', admin.createroom);
+app.post('/sc-admin/manageusers', admin.manageusers);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
