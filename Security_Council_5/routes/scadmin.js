@@ -1,6 +1,9 @@
 var rooms = require('../db').rooms;
 var users = require('../db').users;
 var Hogan = require('hjs');
+var path  = require('path');
+var fs    = require('fs');
+var util  = require('util');
 
 exports.getscadmin = function(req,res){
     var view     = {names: users};
@@ -26,3 +29,13 @@ exports.postscadmin = function(req,res){
                 userlist: html
     });
 };
+
+exports.switchscadmin = function(req,res){
+    /** 
+      * This fires back as the response to the XMLHttpRequest
+      * so we can use it to replace parts of the page.
+      * We can do portions of pages like this with simple AJAX requests.
+      */
+    var name = req.param('name');
+    res.render('admin/createroom', {name: name});
+}

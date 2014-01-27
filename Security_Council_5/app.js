@@ -38,8 +38,12 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+
+// Admin stuff
 app.get('/sc-admin', admin.getscadmin);
 app.post('/sc-admin', admin.postscadmin);
+// Talk to Dan about this
+app.post('/sc-admin/switchui', admin.switchscadmin);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
