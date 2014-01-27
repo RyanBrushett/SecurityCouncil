@@ -39,7 +39,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/sc-admin', admin.getscadmin);
-app.post('/sc-admin/addroom', admin.postscadmin);
+app.post('/sc-admin', admin.postscadmin);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

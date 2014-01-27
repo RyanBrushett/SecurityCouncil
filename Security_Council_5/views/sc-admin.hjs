@@ -27,7 +27,7 @@
         </p>
       </div>
       <div id="adminmainfooter">
-        <form role="form" method="POST" action="/sc-admin/addroom">
+        <form role="form" method="POST" action="/sc-admin">
           <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
           <button type="submit">Accept and Create Room</button>
           <div><p>{{ roomname }}</p></div>
@@ -41,8 +41,8 @@
     </div>
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
-        <li id="option1" class="buttonitem" onclick="teamSelection()">Team Selection</li>
-        <li id="option2" class="buttonitem" onclick="option2()">Option2</li>
+        <li id="option1" class="buttonitem" onclick="option1()">Sidebar 1</li>
+        <li id="option2" class="buttonitem" onclick="option2()">Sidebar 2</li>
       </ul>
     </div>
   </div>

@@ -15,9 +15,14 @@ exports.getscadmin = function(req,res){
 
 // Demonstrates storing things in our wacky memory database
 exports.postscadmin = function(req,res){
+    var view     = {names: users};
+    var template = "{{#names}}<li>Name: {{name}} - ID: {{id}}</li>{{/names}}";
+    var compiled = Hogan.compile(template);
+    var html     = compiled.render(view);
     rooms.push(req.param('room'));
     res.render('sc-admin', {
                 title: 'Admin Page',
-                roomname: req.param('room')
+                roomname: req.param('room'),
+                userlist: html
     });
 };
