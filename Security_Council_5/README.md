@@ -1,6 +1,11 @@
 # Security Council
 ==================
 
+## Mon. Jan 27
+* Added AJAX file and functions to change Admin Dashboard UI using AJAX requests. Might be handy.
+* Talked to Dan about this. Dan is starting User Management. Ryan will do the Room/Sim creation.
+* Little "database" is functional as per commits earlier the weekend.
+
 ## Fri. Jan 24:
 * Added feature branch for admin dashboard
 * Added a db.js with arrays for users and rooms. Not sure we'll need it, at least not yet, but it won't kill us to have it there.
