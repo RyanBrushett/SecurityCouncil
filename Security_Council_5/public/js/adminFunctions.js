@@ -1,7 +1,7 @@
 function configureRoom(){
     var rec = {
         name: 'ryan'
-    }
+    };
     // The URL as defined in the app.js page.
     var r = "/sc-admin/createroom";
     var json = JSON.stringify(rec);
@@ -35,7 +35,7 @@ function configureRoom(){
 function manageUsers(){
     var rec = {
         page: 'Manage Users'
-    }
+    };
     var r = "/sc-admin/manageusers";
     var json = JSON.stringify(rec);
     ajax.ajax_req({

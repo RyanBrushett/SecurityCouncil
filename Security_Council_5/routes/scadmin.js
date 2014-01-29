@@ -32,10 +32,10 @@ exports.createroom = function(req,res){
     var html     = compiled.render(view);
     // Note that the name: name part is option and just for demonstration
     res.render('admin/createroom', {roomlist: html});
-}
+};
 
 exports.manageusers = function(req,res){
     var page = req.param('page');
     // See above. We're rendering just a part of a page as a response to an AJAX request.
     res.render('admin/manageusers');
-}
+};
