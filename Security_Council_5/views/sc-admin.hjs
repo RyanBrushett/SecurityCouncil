@@ -13,23 +13,16 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-      <p>I think we should have it default to the User Management stuff.</p>
+      <!-- Main here -->
       </div>
       <div id="adminmainfooter">
-    <!--    
-        <form role="form" method="POST" action="/sc-admin">
-          <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
-          <button type="submit">Accept and Create Room</button>
-          <div><p>{{ roomname }}</p></div>
-        </form>
-        <ul>
-    -->
+      <!-- Footer here -->
       </div>
     </div>
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
-        <li id="option1" class="buttonitem" onclick="manageUsers()">Manage Users</li>
-        <li id="option2" class="buttonitem" onclick="configureRoom()">Create Sim</li>
+        <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
+        <li id="option2" class="buttonitem" onclick="#">Create Sim</li>
       </ul>
     </div>
   </div>

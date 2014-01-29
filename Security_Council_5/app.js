@@ -41,10 +41,6 @@ app.get('/users', user.list);
 
 // Admin stuff
 app.get('/sc-admin', admin.getscadmin);
-app.post('/sc-admin', admin.postscadmin);
-// Routes to change the "main" section of the admin page
-app.post('/sc-admin/createroom', admin.createroom);
-app.post('/sc-admin/manageusers', admin.manageusers);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
