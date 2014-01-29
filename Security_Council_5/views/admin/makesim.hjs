@@ -1,7 +1,31 @@
-<h3>Create New Room</h3>
-<form role="form" method="POST" action="/sc-admin">
-  <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
-  <button type="submit">Accept and Create Room</button>
-</form>
-<h3>Current Simulations</h3>
-<div id="roomlist">{{{ roomlist }}}</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/js/adminFunctions.js'></script>
+    <script src='/js/ajax.js'></script>
+  </head>
+  <body>
+  <div id="adminwrap">
+    <div id="adminhead">
+      <h2>Simulation Setup</h2>
+    </div>
+    <div id="adminmain">
+      <div id="adminmaindisplay">
+      <p>This will be the main display of the Make Simulation dashboard</p>
+      </div>
+      <div id="adminmainfooter">
+      <p>A lower section we can use for a footer if needed. No big deal.</p>
+      </div>
+    </div>
+    <div id="adminside">
+      <ul id="simoptions" class="buttonlist">
+      	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
+        <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
+        <li id="option2" class="buttonitem"><a href="/sc-admin/makesim">Create Sim</a></li>
+      </ul>
+    </div>
+  </div>
+  </body>
+</html>
