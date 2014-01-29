@@ -13,6 +13,6 @@ exports.getscadmin = function(req,res){
 exports.getmakesim = function(req,res){
 	res.render('admin/makesim');
 };
-exports.getmakesim = function(req,res){
-	res.render('admin/makesim');
+exports.postmakesim = function(req,res){
+	res.render('admin/makesim', {username: "Ryan"});
 };
