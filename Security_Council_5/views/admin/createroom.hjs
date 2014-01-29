@@ -1,7 +1,0 @@
-<h3>Create New Room</h3>
-<form role="form" method="POST" action="/sc-admin">
-  <input type="text" class="form" id="room" name="room" placeholder="Room Name" />
-  <button type="submit">Accept and Create Room</button>
-</form>
-<h3>Current Simulations</h3>
-<div id="roomlist">{{{ roomlist }}}</div>
