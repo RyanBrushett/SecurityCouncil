@@ -9,7 +9,7 @@
   <body>
   <div id="adminwrap">
     <div id="adminhead">
-      <h2>Administration Dashboard</h2>
+      <h2>{{title}}</h2>
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">

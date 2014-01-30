@@ -11,7 +11,7 @@
     <body>
         <div id="adminwrap">
             <div id="adminhead">
-                <h2>Simulation Setup</h2>
+                <h2>{{title}}</h2>
             </div>
             <div id="adminmain">
                 <div id="adminmaindisplay">
@@ -21,6 +21,10 @@
                         <input type="text" name="password" placeholder="Password" />
                         <input type="submit" value="Accept and Create User" />
                     </form>
+                    <h3>Current Users:</h3>
+                    {{#userlist}}
+                        <b>Username:</b> {{username}} <b>Password:</b> {{password}}<br />
+                    {{/userlist}}
                 </div>
                 <div id="adminmainfooter">
                     <p>A lower section we can use for a footer if needed. No big deal.</p>
@@ -29,7 +33,7 @@
             <div id="adminside">
                 <ul id="simoptions" class="buttonlist">
                     <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
-                    <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
+                    <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
                     <li id="option2" class="buttonitem"><a href="/sc-admin/makesim">Create Sim</a></li>
                 </ul>
             </div>
