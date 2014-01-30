@@ -8,7 +8,7 @@
   <body>
     <h1><a href="/">S.C. SIM 9000</a></h1>
     <p>Welcome to {{ title }}</p>
-    <h3><a href="/sim">Link to Sim List</a></h3>
-    <h3><a href="/sc-admin">Link to admin page</a></h3>
+    <h3><a href="/sim">Participants click here</a></h3>
+    <h3><a href="/sc-admin">Admins click here</a></h3>
   </body>
 </html>
