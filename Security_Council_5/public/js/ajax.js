@@ -15,7 +15,7 @@ function ajax_req(jax){
     var error = null;
     if ("error" in jax) error = jax.error;
     var req = new XMLHttpRequest();
-    req.open(method,url,false);
+    req.open(method,url,true);
     req.onreadystatechange = function(){
         if (req.readyState == 4){
             if (req.status == 200){
