@@ -2,12 +2,10 @@ body,html {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
 a{color: #000;}
 a:link {text-decoration:none;}
 a:visited {text-decoration:none;}
 a:hover, a:active {color:#00B7FF;}
-
 ul{
   list-style-type:none;
 }
@@ -19,11 +17,11 @@ ul{
 }
 #adminmain{
   float:right;
-  width:550px;
+  width:600px;
 }
 #adminside{
   float:left;
-  width:250px;
+  width:200px;
 }
 ul.buttonlist{
   padding-left:5px;
@@ -32,17 +30,43 @@ ul.buttonlist{
   width:130px;
 }
 li.buttonitem{
-  /*background-color:#FFFFFF;*/
-  /*Firefox Gradient*/
-  /*background-image: -moz-linear-gradient(#FFFFFF, #DDDDDD);*/
-  /*Early Chrome and Safari*/
-  /*background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), * to(#DDDDDD));*/
-  /*More recent Chrome and Safari*/
-  /*background-image: -webkit-linear-gradient(#FFFFFF, #DDDDDD);*/
   border: solid 1px #000;
   margin-bottom: 5px;
   margin-top: 5px;
   border-radius: 15px;
   list-style-image:none; 
   text-align:center;
+}
+dl.roomlist{
+	margin-left:5px;
+}
+dt.roomname {
+  margin-top:1em;
+  font-weight: bold;
+}
+dd.roomprop {
+  margin: 0;
+  padding: 0 0 0 10px;
+}
+
+/* Rooms Section */
+table, th, td, tr{
+    border:1px solid LightGrey;
+    padding:0 5px 0 5px;
+}
+th,td,tr{
+	width:150px;
+}
+table.roomprops{
+	border-collapse:collapse;
+	width:auto;
+}
+.roompropshead td{
+	height:40px;
+    font-size:1.5em;
+}
+.roompropsrow td{
+	height:30px;
+	font-size:1.2em;
+	text-align:center;
 }

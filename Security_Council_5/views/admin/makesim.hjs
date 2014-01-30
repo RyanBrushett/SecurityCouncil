@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <meta charset="utf-8"> 
     <title>{{ title }}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src='/js/adminFunctions.js'></script>
@@ -12,19 +13,68 @@
       <h2>Simulation Setup</h2>
     </div>
     <div id="adminmain">
+<!-- MAIN -->
       <div id="adminmaindisplay">
-      <p>This will be the main display of the Make Simulation dashboard</p>
-      {{ username }}
+		<h3>Current Simulations</h3>
+		{{{ roomlist }}}
+      	<h3>Create A New Simulation</h3>
+		<form role="form" action="/sc-admin/managesim" method="POST">
+		  <div class="row">
+		    <div>
+		      <label>Room Name</label><br />
+		      <input type="text" name="room" placeholder="Room Name" />
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div>
+		      <label>Admin Username</label><br />
+		      <input type="text" name="admin" placeholder="admin login name" />
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div>
+		      <label>A Country Drop Down: </label>
+		      <select name="country">
+		        <option value="Canada">Canada</option>
+		        <option value="USA">United States of America</option>
+		        <option value="Russia">Russia</option>
+		        <option value="Sweden">Sweden</option>
+		      </select>
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div>
+		      <label>Team Sort</label>
+		      <br />
+		      <input type="radio" name="teamsort" value="Random" id="randomteam" checked><label for="randomteam">Randomly Assigned</label>
+		      <input type="radio" name="teamsort" value="Manual" id="manualteam"><label for="manualteam">Manually Assign</label>
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div class="large-6 columns">
+		      <label>Some Checkboxes Might Be Handy</label>
+		      <br />
+		      <input id="checkbox1" type="checkbox" name="box1"><label for="checkbox1">Checkbox 1</label>
+		      <input id="checkbox2" type="checkbox" name="box2"><label for="checkbox2">Checkbox 2</label>
+		    </div>
+		  </div>
+		  <br />
+		  <button>Create Simulation!</button>
+		</form>
       </div>
+<!-- END MAIN -->
       <div id="adminmainfooter">
-      <p>A lower section we can use for a footer if needed. No big deal.</p>
+      <!-- A lower section we can use for a footer if needed. No big deal -->
       </div>
     </div>
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
       	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
         <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
-        <li id="option2" class="buttonitem"><a href="/sc-admin/makesim">Create Sim</a></li>
+        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
       </ul>
     </div>
   </div>
