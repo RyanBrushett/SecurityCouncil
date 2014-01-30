@@ -1,6 +1,17 @@
 # Security Council
 ==================
 
+## Thu. Jan 30:
+* Added a route for /sim
+    * /sim lists all current simulation rooms
+    * Displays them with their sub properties. Their names are links that lead to /sim/:name
+* Added a route for /sim/:name
+    * This just displays the property of the room for now with a message that says "You've joined the room {{ roomname }}"
+* Added links to / that lead to our other pages. Not sure if we need to style it or not? Ryan M didn't want to touch it so I figured I'd babysit it.
+* Cleaned up the structure of the filesystem a little bit. It's a bit more organized.
+* Need to check on the organization (or lack thereof) on the remote branch
+* Need to meet w/ Daniel
+
 ## Wed. Jan 29:
 * Added the /sc-admin/managesim page
 * Added a form that allows creating a room (uses form submission, no AJAX)

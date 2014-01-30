@@ -48,8 +48,10 @@ app.get('/sc-admin', admin.getscadmin);
 // Make simulation page get and post
 app.get('/sc-admin/managesim', admin.getmakesim);
 app.post('/sc-admin/managesim',admin.postmakesim);
-// Specific room routes
 app.get('/sc-admin/managesim/:name', room.getroombyid);
+// Rooms routes
+app.get('/sim',room.getallrooms);
+app.get('/sim/:name',room.joinroom);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

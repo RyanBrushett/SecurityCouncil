@@ -10,7 +10,7 @@
   <body>
   <div id="adminwrap">
     <div id="adminhead">
-      <h2>Simulation Setup</h2>
+      <h2><a href="/">S.C. SIM 9000</a></h2>
     </div>
     <div id="adminmain">
 <!-- MAIN -->
