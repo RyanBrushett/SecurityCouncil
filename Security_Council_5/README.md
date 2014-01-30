@@ -1,7 +1,16 @@
 # Security Council
 ==================
 
-## Mon. Jan 27
+## Wed. Jan 29:
+* Added the /sc-admin/managesim page
+* Added a form that allows creating a room (uses form submission, no AJAX)
+* Pushes room to the in-memory "database"
+* Creates a link to the room in the managesim page. 
+    * This link leads to /sc-admin/managesim/:name
+    * :name is the Name property of the room as defined at creation time.
+* The workflow allows the use of the side-bar for navigation.
+
+## Mon. Jan 27:
 * Added AJAX file and functions to change Admin Dashboard UI using AJAX requests. Might be handy.
 * Talked to Dan about this. Dan is starting User Management. Ryan will do the Room/Sim creation.
 * Little "database" is functional as per commits earlier the weekend.
