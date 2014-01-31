@@ -9,14 +9,64 @@
   <body>
   <div id="adminwrap">
     <div id="adminhead">
-      <h2>{{title}}</h2>
+      <h2><a href="/">S.C. SIM 9000</a></h2>
     </div>
     <div id="adminmain">
+<!-- MAIN -->
       <div id="adminmaindisplay">
-      <p>This will be the main display of the Make Simulation dashboard</p>
+		<h3>Current Security Council Simulations</h3>
+		{{{ roomlist }}}
+      	<h3>Create A New Council</h3>
+		<form role="form" action="/sc-admin/managesim" method="POST">
+		  <div class="row">
+		    <div>
+		      <label>Council Name</label><br />
+		      <input type="text" name="room" placeholder="Council Name" />
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div>
+		      <label>Admin Username</label><br />
+		      <input type="text" name="admin" placeholder="admin login name" />
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div>
+		      <label>A Country Drop Down: </label>
+		      <select name="country">
+		        <option value="Canada">Canada</option>
+		        <option value="USA">United States of America</option>
+		        <option value="Russia">Russia</option>
+		        <option value="Sweden">Sweden</option>
+		      </select>
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div>
+		      <label>Team Sort</label>
+		      <br />
+		      <input type="radio" name="teamsort" value="Random" id="randomteam" checked><label for="randomteam">Randomly Assigned</label>
+		      <input type="radio" name="teamsort" value="Manual" id="manualteam"><label for="manualteam">Manually Assign</label>
+		    </div>
+		  </div>
+		  <br />
+		  <div class="row">
+		    <div class="large-6 columns">
+		      <label>Some Checkboxes Might Be Handy</label>
+		      <br />
+		      <input id="checkbox1" type="checkbox" name="box1"><label for="checkbox1">Checkbox 1</label>
+		      <input id="checkbox2" type="checkbox" name="box2"><label for="checkbox2">Checkbox 2</label>
+		    </div>
+		  </div>
+		  <br />
+		  <button>Create Council</button>
+		</form>
       </div>
+<!-- END MAIN -->
       <div id="adminmainfooter">
-      <p>A lower section we can use for a footer if needed. No big deal.</p>
+      <!-- A lower section we can use for a footer if needed. No big deal -->
       </div>
     </div>
     <div id="adminside">

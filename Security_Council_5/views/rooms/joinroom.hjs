@@ -14,19 +14,26 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-      <!-- Main here -->
+      <h2>{{ roomname }}</h2>
+      <table class="roomprops">
+      <tbody>
+        <tr class="roompropshead">
+          <td><b>Council ID</b></td>
+          <td><b>Council Admin</b></td>
+          <td><b>Sort Method</b></td>
+        </tr>
+        <tr class="roompropsrow">
+          <td>{{ id }}</td>
+          <td>{{ admin }}</td>
+          <td>{{ sort }}</td>
+        </tr>
+      </tbody>
+      </table>
       </div>
-      <div id="adminmainfooter">
-      <!-- Footer here -->
-      </div>
+      <h3>Holy hell, you joined a council: {{ roomname }}</h3>
     </div>
     <div id="adminside">
-      <ul id="simoptions" class="buttonlist">
-      	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
-        <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
-        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
-      </ul>
     </div>
-  </div>
+    </div>
   </body>
 </html>

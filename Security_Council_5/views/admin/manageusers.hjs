@@ -23,7 +23,9 @@
                     </form>
                     <h3>Current Users:</h3>
                     {{#userlist}}
-                        <b>Username:</b> {{username}} <b>Password:</b> {{password}}<br />
+                        <b>Username:</b> <a href="javascript:getUserInfo('{{username}}')">{{username}}</a> <b>Password:</b> {{password}}<br />
+                        <div id="{{username}}">
+                        </div>
                     {{/userlist}}
                 </div>
                 <div id="adminmainfooter">
@@ -34,7 +36,7 @@
                 <ul id="simoptions" class="buttonlist">
                     <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
                     <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
-                    <li id="option2" class="buttonitem"><a href="/sc-admin/makesim">Create Sim</a></li>
+                    <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
                 </ul>
             </div>
         </div>

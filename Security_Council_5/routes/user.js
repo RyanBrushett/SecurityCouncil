@@ -1,8 +1,9 @@
+var users = require('../db').users;
 
-/*
- * GET users listing.
- */
-
-exports.list = function(req, res){
-  res.send("respond with a resource");
+exports.getuserinfo = function(req, res){
+    var username = req.param('username');
+    //var template = "<ul>{{#sims}}<li>Name: {{name}}</li>{{/sims}}</ul>";
+    //var compiled = Hogan.compile(template);
+    //var html     = compiled.render(view);
+    res.render('admin/userinfo');
 };

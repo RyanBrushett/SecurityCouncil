@@ -14,18 +14,10 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-      <!-- Main here -->
+      {{{ roomlist }}}
       </div>
-      <div id="adminmainfooter">
-      <!-- Footer here -->
+      <div id="adminside">
       </div>
-    </div>
-    <div id="adminside">
-      <ul id="simoptions" class="buttonlist">
-      	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
-        <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
-        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
-      </ul>
     </div>
   </div>
   </body>
