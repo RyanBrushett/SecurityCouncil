@@ -22,6 +22,7 @@ exports.getscadmin = function(req,res){
 // sc-admin handle get for sim manager
 exports.getmakesim = function(req,res){
     var roomlist = "";
+    var html = "";
     if (rooms.length === 0){
         roomlist = "There are currently no created simulations";
     } else {
@@ -50,7 +51,7 @@ exports.postmakesim = function(req,res){
     
     // Sort the teams
     if (req.param('teamsort') === 'Random'){
-       users = shuffle(users); 
+       users = shuffle(users);
        var membs = shuffle(members);
        var j = 0;
        for (var i = 0; i < users.length; i++){
@@ -71,6 +72,7 @@ exports.postmakesim = function(req,res){
     rooms.push(room);
 
     var roomlist = "";
+    var html = "";
     if (rooms.length == 0){
         roomlist = "There are currently no created simulations";
     } else {
