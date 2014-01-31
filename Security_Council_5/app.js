@@ -1,23 +1,12 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express');
+var http = require('http');
+var path = require('path');
 
-/** 
- * I don't like how the routes are defined a bunch of times.
- * I think there's a way around this.
- * -Ryan 
- */
+// Routes
 var routes = require('./routes');
 var admin = require('./routes/scadmin');
 var user = require('./routes/user');
 var room = require('./routes/rooms');
-
-var http = require('http');
-var path = require('path');
-
 var app = express();
 
 // all environments
@@ -37,11 +26,8 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+// Root
 app.get('/', routes.index);
-
-/**
- * Admin Stuff follows
- */
 // Admin dashboard landing page (ideas?)
 app.get('/sc-admin', admin.getscadmin);
 // Make simulation page get and post
@@ -51,7 +37,7 @@ app.get('/sc-admin/managesim/:name', room.getroombyid);
 // Rooms routes
 app.get('/sim',room.getallrooms);
 app.get('/sim/:name',room.joinroom);
-
+// Users
 app.get('/sc-admin/manageusers', admin.getmanageusers);
 app.post('/sc-admin/manageusers', admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', user.getuserinfo);
