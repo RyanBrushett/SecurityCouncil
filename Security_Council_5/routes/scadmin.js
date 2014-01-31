@@ -1,12 +1,14 @@
-var rooms = require('../db').rooms;
-var users = require('../db').users;
+var rooms   = require('../db').rooms;
+var users   = require('../db').users;
 var members = require('../db').members;
-var Hogan = require('hjs');
+var Hogan   = require('hjs');
 
 // sc-admin dash landing page
 exports.getscadmin = function(req,res){
     res.render('sc-admin', {
-        title: 'Admin Dashboard'
+        title: 'Admin Dashboard',
+        numusers: users.length,
+        numsims: rooms.length
     });
 };
 

@@ -1,6 +1,12 @@
 # Security Council
 ==================
 
+## Fri. Jan 31:
+* Daniel and Ryan have merged their repos and now the user management and council management work together.
+* Ryan added Random team assignment, Daniel added manual override from the admin management page.
+* Links and pages are cleaned up. Ryan added some brief info in the dashboard.
+* Daniel added ability to change password.
+
 ## Thu. Jan 30:
 * Added a route for /sim
     * /sim lists all current simulation rooms

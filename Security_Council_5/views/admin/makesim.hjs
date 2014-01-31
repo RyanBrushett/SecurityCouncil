@@ -33,31 +33,10 @@
 		  <br />
 		  <div class="row">
 		    <div>
-		      <label>A Country Drop Down: </label>
-		      <select name="country">
-		        <option value="Canada">Canada</option>
-		        <option value="USA">United States of America</option>
-		        <option value="Russia">Russia</option>
-		        <option value="Sweden">Sweden</option>
-		      </select>
-		    </div>
-		  </div>
-		  <br />
-		  <div class="row">
-		    <div>
 		      <label>Team Sort</label>
 		      <br />
 		      <input type="radio" name="teamsort" value="Random" id="randomteam" checked><label for="randomteam">Randomly Assigned</label>
 		      <input type="radio" name="teamsort" value="Manual" id="manualteam"><label for="manualteam">Manually Assign</label>
-		    </div>
-		  </div>
-		  <br />
-		  <div class="row">
-		    <div class="large-6 columns">
-		      <label>Some Checkboxes Might Be Handy</label>
-		      <br />
-		      <input id="checkbox1" type="checkbox" name="box1"><label for="checkbox1">Checkbox 1</label>
-		      <input id="checkbox2" type="checkbox" name="box2"><label for="checkbox2">Checkbox 2</label>
 		    </div>
 		  </div>
 		  <br />
