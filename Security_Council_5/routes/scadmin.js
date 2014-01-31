@@ -36,7 +36,7 @@ exports.getmakesim = function(req,res){
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
+        html         = compiled.render(view);
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
@@ -86,7 +86,7 @@ exports.postmakesim = function(req,res){
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
+        html         = compiled.render(view);
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
