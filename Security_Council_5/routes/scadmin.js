@@ -22,7 +22,7 @@ exports.getscadmin = function(req,res){
 // sc-admin handle get for sim manager
 exports.getmakesim = function(req,res){
     var roomlist = "";
-    if (rooms.length == 0){
+    if (rooms.length === 0){
         roomlist = "There are currently no created simulations";
     } else {
         var view     = {sims:rooms};
