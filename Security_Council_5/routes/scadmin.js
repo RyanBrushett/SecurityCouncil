@@ -2,16 +2,6 @@ var rooms = require('../db').rooms;
 var users = require('../db').users;
 var Hogan = require('hjs');
 
-var members  = ["Argentina","Australia",
-                "Chad","Chile",
-                "Jordan","Lithuania",
-                "Luxembourg","Nigeria",
-                "Republic of Korea","Rwanda",
-                "China", "France", "Russia",
-                "United States of America",
-                "United Kingdom"
-               ];
-
 // sc-admin dash landing page
 exports.getscadmin = function(req,res){
     res.render('sc-admin', {
@@ -104,7 +94,7 @@ exports.getmanageusers = function(req,res){
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
-    users.push({id: idx, username: req.param('username'), password: req.param('password')});
+    users.push({id: idx, username: req.param('username'), password: req.param('password'), country: "Not Assigned"});
     
     res.render('admin/manageusers', {
         title: 'User Management',

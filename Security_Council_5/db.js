@@ -1,7 +1,8 @@
 // 'Database' to test with
 
-var users   = exports.users   = [];
-var rooms   = exports.rooms   = [];
+var users = exports.users = [];
+var rooms = exports.rooms = [];
+
 var members = exports.members = ["Argentina","Australia",
                                  "Chad","Chile",
                                  "Jordan","Lithuania",
