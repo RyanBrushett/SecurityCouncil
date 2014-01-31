@@ -13,8 +13,10 @@ function getUserInfo(user){
         // If we get a 200 response (e.g. The route in app.js works)
         ok: function(res){
             var main = document.getElementById(user);
-            main.innerHTML = "";
-            main.innerHTML = res.responseText;
+            if(main.innerHTML == "")
+                main.innerHTML = res.responseText;
+            else
+                main.innerHTML = "";
         },
         // If the URL is invalid or the request fails (404, 500, etc.)
         error: function(res){
