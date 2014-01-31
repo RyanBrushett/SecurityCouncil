@@ -12,7 +12,8 @@ exports.getscadmin = function(req,res){
 // sc-admin handle get for sim manager
 exports.getmakesim = function(req,res){
     var roomlist = "";
-    if (rooms.length == 0){
+    var html = "";
+    if (rooms.length === 0){
         roomlist = "There are currently no created simulations";
     } else {
         var view     = {sims:rooms};
@@ -25,7 +26,7 @@ exports.getmakesim = function(req,res){
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
+        html         = compiled.render(view);
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
@@ -40,7 +41,7 @@ exports.postmakesim = function(req,res){
     
     // Sort the teams
     if (req.param('teamsort') === 'Random'){
-       users = shuffle(users); 
+       users = shuffle(users);
        var membs = shuffle(members);
        var j = 0;
        for (var i = 0; i < users.length; i++){
@@ -61,6 +62,7 @@ exports.postmakesim = function(req,res){
     rooms.push(room);
 
     var roomlist = "";
+    var html = "";
     if (rooms.length == 0){
         roomlist = "There are currently no created simulations";
     } else {
@@ -74,7 +76,7 @@ exports.postmakesim = function(req,res){
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
+        html         = compiled.render(view);
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
