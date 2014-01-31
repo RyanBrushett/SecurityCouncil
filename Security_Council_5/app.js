@@ -55,6 +55,7 @@ app.get('/sim/:name',room.joinroom);
 app.get('/sc-admin/manageusers', admin.getmanageusers);
 app.post('/sc-admin/manageusers', admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', user.getuserinfo);
+app.post('/sc-admin/manageusers/changepassword/:username', user.changeuserpassword);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

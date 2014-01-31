@@ -1,1 +1,10 @@
-<p>This is a placeholder for some information about the user.</p>
+<p>
+This is a placeholder for some information about the user. It might contain information such as role and team,
+and allow an administrator to change user information.<br />
+For example: <br />
+<br />
+<form method="post" action="/sc-admin/manageusers/changepassword/{{username}}">
+    <input type="text" name="password" placeholder="New Password" />
+    <input type="submit" value="Change Password" />
+</form>
+</p>
