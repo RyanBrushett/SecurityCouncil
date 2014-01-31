@@ -15,14 +15,14 @@
     <div id="adminmain">
 <!-- MAIN -->
       <div id="adminmaindisplay">
-		<h3>Current Simulations</h3>
+		<h3>Current Security Council Simulations</h3>
 		{{{ roomlist }}}
-      	<h3>Create A New Simulation</h3>
+      	<h3>Create A New Council</h3>
 		<form role="form" action="/sc-admin/managesim" method="POST">
 		  <div class="row">
 		    <div>
-		      <label>Room Name</label><br />
-		      <input type="text" name="room" placeholder="Room Name" />
+		      <label>Council Name</label><br />
+		      <input type="text" name="room" placeholder="Council Name" />
 		    </div>
 		  </div>
 		  <div class="row">
@@ -62,7 +62,7 @@
 		    </div>
 		  </div>
 		  <br />
-		  <button>Create Simulation!</button>
+		  <button>Create Council</button>
 		</form>
       </div>
 <!-- END MAIN -->
@@ -74,7 +74,7 @@
       <ul id="simoptions" class="buttonlist">
       	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
         <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
-        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
+        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Council</a></li>
       </ul>
     </div>
   </div>

@@ -18,8 +18,8 @@
       <table class="roomprops">
       <tbody>
         <tr class="roompropshead">
-	      <td><b>Room ID</b></td>
-	      <td><b>Room Admin</b></td>
+	      <td><b>Council ID</b></td>
+	      <td><b>Council Admin</b></td>
 	      <td><b>Sort Method</b></td>
         </tr>
         <tr class="roompropsrow">
@@ -30,13 +30,13 @@
       </tbody>
       </table>
       </div>
-      <h3><a href="/sc-admin/managesim">Back to Sim Manager</a></h3>
+      <h3><a href="/sc-admin/managesim">Back to Council Manager</a></h3>
       </div>
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
         <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
         <li id="option1" class="buttonitem" onclick="#">Manage Users</li>
-        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Sim</a></li>
+        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Council</a></li>
       </ul>
     </div>
     </div>
