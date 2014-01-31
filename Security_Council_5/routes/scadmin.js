@@ -2,6 +2,16 @@ var rooms = require('../db').rooms;
 var users = require('../db').users;
 var Hogan = require('hjs');
 
+var members  = ["Argentina","Australia",
+                "Chad","Chile",
+                "Jordan","Lithuania",
+                "Luxembourg","Nigeria",
+                "Republic of Korea","Rwanda",
+                "China", "France", "Russia",
+                "United States of America",
+                "United Kingdom"
+               ];
+
 // sc-admin dash landing page
 exports.getscadmin = function(req,res){
     res.render('sc-admin', {
@@ -9,7 +19,7 @@ exports.getscadmin = function(req,res){
     });
 };
 
-// simulation page get and post (same for now)
+// sc-admin handle get for sim manager
 exports.getmakesim = function(req,res){
     var roomlist = "";
     if (rooms.length == 0){
@@ -34,22 +44,32 @@ exports.getmakesim = function(req,res){
 };
 
 exports.postmakesim = function(req,res){
-    var params = req.param('room') + "<br />" + req.param('admin') + "<br />" + 
-                 req.param('country') + "<br />" + req.param('teamsort') + "<br />" +
-                 req.param('box1') + "<br />" + req.param('box2');
     var idx;
-    if (rooms.length <= 0){
-        idx = 0;
-    } else {
-        idx = rooms.length;
+    if (rooms.length <= 0) idx = 0;
+    else idx = rooms.length;
+    
+    // Sort the teams
+    if (req.param('teamsort') === 'Random'){
+       users = shuffle(users); 
+       var membs = shuffle(members);
+       var j = 0;
+       for (var i = 0; i < users.length; i++){
+           if (j >= membs.length) j = 0;
+           users[i].country = membs[j];
+           j++;
+       }
     }
+    
+    // Create the room
     var room = {
         id:idx,
         name:req.param('room'),
         admin:req.param('admin'),
         sort:req.param('teamsort')
+        // TODO: Push a team list to the room.
     };
     rooms.push(room);
+
     var roomlist = "";
     if (rooms.length == 0){
         roomlist = "There are currently no created simulations";
@@ -89,3 +109,17 @@ exports.postmanageusers = function(req, res){
         userlist: users
     });
 };
+
+function shuffle(array){
+    var currentIndex = array.length;
+    var temporaryValue;
+    var randomIndex;
+    while (0 !== currentIndex){
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+    return array;
+}
