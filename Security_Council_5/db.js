@@ -12,7 +12,7 @@ var members = exports.members = ["Argentina","Australia",
                                  "United States of America",
                                  "United Kingdom"
                                 ];
-/*
+
 users.push({id: 0,  username: 'Basil', password: 'tunaplx'});
 users.push({id: 1,  username: 'Dexter', password: 'salmon4dex'});
 users.push({id: 2,  username: 'Ryan', password: 'gohabsgo'});
@@ -32,4 +32,3 @@ users.push({id: 15, username: 'Ashley', password: 'meep!'});
 users.push({id: 16, username: 'Brandon', password: 'meep!'});
 users.push({id: 17, username: 'TJ', password: 'meep!'});
 users.push({id: 18, username: 'Bart', password: 'meep!'});
-*/

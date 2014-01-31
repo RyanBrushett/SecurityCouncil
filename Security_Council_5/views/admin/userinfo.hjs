@@ -5,15 +5,17 @@ For example: <br />
 <br />
 <form role="form" method="post" action="/sc-admin/manageusers/updatesettings/{{username}}">
     Team:
-    <select name="team">
+    <select name="team" id="team">
         <option value="Not Assigned">Not Assigned</option>
+        {{{usercountry}}}
         {{#teams}}
             <option value="{{country}}">{{country}}</option>
         {{/teams}}
     </select>
     <input type="submit" value="Save Settings" />
 </form>
-<br />   
+<br />
+Current password: {{password}}<br />   
 <form role="form" method="post" action="/sc-admin/manageusers/changepassword/{{username}}">
     <input type="text" name="password" placeholder="New Password" />
     <input type="submit" value="Change Password" />

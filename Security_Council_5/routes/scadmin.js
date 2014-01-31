@@ -1,5 +1,6 @@
 var rooms = require('../db').rooms;
 var users = require('../db').users;
+var members = require('../db').members;
 var Hogan = require('hjs');
 
 // sc-admin dash landing page
@@ -94,7 +95,7 @@ exports.getmanageusers = function(req,res){
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
-    users.push({id: idx, username: req.param('username'), password: req.param('password'), country: "Not Assigned"});
+    users.push({id: idx, username: req.param('username'), password: req.param('password'), country: "Not Assigned", role: "Participant"});
     
     res.render('admin/manageusers', {
         title: 'User Management',

@@ -1,7 +1,10 @@
+var users = require('../../db').users;
+
 function getUserInfo(user){
     var rec = {
         username: user
     };
+    
     // The URL as defined in the app.js page.
     var r = "/sc-admin/manageusers/getuserinfo";
     var json = JSON.stringify(rec);

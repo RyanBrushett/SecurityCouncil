@@ -4,13 +4,28 @@ var members = require('../db').members;
 exports.getuserinfo = function(req, res){
     var user = req.param('username');
     
+    var pass = "";
+    var selectedcountry = "";
+    for(var i = 0; i < users.length; i++){
+        if(users[i].username === user){
+            pass = users[i].password;
+            selectedcountry = users[i].country;
+        }
+    }
+    
     var mbrkey = [];
     for(var i=0; i < members.length; i++){
-        mbrkey.push({country:members[i]});
+        if(members[i] != selectedcountry){
+            mbrkey.push({country:members[i]});
+        }
     }
+    
+    var countryhtml = "<option value=\"" + selectedcountry +"\" selected>" + selectedcountry + "</option>";
     
     res.render('admin/userinfo', {
         username: user,
+        password: pass,
+        usercountry: countryhtml,
         teams: mbrkey
     });
 };
