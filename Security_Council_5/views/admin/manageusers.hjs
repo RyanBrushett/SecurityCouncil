@@ -24,8 +24,7 @@
                     <h3>Current Users:</h3>
                     {{#userlist}}
                         <b>Username:</b> <a href="javascript:getUserInfo('{{username}}')">{{username}}</a> <b>Password:</b> {{password}}<br />
-                        <div id="{{username}}">
-                        </div>
+                        <div id="{{username}}"></div>
                     {{/userlist}}
                 </div>
                 <div id="adminmainfooter">
