@@ -3,8 +3,20 @@ This is a placeholder for some information about the user. It might contain info
 and allow an administrator to change user information.<br />
 For example: <br />
 <br />
-<form method="post" action="/sc-admin/manageusers/changepassword/{{username}}">
+<form role="form" method="post" action="/sc-admin/manageusers/updatesettings/{{username}}">
+    Team:
+    <select name="team">
+        <option value="Not Assigned">Not Assigned</option>
+        {{#teams}}
+            <option value="{{country}}">{{country}}</option>
+        {{/teams}}
+    </select>
+    <input type="submit" value="Save Settings" />
+</form>
+<br />   
+<form role="form" method="post" action="/sc-admin/manageusers/changepassword/{{username}}">
     <input type="text" name="password" placeholder="New Password" />
     <input type="submit" value="Change Password" />
 </form>
+<br />
 </p>

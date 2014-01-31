@@ -42,6 +42,7 @@ app.get('/sc-admin/manageusers', admin.getmanageusers);
 app.post('/sc-admin/manageusers', admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', user.getuserinfo);
 app.post('/sc-admin/manageusers/changepassword/:username', user.changeuserpassword);
+app.post('/sc-admin/manageusers/updatesettings/:username', user.updateusersettings);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

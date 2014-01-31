@@ -3,17 +3,16 @@
 var users = exports.users = [];
 var rooms = exports.rooms = [];
 
-/*
-var members  = ["Argentina","Australia",
-                "Chad","Chile",
-                "Jordan","Lithuania",
-                "Luxembourg","Nigeria",
-                "Republic of Korea","Rwanda",
-                "China", "France", "Russia",
-                "United States of America",
-                "United Kingdom"
-               ];
-*/
+var members = exports.members = ["Argentina","Australia",
+                                "Chad","Chile",
+                                "Jordan","Lithuania",
+                                "Luxembourg","Nigeria",
+                                "Republic of Korea","Rwanda",
+                                "China", "France", "Russia",
+                                "United States of America",
+                                "United Kingdom"
+                               ];
+
 /*
 users.push({id: 0,  username: 'Basil', password: 'tunaplx'});
 users.push({id: 1,  username: 'Dexter', password: 'salmon4dex'});

@@ -23,7 +23,7 @@
                     </form>
                     <h3>Current Users:</h3>
                     {{#userlist}}
-                        <b>Username:</b> <a href="javascript:getUserInfo('{{username}}')">{{username}}</a> <b>Password:</b> {{password}}<br />
+                        <b>Username:</b> <a href="javascript:getUserInfo('{{username}}')">{{username}}</a> <b>Password:</b> {{password}} <b>Team:</b> {{country}}<br />
                         <div id="{{username}}"></div>
                     {{/userlist}}
                 </div>
