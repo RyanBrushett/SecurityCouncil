@@ -16,18 +16,22 @@ var chat = function(app) {
     	res.send(db.users);
     });
     
+    app.get('/chatroom/clauseList', function(req, res) {
+        var view     = {cls: db.clauses, sub: db.subclauses};
+        var template = '<b>Preambulatory</b><ul>{{#cls}}<li><a href="#" onclick="getClause({{Id}})">Clause #{{Id}}</a></li>{{/cls}}</ul>';
+        template += '<b>Operative</b><ul>{{#sub}}<li><a href="#" onclick="getSubClause({{Id}})">Clause #{{Id}}.{{ClauseId}}</a></li>{{/sub}}</ul>';
+        var compiled = Hogan.compile(template);
+        var html     = compiled.render(view);
+        // Note that the name: name part is option and just for demonstration
+        res.send(html);
+    });
+    
     app.get('/chatroom/resolution', function(req, res) {
-    	//might send the resolution Id by httprequest
+    	/*todo: might send the resolution Id by httprequest
+    	 * This is a demonstration
+    	 * */
     	
-    	/*
-    	 * there is only one resolution in the array. this is only for demonstration
-    	 */
     	var resolution = db.resolutions[0];
-        //var view     = {sims: db.clauses/*, sub: db.subclauses*/};
-        //var template = "<ul>{{#sims}}<li>{{Content}}</li>{{/sims}}</ul>";
-        //template += "<ol>{{#sub}}<li>{{Content}}</li>{{/sub}}</ol>";
-        //var compiled = Hogan.compile(template);
-        //var html     = compiled.render(view);
     	var text = '<ul>';
     	db.clauses.forEach(function(clause){
     		text += '<li>'+clause.Content;
@@ -48,26 +52,84 @@ var chat = function(app) {
     	});
     	text += '</ul>';
         res.render('chatroom/resolution', {title: resolution.Title, content: resolution.Content, clauses: text});
-    	//resolution and clauses
-    	/*
-    	 * whip out content in div.content_container, push resolution
-    	 */
     });
     
-    app.get('/chatroom/resolutionTitle', function(req, res) {
-    	//resolution and clauses
-    	/*
-    	 * whip out content in div.content_container, push resolution
-    	 */
-    });
     
-    app.get('/chatroom/clauseAndEntries', function(req, res) {
+    app.post('/chatroom/clauseAndEntries', function(req, res) {
     	//clause Id
-    	//whip out content in div.content_container
+    	//db.Clauses
+    	var clauseId = req.param('id');
+    	var clause;
+    	for (var i=0; i<db.clauses.length; i++){
+    		if (clauseId == db.clauses[i].Id){
+    			clause = db.clauses[i];
+    			break;
+    		}
+    	}
+    	var relatedEntries = [];
+    	db.entries.forEach(function(entry){
+    		if (entry.ClauseId == clauseId){
+    			relatedEntries.push(entry);
+    		}
+    	});
+    	var view     = {entrs: relatedEntries};
+    	var template = '{{#entrs}}<div id="{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
+        var compiled = Hogan.compile(template);
+        var html     = compiled.render(view);
+        res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'main', entries: html});
+    });
+    
+    app.post('/chatroom/subclauseAndEntries', function(req, res) {
+    	//clause Id
+    	//db.Clauses
+    	var clauseId = req.param('id');
+    	var clause;
+    	for (var i=0; i<db.subclauses.length; i++){
+    		if (clauseId == db.clauses[i].Id){
+    			clause = db.subclauses[i];
+    			break;
+    		}
+    	}
+    	var relatedEntries = [];
+    	db.entriesSubClause.forEach(function(entry){
+    		if (entry.ClauseId == clauseId){
+    			relatedEntries.push(entry);
+    		}
+    	});
+    	var view     = {entrs: relatedEntries};
+    	var template = '{{#entrs}}<div id="sub_{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
+        var compiled = Hogan.compile(template);
+        var html     = compiled.render(view);
+        res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'sub', entries: html});
     });
     
     app.post('/chatroom/entry', function(req, res) {
-    	//clause Id and entry
+    	var content = req.param('entry');
+    	var typeofclause = req.param('typeofclause');
+    	var team = req.param('team');
+    	var clauseId = req.param('clauseId');
+    	var id = 0;
+    	
+    	if (typeofclause == 'sub'){
+    		var entry = {};
+    		entry.Id = db.entriesSubClause.length;
+    		entry.ClauseId = clauseId;
+    		entry.Team = team;
+    		entry.Content = content;
+    		id = db.entriesSubClause.length;
+    		db.entriesSubClause.push(entry);
+    	}
+    	
+    	if (typeofclause == 'main'){
+    		var entry = {};
+    		entry.Id = db.entries.length;
+    		entry.ClauseId = clauseId;
+    		entry.Team = team;
+    		entry.Content = content;
+    		id = db.entries.length;
+    		db.entries.push(entry);
+    	}
+    	res.send(id.toString());
     });
 };
 

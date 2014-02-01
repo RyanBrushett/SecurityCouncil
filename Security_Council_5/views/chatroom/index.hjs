@@ -11,6 +11,7 @@
     <table width="900">
         <tr>
             <td width="200" valign="top">
+            <h3>Resolution information</h3>
                 <div id="resolutionLink">
                     <a href="#" onclick="getResolution()">Read Resolution</a>
                 </div>
@@ -28,7 +29,14 @@
                 </div>
             </td>
             <td width="200px">
+            <h3>Speakers list</h3>
                    <div id="speakers">
+                    </div>
+            </td>
+            <td width="200px" valign="top">
+            <h3>Chat</h3>
+                   <div id="chatList">
+                   Chat list....
                     </div>
             </td>
             <td width="500px" valign="top">

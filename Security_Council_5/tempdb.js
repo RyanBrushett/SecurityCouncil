@@ -8,8 +8,11 @@ var clauses = exports.clauses = [];
 var subclauses = exports.subclauses = [];
 var ammendments = exports.ammendments = [];
 var entries = exports.entries = [];
+var entriesSubClause = exports.entriesSubClause = [];
 var users = exports.users = [];
 
+
+//resolution information
 var resolution = {};
 resolution.Id = 1;
 resolution.Content = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
@@ -21,7 +24,7 @@ resolutions.push(resolution);
 var user = {};
 	user.Id = 1;
 	user.Country = 'Australia';
-	user.Name = 'Ryan B';
+	user.Name = 'Ryan Brushett';
 	user.UserName = 'Ryan B';
 	user.Position = 'ambassador';
 	users.push(user);
@@ -33,7 +36,7 @@ var user = {};
 	user.UserName = 'Daniel';
 	user.Position = 'member';
 	users.push(user);
-	
+		
 	var user = {};
 	user.Id = 3;
 	user.Country = 'Nigeria';
@@ -49,8 +52,26 @@ var user = {};
 	user.UserName = 'Uchenna';
 	user.Position = 'member';
 	users.push(user);
+	
+
+	var user = {};
+	user.Id = 5;
+	user.Country = 'luxembourg';
+	user.Name = 'Ryan';
+	user.UserName = 'Ryan';
+	user.Position = 'member';
+	users.push(user);
+	
+	var user = {};
+	user.Id = 5;
+	user.Country = 'luxembourg';
+	user.Name = 'Whymarrh';
+	user.UserName = 'Whymarrh';
+	user.Position = 'ambassador';
+	users.push(user);
 //end users	
 
+	//clauses
 for (var i=1; i<=4; i++){
 	var clause = {};
 	clause.Id = i;
@@ -61,6 +82,7 @@ for (var i=1; i<=4; i++){
 	clauses.push(clause);
 }
 
+//subclauses
 for (var i=1; i<=2; i++){
 	var subclause = {};
 	subclause.Id = i;
@@ -71,10 +93,22 @@ for (var i=1; i<=2; i++){
 	subclauses.push(subclause);
 }
 
-for (var i=0; i<=10; i++){
+//entries
+for (var i=1; i<=4; i++){
 	var entry = {};
-	entry.Id = 0;
-	entry.clauseId = 1;
-	entry.Author = 'Uche';
+	entry.Id = i;
+	entry.ClauseId = 1;
+	entry.Team = 'Chad';
 	entry.Content = 'This is a new entry.';
+	entries.push(entry);
+}
+
+//entries
+for (var i=1; i<=4; i++){
+	var entry = {};
+	entry.Id = i;
+	entry.ClauseId = 2;
+	entry.Team = 'Chad';
+	entry.Content = 'This is a new entry for a sub clause.';
+	entriesSubClause.push(entry);
 }

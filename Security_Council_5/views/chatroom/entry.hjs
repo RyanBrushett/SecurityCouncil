@@ -1,0 +1,16 @@
+<div id="{{id}}">
+<p><b>{{clause_title}}</b></p>
+<p>{{clause_content}}</p>
+</div>
+<br />
+<hr/>
+<div id="entries">
+{{{entries}}}
+</div>
+<hr/>
+<div>
+<input type="hidden" value="{{id}}" id="clauseId" />
+<input type="hidden" value="{{typeofclause}}" id="typeofclause" />
+<textarea id="newentry"></textarea><br/>
+<input id="submitEntry" type="submit" onclick="submitEntry()" value="Post new entry"/> 
+</div>
