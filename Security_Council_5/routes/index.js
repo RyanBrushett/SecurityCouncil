@@ -43,11 +43,10 @@ exports.loginUser = function(req, res) {
 				
 				else
 					check = 2;
+			break;	
 			}
-		break;
 	  }
 
-	  console.log(check);
 	 if(check == 1){
 
 	   // Normal user
@@ -57,12 +56,14 @@ exports.loginUser = function(req, res) {
 	 
 	 else if (check == 2){
 		 //user is an admin
+		 // change to after join
+		 // res.render('sc-admin');
+		 
 		 res.render('chatroom', { title: 'Chatroom'});
 	 }
 		 
 	  else {
 	    // failure
-		  res.render('index', username);
-
+		  res.render('index');
 	  }
 	};

@@ -8,11 +8,8 @@
   <body>
     <h1><a href="/">S.C. SIM 9000</a></h1>
     <p>Welcome to {{ title }}</p>
-    <h3><a href="/sim">Participants click here</a></h3>
-    <h3><a href="/sc-admin">Admins click here</a></h3>
 
     <form action = "/login" method="POST">
-    <p> Administrators </p><br>
     Username: <input type="text" name="username" placeholder="User-name"><br>
     Password: <input type ="password" name="password" placeholder="Password">
     <input type ="Submit" value ="Enter">
