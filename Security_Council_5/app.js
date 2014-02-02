@@ -35,6 +35,7 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/login', routes.login);
 
+app.post('/login', routes.loginUser);
 
 
 

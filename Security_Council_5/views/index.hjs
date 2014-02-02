@@ -10,34 +10,12 @@
     <p>Welcome to {{ title }}</p>
     <h3><a href="/sim">Participants click here</a></h3>
     <h3><a href="/sc-admin">Admins click here</a></h3>
-    
-    <form action = "/sim" method="POST">
-    <p> Participants </p><br>
-    Username: <input type="text" name="username" placeholder="User-name"><br>
-    Password: <input type ="password" name="password" placeholder="Password">
-    <input type ="Submit" value ="Enter">
-    </form>
-    
-    <form action = "/sc-admin" method="POST">
+
+    <form action = "/login" method="POST">
     <p> Administrators </p><br>
     Username: <input type="text" name="username" placeholder="User-name"><br>
     Password: <input type ="password" name="password" placeholder="Password">
     <input type ="Submit" value ="Enter">
     </form>
-    
-     <form method="post" action="/sc-admin/manageusers">
-     <input type="text" name="username" placeholder="User Email" />
-     <input type="password" name="password" placeholder="Password" />
-     <input type="submit" value="Accept and Create User" />
-     </form>
-     
-     <br>
-     <form action= "/sc-admin" method="POST" id= "login-form" novalidate>
-     <p> Administrators </p><br>
-    Username: <input type="text" name="username" placeholder="User-name"><br>
-    Password: <input type ="password" name="password" placeholder="Password">
-    <input type ="Submit" value ="Enter">
-     </form>
-     
   </body>
 </html>
