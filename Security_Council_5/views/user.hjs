@@ -3,13 +3,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>S/RES/2135&nbsp;(2014) &mdash; United Nations Security Council Simulatron 9000</title>
-		<link rel="stylesheet" href="userview.css">
+		<link rel="stylesheet" href="stylesheets/userview.css">
 	</head>
 	<body>
 		<header class="header">
 			<h1>United Nations Security Council</h1>
 			<h2>Murmokait&#279;</h2>
-			<img class="flag" src="imgs/Lithuania.svg" alt="Flag of Lithuania">
+			<img class="flag" src="stylesheets/imgs/Lithuania.svg" alt="Flag of Lithuania">
 			<h3>S/RES/2135&nbsp;(2014)</h3>
 		</header>
 		<main class="content">
@@ -94,7 +94,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Adamu</p>
 							<i class="card-info__status--against"></i>
-							<img class="card-info__flag" src="imgs/Nigeria.svg" alt="Flag of Nigeria">
+							<img class="card-info__flag" src="stylesheets/imgs/Nigeria.svg" alt="Flag of Nigeria">
 						</footer>
 					</blockquote>
 					<blockquote class="card">
@@ -102,7 +102,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Mangaral</p>
 							<i class="card-info__status--against"></i>
-							<img class="card-info__flag" src="imgs/Chad.svg" alt="Flag of Chad">
+							<img class="card-info__flag" src="stylesheets/imgs/Chad.svg" alt="Flag of Chad">
 						</footer>
 					</blockquote>
 					<blockquote class="card">
@@ -110,7 +110,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Iliichev</p>
 							<i class="card-info__status--for"></i>
-							<img class="card-info__flag" src="imgs/Russia.svg" alt="Flag of Russia">
+							<img class="card-info__flag" src="stylesheets/imgs/Russia.svg" alt="Flag of Russia">
 						</footer>
 					</blockquote>
 					<blockquote class="card">
@@ -118,7 +118,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Iliichev</p>
 							<i class="card-info__status--for"></i>
-							<img class="card-info__flag" src="imgs/Russia.svg" alt="Flag of Russia">
+							<img class="card-info__flag" src="stylesheets/imgs/Russia.svg" alt="Flag of Russia">
 						</footer>
 					</blockquote>
 					<blockquote class="card">
@@ -126,7 +126,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Tatham</p>
 							<i class="card-info__status--against"></i>
-							<img class="card-info__flag" src="imgs/UK.svg" alt="United Kingdom Flag">
+							<img class="card-info__flag" src="stylesheets/imgs/UK.svg" alt="United Kingdom Flag">
 						</footer>
 					</blockquote>
 					<blockquote class="card">
@@ -134,7 +134,7 @@
 						<footer class="card-info">
 							<p class="card-info__name">Lucas</p>
 							<i class="card-info__status--against"></i>
-							<img class="card-info__flag" src="imgs/Luxembourg.svg" alt="Flag of Luxembourg">
+							<img class="card-info__flag" src="stylesheets/imgs/Luxembourg.svg" alt="Flag of Luxembourg">
 						</footer>
 					</blockquote>
 					<textarea class="card--textarea" placeholder="Add something"></textarea>
