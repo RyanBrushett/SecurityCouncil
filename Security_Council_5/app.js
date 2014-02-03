@@ -43,6 +43,10 @@ app.post('/sc-admin/manageusers', admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', user.getuserinfo);
 app.post('/sc-admin/manageusers/changepassword/:username', user.changeuserpassword);
 app.post('/sc-admin/manageusers/updatesettings/:username', user.updateusersettings);
+// Login
+require('./routes/chatService')(app);
+app.get('/login', routes.login);
+app.post('/login', routes.loginUser);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));
