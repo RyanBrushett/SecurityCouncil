@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>{{title}}</title>
-    <link rel="stylesheet" href="stylesheets/chat.css">
+    <link rel="stylesheet" href="/stylesheets/chat.css">
     <script src='/js/chat.js'></script>
     <script src='/js/ajax.js'></script>
     <script src='/js/pagefunctions.js'></script>
@@ -12,7 +12,7 @@
     <header class="header">
         <h1>United Nations Security Council</h1>
         <h2>Murmokait&#279;</h2>
-        <img class="flag" src="stylesheets/imgs/Lithuania.svg" alt="Flag of Lithuania">
+        <img class="flag" src="/stylesheets/imgs/Lithuania.svg" alt="Flag of Lithuania">
         <h3>S/RES/2135&nbsp;(2014)</h3>
     </header>
     <main class="content">

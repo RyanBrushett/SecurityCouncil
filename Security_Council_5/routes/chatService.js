@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var chat = function(app) {
     
-    app.get('/chatroom', function(req, res) {
+    app.get('/sim/:name/chatroom', function(req, res) {
         res.render('chatroom', {
             title: 'United Nations Security Council'
                 });
@@ -12,12 +12,12 @@ var chat = function(app) {
         //res.send
     });
     
-    app.get('/chatroom/speakersList', function(req, res) {
+    app.get('/sim/:name/chatroom/speakersList', function(req, res) {
         //all speakers
         res.send(db.users);
     });
     
-    app.get('/chatroom/clauseList', function(req, res) {
+    app.get('/sim/:name/chatroom/clauseList', function(req, res) {
         var view     = {cls: db.clauses, sub: db.subclauses};
         var template = '<b>Preambulatory</b><ul>{{#cls}}<li><a href="#" onclick="getClause({{Id}})">Clause #{{Id}}</a></li>{{/cls}}</ul>';
         template += '<b>Operative</b><ul>{{#sub}}<li><a href="#" onclick="getSubClause({{Id}})">Clause #{{Id}}.{{ClauseId}}</a></li>{{/sub}}</ul>';
@@ -27,7 +27,7 @@ var chat = function(app) {
         res.send(html);
     });
     
-    app.get('/chatroom/resolution', function(req, res) {
+    app.get('/sim/:name/chatroom/resolution', function(req, res) {
         /*todo: might send the resolution Id by httprequest
          * This is a demonstration
          * */
@@ -58,7 +58,7 @@ var chat = function(app) {
     });
     
     
-    app.post('/chatroom/clauseAndEntries', function(req, res) {
+    app.post('/sim/:name/chatroom/clauseAndEntries', function(req, res) {
         //clause Id
         //db.Clauses
         var clauseId = req.param('id');
@@ -97,7 +97,7 @@ var chat = function(app) {
 //        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
     });
     
-    app.post('/chatroom/subclauseAndEntries', function(req, res) {
+    app.post('/sim/:name/chatroom/subclauseAndEntries', function(req, res) {
         //clause Id
         //db.Clauses
         var clauseId = req.param('id');
@@ -133,7 +133,7 @@ var chat = function(app) {
         res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'sub', entries: html});*/
     });
     
-    app.post('/chatroom/entry', function(req, res) {
+    app.post('/sim/:name/chatroom/entry', function(req, res) {
         var content = req.param('entry');
         var typeofclause = req.param('typeofclause');
         var team = req.param('team');

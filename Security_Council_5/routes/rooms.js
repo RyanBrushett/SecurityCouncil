@@ -1,4 +1,4 @@
-var rooms = require('../db').rooms;
+var rooms = require('../tempdb').rooms;
 var Hogan = require('hjs');
 
 exports.getroombyid = function(req,res){

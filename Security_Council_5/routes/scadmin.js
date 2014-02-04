@@ -1,6 +1,6 @@
-var rooms   = require('../db').rooms;
+var rooms   = require('../tempdb').rooms;
 var users   = require('../db').users;
-var members = require('../db').members;
+var members = require('../tempdb').members;
 var Hogan   = require('hjs');
 
 // sc-admin dash landing page

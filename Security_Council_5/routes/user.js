@@ -1,5 +1,5 @@
 var users = require('../db').users;
-var members = require('../db').members;
+var members = require('../tempdb').members;
 
 exports.getuserinfo = function(req, res){
     var user = req.param('username');
