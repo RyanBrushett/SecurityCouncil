@@ -1,7 +1,10 @@
-<div id="{{id}}">
-<p><b>{{clause_title}}</b></p>
+<div id="clausepanel"><button onclick="clausedialogbox()">Read Clause</button>
+Ammendments: <select></select><button>View</button><button>Debate</button></div>
+<div id="clausedialogbox" style="overflow: auto">
 <p>{{clause_content}}</p>
+[<a href='#' onclick='clausedialogbox()'>X close</a>]
 </div>
+
 <br />
 <hr/>
 <div id="entries">

@@ -5,7 +5,7 @@ var chat = function(app) {
 	
     app.get('/chatroom', function(req, res) {
     	res.render('chatroom', {
-            title: 'Chatroom'
+            title: 'United Nations Security Council'
             	});
     	//res.writeHead
     	//res.send
@@ -34,7 +34,8 @@ var chat = function(app) {
     	var resolution = db.resolutions[0];
     	var text = '<ul>';
     	db.clauses.forEach(function(clause){
-    		text += '<li>'+clause.Content;
+    		text += '<li id="clause_'+clause.Id+'">'+clause.Content+'<p style="text-align: left"><a href="#" '+
+			'onclick="getSubClause('+clause.Id+')">Discuss clause &raquo;</a></p>';
     		var found = false;
     		db.subclauses.forEach(function(sub){
     			if (sub.ClauseId == clause.Id){
@@ -44,7 +45,8 @@ var chat = function(app) {
     		if (found){
     			text += '<ul>';
     			db.subclauses.forEach(function(sub){
-    				text += '<li>'+sub.Content+'</li>';
+    				text += '<li id="subclause_'+sub.Id+'">'+sub.Content+'<p style="text-align: left"><a href="#" '+
+    				'onclick="getSubClause('+sub.Id+')">Discuss clause &raquo;</a></p></li>';
         		});
     			text += '</ul>';
     		}
@@ -76,7 +78,7 @@ var chat = function(app) {
     	var template = '{{#entrs}}<div id="{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
         var compiled = Hogan.compile(template);
         var html     = compiled.render(view);
-        res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'main', entries: html});
+        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
     });
     
     app.post('/chatroom/subclauseAndEntries', function(req, res) {

@@ -22,33 +22,12 @@ function getClause(num){
         mime: 'application/json',
         doc: json,
         ok: function(res) {
-        	var main = document.getElementById('discussion');
+        	var main = document.getElementById('content_container');
     		main.innerHTML = "";
             main.innerHTML = res.responseText;
     	},
     error: function(res){
     	alert(res);
-    }
-    });
-}
-
-function getSubClause(num){
-	var rec = {
-	        id: num
-	    };
-    var json = JSON.stringify(rec);
-    ajax.ajax_req({
-        method: "POST",
-        url: "/chatroom/subclauseAndEntries",
-        mime: 'application/json',
-        doc: json,
-        ok: function(res) {
-        	var main = document.getElementById('discussion');
-    		main.innerHTML = "";
-            main.innerHTML = res.responseText;
-    	},
-    error: function(res){
-    	alert("Error getting sub clause: " + res.statusText);
     }
     });
 }
@@ -80,6 +59,44 @@ function submitEntry()
     });
 }
 
+function getSubClause(num){
+	var rec = {
+	        id: num
+	    };
+    var json = JSON.stringify(rec);
+    ajax.ajax_req({
+        method: "POST",
+        url: "/chatroom/subclauseAndEntries",
+        mime: 'application/json',
+        doc: json,
+        ok: function(res) {
+        	var main = document.getElementById('content_container');
+    		main.innerHTML = "";
+            main.innerHTML = res.responseText;
+    	},
+    error: function(res){
+    	alert("Error getting sub clause: " + res.statusText);
+    }
+    });
+}
+
+function getClauseList(){
+	
+	 ajax.ajax_req({
+	        method: "GET",
+	        url: 'chatroom/clauseList',
+	        mime: 'text/html',
+	        //doc: json,
+	        ok: function(res) {
+	        		var area = document.getElementById('clauses');
+	        		area.innerHTML = res.responseText;
+	        	},
+	        error: function(res){
+	        	alert(res);
+	        }
+	        });
+}
+
 function getSpeakersList(){
 	ajax.ajax_req({
         method: "GET",
@@ -103,7 +120,7 @@ function getSpeakersList(){
         		});
         		text += '</ul></div><br/>';
         	});
-        	var speakersDiv = document.getElementById('speakers_list_content');
+        	var speakersDiv = document.getElementById('speakers');
     		speakersDiv.innerHTML = text;
         	},
         error: function(res){
@@ -120,7 +137,7 @@ function getResolution()
         mime: 'text/html',
         //doc: json,
         ok: function(res) {
-        		var main = document.getElementById('resolution_content');
+        		var main = document.getElementById('content_container');
         		main.innerHTML = "";
                 main.innerHTML = res.responseText;
         	},
