@@ -3,7 +3,8 @@ var Hogan = require('hjs');
 
 exports.getroombyid = function(req,res){
     if (rooms.length == 0){
-        res.status(404).send('Not Found');
+        res.status(404).send('Not Found <a href="/">BACK</a>');
+        return;
     }
     var room;
     for (var i = 0; i < rooms.length; i++){
@@ -12,7 +13,8 @@ exports.getroombyid = function(req,res){
         }
     }
     if (room.name == undefined){
-        res.status(404).send('Not Found');
+        res.status(404).send('Not Found <a href="/">BACK</a>');
+        return;
     }
     res.render('rooms/room',{
         title:room.name,
@@ -47,7 +49,8 @@ exports.getallrooms = function(req,res){
 };
 exports.joinroom = function(req,res){
     if (rooms.length == 0){
-        res.status(404).send('Not Found');
+        res.status(404).send('Not Found. <a href="/">BACK</a>');
+        return;
     }
     var room;
     for (var i = 0; i < rooms.length; i++){
@@ -56,7 +59,8 @@ exports.joinroom = function(req,res){
         }
     }
     if (room.name == undefined){
-        res.status(404).send('Not Found');
+        res.status(404).send('Not Found. <a href="/">BACK</a>');
+        return;
     }
     res.render('rooms/joinroom',{
         title:room.name,
