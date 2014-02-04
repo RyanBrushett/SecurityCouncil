@@ -12,8 +12,14 @@ Ammendments: <select></select><button>View</button><button>Debate</button></div>
 </div>
 <hr/>
 <div>
+<br/>
 <input type="hidden" value="{{id}}" id="clauseId" />
 <input type="hidden" value="{{typeofclause}}" id="typeofclause" />
+Stand: <select id="stand">
+        <option value="0">For</option>
+        <option value="1">Against</option>
+    </select>
+    <br/><br/>
 <textarea id="newentry"></textarea><br/>
 <input id="submitEntry" type="submit" onclick="submitEntry()" value="Post new entry"/> 
 </div>

@@ -110,14 +110,15 @@ var chat = function(app) {
     	var typeofclause = req.param('typeofclause');
     	var team = req.param('team');
     	var clauseId = req.param('clauseId');
+    	var stand = req.param('stand');
     	var id = 0;
-    	
     	if (typeofclause == 'sub'){
     		var entry = {};
     		entry.Id = db.entriesSubClause.length;
     		entry.ClauseId = clauseId;
     		entry.Team = team;
     		entry.Content = content;
+    		entry.Stand = (stand == 0) ? 'for' : 'against';
     		id = db.entriesSubClause.length;
     		db.entriesSubClause.push(entry);
     	}
@@ -128,6 +129,7 @@ var chat = function(app) {
     		entry.ClauseId = clauseId;
     		entry.Team = team;
     		entry.Content = content;
+    		entry.Stand = (stand == 0) ? 'for' : 'against';
     		id = db.entries.length;
     		db.entries.push(entry);
     	}

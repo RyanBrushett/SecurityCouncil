@@ -100,6 +100,7 @@ for (var i=1; i<=4; i++){
 	entry.ClauseId = 1;
 	entry.Team = 'Chad';
 	entry.Content = 'This is a new entry.';
+	entry.Stand = 'against';
 	entries.push(entry);
 }
 
@@ -110,5 +111,6 @@ for (var i=1; i<=4; i++){
 	entry.ClauseId = 2;
 	entry.Team = 'Chad';
 	entry.Content = 'This is a new entry for a sub clause.';
+	entry.Stand = 'for'; 
 	entriesSubClause.push(entry);
 }

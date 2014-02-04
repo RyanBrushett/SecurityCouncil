@@ -58,11 +58,14 @@ function submitEntry()
 	var input = document.getElementById('newentry');
 	var type = document.getElementById('typeofclause');
 	var clauseId = document.getElementById('clauseId');
+	var e = document.getElementById("stand");
+	var stand = e.options[e.selectedIndex].value;
 	var rec = {
 	        entry: input.value,
 	        typeofclause: type.value,
 	        team: 'example',
-	        clauseId : clauseId.value
+	        clauseId : clauseId.value,
+	        stand : stand
 	    };
     var json = JSON.stringify(rec);
     ajax.ajax_req({
