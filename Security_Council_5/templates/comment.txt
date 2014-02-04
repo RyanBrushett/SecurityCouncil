@@ -1,0 +1,8 @@
+<blockquote class="card">
+        <p>{{Content}}</p>
+        <footer class="card-info">
+            <p class="card-info__name">{{Name}}</p>
+            <i class="card-info__status--{{Stand}}"></i>
+            <img class="card-info__flag"  src="stylesheets/imgs/{{Team}}.svg">
+        </footer>
+    </blockquote>

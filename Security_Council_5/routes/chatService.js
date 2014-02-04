@@ -1,5 +1,6 @@
 var db = require('../tempdb');
 var Hogan = require('hjs');
+var fs = require('fs');
 
 var chat = function(app) {
 	
@@ -35,7 +36,7 @@ var chat = function(app) {
     	var text = '<ul>';
     	db.clauses.forEach(function(clause){
     		text += '<li id="clause_'+clause.Id+'">'+clause.Content+'<p style="text-align: left"><a href="#" '+
-			'onclick="getSubClause('+clause.Id+')">Discuss clause &raquo;</a></p>';
+			'onclick="getClause('+clause.Id+')">Discuss clause &raquo;</a></p>';
     		var found = false;
     		db.subclauses.forEach(function(sub){
     			if (sub.ClauseId == clause.Id){
@@ -74,11 +75,26 @@ var chat = function(app) {
     			relatedEntries.push(entry);
     		}
     	});
-    	var view     = {entrs: relatedEntries};
-    	var template = '{{#entrs}}<div id="{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
-        var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
-        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
+    	
+    	
+    	var filePath = 'templates/comment.txt';
+    	fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+    	    if (!err){
+    	    	var view     = {entrs: relatedEntries};
+    	    	var template = '{{#entrs}}'+data+'{{/entrs}}';
+    	        var compiled = Hogan.compile(template);
+    	        var html     = compiled.render(view);
+    	        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
+    	    }else{
+    	        console.log(err);
+    	    }
+    	});
+    	
+//    	var view     = {entrs: relatedEntries};
+//    	var template = '{{#entrs}}<div id="{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
+//        var compiled = Hogan.compile(template);
+//        var html     = compiled.render(view);
+//        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
     });
     
     app.post('/chatroom/subclauseAndEntries', function(req, res) {
@@ -98,11 +114,23 @@ var chat = function(app) {
     			relatedEntries.push(entry);
     		}
     	});
-    	var view     = {entrs: relatedEntries};
+    	var filePath = 'templates/comment.txt';
+    	fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+    	    if (!err){
+    	    	var view     = {entrs: relatedEntries};
+    	    	var template = '{{#entrs}}'+data+'{{/entrs}}';
+    	        var compiled = Hogan.compile(template);
+    	        var html     = compiled.render(view);
+    	        res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'sub', entries: html});
+    	    }else{
+    	        console.log(err);
+    	    }
+    	});
+    	/*var view     = {entrs: relatedEntries};
     	var template = '{{#entrs}}<div id="sub_{{Id}}"><p>By: {{Team}}</p><p>{{Content}}</p></div><br />{{/entrs}}';
         var compiled = Hogan.compile(template);
         var html     = compiled.render(view);
-        res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'sub', entries: html});
+        res.render('chatroom/entry', {id: clause.Id, clause_title: clause.Title, clause_content: clause.Content, typeofclause: 'sub', entries: html});*/
     });
     
     app.post('/chatroom/entry', function(req, res) {

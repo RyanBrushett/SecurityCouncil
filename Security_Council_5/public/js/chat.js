@@ -75,7 +75,7 @@ function submitEntry()
         doc: json,
         ok: function(res) {
         	var main = document.getElementById('entries');
-        	main.innerHTML = '<div id="sub_'+res.reponseText+'"><p>By: TeameName</p><p>'+input.value+'</p></div><br />' + main.innerHTML;
+        	main.innerHTML = '<div id="sub_'+res.reponseText+'"><p>By: Chad</p><p>'+input.value+'</p></div><br />' + main.innerHTML;
     	},
     error: function(res){
     	alert("Error submitting entry: " + res.statusText);
