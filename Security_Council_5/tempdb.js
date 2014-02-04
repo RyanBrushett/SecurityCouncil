@@ -119,3 +119,16 @@ for (var i=1; i<=4; i++){
 	entry.Stand = 'for'; 
 	entriesSubClause.push(entry);
 }
+
+// Members array for random team assignment
+var members = exports.members = ["Argentina","Australia",
+                                 "Chad","Chile",
+                                 "Jordan","Lithuania",
+                                 "Luxembourg","Nigeria",
+                                 "Republic of Korea","Rwanda",
+                                 "China", "France", "Russia",
+                                 "United States of America",
+                                 "United Kingdom"
+                                ];
+// Empty rooms array for creating rooms
+var rooms = exports.rooms = [];

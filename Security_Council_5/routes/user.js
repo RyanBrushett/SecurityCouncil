@@ -46,7 +46,7 @@ exports.changeuserpassword = function(req, res){
     res.render('admin/manageusers', {
         title: 'User Management',
         userlist: users
-    });    
+    });
 };
 
 exports.updateusersettings = function(req, res){
@@ -64,5 +64,5 @@ exports.updateusersettings = function(req, res){
         title: 'User Management',
         userlist: users
     });
-}
+};
 
