@@ -1,4 +1,4 @@
-var users = require('../db').users;
+var users = require('../tempdb').users;
 var members = require('../tempdb').members;
 
 exports.getuserinfo = function(req, res){
@@ -7,9 +7,9 @@ exports.getuserinfo = function(req, res){
     var pass = "";
     var selectedcountry = "";
     for(var i = 0; i < users.length; i++){
-        if(users[i].username === user){
-            pass = users[i].password;
-            selectedcountry = users[i].country;
+        if(users[i].UserName === user){
+            pass = users[i].Password;
+            selectedcountry = users[i].Country;
         }
     }
     
@@ -39,8 +39,8 @@ exports.changeuserpassword = function(req, res){
     var pass = req.param('password');
     
     for(var i=0; i<users.length; i++){
-        if(users[i].username === user){
-            users[i].password = pass;
+        if(users[i].UserName === user){
+            users[i].Password = pass;
         }
     }
     res.render('admin/manageusers', {
@@ -54,9 +54,8 @@ exports.updateusersettings = function(req, res){
     var team = req.param('team');
     
     for(var i = 0; i < users.length; i++){
-        if(users[i].username === user){
-            users[i].country = team;
-            console.log(team);
+        if(users[i].UserName === user){
+            users[i].Country = team;
         }
     }
     

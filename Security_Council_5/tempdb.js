@@ -35,7 +35,7 @@ var user = {};
 	user.Country = 'Australia';
 	user.Name = 'Daniel';
 	user.UserName = 'Daniel';
-	user.Password = 'pass';
+	user.Password = 'password';
 	user.Position = 'administrator';
 	users.push(user);
 		

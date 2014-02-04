@@ -23,8 +23,8 @@
                     </form>
                     <h3>Current Users:</h3>
                     {{#userlist}}
-                        <b>Username:</b> <a href="javascript:getUserInfo('{{username}}')">{{username}}</a> <b>Role:</b> {{role}} <b>Team:</b> {{country}}<br />
-                        <div id="{{username}}"></div>
+                        <b>Username:</b> <a href="javascript:getUserInfo('{{UserName}}')">{{UserName}}</a> <b>Role:</b> {{Position}} <b>Team:</b> {{Country}}<br />
+                        <div id="{{UserName}}"></div>
                     {{/userlist}}
                 </div>
                 <div id="adminmainfooter">

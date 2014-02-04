@@ -1,4 +1,4 @@
-var users = require('../../db').users;
+var users = require('../../tempdb').users;
 
 function getUserInfo(user){
     var rec = {

@@ -1,5 +1,5 @@
 var rooms   = require('../tempdb').rooms;
-var users   = require('../db').users;
+var users   = require('../tempdb').users;
 var members = require('../tempdb').members;
 var Hogan   = require('hjs');
 
@@ -97,7 +97,7 @@ exports.getmanageusers = function(req,res){
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
-    users.push({id: idx, username: req.param('username'), password: req.param('password'), country: "Not Assigned", role: "Participant"});
+    users.push({Id: idx, UserName: req.param('username'), Password: req.param('password'), Country: "Not Assigned", Position: "member"});
     
     res.render('admin/manageusers', {
         title: 'User Management',
