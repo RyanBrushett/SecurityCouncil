@@ -25,7 +25,7 @@ var user = {};
 	user.Id = 1;
 	user.Country = 'Australia';
 	user.Name = 'Ryan Brushett';
-	user.UserName = 'Ryan B';
+	user.UserName = 'ryanb';
 	user.Password = 'password';
 	user.Position = 'ambassador';
 	users.push(user);

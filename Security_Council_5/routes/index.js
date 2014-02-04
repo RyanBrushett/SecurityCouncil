@@ -1,16 +1,8 @@
 var db = require('../tempdb');
 
-/*
- * GET home page.
- */
-
 exports.index = function(req, res){
     res.render('index', { title: 'S.C. Sim 9000' });
 };
-
-/*
- * GET login page.
- */
 
 exports.login = function(req, res) {
   res.render('index');
@@ -18,50 +10,56 @@ exports.login = function(req, res) {
 
 
 exports.loginUser = function(req, res) {
+  // pull the form variables off the request body
+  var username = req.body.username;
+  var password = req.body.password;
 
-          // pull the form variables off the request body
-          var username = req.body.username;
-          var password = req.body.password;
+  var check = 0;
+  var users = db.users;
+  var name;
+  var pass;
+  var permission;
+  var user;
+  
+  console.log(users.length);
+  for (var i = 0; i < users.length; i++) {
+        name = users[i].UserName;
+        pass = users[i].Password;
+        permission = users[i].Position;
+        if(name === username && pass === password) {
+            user = users[i];
+            if(permission === "member" || permission === "ambassador") check = 1;
+            else check = 2;
+            break;        
+      }
+  }
 
-          var check = 0;
-          var users = db.users
-          var name;
-          var pass;
-          var permission;
-          
-          console.log(users.length);
-          for(var i = 0; i < users.length; i++){
-                name = users[i].UserName;
-                pass = users[i].Password;
-                permission = users[i].Position
+ if(check == 1){
+   // Normal user
+    req.session.regenerate(function(){
+       req.session.user = user;
+       req.session.success = 'Authenticated as ' + user.UserName;
+       res.redirect('/sim');
+    });
+  } else if (check == 2){
+         //user is an admin
+         // change to after join
+         // res.render('sc-admin');
+    req.session.regenerate(function(){
+       req.session.user = user;
+       req.session.success = 'Authenticated as ' + user.UserName;
+       res.redirect('/sc-admin');
+    });
+    res.render('sc-admin', { title: 'S.C. Sim 9000'});
+  } else {
+    // failure
+      req.session.error = 'Authentication failed';
+      res.redirect('/login');
+  }
+};
 
-                if(name == username && pass == password) {
-                                if(permission == "member" || permission == "ambassador")
-                                        check = 1;
-                                
-                                else
-                                        check = 2;
-                    break;        
-              }
-          }
-
-         if(check == 1){
-
-           // Normal user
-
-            res.render('chatroom', { title: 'Chatroom'});
-          }
-         
-         else if (check == 2){
-                 //user is an admin
-                 // change to after join
-                 // res.render('sc-admin');
-                 
-                 res.render('chatroom', { title: 'Chatroom'});
-         }
-                 
-          else {
-            // failure
-                  res.render('index');
-          }
-        };
+exports.logout = function(req,res){
+    req.session.destroy(function(){
+        res.redirect('/login');
+    });
+};

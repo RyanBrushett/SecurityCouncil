@@ -105,6 +105,15 @@ exports.postmanageusers = function(req, res){
     });
 };
 
+exports.restrict = function(req,res,next){
+  if (req.session.user){
+      next();
+  } else {
+      req.session.error = 'Access Denied!';
+      res.redirect('/login');
+  }
+};
+
 function shuffle(array){
     var currentIndex = array.length;
     var temporaryValue;
