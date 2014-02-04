@@ -26,6 +26,7 @@ var user = {};
 	user.Country = 'Australia';
 	user.Name = 'Ryan Brushett';
 	user.UserName = 'Ryan B';
+	user.Password = 'password';
 	user.Position = 'ambassador';
 	users.push(user);
 
@@ -34,7 +35,8 @@ var user = {};
 	user.Country = 'Australia';
 	user.Name = 'Daniel';
 	user.UserName = 'Daniel';
-	user.Position = 'member';
+	user.Password = 'pass';
+	user.Position = 'administrator';
 	users.push(user);
 		
 	var user = {};
@@ -42,6 +44,7 @@ var user = {};
 	user.Country = 'Nigeria';
 	user.Name = 'Bukunola';
 	user.UserName = 'Bukunola';
+	user.Password = 'password';
 	user.Position = 'member';
 	users.push(user);
 	
@@ -50,15 +53,16 @@ var user = {};
 	user.Country = 'France';
 	user.Name = 'Uchenna';
 	user.UserName = 'Uchenna';
+	user.Password = 'password';
 	user.Position = 'member';
 	users.push(user);
 	
-
 	var user = {};
 	user.Id = 5;
 	user.Country = 'luxembourg';
 	user.Name = 'Ryan';
 	user.UserName = 'Ryan';
+	user.Password = 'password';
 	user.Position = 'member';
 	users.push(user);
 	
@@ -67,6 +71,7 @@ var user = {};
 	user.Country = 'luxembourg';
 	user.Name = 'Whymarrh';
 	user.UserName = 'Whymarrh';
+	user.Password = 'password';
 	user.Position = 'ambassador';
 	users.push(user);
 //end users	
