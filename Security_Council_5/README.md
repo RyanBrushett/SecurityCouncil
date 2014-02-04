@@ -1,6 +1,16 @@
 # Security Council
 ==================
 
+## Tue. Feb 4:
+* Merged everything into release branch for final clean up.
+* Added restrictons to every route aside from /login
+* Added a logout
+* Changed /index to a proper index.hjs and moved the login info to a login.hjs to meet convention.
+* Fixed some whitespace issues.
+    * The tab key should produce spaces
+    * shiftwidth and tabstop should be 4 spaces (if applicable)
+* Added session info using Express session. Essentially, the session is set to the user object from the DB. e.g. req.session.user.UserName
+
 ## Fri. Jan 31:
 * Daniel and Ryan have merged their repos and now the user management and council management work together.
 * Ryan added Random team assignment, Daniel added manual override from the admin management page.
@@ -40,12 +50,3 @@
 * Doesn't do a lot at the moment but it's somewhere to start from.
 * Tested out Hogan and it's compiling and all that.
 * Best bet is to run node app.js and visit http://localhost:3000/sc-admin I have some info on that page.
-
-### Look in:
-views/sc-admin.hjs
-
-public/js/adminFunctions.js (this is definitely going out the window but it's a good example)
-
-db.js
-
-routes/scadmin.js (this one shows Hogan in action a little bit)
