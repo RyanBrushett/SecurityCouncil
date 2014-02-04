@@ -30,27 +30,28 @@ if ('development' == app.get('env')) {
 }
 
 // Root
-app.get('/', routes.index);
+app.get('/', admin.restrict, routes.index);
 // Admin dashboard landing page (ideas?)
 app.get('/sc-admin', admin.restrict, admin.getscadmin);
 // Make simulation page get and post
-app.get('/sc-admin/managesim', admin.getmakesim);
-app.post('/sc-admin/managesim',admin.postmakesim);
-app.get('/sc-admin/managesim/:name', room.getroombyid);
-// Rooms routes
-app.get('/sim',room.getallrooms);
-app.get('/sim/:name',room.joinroom);
+app.get('/sc-admin/managesim', admin.restrict, admin.getmakesim);
+app.post('/sc-admin/managesim', admin.restrict, admin.postmakesim);
+app.get('/sc-admin/managesim/:name', admin.restrict, room.getroombyid);
 // Users
-app.get('/sc-admin/manageusers', admin.getmanageusers);
-app.post('/sc-admin/manageusers', admin.postmanageusers);
-app.post('/sc-admin/manageusers/getuserinfo', user.getuserinfo);
-app.post('/sc-admin/manageusers/changepassword/:username', user.changeuserpassword);
-app.post('/sc-admin/manageusers/updatesettings/:username', user.updateusersettings);
-// Login
+app.get('/sc-admin/manageusers', admin.restrict, admin.getmanageusers);
+app.post('/sc-admin/manageusers', admin.restrict, admin.postmanageusers);
+app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getuserinfo);
+app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeuserpassword);
+app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateusersettings);
+// Rooms routes
+app.get('/sim', admin.restrict, room.getallrooms);
+app.get('/sim/:name', admin.restrict, room.joinroom);
+// What does this line do?
 require('./routes/chatService')(app);
+// Session management
 app.get('/login', routes.login);
 app.post('/login', routes.loginUser);
-app.get('/logout', routes.logout);
+app.get('/logout', admin.restrict, routes.logout);
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express server listening on port ' + app.get('port'));

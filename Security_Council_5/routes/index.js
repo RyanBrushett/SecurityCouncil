@@ -1,11 +1,11 @@
 var db = require('../tempdb');
 
 exports.index = function(req, res){
-    res.render('index', { title: 'S.C. Sim 9000' });
+    res.render('index', {title: 'S.C. Sim 9000'});
 };
 
 exports.login = function(req, res) {
-  res.render('index');
+  res.render('login', {title: 'S.C. Sim 9000'});
 };
 
 
@@ -39,7 +39,7 @@ exports.loginUser = function(req, res) {
     req.session.regenerate(function(){
        req.session.user = user;
        req.session.success = 'Authenticated as ' + user.UserName;
-       res.redirect('/sim');
+       res.redirect('/');
     });
   } else if (check == 2){
          //user is an admin
