@@ -50,7 +50,7 @@ exports.postmakesim = function(req,res){
        var j = 0;
        for (var i = 0; i < users.length; i++){
            if (j >= membs.length) j = 0;
-           users[i].country = membs[j];
+           users[i].Country = membs[j];
            j++;
        }
     }

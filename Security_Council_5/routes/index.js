@@ -21,7 +21,6 @@ exports.loginUser = function(req, res) {
   var permission;
   var user;
   
-  console.log(users.length);
   for (var i = 0; i < users.length; i++) {
         name = users[i].UserName;
         pass = users[i].Password;
@@ -29,7 +28,7 @@ exports.loginUser = function(req, res) {
         if(name === username && pass === password) {
             user = users[i];
             if(permission === "member" || permission === "ambassador") check = 1;
-            else check = 2;
+            if(permission === "administrator") check = 2;
             break;        
       }
   }
@@ -50,7 +49,6 @@ exports.loginUser = function(req, res) {
        req.session.success = 'Authenticated as ' + user.UserName;
        res.redirect('/sc-admin');
     });
-    res.render('sc-admin', { title: 'S.C. Sim 9000'});
   } else {
     // failure
       req.session.error = 'Authentication failed';
