@@ -21,7 +21,6 @@ exports.loginUser = function(req, res) {
   var permission;
   var user;
   
-  console.log(users.length);
   for (var i = 0; i < users.length; i++) {
         name = users[i].UserName;
         pass = users[i].Password;
