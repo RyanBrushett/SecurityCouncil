@@ -7,6 +7,7 @@ var routes = require('./routes');
 var admin = require('./routes/scadmin');
 var user = require('./routes/user');
 var room = require('./routes/rooms');
+var resolution = require('./routes/resolution');
 var app = express();
 
 // all environments
@@ -52,6 +53,11 @@ app.post('/sc-admin/manageusers', admin.restrict, admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getuserinfo);
 app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeuserpassword);
 app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateusersettings);
+// Resolution manager
+app.get('/sc-admin/manageresolutions', admin.getmanageresolutions);
+app.post('/sc-admin/createresolution', resolution.createresolution);
+app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getresolutioninfo);
+app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateresolution);
 
 // Rooms routes
 app.get('/sim', admin.restrict, room.getallrooms);

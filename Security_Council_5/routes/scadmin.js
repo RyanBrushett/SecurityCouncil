@@ -1,6 +1,7 @@
 var rooms   = require('../tempdb').rooms;
 var users   = require('../tempdb').users;
 var members = require('../tempdb').members;
+var resolutions = require('../tempdb').resolutions;
 var Hogan   = require('hjs');
 
 // sc-admin dash landing page
@@ -102,6 +103,13 @@ exports.postmanageusers = function(req, res){
     res.render('admin/manageusers', {
         title: 'User Management',
         userlist: users
+    });
+};
+
+exports.getmanageresolutions = function(req, res){
+    res.render('admin/manageresolutions', {
+        title : 'Resolution Management',
+        resolutionlist: resolutions
     });
 };
 
