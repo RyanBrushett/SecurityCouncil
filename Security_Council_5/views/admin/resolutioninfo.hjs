@@ -2,6 +2,6 @@
 
 <form role="form" method="post" action="/sc-admin/manageresolutions/updateresolution/{{resId}}">
     <!-- <input type="text" name="restitle" placeholder="New Title" /> -->
-    <textarea id="rescontent" rows="5" cols="80">{{content}}</textarea>
+    <textarea name="rescontent" rows="5" cols="80">{{content}}</textarea>
     <input type="submit" value="Accept and Modify Resolution" />
 </form>

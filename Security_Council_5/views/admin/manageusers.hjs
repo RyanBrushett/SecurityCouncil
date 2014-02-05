@@ -17,6 +17,7 @@
                 <div id="adminmaindisplay">
                     <h3>Add User:</h3>
                     <form method="post" action="/sc-admin/manageusers">
+                        <input type="text" name="name" placeholder="Full Name" />
                         <input type="text" name="username" placeholder="User Email" />
                         <input type="password" name="password" placeholder="Password" />
                         <input type="submit" value="Accept and Create User" />
@@ -36,6 +37,7 @@
                     <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
                     <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
                     <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Council</a></li>
+                    <li id="option3" class="buttonitem"><a href="/sc-admin/manageresolutions">Manage Resolutions</a></li>
                 </ul>
             </div>
         </div>

@@ -33,5 +33,20 @@ exports.getresolutioninfo = function(req, res){
 };
 
 exports.updateresolution = function(req, res){
+    var resId = req.param('id');
+    var resContent = req.param('rescontent');
     
+    for(var i = 0; i < resolutions.length; i++){
+        if(resolutions[i].Id == resId){
+            resolutions[i].Content = resContent;
+        }
+    }
+    
+    console.log(resId);
+    console.log(resContent);
+    
+    res.render('admin/manageresolutions', {
+        title: 'Resolution Management',
+        resolutionlist: resolutions
+    });
 };

@@ -98,7 +98,7 @@ exports.getmanageusers = function(req,res){
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
-    users.push({Id: idx, UserName: req.param('username'), Password: req.param('password'), Country: "Not Assigned", Position: "member"});
+    users.push({Id: idx, Name: req.param('name'), UserName: req.param('username'), Password: req.param('password'), Country: "Not Assigned", Position: "member"});
     
     res.render('admin/manageusers', {
         title: 'User Management',

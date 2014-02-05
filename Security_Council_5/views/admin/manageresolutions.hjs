@@ -23,7 +23,7 @@
                     <h3>Add Resolution:</h3>
                     <form role="form" method="post" action="/sc-admin/createresolution">
                         <input type="text" name="resolutiontitle" placeholder="Title" />
-                        <textarea id="resolutioncontent" rows="5" cols="80">Text here...</textarea>
+                        <textarea name="resolutioncontent" rows="5" cols="80">Text here...</textarea>
                         <input type="submit" value="Accept and Add Resolution" />
                     </form>
                 </div>
@@ -36,6 +36,7 @@
                     <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
                     <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
                     <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Council</a></li>
+                    <li id="option3" class="buttonitem"><a href="/sc-admin/manageresolutions">Manage Resolutions</a></li>
                 </ul>
             </div>
         </div>

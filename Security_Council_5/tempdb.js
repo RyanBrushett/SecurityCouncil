@@ -14,7 +14,7 @@ var users = exports.users = [];
 
 //resolution information
 var resolution = {};
-resolution.Id = 1;
+resolution.Id = 0;
 resolution.Content = 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...';
 resolution.Title = 'What is Lorem Ipsum';
 resolution.roomId = 0;
@@ -22,7 +22,7 @@ resolutions.push(resolution);
 
 //fill users array
 var user = {};
-	user.Id = 1;
+	user.Id = 0;
 	user.Country = 'Australia';
 	user.Name = 'Ryan Brushett';
 	user.UserName = 'ryanb';
@@ -31,7 +31,7 @@ var user = {};
 	users.push(user);
 
 	var user = {};
-	user.Id = 2;
+	user.Id = 1;
 	user.Country = 'Australia';
 	user.Name = 'Daniel';
 	user.UserName = 'Daniel';
@@ -40,7 +40,7 @@ var user = {};
 	users.push(user);
 		
 	var user = {};
-	user.Id = 3;
+	user.Id = 2;
 	user.Country = 'Nigeria';
 	user.Name = 'Bukunola';
 	user.UserName = 'Bukunola';
@@ -49,7 +49,7 @@ var user = {};
 	users.push(user);
 	
 	var user = {};
-	user.Id = 4;
+	user.Id = 3;
 	user.Country = 'France';
 	user.Name = 'Uchenna';
 	user.UserName = 'Uchenna';
@@ -58,7 +58,7 @@ var user = {};
 	users.push(user);
 	
 	var user = {};
-	user.Id = 5;
+	user.Id = 4;
 	user.Country = 'luxembourg';
 	user.Name = 'Ryan';
 	user.UserName = 'Ryan';
