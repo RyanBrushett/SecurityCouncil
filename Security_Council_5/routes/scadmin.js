@@ -45,14 +45,17 @@ exports.postmakesim = function(req,res){
     
     // Sort the teams
     if (req.param('teamsort') === 'Random'){
-       users = shuffle(users);
-       var membs = shuffle(members);
-       var j = 0;
-       for (var i = 0; i < users.length; i++){
-           if (j >= membs.length) j = 0;
-           users[i].Country = membs[j];
-           j++;
-       }
+        var userlist = users.clone();
+        userlist = shuffle(userlist);
+        var membs = shuffle(members);
+        var j = 0;
+        for (var i = 0; i < userlist.length; i++){
+            if (j >= membs.length) {
+                j = 0;
+            }
+            userlist[i].Country = membs[j];
+            j++;
+        }
     }
     
     // Create the room
@@ -60,8 +63,8 @@ exports.postmakesim = function(req,res){
         id:idx,
         name:req.param('room'),
         admin:req.param('admin'),
-        sort:req.param('teamsort')
-        // TODO: Push a team list to the room.
+        sort:req.param('teamsort'),
+        users:userlist
     };
     rooms.push(room);
 
@@ -98,8 +101,14 @@ exports.getmanageusers = function(req,res){
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
-    users.push({Id: idx, Name: req.param('name'), UserName: req.param('username'), Password: req.param('password'), Country: "Not Assigned", Position: "member"});
-    
+    users.push({
+        Id: idx,
+        Name: req.param('name'),
+        UserName: req.param('username'),
+        Password: req.param('password'),
+        Country: "Not Assigned",
+        Position: "member"
+    });
     res.render('admin/manageusers', {
         title: 'User Management',
         userlist: users
@@ -135,3 +144,16 @@ function shuffle(array){
     }
     return array;
 }
+
+Object.prototype.clone = function() {
+    var newObj = (this instanceof Array) ? [] : {};
+    for (i in this) {
+      if (i == 'clone') continue;
+      if (this[i] && typeof this[i] == "object") {
+        newObj[i] = this[i].clone();
+      } else {
+          newObj[i] = this[i];
+      }
+    } 
+    return newObj;
+  };
