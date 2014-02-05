@@ -84,7 +84,7 @@ function getClauseList(){
     
      ajax.ajax_req({
             method: "GET",
-            url: 'chatroom/clauseList',
+            url: '/chatroom/clauseList',
             mime: 'text/html',
             //doc: json,
             ok: function(res) {
@@ -100,7 +100,7 @@ function getClauseList(){
 function getSpeakersList(){
     ajax.ajax_req({
         method: "GET",
-        url: 'chatroom/speakersList',
+        url: '/chatroom/speakersList',
         mime: 'application/json',
         //doc: json,
         ok: function(res) {
@@ -133,7 +133,7 @@ function getResolution()
 {
     ajax.ajax_req({
         method: "GET",
-        url: 'chatroom/resolution',
+        url: '/chatroom/resolution',
         mime: 'text/html',
         //doc: json,
         ok: function(res) {

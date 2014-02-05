@@ -86,7 +86,7 @@ function submitEntry()
 function getSpeakersList(){
     ajax.ajax_req({
         method: "GET",
-        url: 'chatroom/speakersList',
+        url: '/chatroom/speakersList',
         mime: 'application/json',
         //doc: json,
         ok: function(res) {
@@ -118,7 +118,7 @@ function getSpeakersList(){
 function getResolution(){
     ajax.ajax_req({
         method: "GET",
-        url: 'chatroom/resolution',
+        url: '/chatroom/resolution',
         mime: 'text/html',
         //doc: json,
         ok: function(res) {

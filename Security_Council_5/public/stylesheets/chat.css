@@ -1,5 +1,6 @@
 input[type=submit] {
-    width: 7em;  height: 2em;
+	/*Commented out width until we can iron out the design*/
+    /*width: 7em;*/  height: 2em;
 }
 
 button, select {
