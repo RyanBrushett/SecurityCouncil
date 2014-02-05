@@ -161,7 +161,19 @@ var chat = function(app) {
             id = db.entries.length;
             db.entries.push(entry);
         }
-        res.send(id.toString());
+        var filePath = 'templates/comment.txt';
+        fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+            if (!err){
+                var view     = {entry: entry};
+                var template = '{{#entry}}'+data+'{{/entry}}';
+                var compiled = Hogan.compile(template);
+                var html     = compiled.render(view);
+                //res.render('chatroom/entry', {id: clause.Id,  clause_content: clause.Content, typeofclause: 'main', entries: html});
+                res.send(html.toString());
+            }else{
+                console.log(err);
+            }
+        });
     });
 };
 

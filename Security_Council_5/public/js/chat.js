@@ -8,7 +8,6 @@ function init(){
     
     getResolution();
     getSpeakersList();
-    getClauseList();
 }
 
 function getClause(num){
@@ -53,19 +52,20 @@ function getSubClause(num){
     });
 }
 
-function submitEntry(){
-    var input = document.getElementById('newentry');
-    var type = document.getElementById('typeofclause');
-    var clauseId = document.getElementById('clauseId');
-    var e = document.getElementById("stand");
-    var stand = e.options[e.selectedIndex].value;
-    var rec = {
-            entry: input.value,
-            typeofclause: type.value,
-            team: 'example',
-            clauseId : clauseId.value,
-            stand : stand
-        };
+function submitEntry()
+{
+	var input = document.getElementById('newentry');
+	var type = document.getElementById('typeofclause');
+	var clauseId = document.getElementById('clauseId');
+	var e = document.getElementById("stand");
+	var stand = e.options[e.selectedIndex].value;
+	var rec = {
+	        entry: input.value,
+	        typeofclause: type.value,
+	        team: 'UK',
+	        clauseId : clauseId.value,
+	        stand : stand
+	    };
     var json = JSON.stringify(rec);
     ajax.ajax_req({
         method: "POST",
@@ -73,14 +73,15 @@ function submitEntry(){
         mime: 'application/json',
         doc: json,
         ok: function(res) {
-            var main = document.getElementById('entries');
-            main.innerHTML = '<div id="sub_'+res.reponseText+'"><p>By: Chad</p><p>'+input.value+'</p></div><br />' + main.innerHTML;
-        },
+        	var main = document.getElementById('entries');
+        	main.innerHTML = res.responseText + main.innerHTML;
+    	},
     error: function(res){
         alert("Error submitting entry: " + res.statusText);
     }
     });
 }
+
 
 function getSpeakersList(){
     ajax.ajax_req({
