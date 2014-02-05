@@ -10,6 +10,7 @@
     * The tab key should produce spaces
     * shiftwidth and tabstop should be 4 spaces (if applicable)
 * Added session info using Express session. Essentially, the session is set to the user object from the DB. e.g. req.session.user.UserName
+* Fixed a bug where admins cannot login. Logins by admins now redirect to /sc-admin
 * Merged with dev. Updated README.
 
 ## Fri. Jan 31:

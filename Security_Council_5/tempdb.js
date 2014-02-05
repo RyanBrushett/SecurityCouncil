@@ -132,3 +132,10 @@ var members = exports.members = ["Argentina","Australia",
                                 ];
 // Empty rooms array for creating rooms
 var rooms = exports.rooms = [];
+var room = {
+        id:0,
+        name:"Security Council 17",
+        admin:"Daniel",
+        sort:"Random"
+};
+rooms.push(room);
