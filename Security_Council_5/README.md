@@ -11,6 +11,7 @@
     * shiftwidth and tabstop should be 4 spaces (if applicable)
 * Added session info using Express session. Essentially, the session is set to the user object from the DB. e.g. req.session.user.UserName
 * Fixed a bug where admins cannot login. Logins by admins now redirect to /sc-admin
+* Added documentation for Version 1.0 in documentation/Ver1.0. Current use cases are in this file.
 
 ## Fri. Jan 31:
 * Daniel and Ryan have merged their repos and now the user management and council management work together.
