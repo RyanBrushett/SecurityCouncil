@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <meta charset="utf-8"> 
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/js/adminFunctions.js'></script>
+    <script src='/js/ajax.js'></script>
+  </head>
+  <body>
+  <div id="adminwrap">
+    <div id="adminhead">
+      <h2><a href="/">S.C. SIM 9000</a></h2>
+    </div>
+    <div id="adminmain">
+      <div id="adminmaindisplay">
+      <h2>{{ roomname }}</h2>
+      <table class="roomprops">
+      <tbody>
+        <tr class="roompropshead">
+          <td><b>Council ID</b></td>
+          <td><b>Council Admin</b></td>
+          <td><b>Sort Method</b></td>
+          <td><b>Ongoing Chat</b></td>
+        </tr>
+        <tr class="roompropsrow">
+          <td>{{ id }}</td>
+          <td>{{ admin }}</td>
+          <td>{{ sort }}</td>
+          <td><a href="/sim/{{roomname}}/chatroom">Click to Join</a></td>
+        </tr>
+      </tbody>
+      </table>
+      </div>
+    </div>
+    <div id="adminside">
+    </div>
+    </div>
+  </body>
+</html>

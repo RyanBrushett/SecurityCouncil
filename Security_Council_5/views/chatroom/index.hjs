@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="/stylesheets/chat.css">
+    <script src='/js/chat.js'></script>
+    <script src='/js/ajax.js'></script>
+    <script src='/js/pagefunctions.js'></script>
+</head>
+<body>
+    <header class="header">
+        <h1>United Nations Security Council</h1>
+        <h2>Murmokait&#279;</h2>
+        <img class="flag" src="/stylesheets/imgs/Lithuania.svg" alt="Flag of Lithuania">
+        <h3>S/RES/2135&nbsp;(2014)</h3>
+    </header>
+    <main class="content">
+        <section class="sidebar">
+            <nav class="tabs">
+                <ul class="tabs__list">
+                    <li class="tabs__list__item"><a id="agenda_link" onclick="toggleVisibilitySideContent('agenda_content')">Agenda</a></li>
+                    <li class="tabs__list__item current"><a id="resolution_link" onclick="toggleVisibilitySideContent('resolution_content')">Resolution</a></li>
+                    <li class="tabs__list__item"><a id="speakers_link" onclick="toggleVisibilitySideContent('speakers_list_content')">Speaker's list</a></li>
+                </ul>
+            </nav>
+            <div>
+            <div class="sidebar__content">
+                <div style="display: inline;" id="resolution_content">
+                </div>
+                <div style="display: none;" id="speakers_list_content">
+                </div>
+                <div style="display: none;" id="agenda_content">
+                Agenda here.....
+                </div>
+            </div>
+            </div>
+        </section>
+        </section>
+        <section class="sidebar">
+            <nav class="tabs">
+                <ul class="tabs__list">
+                    <li class="tabs__list__item current"><a>Conversations</a></li>
+                </ul>
+            </nav>
+            <nav class="sidebar__content">
+                <ul class="conversations">
+                    <li><a>All members</a><span class="unread count">3</span></li>
+                    <li><a>Nigeria</a><span class="unread count">19</span></li>
+                    <li><a>Russia, Chad</a><span class="unread count"></span></li>
+                </ul>
+            </nav>
+        </section>
+        <section class="section">
+            <nav class="tabs">
+                <ul class="tabs__list">
+                    <li class="tabs__list__item current"><a>&nbsp; <!--Thread--></a></li>
+                </ul>
+            </nav>
+            <div id="discussion" class="discussion">
+            </div>
+        </section>
+    </main>
+</div>
+</div>
+</body>
+</html>

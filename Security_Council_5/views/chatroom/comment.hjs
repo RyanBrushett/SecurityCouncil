@@ -1,0 +1,15 @@
+ <!--<div id="{{id}}">
+        <b>{{comment-title}}</b>
+        <hr>
+        By: {{team}}
+        <p>{{comment}}</p>
+    </div>
+    <br />-->
+<blockquote class="card">
+        <p>{{comment}}</p>
+        <footer class="card-info">
+            <p class="card-info__name">{{name}}</p>
+            <i class="card-info__status--for"></i>
+            <img class="card-info__flag" src="/stylesheets/imgs/Russia.svg" alt="Flag of Russia">
+        </footer>
+    </blockquote>
