@@ -15,10 +15,23 @@ exports.getscadmin = function(req,res){
 
 // sc-admin handle get for sim manager
 exports.getmakesim = function(req,res){
-    var roomlist = "";
+    var adminlist = getAdminList();
+    var adminListDropdown = "";
+    if (adminlist.length === 0){
+        adminListDropdown = "There are no admins!";
+    } else {
+        var viewAdmins     = {admins:adminlist};
+        var templateAdmins = "{{#admins}}" +
+                             "<option value=\"{{Name}}\">" +
+                             "{{Name}}" +
+                             "</option>" +
+                             "{{/admins}}";
+        var compiledAdmins = Hogan.compile(templateAdmins);
+        adminListDropdown  = compiledAdmins.render(viewAdmins);
+    }
     var html = "";
     if (rooms.length === 0){
-        roomlist = "There are currently no created simulations";
+        html = "There are currently no created simulations";
     } else {
         var view     = {sims:rooms};
         var template = "<dl class=\"roomlist\">{{#sims}}" +
@@ -26,7 +39,7 @@ exports.getmakesim = function(req,res){
                        "<a href=\"/sc-admin/managesim/{{name}}\">{{name}}</a>" +
                        "</dt>" +
                        "<dd class=\"roomprop\">ID: {{id}}</dd>" +
-                       "<dd class=\"roomprop\">Admin: {{admin}}</dd>" +
+                       "<dd class=\"roomprop\">Admin: {{admin.Name}}</dd>" +
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
@@ -34,30 +47,29 @@ exports.getmakesim = function(req,res){
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
-        roomlist:html
+        roomlist:html,
+        selectadminlist:adminListDropdown
     });
 };
 
+// sc-admin handle post for sim manager
 exports.postmakesim = function(req,res){
+    // Set ID of the room appropriately
     var idx;
-    if (rooms.length <= 0) idx = 0;
-    else idx = rooms.length;
+    if (rooms.length <= 0){
+        idx = 0;
+    } else {
+        idx = rooms.length;
+    }
+
+    // Fetch the list of users in the system
+    var userlist = getUserList();
     
-    /**
-      * Sorting teams.
-      * No longer distructive of the DB user array
-      */
-    if (req.param('teamsort') === 'Random'){
-        var userlist = users.clone();
-        userlist = shuffle(userlist);
-        var membs = shuffle(members);
-        var j = 0;
-        for (var i = 0; i < userlist.length; i++){
-            if (j >= membs.length) {
-                j = 0;
-            }
-            userlist[i].Country = membs[j];
-            j++;
+    // Get the admin user
+    var adminUser;
+    for (var i = 0; i < userlist.length; i++){
+        if (userlist[i].Name === req.param('admin')){
+            adminUser = userlist[i].clone();
         }
     }
     
@@ -65,16 +77,30 @@ exports.postmakesim = function(req,res){
     var room = {
         id:idx,
         name:req.param('room'),
-        admin:req.param('admin'),
+        admin:adminUser,
         sort:req.param('teamsort'),
         users:userlist
     };
     rooms.push(room);
 
-    var roomlist = "";
+    // This stuff is for rendering the page correctly.
+    var adminlist = getAdminList();
+    var adminListDropdown = "";
+    if (adminlist.length === 0){
+        adminListDropdown = "There are no admins!";
+    } else {
+        var viewAdmins     = {admins:adminlist};
+        var templateAdmins = "{{#admins}}" +
+                             "<option value=\"{{Name}}\">" +
+                             "{{Name}}" +
+                             "</option>" +
+                             "{{/admins}}";
+        var compiledAdmins = Hogan.compile(templateAdmins);
+        adminListDropdown  = compiledAdmins.render(viewAdmins);
+    }
     var html = "";
-    if (rooms.length == 0){
-        roomlist = "There are currently no created simulations";
+    if (rooms.length === 0){
+        html = "There are currently no created simulations";
     } else {
         var view     = {sims:rooms};
         var template = "<dl class=\"roomlist\">{{#sims}}" +
@@ -82,7 +108,7 @@ exports.postmakesim = function(req,res){
                        "<a href=\"/sc-admin/managesim/{{name}}\">{{name}}</a>" +
                        "</dt>" +
                        "<dd class=\"roomprop\">ID: {{id}}</dd>" +
-                       "<dd class=\"roomprop\">Admin: {{admin}}</dd>" +
+                       "<dd class=\"roomprop\">Admin: {{admin.Name}}</dd>" +
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
@@ -90,10 +116,12 @@ exports.postmakesim = function(req,res){
     }
     res.render('admin/makesim',{
         title:'Simulation Manager',
-        roomlist:html
+        roomlist:html,
+        selectadminlist:adminListDropdown
     });
 };
 
+// sc-admin handle get for user manager
 exports.getmanageusers = function(req,res){
     res.render('admin/manageusers', {
         title : 'User Management',
@@ -101,6 +129,7 @@ exports.getmanageusers = function(req,res){
     });
 };
 
+// sc-admin handle post for user manager
 exports.postmanageusers = function(req, res){
     // plain-text password for now
     var idx = users.length;
@@ -118,6 +147,7 @@ exports.postmanageusers = function(req, res){
     });
 };
 
+// sc-admin handle get for resolution manager
 exports.getmanageresolutions = function(req, res){
     res.render('admin/manageresolutions', {
         title : 'Resolution Management',
@@ -125,15 +155,17 @@ exports.getmanageresolutions = function(req, res){
     });
 };
 
+// restrict routes based on user sessions (or lack thereof)
 exports.restrict = function(req,res,next){
-  if (req.session.user){
-      next();
-  } else {
-      req.session.error = 'Access Denied!';
-      res.redirect('/login');
-  }
+    if (req.session.user){
+        next();
+    } else {
+        req.session.error = 'Access Denied!';
+        res.redirect('/login');
+    }
 };
 
+// Function for shuffling an array in place
 function shuffle(array){
     var currentIndex = array.length;
     var temporaryValue;
@@ -148,15 +180,50 @@ function shuffle(array){
     return array;
 }
 
+// Clone operation added to objects and arrays
 Object.prototype.clone = function() {
     var newObj = (this instanceof Array) ? [] : {};
     for (i in this) {
-      if (i == 'clone') continue;
-      if (this[i] && typeof this[i] == "object") {
-        newObj[i] = this[i].clone();
-      } else {
-          newObj[i] = this[i];
-      }
+        if (i == 'clone'){
+            continue;
+        }
+        if (this[i] && typeof this[i] == "object") {
+            newObj[i] = this[i].clone();
+        } else {
+            newObj[i] = this[i];
+        }
     } 
     return newObj;
-  };
+};
+
+// Function for returning the list of admins
+function getAdminList(){
+    var adminlist = [];
+    var userlist = users.clone();
+    for (var i = 0; i < userlist.length; i++){
+        if (userlist[i].Position === 'administrator'){
+            adminlist.push(userlist[i]);
+        }
+    }
+    return adminlist;
+}
+
+// Function for returning the list of all users
+function getUserList(){
+    var userlist = [];
+    if (users.length === 0){
+        return userlist;
+    }
+    userlist = users.clone();
+    userlist = shuffle(userlist);
+    var membs = shuffle(members);
+    var j = 0;
+    for (var i = 0; i < userlist.length; i++){
+        if (j >= membs.length) {
+            j = 0;
+        }
+        userlist[i].Country = membs[j];
+        j++;
+    }
+    return userlist;
+}

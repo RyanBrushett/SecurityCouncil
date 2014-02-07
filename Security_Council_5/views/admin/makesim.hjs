@@ -27,7 +27,9 @@
 		  <div class="row">
 		    <div>
 		      <label>Admin Username</label><br />
-		      <input type="text" name="admin" placeholder="admin login name" />
+		      <select name="admin">
+		        {{{ selectadminlist }}}
+		      </select>
 		    </div>
 		  </div>
 		  <br />
