@@ -43,7 +43,10 @@ exports.postmakesim = function(req,res){
     if (rooms.length <= 0) idx = 0;
     else idx = rooms.length;
     
-    // Sort the teams
+    /**
+      * Sorting teams.
+      * No longer distructive of the DB user array
+      */
     if (req.param('teamsort') === 'Random'){
         var userlist = users.clone();
         userlist = shuffle(userlist);
