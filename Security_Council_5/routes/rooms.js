@@ -20,7 +20,7 @@ exports.getroombyid = function(req,res){
         title:room.name,
         roomname:room.name,
         id:room.id,
-        admin:room.admin,
+        admin:room.admin.Name,
         sort:room.sort
     });
 };
@@ -36,7 +36,7 @@ exports.getallrooms = function(req,res){
                        "<a href=\"/sim/{{name}}\">{{name}}</a>" +
                        "</dt>" +
                        "<dd class=\"roomprop\">ID: {{id}}</dd>" +
-                       "<dd class=\"roomprop\">Admin: {{admin}}</dd>" +
+                       "<dd class=\"roomprop\">Admin: {{admin.name}}</dd>" +
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
@@ -66,7 +66,7 @@ exports.joinroom = function(req,res){
         title:room.name,
         roomname:room.name,
         id:room.id,
-        admin:room.admin,
+        admin:room.admin.Name,
         sort:room.sort
     });
 };

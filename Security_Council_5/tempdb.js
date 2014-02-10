@@ -135,7 +135,8 @@ var rooms = exports.rooms = [];
 var room = {
         id:0,
         name:"Security Council 17",
-        admin:"Daniel",
-        sort:"Random"
+        admin:users[1],
+        sort:"Random",
+        users:users
 };
 rooms.push(room);
