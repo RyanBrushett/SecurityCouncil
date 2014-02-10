@@ -54,7 +54,8 @@ app.post('/sc-admin/manageusers', admin.restrict, admin.postmanageusers);
 app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getuserinfo);
 app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeuserpassword);
 app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateusersettings);
-app.get('/signup', user.userRegistration);
+app.get('/signup', user.getUserRegistration);
+app.post('/signup', user.postUserRegistration);
 
 // Resolution manager
 app.get('/sc-admin/manageresolutions', admin.getmanageresolutions);
