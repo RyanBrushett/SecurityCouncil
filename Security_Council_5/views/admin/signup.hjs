@@ -17,7 +17,7 @@
         {{{ errormessage }}}
         <form action = "/signup" method="POST">
           Full Name: <input type="text" name="fullname" placeholder="John Doe"><br />
-          Username: <input type="email" name="username" placeholder="Your Email"><br />
+          Email: <input type="email" name="username" placeholder="Your Email"><br />
           Password: <input type="password" name="password" placeholder="Password"><br />
           Confirm: <input type="password" name="confirmpass" placeholder="Confirm Pass"><br />
           First Team Preference: <select name="pref1">
