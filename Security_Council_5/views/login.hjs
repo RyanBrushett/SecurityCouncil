@@ -13,5 +13,6 @@
     Password: <input type ="password" name="password" placeholder="Password">
     <input type ="Submit" value ="Enter">
     </form>
+    <h3>Not signed up?<br /><a href='/signup'>Click here to register!</h3>
   </body>
 </html>

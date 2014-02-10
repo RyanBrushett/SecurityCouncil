@@ -1,9 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Sign Up</title>
-</head>
-<body>
-<h3>It works</h3>
-</body>
+  <head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/js/adminFunctions.js'></script>
+    <script src='/js/ajax.js'></script>
+  </head>
+  <body>
+  <div id="adminwrap">
+    <div id="adminhead">
+      <h2><a href="/">S.C. SIM 9000</a></h2>
+    </div>
+    <div id="adminmain">
+<!-- MAIN -->
+      <div id="adminmaindisplay">
+      </div>
+<!-- END MAIN -->
+      <div id="adminmainfooter">
+      </div>
+    </div>
+    <div id="adminside">
+      <ul id="simoptions" class="buttonlist">
+        <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
+        <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
+        <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Create Council</a></li>
+        <li id="option3" class="buttonitem"><a href="/sc-admin/manageresolutions">Manage Resolutions</a></li>
+      </ul>
+    </div>
+  </div>
+  </body>
 </html>
