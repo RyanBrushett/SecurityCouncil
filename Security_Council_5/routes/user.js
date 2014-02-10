@@ -65,3 +65,6 @@ exports.updateusersettings = function(req, res){
     });
 };
 
+exports.userRegistration = function(req,res){
+    res.render('admin/signup');
+};
