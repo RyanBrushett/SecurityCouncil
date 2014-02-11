@@ -1,5 +1,6 @@
 var users = require('../tempdb').users;
 var members = require('../tempdb').members;
+var rooms = require('../tempdb').rooms;
 var Hogan   = require('hjs');
 
 exports.getuserinfo = function(req, res){
@@ -68,6 +69,7 @@ exports.updateusersettings = function(req, res){
 
 exports.getUserRegistration = function(req,res){
     var errormsg;
+    var roomListDropDown;
     if (req.param('errormsg') === "badpass"){
         errormsg = "<h2>Your passwords did not match</h2>";
     } else if (req.param('errormsg') === "paramsmatch"){
@@ -89,11 +91,20 @@ exports.getUserRegistration = function(req,res){
                               "{{/countries}}";
         var compiledMembers = Hogan.compile(templateMembers);
         memberListDropDown  = compiledMembers.render(viewMemberList);
+        var viewRoomList  = {sims:rooms};
+        var templateRooms = "{{#sims}}" +
+                            "<option value=\"{{name}}\">" +
+                            "{{name}}" +
+                            "</option>" +
+                            "{{/sims}}";
+        var compiledRooms = Hogan.compile(templateRooms);
+        roomListDropDown  = compiledRooms.render(viewRoomList);
     }
     res.render('admin/signup',{
         title:"Sign Up!",
         memberoptions:memberListDropDown,
-        errormessage:errormsg
+        errormessage:errormsg,
+        roomlistdropdown:roomListDropDown
     });
 };
 
@@ -101,14 +112,19 @@ exports.postUserRegistration = function(req,res){
     var pref1 = req.param('pref1');
     var pref2 = req.param('pref2');
     var pref3 = req.param('pref3');
+    var errormsg;
     if (req.param('password') !== req.param('confirmpass')){
-        var errormsg = "badpass";
+        errormsg = "badpass";
         res.redirect('/signup?errormsg=' + errormsg);
     } else if(pref1 === pref2 || pref1 === pref3 || pref2 === pref3){
-        var errormsg = "paramsmatch";
+        errormsg = "paramsmatch";
         res.redirect('/signup?errormsg=' + errormsg);
     } else {
         var idx = users.length;
+        console.log(pref1);
+        console.log(pref2);
+        console.log(pref3);
+        console.log(req.param('scss'));
         users.push({
             Id:idx,
             Name:req.param('fullname'),
