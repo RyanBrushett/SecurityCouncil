@@ -121,17 +121,18 @@ exports.postUserRegistration = function(req,res){
         res.redirect('/signup?errormsg=' + errormsg);
     } else {
         var idx = users.length;
-        console.log(pref1);
-        console.log(pref2);
-        console.log(pref3);
-        console.log(req.param('scss'));
         users.push({
             Id:idx,
             Name:req.param('fullname'),
             UserName:req.param('username'),
             Password:req.param('password'),
-            Position:'member'
+            Position:'member',
+            frstTeamPref:pref1,
+            scndTeamPref:pref2,
+            thrdTeamPref:pref3,
+            scss:req.param('scss')
         });
-        res.redirect('/login');
+        var msg = "true";
+        res.redirect('/login?signupConfirmed=' + msg);
     }
 };

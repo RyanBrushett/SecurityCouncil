@@ -13,6 +13,7 @@
     Password: <input type ="password" name="password" placeholder="Password"><br />
     <input type ="Submit" value ="Log In">
     </form>
+    {{{ confirm }}}
     <h3>Not signed up?</h3>
     <h4><a href='/signup'>Click here to register!</a></h4>
   </body>

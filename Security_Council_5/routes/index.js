@@ -5,7 +5,14 @@ exports.index = function(req, res){
 };
 
 exports.login = function(req, res) {
-  res.render('login', {title: 'S.C. Sim 9000'});
+    var confirm;
+    if (req.param("signupConfirmed") === "true"){
+        confirm = "<h2>User Created</h2>";
+    }
+    res.render('login', {
+        title:'S.C. Sim 9000',
+        confirm:confirm
+    });
 };
 
 
