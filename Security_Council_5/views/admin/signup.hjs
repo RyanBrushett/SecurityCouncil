@@ -29,6 +29,9 @@
           Third Team Preference: <select name="pref3">
             {{{ memberoptions }}}
           </select> <br />
+          Select the SCSS in which you'll be participating: <select name="scss">
+            {{{ roomlistdropdown }}}
+          </select> <br />
           <input type ="Submit" value ="Enter">
         </form>
       </div>
