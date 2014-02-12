@@ -120,8 +120,9 @@ exports.postUserRegistration = function(req,res){
         errormsg = "paramsmatch";
         res.redirect('/signup?errormsg=' + errormsg);
     } else {
+        var userRoom = getRoomByName(req.param('scss'));
         var idx = users.length;
-        users.push({
+        var thisUser = {
             Id:idx,
             Name:req.param('fullname'),
             UserName:req.param('username'),
@@ -131,8 +132,20 @@ exports.postUserRegistration = function(req,res){
             scndTeamPref:pref2,
             thrdTeamPref:pref3,
             scss:req.param('scss')
-        });
+        };
+        users.push(thisUser);
+        userRoom.users.push(thisUser);
         var msg = "true";
         res.redirect('/login?signupConfirmed=' + msg);
     }
 };
+
+function getRoomByName(roomName){
+    for (var i = 0; i < rooms.length; i++){
+        if (rooms[i].name === roomName){
+            return rooms[i];
+        } else {
+            return null;
+        }
+    }
+}

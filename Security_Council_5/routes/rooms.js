@@ -2,7 +2,7 @@ var rooms = require('../tempdb').rooms;
 var Hogan = require('hjs');
 
 exports.getroombyid = function(req,res){
-    if (rooms.length == 0){
+    if (rooms.length === 0){
         res.status(404).send('Not Found <a href="/">BACK</a>');
         return;
     }
@@ -12,23 +12,28 @@ exports.getroombyid = function(req,res){
             room = rooms[i];
         }
     }
-    if (room.name == undefined){
+    if (room.name === undefined){
         res.status(404).send('Not Found <a href="/">BACK</a>');
         return;
     }
+    var userlist = room.users;
+    var userlistView  = {users:userlist};
+    var userlistTmplt = "{{#users}}{{UserName}}<br />{{/users}}";
+    var userlistCmpld = Hogan.compile(userlistTmplt);
+    var userlistHtml  = userlistCmpld.render(userlistView);
     res.render('rooms/room',{
         title:room.name,
         roomname:room.name,
         id:room.id,
         admin:room.admin.Name,
-        sort:room.sort
+        sort:room.sort,
+        userlist:userlistHtml
     });
 };
 exports.getallrooms = function(req,res){
-    var roomlist = "";
-    if (rooms.length == 0){
-        roomlist = "There are currently no created simulations";
-        var html = roomlist;
+    var html;
+    if (rooms.length === 0){
+        html = "There are currently no created simulations";
     } else {
         var view     = {sims:rooms};
         var template = "<dl class=\"roomlist\">{{#sims}}" +
@@ -40,7 +45,7 @@ exports.getallrooms = function(req,res){
                        "<dd class=\"roomprop\">Sort: {{sort}}</dd>" +
                        "{{/sims}}</dl>";
         var compiled = Hogan.compile(template);
-        var html     = compiled.render(view);
+        html         = compiled.render(view);
     }
     res.render('rooms/roomlist',{
         title:'Sim List',
@@ -48,7 +53,7 @@ exports.getallrooms = function(req,res){
     });
 };
 exports.joinroom = function(req,res){
-    if (rooms.length == 0){
+    if (rooms.length === 0){
         res.status(404).send('Not Found. <a href="/">BACK</a>');
         return;
     }
@@ -58,7 +63,7 @@ exports.joinroom = function(req,res){
             room = rooms[i];
         }
     }
-    if (room.name == undefined){
+    if (room.name === undefined){
         res.status(404).send('Not Found. <a href="/">BACK</a>');
         return;
     }

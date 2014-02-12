@@ -132,11 +132,12 @@ var members = exports.members = ["Argentina","Australia",
                                 ];
 // Empty rooms array for creating rooms
 var rooms = exports.rooms = [];
+var userList = [];
 var room = {
         id:0,
         name:"Security Council 17",
         admin:users[1],
         sort:"Random",
-        users:users
+        users:userList
 };
 rooms.push(room);

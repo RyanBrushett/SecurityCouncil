@@ -21,11 +21,13 @@
 	      <td><b>Council ID</b></td>
 	      <td><b>Council Admin</b></td>
 	      <td><b>Sort Method</b></td>
+	      <td><b>Registered Users</b></td>
         </tr>
         <tr class="roompropsrow">
           <td>{{ id }}</td>
           <td>{{ admin }}</td>
           <td>{{ sort }}</td>
+          <td>{{{ userlist }}}</td>
         </tr>
       </tbody>
       </table>
