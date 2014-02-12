@@ -2,10 +2,10 @@ body,html {
   padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-a{color: #000;}
+a{color: #AA0000;}
 a:link {text-decoration:none;}
 a:visited {text-decoration:none;}
-a:hover, a:active {color:#00B7FF;}
+a:hover, a:active {color:#000;}
 ul{
   list-style-type:none;
 }

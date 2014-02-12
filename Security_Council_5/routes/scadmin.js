@@ -74,12 +74,13 @@ exports.postmakesim = function(req,res){
     }
     
     // Create the room
+    var roomUserList = [];
     var room = {
         id:idx,
         name:req.param('room'),
         admin:adminUser,
         sort:req.param('teamsort'),
-        users:userlist
+        users:roomUserList
     };
     rooms.push(room);
 
@@ -211,12 +212,14 @@ function getAdminList(){
 // Function for returning the list of all users
 function getUserList(){
     var userlist = [];
+    var membs = [];
     if (users.length === 0){
         return userlist;
     }
     userlist = users.clone();
     userlist = shuffle(userlist);
-    var membs = shuffle(members);
+    membs = members.clone();
+    membs = shuffle(membs);
     var j = 0;
     for (var i = 0; i < userlist.length; i++){
         if (j >= membs.length) {
