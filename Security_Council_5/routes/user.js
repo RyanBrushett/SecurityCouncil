@@ -3,6 +3,23 @@ var members = require('../tempdb').members;
 var rooms = require('../tempdb').rooms;
 var Hogan   = require('hjs');
 
+
+function getRoomByName(roomName){
+    for (var i = 0; i < rooms.length; i++){
+        if (rooms[i].name === roomName){
+            return rooms[i];
+        }
+    }
+}
+
+function getRoomById(roomId){
+    for (var i = 0; i < rooms.length; i++){
+        if (rooms[i].id === roomId){
+            return rooms[i];
+        }
+    }
+}
+
 exports.getuserinfo = function(req, res){
     var user = req.param('username');
     
@@ -122,6 +139,8 @@ exports.postUserRegistration = function(req,res){
     } else {
         var userRoom = getRoomByName(req.param('scss'));
         var idx = users.length;
+        var userRoomList = [];
+        userRoomList.push(userRoom.id);
         var thisUser = {
             Id:idx,
             Name:req.param('fullname'),
@@ -131,7 +150,7 @@ exports.postUserRegistration = function(req,res){
             frstTeamPref:pref1,
             scndTeamPref:pref2,
             thrdTeamPref:pref3,
-            scss:req.param('scss')
+            scss:userRoomList
         };
         users.push(thisUser);
         userRoom.users.push(thisUser);
@@ -139,11 +158,3 @@ exports.postUserRegistration = function(req,res){
         res.redirect('/login?signupConfirmed=' + msg);
     }
 };
-
-function getRoomByName(roomName){
-    for (var i = 0; i < rooms.length; i++){
-        if (rooms[i].name === roomName){
-            return rooms[i];
-        }
-    }
-}
