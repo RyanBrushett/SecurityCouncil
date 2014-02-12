@@ -144,8 +144,6 @@ function getRoomByName(roomName){
     for (var i = 0; i < rooms.length; i++){
         if (rooms[i].name === roomName){
             return rooms[i];
-        } else {
-            return null;
         }
     }
 }
