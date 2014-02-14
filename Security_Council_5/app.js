@@ -43,25 +43,25 @@ if ('development' == app.get('env')) {
 app.get('/', admin.restrict, routes.index);
 
 // Admin and sim management
-app.get('/sc-admin', admin.restrict, admin.getscadmin);
-app.get('/sc-admin/managesim', admin.restrict, admin.getmakesim);
-app.post('/sc-admin/managesim', admin.restrict, admin.postmakesim);
+app.get('/sc-admin', admin.restrict, admin.getScAdmin);
+app.get('/sc-admin/managesim', admin.restrict, admin.getMakeSim);
+app.post('/sc-admin/managesim', admin.restrict, admin.postMakeSim);
 app.get('/sc-admin/managesim/:name', admin.restrict, room.getroombyid);
 
 // Users
-app.get('/sc-admin/manageusers', admin.restrict, admin.getmanageusers);
-app.post('/sc-admin/manageusers', admin.restrict, admin.postmanageusers);
-app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getuserinfo);
-app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeuserpassword);
-app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateusersettings);
+app.get('/sc-admin/manageusers', admin.restrict, admin.getManageUsers);
+app.post('/sc-admin/manageusers', admin.restrict, admin.postManageUsers);
+app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getUserInfo);
+app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeUserPassword);
+app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateUserSettings);
 app.get('/signup', user.getUserRegistration);
 app.post('/signup', user.postUserRegistration);
 
 // Resolution manager
-app.get('/sc-admin/manageresolutions', admin.getmanageresolutions);
-app.post('/sc-admin/createresolution', resolution.createresolution);
-app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getresolutioninfo);
-app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateresolution);
+app.get('/sc-admin/manageresolutions', admin.getManageResolutions);
+app.post('/sc-admin/createresolution', resolution.createResolution);
+app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getResolutionInfo);
+app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateResolution);
 
 // Rooms routes
 app.get('/sim', admin.restrict, room.getallrooms);

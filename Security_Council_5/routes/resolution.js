@@ -3,7 +3,7 @@ var users   = require('../tempdb').users;
 var members = require('../tempdb').members;
 var resolutions = require('../tempdb').resolutions;
 
-exports.createresolution = function(req, res){
+exports.createResolution = function(req, res){
     var idx = resolutions.length;
     resolutions.push({Id: idx, Content: req.param('resolutioncontent'), Title: req.param('resolutiontitle'), roomId: 0});
     
@@ -13,7 +13,7 @@ exports.createresolution = function(req, res){
     });
 };
 
-exports.getresolutioninfo = function(req, res){
+exports.getResolutionInfo = function(req, res){
     var id = req.param('resolutionId');
     
     var resContent;
@@ -32,7 +32,7 @@ exports.getresolutioninfo = function(req, res){
     });
 };
 
-exports.updateresolution = function(req, res){
+exports.updateResolution = function(req, res){
     var resId = req.param('id');
     var resContent = req.param('rescontent');
     

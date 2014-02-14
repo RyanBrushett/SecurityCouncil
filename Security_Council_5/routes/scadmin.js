@@ -5,16 +5,19 @@ var resolutions = require('../tempdb').resolutions;
 var Hogan   = require('hjs');
 
 // sc-admin dash landing page
-exports.getscadmin = function(req,res){
+exports.getScAdmin = function(req,res){
     res.render('sc-admin', {
         title: 'Admin Dashboard',
         numusers: users.length,
-        numsims: rooms.length
+        numsims: rooms.length,
+        partials: { 
+            mainview: 'admin/dashboard' 
+        }
     });
 };
 
 // sc-admin handle get for sim manager
-exports.getmakesim = function(req,res){
+exports.getMakeSim = function(req,res){
     var adminlist = getAdminList();
     var adminListDropdown = "";
     if (adminlist.length === 0){
@@ -45,15 +48,18 @@ exports.getmakesim = function(req,res){
         var compiled = Hogan.compile(template);
         html         = compiled.render(view);
     }
-    res.render('admin/makesim',{
+    res.render('sc-admin',{
         title:'Simulation Manager',
         roomlist:html,
-        selectadminlist:adminListDropdown
+        selectadminlist:adminListDropdown,
+        partials: {
+            mainview: 'admin/makesim'
+        }
     });
 };
 
 // sc-admin handle post for sim manager
-exports.postmakesim = function(req,res){
+exports.postMakeSim = function(req,res){
     // Set ID of the room appropriately
     var idx;
     if (rooms.length <= 0){
@@ -115,23 +121,29 @@ exports.postmakesim = function(req,res){
         var compiled = Hogan.compile(template);
         html         = compiled.render(view);
     }
-    res.render('admin/makesim',{
+    res.render('sc-admin',{
         title:'Simulation Manager',
         roomlist:html,
-        selectadminlist:adminListDropdown
+        selectadminlist:adminListDropdown,
+        partials: {
+            mainview: 'admin/makesim'
+        }
     });
 };
 
 // sc-admin handle get for user manager
-exports.getmanageusers = function(req,res){
-    res.render('admin/manageusers', {
+exports.getManageUsers = function(req,res){
+    res.render('sc-admin', {
         title : 'User Management',
-        userlist: users
+        userlist: users,
+        partials: {
+            mainview: 'admin/manageusers'
+        }
     });
 };
 
 // sc-admin handle post for user manager
-exports.postmanageusers = function(req, res){
+exports.postManageUsers = function(req, res){
     // plain-text password for now
     var idx = users.length;
     users.push({
@@ -142,17 +154,23 @@ exports.postmanageusers = function(req, res){
         Country: "Not Assigned",
         Position: "member"
     });
-    res.render('admin/manageusers', {
+    res.render('sc-admin', {
         title: 'User Management',
-        userlist: users
+        userlist: users,
+        partials: {
+            mainview: 'admin/manageusers'
+        }
     });
 };
 
 // sc-admin handle get for resolution manager
-exports.getmanageresolutions = function(req, res){
-    res.render('admin/manageresolutions', {
+exports.getManageResolutions = function(req, res){
+    res.render('sc-admin', {
         title : 'Resolution Management',
-        resolutionlist: resolutions
+        resolutionlist: resolutions,
+        partials: {
+            mainview: 'admin/manageresolutions'
+        }
     });
 };
 

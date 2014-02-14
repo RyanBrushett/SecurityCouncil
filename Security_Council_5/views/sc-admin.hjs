@@ -14,8 +14,7 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-      <h3>There are {{numusers}} user(s) currently in the system</h3>
-      <h3>There are {{numsims}} room(s) currently in the system</h3>
+        {{> mainview}}
       </div>
       <div id="adminmainfooter">
       <!-- Footer here -->

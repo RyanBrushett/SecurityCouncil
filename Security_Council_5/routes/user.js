@@ -20,7 +20,7 @@ function getRoomById(roomId){
     }
 }
 
-exports.getuserinfo = function(req, res){
+exports.getUserInfo = function(req, res){
     var user = req.param('username');
     
     var pass = "";
@@ -53,7 +53,7 @@ exports.list = function(req, res){
   res.render("user");
 };
 
-exports.changeuserpassword = function(req, res){
+exports.changeUserPassword = function(req, res){
     var user = req.param('username');
     var pass = req.param('password');
     
@@ -68,7 +68,7 @@ exports.changeuserpassword = function(req, res){
     });
 };
 
-exports.updateusersettings = function(req, res){
+exports.updateUserSettings = function(req, res){
     var user = req.param('username');
     var team = req.param('team');
     
