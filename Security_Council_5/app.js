@@ -30,6 +30,13 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+app.use(function(req,res){
+	if (req.accepts('html')) {
+	    res.render('error404', { url: req.url });
+	    return;
+	  }
+});
+
 /*
  * Note that any route that contains the admin.restrict function
  * is restricted. This function will not allow the use of that route
