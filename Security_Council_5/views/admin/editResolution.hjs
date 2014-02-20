@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
     <head>
         <title>{{title}}</title>
@@ -15,31 +14,12 @@
             </div>
             <div id="adminmain">
                 <div id="adminmaindisplay">
-                    <h3>Current Resolutions:</h3>
-                    <table>
-                    	<tbody>
-                    	<tr>
-                    		<th>Title</th>
-                    		<th></th>
-                    		<th></th>
-                    	</tr>
-                    	{{#resolutionlist}}
-                    	<tr>
-                    		<td>{{Title}}</td>
-                    		<td><button onclick="editResolution('{{Id}}')">Edit</button></td>
-                    		<td><button onclick="editClauses('{{Id}}')">View Clauses</button></td>
-                    	</tr>
-                    	<!--<a href="javascript:getResolutionInfo('{{Id}}')">{{Title}}</a><br />
-                        <div id="{{Id}}"></div>-->
-                    	{{/resolutionlist}}
-                    	</tbody>
-                    </table>
-                    <h3>Add Resolution:</h3>
-                    <form role="form" method="post" action="/sc-admin/createresolution">
-                        <input type="text" name="resolutiontitle" placeholder="Title" />
-                        <textarea name="resolutioncontent" rows="5" cols="80">Text here...</textarea>
-                        <input type="submit" value="Accept and Add Resolution" />
-                    </form>
+                    <h3>Edit resolution:</h3>
+                    <form role="form" method="post" action="/sc-admin/manageresolutions/updateresolution/{{resId}}">
+    				<input type="text" name="restitle" value="{{resTitle}}" />
+    				<textarea name="rescontent" rows="5" cols="80">{{content}}</textarea>
+    				<input type="submit" value="Accept and Modify Resolution" />
+					</form>
                 </div>
                 <div id="adminmainfooter">
                     <p>A lower section we can use for a footer if needed. No big deal.</p>

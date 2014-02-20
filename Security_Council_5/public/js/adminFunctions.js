@@ -28,6 +28,16 @@ function getUserInfo(user){
     });    
 }
 
+function editResolution(id)
+{
+	window.location.href = '/sc-admin/editResolution/'+id;
+}
+
+function editClauses(id)
+{
+	window.location.href = '/sc-admin/editClauses/'+id;
+}
+
 function getResolutionInfo(id){
     var rec = {
         resolutionId: id

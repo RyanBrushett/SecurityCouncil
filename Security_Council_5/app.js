@@ -30,12 +30,14 @@ if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
+//error settings
 app.use(function(req,res){
 	if (req.accepts('html')) {
 	    res.render('error404', { url: req.url });
 	    return;
 	  }
 });
+
 
 /*
  * Note that any route that contains the admin.restrict function
@@ -69,6 +71,10 @@ app.get('/sc-admin/manageresolutions', admin.getmanageresolutions);
 app.post('/sc-admin/createresolution', resolution.createresolution);
 app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getresolutioninfo);
 app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateresolution);
+
+app.get('/sc-admin/editResolution/:id', resolution.editResolution);
+app.get('/sc-admin/editClauses/:id', resolution.editClauses);
+
 
 // Rooms routes
 app.get('/sim', admin.restrict, room.getallrooms);
