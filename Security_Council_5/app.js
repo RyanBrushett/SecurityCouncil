@@ -51,6 +51,7 @@ app.get('/sc-admin/managesim/:name', admin.restrict, room.getroombyid);
 // Users
 app.get('/sc-admin/manageusers', admin.restrict, admin.getManageUsers);
 app.post('/sc-admin/manageusers', admin.restrict, admin.postManageUsers);
+app.post('/sc-admin/manageusers/getusersbyroom', admin.restrict, user.getUsersByRoom);
 app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getUserInfo);
 app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeUserPassword);
 app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateUserSettings);

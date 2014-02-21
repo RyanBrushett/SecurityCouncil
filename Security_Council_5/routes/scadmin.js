@@ -133,9 +133,24 @@ exports.postMakeSim = function(req,res){
 
 // sc-admin handle get for user manager
 exports.getManageUsers = function(req,res){
+    var usersInRoom = [];
+    if(rooms === []){
+        usersInRoom = [];
+    }
+    else{
+        for(var i = 0; i < users.length; i++){
+            for(var j = 0; j < users[i].scss.length; j++){
+                if(users[i].scss[j] === 0){
+                    usersInRoom.push(users[i]);
+                }
+            }
+        }
+    }
+    
     res.render('sc-admin', {
         title : 'User Management',
-        userlist: users,
+        userlist: usersInRoom,
+        roomlist: rooms,
         partials: {
             mainview: 'admin/manageusers'
         }
