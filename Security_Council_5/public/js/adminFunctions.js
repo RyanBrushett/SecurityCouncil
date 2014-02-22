@@ -16,15 +16,17 @@ $(function(){
 	
 	$('form[name=clauseForm').submit(function(eve){
 		eve.preventDefault();
+		eve.stopPropagation();
+		eve.stopImmediatePropagation();
 		var $form = $(this).serialize();
 		$.ajax({
 			type: 'POST',
 			data: $form,
 			url: '/sc-admin/createClause',
 		}).done(function(data){
-			$('#clauseList').prepend('<div id="clause_'+data.Id+'"><p>'+data.Content+'</p>'
-					+'<p><button onclick="addSubclause(\''+data.Id+'\')">Add operative clause</button> <button onclick="editClause(\'{{Id}}\')">'
-					+'Edit</button> <button onclick="removeClause(\''+data.Id+'\', \'main\')">Remove</button></p><div id="subclauseList_'+data.Id+'" style="padding-left: 25px"></div>');
+			$('#clauseList').prepend('<div id="clause_'+data.Id+'"><div id="clauseContent_'+data.Id+'"><p>'+data.Content+'</p>'
+					+'<p><button onclick="addSubclause(\''+data.Id+'\', \'create\')">Add operative clause</button> <button onclick="editClause(\''+data.Id+'\')">'
+					+'Edit</button> <button onclick="removeClause(\''+data.Id+'\', \'main\')">Remove</button></p></div><div id="subclauseList_'+data.Id+'" style="padding-left: 25px"></div>');
 		});
 	});	
 });
@@ -69,12 +71,15 @@ function editClauses(id)
 	window.location.href = '/sc-admin/editClauses/'+id;
 }
 
+//add a preambulatory (main clause) or operative clause (sub)
 function addSubclause(id, type)
 {
 	if (type === 'send'){
 		$('form[name=subclauseForm]').each(function(index){
 			$(this).submit(function(e){
 				e.preventDefault();
+				e.stopPropagation();
+				e.stopImmediatePropagation();
 				var $form = $(this).serialize();
 				$.ajax({
 					type: 'POST',
@@ -82,8 +87,8 @@ function addSubclause(id, type)
 					url: '/sc-admin/createSubclause',
 				}).done(function(data){
 					console.log(data);
-					$('#subclauseList_'+data.Id).append('<div id="subclauseContent_'+data.Id+'"><div id="subclause_'+data.Id+'"><p>'+data.Content+'</p><button onclick="editClause(\''+data.Id+'\', \'sub\')">Edit</button>'+
-							'<button onclick="removeClause(\''+data.Id+'\', \'sub\')">Remove</button></div></div>');
+					$('#subclauseList_'+data.ClauseId).append('<div id="subclause_'+data.Id+'"><p>'+data.Content+'</p><button onclick="editClause(\''+data.Id+'\', \'sub\')">Edit</button>'+
+							'<button onclick="removeClause(\''+data.Id+'\', \'sub\')">Remove</button></div>');
 				});
 			});
 		});
