@@ -74,7 +74,11 @@ app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updatere
 
 app.get('/sc-admin/editResolution/:id', resolution.editResolution);
 app.get('/sc-admin/editClauses/:id', resolution.editClauses);
-
+app.post('/sc-admin/createClause', resolution.createClause);
+app.post('/sc-admin/createSubclause', resolution.createSubclause);
+app.post('/sc-admin/updateClause', resolution.updateClause);
+app.get('/sc-admin/getClause', resolution.getClause);
+app.post('/sc-admin/removeClause', resolution.removeClause);
 
 // Rooms routes
 app.get('/sim', admin.restrict, room.getallrooms);

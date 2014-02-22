@@ -151,7 +151,8 @@ exports.postmanageusers = function(req, res){
 exports.getmanageresolutions = function(req, res){
     res.render('admin/manageresolutions', {
         title : 'Resolution Management',
-        resolutionlist: resolutions
+        resolutionlist: resolutions,
+        roomlist: rooms
     });
 };
 

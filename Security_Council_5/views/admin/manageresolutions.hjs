@@ -36,6 +36,11 @@
                     </table>
                     <h3>Add Resolution:</h3>
                     <form role="form" method="post" action="/sc-admin/createresolution">
+                    	<select name="roomlist">
+                    	{{#roomlist}}
+                    	<option value="{{id}}">{{name}}</option
+                    	{{/roomlist}}
+                    	</select><br/>
                         <input type="text" name="resolutiontitle" placeholder="Title" />
                         <textarea name="resolutioncontent" rows="5" cols="80">Text here...</textarea>
                         <input type="submit" value="Accept and Add Resolution" />
