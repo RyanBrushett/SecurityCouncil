@@ -42,23 +42,6 @@ Then, using Chrome, connect to http://localhost:3000/
 
 You'll be presented with a login page. You may log in with <username // password> ryanb // password
 
-You can test things out from here:
-
-* Click on the admin link to be brought to the admin portal.
-    * From here you'll be presented with options such as a system overview / dashboard
-    * You'll be able to manage users
-    * You'll be able to create councils
-    * You'll be able to manage resolutions
-* If you click on the Users button
-    * You'll be presented with a room list. We have pre-configured Security Council 17.
-    * You'll have a link to the admin portal
-    * You'll also have a logout button.
-    * Note that by clicking the Simulation name (Security Council 17) you'll be brought in to view more details about the room
-        * From in here you can click to join the ongoing chat/discussion
-* In the discussion room you'll be presented with a default view of the resolution, divided into its clauses.
-    * You can select to "Discuss clause" to bring up the discussion list on that clause and view what people have been saying. It is from here that you can add your own voice to the conversation!
-    * You can click on "speakers list" to preview that as well.
-
 ### With the Node.JS Eclipse Plugin
 
 Simply open the project in Eclipse and run the app.js file.
@@ -67,22 +50,22 @@ Then, using Chrome, connect to http://localhost:3000/
 
 You'll be presented with a login page. You may log in with <username // password> ryanb // password
 
-You can test things out from here:
+### Testing the App
 
-* Click on the admin link to be brought to the admin portal.
-    * From here you'll be presented with options such as a system overview / dashboard
-    * You'll be able to manage users
-    * You'll be able to create councils
-    * You'll be able to manage resolutions
-* If you click on the Users button
-    * You'll be presented with a room list. We have pre-configured Security Council 17.
-    * You'll have a link to the admin portal
-    * You'll also have a logout button.
-    * Note that by clicking the Simulation name (Security Council 17) you'll be brought in to view more details about the room
-        * From in here you can click to join the ongoing chat/discussion
-* In the discussion room you'll be presented with a default view of the resolution, divided into its clauses.
-    * You can select to "Discuss clause" to bring up the discussion list on that clause and view what people have been saying. It is from here that you can add your own voice to the conversation!
-    * You can click on "speakers list" to preview that as well.
+	- Click on the admin link to be brought to the admin portal.
+		- From here you'll be presented with options such as a system overview / dashboard
+		- You'll be able to manage users
+		- You'll be able to create councils
+		- You'll be able to manage resolutions
+	- If you click on the Users button
+		- You'll be presented with a room list. We have pre-configured Security Council 17.
+		- You'll have a link to the admin portal
+		- You'll also have a logout button.
+		- Note that by clicking the Simulation name (Security Council 17) you'll be brought in to view more details about the room
+			- From in here you can click to join the ongoing chat/discussion
+				- In the discussion room you'll be presented with a default view of the resolution, divided into its clauses.
+					- You can select to "Discuss clause" to bring up the discussion list on that clause and view what people have been saying. It is from here that you can add your own voice to the conversation!
+					- You can click on "speakers list" to preview that as well.
 
 # Council (Ver1.0)
 
@@ -105,4 +88,4 @@ Thus, development began, in pursuit of having the following features fully imple
 	- Users can speak to the Council room on the current Resolution
 	- Users can create private conversations with specific other users
 
-The Group 5 development team firmly believes that these features, combined with the user-centred design we developed, provide a powerful foundation for building a highly functional and sophisticated application simulating Security Council debate and negotiations — most importantly, an application that fully satisfies our clients. We are happy to report that each of these features is implemented, and we were able to implement additional functionality in addition. The specific use cases administrators and users can do in Version 1.0 are described fully in the sections below.
+The Group 5 development team firmly believes that these features, combined with the user-centred design we developed, provide a powerful foundation for building a highly functional and sophisticated application simulating Security Council debate and negotiations — most importantly, an application that fully satisfies our clients. We are happy to report that each of these features is implemented, and we were able to implement additional functionality in addition. The specific use cases administrators and users can do in Version 1.0 are described fully in the file “documentation/Ver1.0/Use Cases.md”.
