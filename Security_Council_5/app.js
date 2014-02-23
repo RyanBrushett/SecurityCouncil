@@ -14,7 +14,7 @@ var app = express();
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
-app.use(express.bodyParser());
+// app.use(express.bodyParser());
 app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
