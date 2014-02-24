@@ -130,7 +130,7 @@ exports.updateUserSettings = function(req, res){
 };
 
 exports.getUserRegistration = function(req, res) {
-    res.render('login', {
+    res.render('lr', {
         countries: members,
         rerror: req.session.error
     });

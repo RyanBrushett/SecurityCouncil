@@ -5,7 +5,7 @@ exports.index = function(req, res) {
 };
 
 exports.login = function(req, res) {
-    res.render('login', {
+    res.render('lr', {
         countries: db.members,
         lerror: req.session.error
     });
