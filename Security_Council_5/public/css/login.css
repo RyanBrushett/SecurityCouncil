@@ -1,0 +1,26 @@
+/*****************
+ * PAGE SPECIFIC *
+ *****************/
+
+h3 {
+    text-transform: lowercase;
+    font-size: 1rem;
+}
+
+/**********
+ * LAYOUT *
+ **********/
+
+main {
+    display: flex;
+    flex-direction: row;
+}
+
+.section:first-of-type {
+    border-right: 1px solid #333;
+    padding-right: 1rem;
+}
+
+.section:last-of-type {
+    padding-left: 1rem;
+}

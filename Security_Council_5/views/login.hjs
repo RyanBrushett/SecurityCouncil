@@ -4,26 +4,40 @@
         <title>{{ title }}</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/login.css">
     </head>
     <body>
-        <header>
-            <h1><a href="/">United Nations Security Council</a></h1>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
         </header>
-        <form action="/login" method="post">
-            <p>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Your username">
-            </p>
-            <p>
-                <label>Password</label>
-                <input type="password" name="password" placeholder="Password">
-            </p>
-            <input type="submit" value="Log In">
-        </form>
-        {{#confirm}}
-        <h2>User created</h2>
-        {{/confirm}}
-        <h3>Not signed up?</h3>
-        <h4><a href='/signup'>Click here to register!</a></h4>
+        <main>
+            <form class="section" action="/login" method="post">
+                <h2>Login</h2>
+                <h3>Already have an account</h3>
+                <p><input type="text" name="username" placeholder="Username"></p>
+                <p><input type="password" name="password" placeholder="Password"></p>
+                <p><input class="button" type="submit" value="Login"></p>
+            </form>
+            <form class="section" action="/signup" method="post">
+                <h2>Register</h2>
+                <h3>It only takes a moment</h3>
+                <p><input type="text" name="fullname" placeholder="Your name"></p>
+                <p><input type="password" name="password" placeholder="Choose a password"></p>
+                <p><input type="password" name="confirmpass" placeholder="Confirm your password"></p>
+                <p>
+                    <label>First Team Preference</label>
+                    <select name="pref1">{{{ memberoptions }}}</select>
+                </p>
+                <p>
+                    <label>Second Team Preference</label>
+                    <select name="pref2">{{{ memberoptions }}}</select>
+                </p>
+                <p>
+                    <label>Third Team Preference</label>
+                    <select name="pref3">{{{ memberoptions }}}</select>
+                </p>
+                <input class="button" type="Submit" value="Register">
+            </form>
+        </main>
     </body>
 </html>
