@@ -3,6 +3,7 @@ var members = require('../tempdb').members;
 var rooms = require('../tempdb').rooms;
 var Hogan   = require('hjs');
 
+var selectedRoom = 0;
 
 function getRoomByName(roomName){
     for (var i = 0; i < rooms.length; i++){
@@ -20,7 +21,51 @@ function getRoomById(roomId){
     }
 }
 
-exports.getuserinfo = function(req, res){
+function renderUserManager(res, selectedRoom){
+    //Fetch users belonging to a room
+    var usersInRoom = [];
+    if(rooms === []){
+        usersInRoom = [];
+    }
+    else{
+        for(var i = 0; i < users.length; i++){
+            for(var j = 0; j < users[i].scss.length; j++){
+                if(users[i].scss[j] == selectedRoom){
+                    usersInRoom.push(users[i]);
+                }
+            }
+        }
+    }
+    
+    //Build a new roomlist, such that the currently selected room is first
+    var roomListPartial = [];
+    var selectedRoomId = -1;
+    var selectedRoomName = "";
+    
+    for(var i = 0; i < rooms.length; i++){
+        if(rooms[i].id != selectedRoom){
+            roomListPartial.push(rooms[i]);
+        }
+        else{
+            selectedRoomId = rooms[i].id;
+            selectedRoomName = rooms[i].name;
+        }
+    }
+    
+    var roomhtml = "<option value=\"" + selectedRoomId +"\" selected>" + selectedRoomName + "</option>";
+    
+    res.render('sc-admin', {
+        title : 'User Management',
+        userlist: usersInRoom,
+        roomlist: roomListPartial,
+        selectedroom: roomhtml,
+        partials: {
+            mainview: 'admin/manageusers'
+        }
+    });       
+}
+
+exports.getUserInfo = function(req, res){
     var user = req.param('username');
     
     var pass = "";
@@ -49,11 +94,16 @@ exports.getuserinfo = function(req, res){
     });
 };
 
+exports.getUsersByRoom = function(req, res){
+    selectedRoom = req.param('room');
+    renderUserManager(res, selectedRoom);
+};
+
 exports.list = function(req, res){
   res.render("user");
 };
 
-exports.changeuserpassword = function(req, res){
+exports.changeUserPassword = function(req, res){
     var user = req.param('username');
     var pass = req.param('password');
     
@@ -62,13 +112,11 @@ exports.changeuserpassword = function(req, res){
             users[i].Password = pass;
         }
     }
-    res.render('admin/manageusers', {
-        title: 'User Management',
-        userlist: users
-    });
+    
+    renderUserManager(res, selectedRoom);
 };
 
-exports.updateusersettings = function(req, res){
+exports.updateUserSettings = function(req, res){
     var user = req.param('username');
     var team = req.param('team');
     
@@ -78,10 +126,7 @@ exports.updateusersettings = function(req, res){
         }
     }
     
-    res.render('admin/manageusers', {
-        title: 'User Management',
-        userlist: users
-    });
+    renderUserManager(res, selectedRoom);
 };
 
 exports.getUserRegistration = function(req,res){
@@ -147,6 +192,7 @@ exports.postUserRegistration = function(req,res){
             UserName:req.param('username'),
             Password:req.param('password'),
             Position:'member',
+            Country:'Not Assigned',
             frstTeamPref:pref1,
             scndTeamPref:pref2,
             thrdTeamPref:pref3,

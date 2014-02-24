@@ -14,8 +14,7 @@
     </div>
     <div id="adminmain">
       <div id="adminmaindisplay">
-      <h3>There are {{numusers}} user(s) currently in the system</h3>
-      <h3>There are {{numsims}} room(s) currently in the system</h3>
+        {{> mainview}}
       </div>
       <div id="adminmainfooter">
       <!-- Footer here -->
@@ -24,7 +23,7 @@
     <div id="adminside">
       <ul id="simoptions" class="buttonlist">
       	<li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
-        <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
+        <li id="option1" class="buttonitem"><a href="/sc-admin/manageusers">Manage Users</a></li>
         <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Manage SCS Spaces</a></li>
         <li id="option3" class="buttonitem"><a href="/sc-admin/manageresolutions">Manage Resolutions</a></li>
       </ul>
