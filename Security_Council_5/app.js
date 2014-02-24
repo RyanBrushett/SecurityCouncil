@@ -67,18 +67,18 @@ app.get('/signup', user.getUserRegistration);
 app.post('/signup', user.postUserRegistration);
 
 // Resolution manager
-app.get('/sc-admin/manageresolutions', admin.getmanageresolutions);
-app.post('/sc-admin/createresolution', resolution.createresolution);
-app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getresolutioninfo);
-app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateresolution);
+app.get('/sc-admin/manageresolutions', admin.restrict, admin.getmanageresolutions);
+app.post('/sc-admin/createresolution', admin.restrict, resolution.createresolution);
+app.post('/sc-admin/manageresolutions/getresolutioninfo', admin.restrict, resolution.getresolutioninfo);
+app.post('/sc-admin/manageresolutions/updateresolution/:id', admin.restrict, resolution.updateresolution);
 
-app.get('/sc-admin/editResolution/:id', resolution.editResolution);
-app.get('/sc-admin/editClauses/:id', resolution.editClauses);
-app.post('/sc-admin/createClause', resolution.createClause);
-app.post('/sc-admin/createSubclause', resolution.createSubclause);
-app.post('/sc-admin/updateClause', resolution.updateClause);
-app.get('/sc-admin/getClause', resolution.getClause);
-app.post('/sc-admin/removeClause', resolution.removeClause);
+app.get('/sc-admin/editResolution/:id', admin.restrict, resolution.editResolution);
+app.get('/sc-admin/editClauses/:id', admin.restrict, resolution.editClauses);
+app.post('/sc-admin/createClause', admin.restrict, resolution.createClause);
+app.post('/sc-admin/createSubclause', admin.restrict, resolution.createSubclause);
+app.post('/sc-admin/updateClause', admin.restrict, resolution.updateClause);
+app.get('/sc-admin/getClause', admin.restrict, resolution.getClause);
+app.post('/sc-admin/removeClause', admin.restrict, resolution.removeClause);
 
 // Rooms routes
 app.get('/sim', admin.restrict, room.getallrooms);
