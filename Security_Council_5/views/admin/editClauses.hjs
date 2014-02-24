@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='/js/jquery/jquery-1.11.0.js'></script>
+    <script src='/js/adminFunctions.js'></script>
+    <script src='/js/ajax.js'></script>
+</head>
+
+<body>
+    <div id="adminwrap">
+        <div id="adminhead">
+            <h2><a href="/">S.C. SIM 9000</a></h2>
+        </div>
+        <div id="adminmain">
+            <div id="adminmaindisplay">
+                <h3>{{resolutionTitle}}</h3>
+                <div id="clauseList">
+                    {{#clauseList}}
+                    <div id="clause_{{Id}}">
+                    	<div id="clauseContent_{{Id}}">
+                        <p>{{Content}}</p>
+                        <p><button onclick="addSubclause('{{Id}}', 'create')">Add operative clause</button> <button onclick="editClause('{{Id}}', 'main')">Edit</button> <button onclick="removeClause('{{Id}}', 'main')">Remove</button></p>
+                        </div>
+                        <div class="subclauseList" id="subclauseList_{{Id}}" style="padding-left: 25px">
+                        </div>
+                    </div>
+                    {{/clauseList}}
+                </div>
+                <h3>Add clause:</h3>
+                    <form name="clauseForm">
+                    	<input type="hidden" value="{{resolutionId}}" name="resId">
+                        <textarea name="clausecontent" rows="5" cols="80">Text here...</textarea>
+                        <input type="submit" id="submitFormClause" value="Add preambulatory clause" />
+                    </form>
+            </div>
+            <div id="adminmainfooter">
+                <p>A lower section we can use for a footer if needed. No big deal.</p>
+            </div>
+        </div>
+        <div id="adminside">
+            <ul id="simoptions" class="buttonlist">
+                <li id="adminhome" class="buttonitem"><a href="/sc-admin">Dashboard</a></li>
+                <li id="option1" class="buttonitem" onclick="#"><a href="/sc-admin/manageusers">Manage Users</a></li>
+                <li id="option2" class="buttonitem"><a href="/sc-admin/managesim">Manage SCS Spaces</a></li>
+                <li id="option3" class="buttonitem"><a href="/sc-admin/manageresolutions">Manage Resolutions</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

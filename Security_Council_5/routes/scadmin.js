@@ -10,8 +10,8 @@ exports.getScAdmin = function(req,res){
         title: 'Admin Dashboard',
         numusers: users.length,
         numsims: rooms.length,
-        partials: { 
-            mainview: 'admin/dashboard' 
+        partials: {
+            mainview: 'admin/dashboard'
         }
     });
 };
@@ -70,7 +70,7 @@ exports.postMakeSim = function(req,res){
 
     // Fetch the list of users in the system
     var userlist = getUserList();
-    
+
     // Get the admin user
     var adminUser;
     for (var i = 0; i < userlist.length; i++){
@@ -78,7 +78,7 @@ exports.postMakeSim = function(req,res){
             adminUser = userlist[i].clone();
         }
     }
-    
+
     // Create the room
     var roomUserList = [];
     var room = {
@@ -146,7 +146,7 @@ exports.getManageUsers = function(req,res){
             }
         }
     }
-    
+
     res.render('sc-admin', {
         title : 'User Management',
         userlist: usersInRoom,
@@ -185,7 +185,8 @@ exports.getManageResolutions = function(req, res){
         resolutionlist: resolutions,
         partials: {
             mainview: 'admin/manageresolutions'
-        }
+        },
+        roomlist: rooms
     });
 };
 
@@ -226,7 +227,7 @@ Object.prototype.clone = function() {
         } else {
             newObj[i] = this[i];
         }
-    } 
+    }
     return newObj;
 };
 
