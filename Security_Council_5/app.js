@@ -68,8 +68,8 @@ app.get('/signup', user.getUserRegistration);
 app.post('/signup', user.postUserRegistration);
 
 // Resolution manager
-app.get('/sc-admin/manageresolutions', admin.restrict, admin.getmanageresolutions);
-app.post('/sc-admin/createresolution', admin.restrict, resolution.createresolution);
+app.get('/sc-admin/manageresolutions', admin.restrict, admin.getManageResolutions);
+app.post('/sc-admin/createresolution', admin.restrict, resolution.createResolution);
 app.post('/sc-admin/manageresolutions/getresolutioninfo', admin.restrict, resolution.getresolutioninfo);
 app.post('/sc-admin/manageresolutions/updateresolution/:id', admin.restrict, resolution.updateresolution);
 
