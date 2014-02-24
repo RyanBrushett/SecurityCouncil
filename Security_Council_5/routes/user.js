@@ -3,6 +3,7 @@ var members = require('../tempdb').members;
 var rooms = require('../tempdb').rooms;
 var Hogan   = require('hjs');
 
+var selectedRoom = 0;
 
 function getRoomByName(roomName){
     for (var i = 0; i < rooms.length; i++){
@@ -94,7 +95,8 @@ exports.getUserInfo = function(req, res){
 };
 
 exports.getUsersByRoom = function(req, res){
-    renderUserManager(res, req.param('room'));
+    selectedRoom = req.param('room');
+    renderUserManager(res, selectedRoom);
 };
 
 exports.list = function(req, res){
@@ -111,7 +113,7 @@ exports.changeUserPassword = function(req, res){
         }
     }
     
-    renderUserManager(res, 0);
+    renderUserManager(res, selectedRoom);
 };
 
 exports.updateUserSettings = function(req, res){
@@ -124,7 +126,7 @@ exports.updateUserSettings = function(req, res){
         }
     }
     
-    renderUserManager(res, 0);
+    renderUserManager(res, selectedRoom);
 };
 
 exports.getUserRegistration = function(req,res){
