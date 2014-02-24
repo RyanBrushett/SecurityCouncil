@@ -1,20 +1,27 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title>{{ title }}</title>
-    <meta charset="utf-8"> 
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><a href="/">S.C. SIM 9000</a></h1>
-    <p>Welcome to {{ title }}</p>
-    <form action = "/login" method="POST">
-    Username: <input type="text" name="username" placeholder="Username"><br />
-    Password: <input type ="password" name="password" placeholder="Password"><br />
-    <input type ="Submit" value ="Log In">
-    </form>
-    {{{ confirm }}}
-    <h3>Not signed up?</h3>
-    <h4><a href='/signup'>Click here to register!</a></h4>
-  </body>
+    <head>
+        <title>{{ title }}</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+    </head>
+    <body>
+        <h1><a href="/">United Nations Security Council</a></h1>
+        <form action="/login" method="post">
+            <p>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Your username">
+            </p>
+            <p>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Password">
+            </p>
+            <input type="submit" value="Log In">
+        </form>
+        {{#confirm}}
+        <h2>User created</h2>
+        {{/confirm}}
+        <h3>Not signed up?</h3>
+        <h4><a href='/signup'>Click here to register!</a></h4>
+    </body>
 </html>

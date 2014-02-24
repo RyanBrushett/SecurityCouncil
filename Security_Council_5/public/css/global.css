@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+a {
+    cursor: pointer;
+}
+
+body {
+    font-size: 14pt;
+}
+
+label {
+    display: block;
+}
+
+input[type="text"],
+input[type="password"] {
+    border: 1px solid black;
+    padding: 5px;
+}
