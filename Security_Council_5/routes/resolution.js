@@ -1,11 +1,15 @@
-var config = require('../config');
 //testing database configuration
+var config = require('../config');
 if (config.useDatabase === true){
 	console.log('use db.js');
+	var database = require('../db.js');
+	database.user.getall();
+	database.user.insert("data");
 }
 else{
 	console.log('use tempdb.js');
 }
+
 
 var rooms   = require('../tempdb').rooms;
 var users   = require('../tempdb').users;
@@ -85,6 +89,7 @@ exports.editResolution = function(req, res){
 	    });
 	};
 
+//create a clause
 exports.createClause = function(req, res){
     var idx = clauses.length+1;
     clauses.push({Id: idx, Content: req.param('clausecontent'), resolutionId: req.param('resId')});
@@ -94,6 +99,7 @@ exports.createClause = function(req, res){
     res.send(rec);
 };
 
+//create a sub clause
 exports.createSubclause = function(req, res){
     var idx = subclauses.length+1;
     subclauses.push({Id: idx, Content: req.param('clausecontent'), ClauseId: req.param('clauseId')});
@@ -103,6 +109,8 @@ exports.createSubclause = function(req, res){
     res.send(rec);
 };
 
+//remove clause
+//todo: needs to be refactored
 exports.removeClause = function(req, res){
 	var type = req.param('type');
 	if (type === 'sub'){
@@ -130,6 +138,7 @@ exports.removeClause = function(req, res){
 	}
 };
 
+//get a specific clause
 exports.getClause = function(req, res){
 	var type = req.param('type');
 	var single = req.param('amount');
@@ -165,6 +174,7 @@ exports.getClause = function(req, res){
     res.send(sub);
 };
 
+//update a specific clause
 exports.updateClause = function(req, res){
 	var type = req.param('type');
     if (type === 'main'){
@@ -193,6 +203,7 @@ exports.updateClause = function(req, res){
     } 
 };
 
+//retrieve all clauses
 exports.editClauses = function(req, res){
 	var resId = req.param('id');
 	var resTitle = '';

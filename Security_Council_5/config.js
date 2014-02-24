@@ -2,6 +2,6 @@
 
 var config = {};
 
-config.useDatabase = false;
+config.useDatabase = true;
 
 module.exports = config;
