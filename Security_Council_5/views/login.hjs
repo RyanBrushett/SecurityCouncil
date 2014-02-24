@@ -6,7 +6,9 @@
         <link rel="stylesheet" href="/css/global.css">
     </head>
     <body>
-        <h1><a href="/">United Nations Security Council</a></h1>
+        <header>
+            <h1><a href="/">United Nations Security Council</a></h1>
+        </header>
         <form action="/login" method="post">
             <p>
                 <label for="username">Username</label>
