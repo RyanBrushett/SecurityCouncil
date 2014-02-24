@@ -137,9 +137,26 @@ var members = exports.members = ["Argentina","Australia",
                                  "United States of America",
                                  "United Kingdom"
                                 ];
+
+//Clone operation added to objects and arrays
+Object.prototype.clone = function() {
+    var newObj = (this instanceof Array) ? [] : {};
+    for (i in this) {
+        if (i == 'clone'){
+            continue;
+        }
+        if (this[i] && typeof this[i] == "object") {
+            newObj[i] = this[i].clone();
+        } else {
+            newObj[i] = this[i];
+        }
+    } 
+    return newObj;
+};
+
 // Empty rooms array for creating rooms
 var rooms = exports.rooms = [];
-var userList = [];
+var userList = users.clone;
 var room = {
         id:0,
         name:"Security Council 17",

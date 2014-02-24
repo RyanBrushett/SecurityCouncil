@@ -10,8 +10,8 @@ exports.getScAdmin = function(req,res){
         title: 'Admin Dashboard',
         numusers: users.length,
         numsims: rooms.length,
-        partials: { 
-            mainview: 'admin/dashboard' 
+        partials:{
+            mainview: 'admin/dashboard'
         }
     });
 };
