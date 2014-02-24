@@ -1,6 +1,6 @@
 //http://blog.modulus.io/nodejs-and-sqlite
 
-var sqlite3 = require("sqlite3").verbose();
+//var sqlite3 = require("sqlite3").verbose();
 
 var database = new Database();
 
