@@ -190,12 +190,10 @@ exports.getManageResolutions = function(req, res){
     });
 };
 
-// restrict routes based on user sessions (or lack thereof)
-exports.restrict = function(req,res,next){
-    if (req.session.user){
+exports.restrict = function(req, res, next) {
+    if (req.session.user) {
         next();
     } else {
-        req.session.error = 'Access Denied!';
         res.redirect('/login');
     }
 };

@@ -3,8 +3,11 @@
  *****************/
 
 h3 {
-    text-transform: lowercase;
     font-size: 1rem;
+}
+
+.error {
+    color: rgba(255, 0, 0, 0.8);
 }
 
 /**********
@@ -18,9 +21,9 @@ main {
 
 .section:first-of-type {
     border-right: 1px solid #333;
-    padding-right: 1rem;
+    padding-right: 2rem;
 }
 
 .section:last-of-type {
-    padding-left: 1rem;
+    padding-left: 2rem;
 }
