@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ getName }} &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/simulation.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>Security Council &middot; {{ getName }}</h2>
+            {{#getChair}}
+            <p>Chair: {{getChair}}</p>
+            {{/getChair}}
+            {{^getChair}}
+            <form>
+                <p>
+                    <label>Select a chairperson:</label>
+                    <select>
+                        {{#getCountries}}
+                        {{#getMembers}}
+                        <option value="{{ getId }}">{{ getName }}</option>
+                        {{/getMembers}}
+                        {{/getCountries}}
+                    </select>
+                </p>
+            </form>
+            {{/getChair}}
+            <p>Number of participants: {{ getNumberOfParticipants }}</p>
+            {{#getResolution}}
+            <hr class="separator">
+            <h2>{{getTitle}}</h2>
+            <form action="/moderator/simulation/{{sid}}/resolution" method="post">
+                <textarea name="resolution" class="textbox">{{getContent}}</textarea>
+                <input type="submit" class="button">
+            </form>
+            {{/getResolution}}
+            <hr class="separator">
+            <table class="countries">
+                <tr>
+                    <th>Country</th>
+                    <th>Members</th>
+                </tr>
+                {{#getCountries}}
+                <tr class="country">
+                    <td class="country__name"><a href="/moderator/simulation/{{sid}}/{{getId}}/">{{getName}}</a></td>
+                    <td>
+                        <ul class="country__members">
+                            {{#getMembers}}
+                            <li data-id="{{ getId }}" class="country__member">{{ getName }}</li>
+                            {{/getMembers}}
+                        </ul>
+                    </td>
+                </tr>
+                {{/getCountries}}
+            </table>
+        </main>
+    </body>
+</html>

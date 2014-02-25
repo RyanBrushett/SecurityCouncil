@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ getName }} &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/simulation.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/participant/debate/{{ getId }}">Debate!</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>Security Council &middot; {{ getName }}</h2>
+            {{#getChair}}
+            <p>Chair: {{ getName }}</p>
+            {{/getChair}}
+            {{^getChair}}
+            <p>No chairperson has been selected yet. Ask your moderator to select a chairperson.</p>
+            {{/getChair}}
+            <p>Number of participants: {{ getNumberOfParticipants }}</p>
+            {{#getResolution}}
+            <hr class="separator">
+            <h2>{{ getTitle }}</h2>
+            <p>{{ getContent }}</p>
+            {{/getResolution}}
+            <table class="countries">
+                <tr>
+                    <th>Country</th>
+                    <th>Members</th>
+                </tr>
+                {{#getCountries}}
+                <tr class="country">
+                    <td class="country__name"><a href="/participant/simulation/{{sid}}/{{getId}}/">{{getName}}</a></td>
+                    <td>
+                        <ul class="country__members">
+                            {{#getMembers}}
+                            <li data-id="{{ getId }}" class="country__member">{{ getName }}</li>
+                            {{/getMembers}}
+                        </ul>
+                    </td>
+                </tr>
+                {{/getCountries}}
+            </table>
+        </main>
+    </body>
+</html>

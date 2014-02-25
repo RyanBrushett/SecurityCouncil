@@ -31,6 +31,16 @@ label {
     display: block;
 }
 
+table {}
+
+th {
+    text-align: left;
+}
+
+th, td {
+    min-width: 256px;
+}
+
 select {
     margin-top: 1rem;
 }
@@ -106,9 +116,8 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
-    font-size: 1rem;
     font-family: sans-serif;
-    height: 100vh;
+    font-size: 1rem;
     padding: 2rem;
 }
 
@@ -116,4 +125,33 @@ body {
     align-items: center;
     display: flex;
     margin-bottom: 2rem;
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation ul li {
+    display: flex;
+    margin-left: 2rem;
+}
+
+/*******************
+ * UTILITY CLASSES *
+ *******************/
+
+.separator {
+    margin: 1rem 0;
+}
+
+.textbox {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 2;
+    min-height: 200px;
+    padding: 0.5rem;
+    resize: vertical;
+    width: 100%;
 }

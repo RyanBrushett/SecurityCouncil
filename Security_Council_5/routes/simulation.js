@@ -1,6 +1,6 @@
-var rooms = require('../tempdb').rooms;
-var Hogan = require('hjs');
+var db = require('../db');
 
+/*
 exports.getroombyid = function(req,res){
     if (rooms.length === 0){
         res.status(404).send('Not Found <a href="/">BACK</a>');
@@ -75,3 +75,4 @@ exports.joinroom = function(req,res){
         sort:room.sort
     });
 };
+*/

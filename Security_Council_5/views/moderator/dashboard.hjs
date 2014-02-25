@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Moderator dashboard &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a data-js="action-new-simulation">Create a new simulation</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            {{#simulations}}
+            <section class="simulation">
+                <h3 class="simulation__title">
+                    <a class="simulation__title__link" href="/moderator/simulation/{{ getId }}">{{ getName }}</a>
+                </h3>
+                <ul class="statistics">
+                    {{#getChair}}
+                    <li>Chair: {{getChair}}</li>
+                    {{/getChair}}
+                    {{^getChair}}
+                    <li>No chairperson has been selected</li>
+                    {{/getChair}}
+                    <li>Number of participants: {{ getNumberOfParticipants }}</li>
+                </ul>
+            </section>
+            {{/simulations}}
+        </main>
+    </body>
+</html>
