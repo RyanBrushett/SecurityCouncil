@@ -1,5 +1,13 @@
 var db = require('../db');
 
+exports.view = function(req, res) {
+    res.render('simulation/new');
+};
+
+exports.create = function(req, res) {
+    res.json(req.params);
+};
+
 /*
 exports.getroombyid = function(req,res){
     if (rooms.length === 0){

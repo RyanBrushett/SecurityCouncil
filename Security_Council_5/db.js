@@ -13,7 +13,7 @@ var users = [
     }),
     new User({
         id: 1,
-        name: 'Uche',
+        name: 'Uche E',
         username: 'uche'
     }),
     new User({
@@ -41,7 +41,7 @@ x[2].addMember(users[3]);
 x[0].addMember(users[4]);
 
 var y = Country.countries();
-// y[2].addMember(users[0]);
+y[2].addMember(users[0]);
 y[9].addMember(users[1]);
 y[5].addMember(users[3]);
 y[6].addMember(users[4]);
@@ -67,20 +67,33 @@ var simulations = [
     })
 ];
 
-// The database
+// Helper functions
 
-var db = {};
+var helpers = {};
 
-db.createUser = function (options) {
+helpers.createUser = function (options) {
     options.id = users.length;
     var user = new User(options);
     users.push(user);
     return user;
 };
 
+helpers.createResolution = function (options) {
+    return new Resolution(options);
+};
+
+helpers.createSimulation = function (options) {
+    options.id = simulations.length;
+    var simulation = new Simulation(options);
+    simulations.push(simulation);
+    return simulation;
+};
+
+// The database
+
 module.exports = {
     countries: Country.names,
     simulations: simulations,
     users: users,
-    createUser: db.createUser
+    helpers: helpers
 };

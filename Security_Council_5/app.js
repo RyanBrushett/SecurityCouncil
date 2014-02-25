@@ -50,6 +50,10 @@ app.post('/login', session.create);
 app.get('/signup', session.view);
 app.post('/signup', participant.create);
 
+// Simulation
+app.get('/simulation/new', session.require, simulation.view);
+app.post('/simulation/new', session.require, simulation.create);
+
 // Moderator
 app.get('/moderator/dashboard', session.require, moderator.dashboard);
 app.get('/moderator/simulation/:sid', session.require, moderator.simulation);

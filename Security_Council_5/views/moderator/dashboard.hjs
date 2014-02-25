@@ -13,7 +13,7 @@
                 <ul>
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
-                    <li><a data-js="action-new-simulation">Create a new simulation</a></li>
+                    <li><a href="/simulation/new">Create a new simulation</a></li>
                 </ul>
             </nav>
         </header>

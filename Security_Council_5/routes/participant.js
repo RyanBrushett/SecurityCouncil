@@ -5,8 +5,12 @@ exports.create = function(req, res) {
     var p2 = req.param('p2');
     var p3 = req.param('p3');
     req.session.lerror = undefined;
+    req.session.rerror = undefined;
     if (!req.param('name')) {
         req.session.rerror = 'Name cannot be empty';
+        res.redirect('/signup');
+    } else if (req.param('password').trim() === '') {
+        req.session.rerror = 'Your password cannot be empty';
         res.redirect('/signup');
     } else if (req.param('password') !== req.param('confirmpass')) {
         req.session.rerror = 'Passwords do not match';
@@ -15,13 +19,16 @@ exports.create = function(req, res) {
         req.session.rerror = 'You selected the same country multiple times';
         res.redirect('/signup');
     } else {
-        req.session.user = db.createUser({
-            name: req.param('name'),
-            password: req.param('password'),
-            preferences: [p1, p2, p3],
-            username: req.param('name').toLowerCase()
+        req.session.user = req.session.regenerate(function() {
+            var user = db.helpers.createUser({
+                name: req.param('name'),
+                password: req.param('password'),
+                preferences: [p1, p2, p3],
+                username: req.param('name').toLowerCase()
+            });
+            req.session.userId = user.getId();
+            res.redirect('/');
         });
-        res.redirect('/');
     }
 };
 
