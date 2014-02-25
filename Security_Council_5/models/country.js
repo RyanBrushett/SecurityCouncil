@@ -31,6 +31,14 @@ Country.prototype.getMembers = function () {
     return this._members;
 };
 
+Country.prototype.getName = function () {
+    return this._name;
+};
+
+Country.prototype.flag = function () {
+    return this._name.toLowerCase().replace(/ /g, '-');
+};
+
 Country.names = [
     'Argentina',
     'Australia',

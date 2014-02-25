@@ -3,7 +3,7 @@ var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
 
-// Database methods can go here
+// Fake data
 
 var users = [
     new User({
@@ -41,7 +41,7 @@ x[2].addMember(users[3]);
 x[0].addMember(users[4]);
 
 var y = Country.countries();
-y[2].addMember(users[0]);
+// y[2].addMember(users[0]);
 y[9].addMember(users[1]);
 y[5].addMember(users[3]);
 y[6].addMember(users[4]);
@@ -69,8 +69,18 @@ var simulations = [
 
 // The database
 
+var db = {};
+
+db.createUser = function (options) {
+    options.id = users.length;
+    var user = new User(options);
+    users.push(user);
+    return user;
+};
+
 module.exports = {
     countries: Country.names,
     simulations: simulations,
-    users: users
+    users: users,
+    createUser: db.createUser
 };
