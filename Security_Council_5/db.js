@@ -1,97 +1,76 @@
-//http://blog.modulus.io/nodejs-and-sqlite
+var Country = require('./models/country');
+var Resolution = require('./models/resolution');
+var Simulation = require('./models/simulation');
+var User = require('./models/user');
 
-//var sqlite3 = require("sqlite3").verbose();
+// Database methods can go here
 
-var database = new Database();
+var users = [
+    new User({
+        id: 0,
+        name: 'Ryan B',
+        username: 'ryanb'
+    }),
+    new User({
+        id: 1,
+        name: 'Uche',
+        username: 'uche'
+    }),
+    new User({
+        id: 2,
+        name: '"Dan"',
+        username: 'dan',
+        moderator: true
+    }),
+    new User({
+        id: 3,
+        name: 'Bukunola',
+        username: 'bukunola'
+    }),
+    new User({
+        id: 4,
+        name: 'Ryan M',
+        username: 'ryanm'
+    })
+];
 
-function Database()
-{
-	this.user = {};
-	this.room = {};
-	this.resolution = {};
-	this.subclause = {};
-	this.clause = {};
-	//this.db = new sqlite3.Database('test.db');
-}
+var x = Country.countries();
+x[3].addMember(users[0]);
+x[7].addMember(users[1]);
+x[2].addMember(users[3]);
+x[0].addMember(users[4]);
 
-/*
- * get methods: retrieve all users, rooms, resolution etc. tables
- */ 
-database.user.getall = function (){
-	/*db.all("select * from user", function(records){
-		console.log(records);
-	});*/
+var y = Country.countries();
+y[2].addMember(users[0]);
+y[9].addMember(users[1]);
+y[5].addMember(users[3]);
+y[6].addMember(users[4]);
+
+var simulations = [
+    new Simulation({
+        id: 0,
+        countries: x,
+        name: 'Political Science 2200',
+        resolution: new Resolution({
+            title: 'The fake resolution for POSC 2200',
+            content: 'Lorem ipsum dolor sit amet 2200'
+        })
+    }),
+    new Simulation({
+        id: 1,
+        countries: y,
+        name: 'Political Science 3220',
+        resolution: new Resolution({
+            title: 'The fake resolution for POSC 3220',
+            content: 'Lorem ipsum dolor sit amet 3220'
+        })
+    })
+];
+
+// The database
+
+module.exports = {
+    countries: Country.names,
+    simulations: simulations,
+    users: users
 };
-
-database.room.getall = function (){
-	console.log("This method has not yet been implemented");
-};
-
-database.resolution.getall = function (){
-	console.log("This method has not yet been implemented");
-};
-
-database.subclause.getall = function (){
-	console.log("This method has not yet been implemented");
-};
-
-database.clause.getall = function (){
-	console.log("This method has not yet been implemented");
-};
-
-
-/*
- * set methods: insert data into users, rooms, resolution etc. tables
- */
-database.user.insert = function (data){
-	console.log("This method has not yet been implemented");
-};
-
-database.room.insert = function (data){
-	console.log("This method has not yet been implemented");
-};
-
-database.resolution.insert = function (data){
-	console.log("This method has not yet been implemented");
-};
-
-database.subclause.insert = function (data){
-	console.log("This method has not yet been implemented");
-};
-
-database.clause.insert = function (data){
-	console.log("This method has not yet been implemented");
-};
-
-
-
-
-
-module.exports = database;
-/*
-var fs = require('fs');
-var file = 'test.db';
-var exists = fs.existsSync(file);
-
-var sqlite3 = require("sqlite3").verbose();
-var db = new sqlite3.Database(file);
-
-
-if(!exists) {
-  console.log("Creating DB file.");
-  fs.openSync(file, "w");
-}
-
-db.serialize(function() {
-	console.log('Create db table here!!');
-});
-*/
-/*//configuration
-var config = require('config');
-//database
-if (config.useDatabase === true){
-	console.log('use db.js');
-}
-else{
-	console.log('use tempdb.js');
-}*/
