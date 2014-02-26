@@ -9,10 +9,12 @@ exports.create = function(req, res) {
         title: req.body.title,
         content: req.body.content
     });
-    db.helpers.createSimulation({
+    var simulation = db.helpers.createSimulation({
         name: req.body.name,
         resolution: resolution
     });
+    var users = db.users;
+    db.helpers.addAllUsersToSimulation(simulation, users);
     res.redirect('/');
 };
 
