@@ -12,6 +12,9 @@
             <nav class="navigation">
                 <ul>
                     <li>You are {{ currentUser.getName }}</li>
+                    {{#currentUser.flag}}
+                    <li><img src="/images/{{ currentUser.flag }}" width="32px", height="32px"></li>
+                    {{/currentUser.flag}}
                     <li><a href="/">Dashboard</a></li>
                 </ul>
             </nav>
