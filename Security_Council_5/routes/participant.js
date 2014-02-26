@@ -81,6 +81,18 @@ exports.country = function(req, res) {
         members: countryMembers,
         name: country.getName(),
         simulation: simulation,
-        userIsMember: userIsMember
+        userIsMember: userIsMember,
+        countryId: country.getId(),
+        positionPaper: country.getPositionPaper()
     });
+};
+
+exports.submit = function(req, res) {
+    var simulationId = req.params.sid;
+    var countryId = req.params.cid;
+    var positionPaper = req.body["position-paper"];
+    var simulation = db.simulations[simulationId];
+    var country = simulation.getCountries()[countryId];
+    country.setPositionPaper(positionPaper);
+    res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };

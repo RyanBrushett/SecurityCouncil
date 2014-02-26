@@ -3,6 +3,7 @@ var Country = function (options) {
     this._id = options.id;
     this._members = options.members || [];
     this._name = options.name;
+    this._positionPaper = options.positionPaper || '';
 };
 
 Country.prototype.getId = function () {
@@ -37,6 +38,14 @@ Country.prototype.getName = function () {
 
 Country.prototype.flag = function () {
     return this._name.toLowerCase().replace(/ /g, '-');
+};
+
+Country.prototype.setPositionPaper = function (positionPaper) {
+    this._positionPaper = positionPaper;
+};
+
+Country.prototype.getPositionPaper = function () {
+    return this._positionPaper;
 };
 
 Country.names = [

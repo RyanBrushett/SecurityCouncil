@@ -63,6 +63,7 @@ app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
 app.get('/participant/dashboard', session.require, participant.dashboard);
 app.get('/participant/simulation/:sid', session.require, participant.simulation);
 app.get('/participant/simulation/:sid/:cid', session.require, participant.country);
+app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {
