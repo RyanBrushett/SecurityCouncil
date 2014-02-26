@@ -4,6 +4,7 @@ var User = function (options) {
     this._name = options.name;
     this._password = options.password || 'password';
     this._username = options.username;
+    this._preferences = options.preferences;
 };
 
 User.prototype.getId = function () {
@@ -20,6 +21,10 @@ User.prototype.setName = function (name) {
 
 User.prototype.getName = function () {
     return this._name;
+};
+
+User.prototype.getPreferences = function () {
+    return this._preferences;
 };
 
 User.prototype.checkPassword = function (password) {
