@@ -22,18 +22,17 @@
             {{#ambassador}}
             <p>Ambassador: {{ getName }}</p>
             {{/ambassador}}
-            {{^ambassador}}
-            <form>
+            <form action="/moderator/ambassador/{{simulation.getId }}/{{ countryId }}" method="post">
                 <p>
                     <label>Select an ambassador:</label>
-                    <select>
+                    <select name="ambassador">
                         {{#members}}
                         <option value="{{ getId }}">{{ getName }}</option>
                         {{/members}}
                     </select>
+                    <input type="submit" class="button" value="Set Ambassador">
                 </p>
             </form>
-            {{/ambassador}}
             <hr class="separator">
             <h2>Members of {{ name }}</h2>
             <ul class="members">
