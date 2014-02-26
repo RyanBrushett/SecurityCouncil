@@ -110,7 +110,7 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     b. You'll notice a Join This Simulation button in the nav bar. Click this at this time.
     c. You're registered! This allows you to participate in debate, queues you for team selection, and allows you to become a chair.
 
-3. __Moderator designates a chair:__
+3. __Moderatcor designates a chair:__
     a. Log in as fiech // password. You'll be brought to your dashboard and see simulations again.
     b. The simulations will note whether or not a council chair has been selected. For our default test data, no chair has been selected.
     c. Click a council name to be brought to its properties page.
@@ -131,6 +131,9 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     b. Select a simulation. You'll be able to edit / view the current resolution. It supports HTML!
     c. When a user logs in and selects an SCSS, they'll see the resolution displayed.
     d. Note that a moderator can submit a resolution when creating the simulation.
+    
+7. __Moderator Setting Directives__:
+    a. TODO:
     
 8. __Position Papers__:
     a. Log in as ryanb // password and select a simulation to which you are registered.
