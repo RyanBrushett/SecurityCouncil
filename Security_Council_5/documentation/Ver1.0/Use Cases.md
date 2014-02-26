@@ -6,7 +6,7 @@ COMP4770 Group 5
 
 **Primary Actor:** All users
 **Description:** Participants and Administrators log into the simulation of United Nation Security Council system.
-**Notes:** 
+**Notes:**
 	- Currently, the app does not differentiate between Participant users and Administrator users. With future database implementation, this functionality will be implemented easily.
 **Stakeholder and Interests:**
 	- _All users:_ The user, either an Administrator or Participant, hopes to gain access to the Council system
@@ -27,10 +27,10 @@ COMP4770 Group 5
 **Alternate Paths:**
 **Alt 1:** The participant does know his/her password //to be developed
 1.	The participant clicks the “Forgot password” button on the login page
-2.	The system displays the “Find password” page 
+2.	The system displays the “Find password” page
 3.	The participant gets a password
 4.	The participant enters his/her username and password
-**Alt 2:** The participant enters an invalid username and password combination 
+**Alt 2:** The participant enters an invalid username and password combination
 1.	The system displays "Invalid user name or password" and redirects the participant back to login page.
 
 ### View active Councils:
@@ -57,7 +57,7 @@ None.
 **Primary Actor:** Participants
 **Description:** The user joins an active Council
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Participant wants to join an active Council.
 **Preconditions:**
@@ -97,7 +97,7 @@ None.
 **Primary Actor:** Participants
 **Description:** The user views the past debate or a specific private conversation of the Council
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Participant wants to review the debate that has taken place in a Council or participate in a private conversation
 **Preconditions:**
@@ -130,7 +130,7 @@ None.
 	- The user has submitted a speech for the other members of the Council to read in caucus, or has messaged other members of a private conversation
 
 **Main Success Scenario:**
-	1. The user types her/his speech into the text box at the bottom of the rightmost column in the Council view. 
+	1. The user types her/his speech into the text box at the bottom of the rightmost column in the Council view.
 	2. The user selects “Submit”.
 
 **Alternate Paths:**
@@ -141,7 +141,7 @@ None.
 **Primary Actor:** Administrators
 **Description:** The Administrator views the current status of the entire system
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Administrator wants to see the status of the system (e.g., number of rooms, participants, etc.)
 **Preconditions:**
@@ -160,7 +160,7 @@ None.
 **Primary Actor:** Administrators
 **Description:** The Administrator adds a new user to the system
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Administrator wants to add a new user to the system.
 **Preconditions:**
@@ -180,7 +180,7 @@ None.
 **Primary Actor:** Administrators
 **Description:** The Administrator views the current Councils of the system in Administrator mode. Here, the Admin can also create new Councils.
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Administrator wants to see the list of active Councils
 **Preconditions:**
@@ -211,7 +211,7 @@ None.
 
 **Main Success Scenario:**
 	1. The administrator enters the Council name and the name of the Administrator responsible in the in-page menu.
-	2. The administrator selects the team distribution type for this Council from the available options. 
+	2. The administrator selects the team distribution type for this Council from the available options.
 	3. The administrator selects “Create Council”
 
 **Alternate Paths:**
@@ -221,7 +221,7 @@ None.
 **Primary Actor:** Administrators
 **Description:** The Administrator views the status of an active Council.
 **Notes:**
-	- 
+	-
 **Stakeholder and Interests:**
 	- The Administrator wants to view the status of an active Council
 **Preconditions:**

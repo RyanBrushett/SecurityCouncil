@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Login or register &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+        </header>
+        <main>
+            <form class="section" action="/login" method="post">
+                <h2>Login</h2>
+                <h3>Already have an account</h3>
+                {{#lerror}}
+                <p class="error">{{lerror}}</p>
+                {{/lerror}}
+                <p><input type="text" name="username" placeholder="Username"></p>
+                <p><input type="password" name="password" placeholder="Password"></p>
+                <p><input class="button" type="submit" value="Login"></p>
+            </form>
+            <form class="section" action="/signup" method="post">
+                <h2>Register</h2>
+                <h3>It only takes a moment</h3>
+                {{#rerror}}
+                <p class="error">{{rerror}}</p>
+                {{/rerror}}
+                <p><input type="text" name="name" placeholder="Your name"></p>
+                <p><input type="password" name="password" placeholder="Choose a password"></p>
+                <p><input type="password" name="confirmpass" placeholder="Confirm your password"></p>
+                <p>
+                    <label>First team preference</label>
+                    <select name="p1">
+                        {{#countries}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{/countries}}
+                    </select>
+                </p>
+                <p>
+                    <label>Second team preference</label>
+                    <select name="p2">
+                        {{#countries}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{/countries}}
+                    </select>
+                </p>
+                <p>
+                    <label>Third team preference</label>
+                    <select name="p3">
+                        {{#countries}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{/countries}}
+                    </select>
+                </p>
+                <input class="button" type="submit" value="Register">
+            </form>
+        </main>
+    </body>
+</html>

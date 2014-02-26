@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ name }} &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/country.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/moderator/simulation/{{ simulation.getId }}">Back to {{ simulation.getName }}</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2>{{ name }}</h2>
+            {{#ambassador}}
+            <p>Ambassador: {{ getName }}</p>
+            {{/ambassador}}
+            <form action="/moderator/ambassador/{{simulation.getId }}/{{ countryId }}" method="post">
+                <p>
+                    <label>Select an ambassador:</label>
+                    <select name="ambassador">
+                        {{#members}}
+                        <option value="{{ getId }}">{{ getName }}</option>
+                        {{/members}}
+                    </select>
+                    <input type="submit" class="button" value="Set Ambassador">
+                </p>
+            </form>
+            <hr class="separator">
+            <h2>Members of {{ name }}</h2>
+            <ul class="members">
+                {{#members}}
+                <li>{{ getName }}</li>
+                {{/members}}
+            </ul>
+            <hr class="separator">
+            <h2>Position paper</h2>
+            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+            <hr class="separator">
+            <h2>Country directives</h2>
+            <p>
+                Set directives for this country, based on their position paper.
+                <form action="/moderator/directives/{{ simulation.getId }}/{{ countryId }}" method="post">
+                    <textarea name="directives" class="textbox">{{{directives}}}</textarea>
+                    <input type="submit" class="button" value="Set Directives">
+            </form>
+        </main>
+    </body>
+</html>

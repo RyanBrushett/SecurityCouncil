@@ -1,0 +1,39 @@
+var db = require('../db');
+
+exports.view = function(req, res) {
+    var simulation = db.simulations[req.params.id];
+    var currentUser = db.users[req.session.userId];
+    currentUser.flag = undefined;
+    simulation.currentUser = currentUser;
+    res.render('debate/index', simulation);
+};
+
+exports.comment = function(req, res) {
+    var simulation = db.simulations[req.params.id];
+    var currentUser = db.users[req.session.userId];
+    
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        var members = countries[i].getMembers();
+        for(var j = 0; j < members.length; j++){
+            if(currentUser.getId() === members[j].getId()){
+                //currentUser.flag = countries[i].flag();
+                currentUser.setFlag(countries[i].flag());
+                console.log(currentUser.getFlag());
+            }
+            else{
+                currentUser.flag = undefined;
+            }
+        }
+    }
+    
+    simulation.currentUser = currentUser;
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: req.body.comment,
+        user: currentUser
+    });
+    simulation.addComment(newComment);
+    
+    res.render('debate/index', simulation);
+};

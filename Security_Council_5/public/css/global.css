@@ -1,0 +1,171 @@
+/*********
+ * RESET *
+ *********/
+
+:root {
+    font-size: 16px;
+}
+
+* {
+    /* Not the difference between this anc content-box */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+em {
+    font-style: italic;
+}
+
+/* Reset the <i> tag as it is not used to indicate italics */
+i {
+    font-style: normal;
+}
+
+table {}
+
+th {
+    text-align: left;
+}
+
+th, td {
+    min-width: 256px;
+}
+
+label {
+    display: block;
+}
+
+input[type="radio"] + label {
+    display: inline;
+    margin-left: 10px;
+}
+
+input[type="radio"] {
+    margin-left: 10px;
+}
+
+input[type="radio"]:first-of-type {
+    margin-left: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+    border-radius: 1px;
+    border: 1px solid #aaa;
+    box-shadow: inset 0 1px 3px #aaa;
+    min-width: 256px;
+    padding: 0.5rem;
+}
+
+select {
+    margin-top: 1rem;
+}
+
+h1 {
+    color: #aaa;
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    margin: 0 0 1rem;
+}
+
+/***********
+ * BUTTONS *
+ ***********/
+
+.button {
+    background: transparent;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 1px #fff;
+    color: #333;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 6px 10px 8px;
+    text-shadow: 0 1px 1px white;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.button:hover,
+.button:focus {
+    background: -webkit-linear-gradient(top, white, #e0e0e0);
+    border-color: #999;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25), inset 0 0 3px #fff;
+    outline: none;
+}
+
+.button:active {
+    background: -webkit-linear-gradient(top, #e6e6e6, gainsboro);
+    border-bottom-color: #ccc;
+    border-top-color: #999;
+    border: 1px solid #aaa;
+    box-shadow: inset 0 1px 2px #aaa;
+}
+
+/**********
+ * LAYOUT *
+ **********/
+
+/* The entire <body> is a flex container */
+body {
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-size: 1rem;
+    padding: 2rem;
+}
+
+.header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navigation ul li {
+    display: flex;
+    margin-left: 2rem;
+}
+
+/*******************
+ * UTILITY CLASSES *
+ *******************/
+
+.separator {
+    margin: 1rem 0;
+}
+
+.textbox {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 2;
+    min-height: 200px;
+    padding: 0.5rem;
+    resize: vertical;
+    width: 100%;
+}
