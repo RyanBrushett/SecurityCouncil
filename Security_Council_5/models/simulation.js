@@ -1,5 +1,6 @@
 var Simulation = function (options) {
     this._countries = options.countries || [];
+    this._comments = options.comments || [];
     this._id = options.id;
     this._name = options.name;
     this._resolution = options.resolution;
@@ -12,6 +13,10 @@ Simulation.prototype.getId = function () {
 
 Simulation.prototype.getCountries = function () {
     return this._countries;
+};
+
+Simulation.prototype.getComments = function () {
+    return this._comments;
 };
 
 Simulation.prototype.getName = function () {
@@ -40,6 +45,10 @@ Simulation.prototype.setChairperson = function (chairperson) {
 
 Simulation.prototype.getChairperson = function () {
     return this._chairperson;
+};
+
+Simulation.prototype.addComment = function (comment) {
+    this._comments.unshift(comment);
 };
 
 module.exports = Simulation;

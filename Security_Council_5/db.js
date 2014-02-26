@@ -2,6 +2,7 @@ var Country = require('./models/country');
 var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
+var Comment = require('./models/comment');
 
 // Fake data
 
@@ -260,6 +261,11 @@ helpers.createUser = function (options) {
 
 helpers.createResolution = function (options) {
     return new Resolution(options);
+};
+
+helpers.createComment = function (simulation, options) {
+    options.id = simulation.getComments().length;
+    return new Comment(options);
 };
 
 helpers.createSimulation = function (options) {
