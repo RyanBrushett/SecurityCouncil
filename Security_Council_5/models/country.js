@@ -37,7 +37,7 @@ Country.prototype.getName = function () {
 };
 
 Country.prototype.flag = function () {
-    return this._name.toLowerCase().replace(/ /g, '-');
+    return this._name.toLowerCase().replace(/ /g, '-') + '.svg';
 };
 
 Country.prototype.setPositionPaper = function (positionPaper) {
