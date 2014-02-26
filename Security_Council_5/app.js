@@ -63,6 +63,7 @@ app.post('/moderator/submit/:sid', session.require, moderator.submit);
 app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
 app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
 app.post('/moderator/simulation/visible-paper/:sid', session.require, moderator.positionPaperVisible)
+app.post('/moderator/directives/:sid/:cid', session.require, moderator.directives);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
