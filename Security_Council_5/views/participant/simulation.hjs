@@ -25,12 +25,12 @@
         </header>
         <main>
             <h2>Security Council &middot; {{ getName }}</h2>
-            {{#getChair}}
-            <p>Chair: {{ getName }}</p>
-            {{/getChair}}
-            {{^getChair}}
+            {{#getChairperson}}
+            <p>Current Chair: {{getName}}</p>
+            {{/getChairperson}}
+            {{^getChairperson}}
             <p>No chairperson has been selected yet. Ask your moderator to select a chairperson.</p>
-            {{/getChair}}
+            {{/getChairperson}}
             <p>Number of participants: {{ getNumberOfParticipants }}</p>
             {{#getResolution}}
             <hr class="separator">
