@@ -42,7 +42,7 @@
             </ul>
             <hr class="separator">
             <h2>Position paper</h2>
-            <textarea disabled="true" class="textbox">We believe that...</textarea>
+            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
         </main>
     </body>
 </html>

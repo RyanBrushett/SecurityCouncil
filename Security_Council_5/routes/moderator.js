@@ -21,7 +21,8 @@ exports.country = function (req, res) {
         members: country.getMembers(),
         name: country.getName(),
         countryId: country.getId(),
-        simulation: simulation
+        simulation: simulation,
+        positionPaper: country.getPositionPaper()
     });
 };
 
