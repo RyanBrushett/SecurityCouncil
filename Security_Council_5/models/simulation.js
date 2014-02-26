@@ -3,6 +3,7 @@ var Simulation = function (options) {
     this._id = options.id;
     this._name = options.name;
     this._resolution = options.resolution;
+    this._chairperson = options.chairperson;
 };
 
 Simulation.prototype.getId = function () {
@@ -31,6 +32,14 @@ Simulation.prototype.setResolution = function (resolution) {
 
 Simulation.prototype.getResolution = function () {
     return this._resolution;
+};
+
+Simulation.prototype.setChairperson = function (chairperson) {
+    this._chairperson = chairperson;
+};
+
+Simulation.prototype.getChairperson = function () {
+    return this._chairperson;
 };
 
 module.exports = Simulation;

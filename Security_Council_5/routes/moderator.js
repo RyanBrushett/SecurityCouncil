@@ -31,3 +31,12 @@ exports.submit = function (req, res) {
     simulation.getResolution().setContent(resolutionContent);
     res.redirect('/moderator/simulation/' + simulationId);
 };
+
+exports.chairperson = function (req, res) {
+    var simulationId = req.params.sid;
+    var chairpersonId = req.body["chairperson"];
+    var simulation = db.simulations[simulationId];
+    var chairperson = db.users[chairpersonId];
+    simulation.setChairperson(chairperson);
+    res.redirect('/moderator/simulation/' + simulationId);
+}

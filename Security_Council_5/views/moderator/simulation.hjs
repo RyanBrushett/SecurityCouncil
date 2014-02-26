@@ -18,23 +18,22 @@
         </header>
         <main>
             <h2>Security Council &middot; {{ getName }}</h2>
-            {{#getChair}}
-            <p>Chair: {{getChair}}</p>
-            {{/getChair}}
-            {{^getChair}}
-            <form>
+            {{#getChairperson}}
+            <p>Current Chair: {{getName}}</p>
+            {{/getChairperson}}
+            <form action="/moderator/simulation/chairperson/{{sid}}" method="post">
                 <p>
                     <label>Select a chairperson:</label>
-                    <select>
+                    <select name="chairperson">
                         {{#getCountries}}
                         {{#getMembers}}
                         <option value="{{ getId }}">{{ getName }}</option>
                         {{/getMembers}}
                         {{/getCountries}}
                     </select>
+                    <input type="submit" class="button" value="Set Chairperson">
                 </p>
             </form>
-            {{/getChair}}
             <p>Number of participants: {{ getNumberOfParticipants }}</p>
             {{#getResolution}}
             <hr class="separator">
