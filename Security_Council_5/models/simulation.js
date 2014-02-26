@@ -50,12 +50,11 @@ Simulation.prototype.getChairperson = function () {
 
 Simulation.prototype.setPaperVisible = function (paperIsVisible) {
     this._paperIsVisible = paperIsVisible;
-    console.log("Set visible mode to " + this._paperIsVisible);
-}
+};
 
 Simulation.prototype.isPaperVisible = function () {
     return this._paperIsVisible;
-}
+};
 
 Simulation.prototype.addComment = function (comment) {
     this._comments.unshift(comment);

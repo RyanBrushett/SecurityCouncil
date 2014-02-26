@@ -23,7 +23,7 @@ exports.country = function (req, res) {
         countryId: country.getId(),
         simulation: simulation,
         positionPaper: country.getPositionPaper(),
-        positionPaperViewable: simulation.isPaperViewable()
+        positionPaperViewable: simulation.isPaperVisible()
     });
 };
 
