@@ -31,15 +31,18 @@
                 {{/members}}
             </ul>
             <hr class="separator">
-            <h2>Position paper</h2>
             {{#userIsMember}}
+            <h2>Position paper</h2>
             <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" method="post">
                 <textarea name="position-paper" class="textbox">{{{ positionPaper }}}</textarea>
                 <input type="submit" class="button" value="Submit Position Paper">
             </form>
             {{/userIsMember}}
             {{^userIsMember}}
-            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+                {{#positionPaperVisible}}
+                <h2>Position paper</h2>
+                <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+                {{/positionPaperVisible}}
             {{/userIsMember}}
         </main>
     </body>

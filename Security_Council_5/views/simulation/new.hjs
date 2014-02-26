@@ -29,10 +29,8 @@
                 </p>
                 <p>Choose a sort method:</p>
                 <p>
-                    <input type="radio" id="random-sort" name="sort" value="random" checked>
-                    <label for="randomteam">Randomly Assigned</label>
-                    <input type="radio" id="manual-sort" name="sort" value="manual">
-                    <label for="manualteam">Manually Assign</label>
+                    <input type="radio" id="priority-sort" name="sort" value="priority" checked>
+                    <label for="priorityteam">Priority Registration Assign</label>
                 </p>
                 <p>
                     <input type="submit" value="Create new simulation" class="button">

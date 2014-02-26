@@ -34,6 +34,17 @@
                     <input type="submit" class="button" value="Set Chairperson">
                 </p>
             </form>
+            <form action="/moderator/simulation/visible-paper/{{sid}}" method="post">
+                <p>
+                    <label>Set the visibility of member's position paper:</label>
+                    <select name="paperIsVisible">
+                        <option value="hidden" {{^isPaperVisible}} selected="true" {{/isPaperVisible}}>Hidden</option>
+                        <option value="visible" {{#isPaperVisible}} selected="true" {{/isPaperVisible}}>Visible</option>
+                    </select>
+                    <input type="submit" class="button" value="Set mode">
+                    (Sets whether participants can view other nations' position papers.)
+                </p>
+            </form>
             <p>Number of participants: {{ getNumberOfParticipants }}</p>
             {{#getResolution}}
             <hr class="separator">
