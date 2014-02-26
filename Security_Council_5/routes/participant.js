@@ -82,6 +82,7 @@ exports.country = function(req, res) {
     var country = countries[req.params.cid];
     var countryMembers = country.getMembers();
     var userIsMember = (countryMembers.indexOf(user) >= 0);
+    var positionPaperVisible = simulation.isPaperVisible();
     res.render('participant/country', {
         ambassador: country.getAmbassador(),
         members: countryMembers,
@@ -90,7 +91,8 @@ exports.country = function(req, res) {
         user: user,
         userIsMember: userIsMember,
         countryId: country.getId(),
-        positionPaper: country.getPositionPaper()
+        positionPaper: country.getPositionPaper(),
+        positionPaperVisible: simulation.isPaperVisible()
     });
 };
 
