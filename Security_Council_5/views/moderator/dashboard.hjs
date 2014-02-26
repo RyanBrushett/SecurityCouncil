@@ -24,12 +24,12 @@
                     <a class="simulation__title__link" href="/moderator/simulation/{{ getId }}">{{ getName }}</a>
                 </h3>
                 <ul class="statistics">
-                    {{#getChair}}
-                    <li>Chair: {{getChair}}</li>
-                    {{/getChair}}
-                    {{^getChair}}
+                    {{#getChairperson}}
+                    <li>Chair: {{getName}}</li>
+                    {{/getChairperson}}
+                    {{^getChairperson}}
                     <li>No chairperson has been selected</li>
-                    {{/getChair}}
+                    {{/getChairperson}}
                     <li>Number of participants: {{ getNumberOfParticipants }}</li>
                 </ul>
             </section>
