@@ -34,4 +34,12 @@ User.prototype.getUsername = function () {
     return this._username;
 };
 
+User.prototype.setFlag = function (flag) {
+    this._flag = flag;
+};
+
+User.prototype.getFlag = function (){
+    return this._flag;
+};
+
 module.exports = User;
