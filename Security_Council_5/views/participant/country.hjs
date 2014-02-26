@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ name }} &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/country.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li>You are {{ user.getName }}</li>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/participant/simulation/{{ simulation.getId }}">Back to {{ simulation.getName }}</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main data-member="{{#userIsMember}}true{{/userIsMember}}">
+            <h2>{{ name }}</h2>
+            {{#ambassador}}
+            <p>Ambassador: {{ getName }}</p>
+            {{/ambassador}}
+            <hr class="separator">
+            <h2>Members of {{ name }}</h2>
+            <ul class="members">
+                {{#members}}
+                <li>{{ getName }}</li>
+                {{/members}}
+            </ul>
+            <hr class="separator">
+            <h2>Position paper</h2>
+            {{#userIsMember}}
+            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" method="post">
+                <textarea name="position-paper" class="textbox">{{{ positionPaper }}}</textarea>
+                <input type="submit" class="button" value="Submit Position Paper">
+            </form>
+            {{/userIsMember}}
+            {{^userIsMember}}
+            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+            {{/userIsMember}}
+        </main>
+    </body>
+</html>

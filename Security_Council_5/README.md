@@ -35,7 +35,7 @@ Change into the `/path/to_/SC_Sim_5/Security_Council_5` directory from a shell a
         $ node app.js
 
 The app will confirm it has started by writing a message to the shell stating
-        
+
         Express server listening on port 3000
 
 Then, using Chrome, connect to http://localhost:3000/
@@ -71,7 +71,7 @@ You'll be presented with a login page. You may log in with <username // password
 
 ## Overview
 
-Council is an app  that facilitates critical debate between different stakeholders about different topics. It provides an effective digital simulation of United Nations Security Council meetings. Administrators create and maintain different Councils, while Participants engage in debate about different resolutions with different people in these Councils. 
+Council is an app  that facilitates critical debate between different stakeholders about different topics. It provides an effective digital simulation of United Nations Security Council meetings. Administrators create and maintain different Councils, while Participants engage in debate about different resolutions with different people in these Councils.
 
 ## Process
 

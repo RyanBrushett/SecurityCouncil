@@ -3,18 +3,19 @@ var http = require('http');
 var path = require('path');
 
 // Routes
-var routes = require('./routes');
-var admin = require('./routes/scadmin');
-var user = require('./routes/user');
-var room = require('./routes/rooms');
-var resolution = require('./routes/resolution');
-var app = express();
+var debate = require('./routes/debate');
+var moderator = require('./routes/moderator');
+var participant = require('./routes/participant');
+var session = require('./routes/session');
+var simulation = require('./routes/simulation');
 
-// all environments
-app.set('port', process.env.PORT || 3000);
+// Express
+var app = express();
+app.set('port', process.env.PORT || 3333);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hjs');
-// app.use(express.bodyParser()); Cleaning up launch warnings. This isn't needed.
+
+// Middleware
 app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
@@ -25,57 +26,54 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
-if ('development' == app.get('env')) {
+// Development only
+if (app.get('env') == 'development') {
     app.use(express.errorHandler());
 }
 
-/*
- * Note that any route that contains the admin.restrict function
- * is restricted. This function will not allow the use of that route
- * unless a session is created.
- * If you don't know a username, use:
- * username: ryanb
- * password: password
- */
+// Error settings
+app.use(function(req, res) {
+    res.render('404', {
+        url: req.url
+    });
+    return;
+});
 
 // Root
-app.get('/', admin.restrict, routes.index);
-
-// Admin and sim management
-app.get('/sc-admin', admin.restrict, admin.getScAdmin);
-app.get('/sc-admin/managesim', admin.restrict, admin.getMakeSim);
-app.post('/sc-admin/managesim', admin.restrict, admin.postMakeSim);
-app.get('/sc-admin/managesim/:name', admin.restrict, room.getroombyid);
-
-// Users
-app.get('/sc-admin/manageusers', admin.restrict, admin.getManageUsers);
-app.post('/sc-admin/manageusers', admin.restrict, admin.postManageUsers);
-app.post('/sc-admin/manageusers/getusersbyroom', admin.restrict, user.getUsersByRoom);
-app.post('/sc-admin/manageusers/getuserinfo', admin.restrict, user.getUserInfo);
-app.post('/sc-admin/manageusers/changepassword/:username', admin.restrict, user.changeUserPassword);
-app.post('/sc-admin/manageusers/updatesettings/:username', admin.restrict, user.updateUserSettings);
-app.get('/signup', user.getUserRegistration);
-app.post('/signup', user.postUserRegistration);
-
-// Resolution manager
-app.get('/sc-admin/manageresolutions', admin.getManageResolutions);
-app.post('/sc-admin/createresolution', resolution.createResolution);
-app.post('/sc-admin/manageresolutions/getresolutioninfo', resolution.getResolutionInfo);
-app.post('/sc-admin/manageresolutions/updateresolution/:id', resolution.updateResolution);
-
-// Rooms routes
-app.get('/sim', admin.restrict, room.getallrooms);
-app.get('/sim/:name', admin.restrict, room.joinroom);
-
-// Chat routes. See routes/chatService
-require('./routes/chatService')(app);
+app.get('/', session.require, session.redirect);
 
 // Session management
-app.get('/login', routes.login);
-app.post('/login', routes.loginUser);
-app.get('/logout', admin.restrict, routes.logout);
+app.get('/login', session.view);
+app.get('/logout', session.destroy);
+app.post('/login', session.create);
 
-http.createServer(app).listen(app.get('port'), function(){
+// User registration
+app.get('/signup', session.view);
+app.post('/signup', participant.create);
+
+// Simulation
+app.get('/simulation/new', session.require, simulation.view);
+app.post('/simulation/new', session.require, simulation.create);
+
+// Moderator
+app.get('/moderator/dashboard', session.require, moderator.dashboard);
+app.get('/moderator/simulation/:sid', session.require, moderator.simulation);
+app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
+app.post('/moderator/submit/:sid', session.require, moderator.submit);
+app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
+app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
+
+// Participant
+app.get('/participant/dashboard', session.require, participant.dashboard);
+app.get('/participant/simulation/:sid', session.require, participant.simulation);
+app.get('/participant/simulation/:sid/:cid', session.require, participant.country);
+app.get('/participant/join/simulation/:sid', session.require, participant.join);
+app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
+
+// Debate view
+app.get('/debate/:id', session.require, debate.view);
+
+// Create server
+http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
 });

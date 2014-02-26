@@ -1,0 +1,11 @@
+th, td {
+    padding: 1rem 1rem 1rem 0;
+}
+
+.country__members {
+    list-style: none;
+}
+
+.country__member {
+    cursor: move;
+}
