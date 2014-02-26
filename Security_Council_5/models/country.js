@@ -4,6 +4,7 @@ var Country = function (options) {
     this._members = options.members || [];
     this._name = options.name;
     this._positionPaper = options.positionPaper || '';
+    this._directives = options.directives || '';
 };
 
 Country.prototype.getId = function () {
@@ -46,6 +47,15 @@ Country.prototype.setPositionPaper = function (positionPaper) {
 
 Country.prototype.getPositionPaper = function () {
     return this._positionPaper;
+};
+
+Country.prototype.setDirectives = function (directives) {
+    this._directives = directives;
+    console.log("Set directives to " + directives);
+};
+
+Country.prototype.getDirectives = function () {
+    return this._directives;
 };
 
 Country.names = [

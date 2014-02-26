@@ -43,6 +43,14 @@
             <hr class="separator">
             <h2>Position paper</h2>
             <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+            <hr class="separator">
+            <h2>Country directives</h2>
+            <p>
+                Set directives for this country, based on their position paper.
+                <form action="/moderator/directives/{{ simulation.getId }}/{{ countryId }}" method="post">
+                    <textarea name="directives" class="textbox">{{{directives}}}</textarea>
+                    <input type="submit" class="button" value="Set Directives">
+            </form>
         </main>
     </body>
 </html>
