@@ -72,6 +72,7 @@ app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
+app.post('/debate/:id', session.require, debate.comment);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {
