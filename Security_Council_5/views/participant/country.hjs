@@ -47,13 +47,13 @@
             <hr class="separator">
             <h2>Position paper</h2>
             {{#userIsMember}}
-            <form>
-                <textarea class="textbox">We believe that...</textarea>
-                <input type="submit" class="button">
+            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" method="post">
+                <textarea name="position-paper" class="textbox">{{{ positionPaper }}}</textarea>
+                <input type="submit" class="button" value="Submit Position Paper">
             </form>
             {{/userIsMember}}
             {{^userIsMember}}
-            <textarea disabled="true" class="textbox">We believe that...</textarea>
+            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
             {{/userIsMember}}
         </main>
     </body>

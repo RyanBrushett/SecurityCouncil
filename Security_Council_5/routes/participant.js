@@ -88,7 +88,9 @@ exports.country = function(req, res) {
         name: country.getName(),
         simulation: simulation,
         user: user,
-        userIsMember: userIsMember
+        userIsMember: userIsMember,
+        countryId: country.getId(),
+        positionPaper: country.getPositionPaper()
     });
 };
 
@@ -97,4 +99,14 @@ exports.join = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     db.helpers.addUserToSimulation(simulation, user);
     res.redirect('/participant/simulation/' + req.params.sid);
+};
+
+exports.submit = function(req, res) {
+    var simulationId = req.params.sid;
+    var countryId = req.params.cid;
+    var positionPaper = req.body["position-paper"];
+    var simulation = db.simulations[simulationId];
+    var country = simulation.getCountries()[countryId];
+    country.setPositionPaper(positionPaper);
+    res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };

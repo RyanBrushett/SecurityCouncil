@@ -35,7 +35,7 @@
             {{#getResolution}}
             <hr class="separator">
             <h2>{{ getTitle }}</h2>
-            <p>{{ getContent }}</p>
+            <p>{{{ getContent }}}</p>
             {{/getResolution}}
             <table class="countries">
                 <tr>
