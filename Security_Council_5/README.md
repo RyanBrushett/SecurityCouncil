@@ -118,7 +118,7 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     e. Select a chair and click Set Chairperson to update the chair for the room. This is reflected on the dashboard for all users.
     
 4. __Participants are divided into teams:__
-    a. TODO:
+    a. Currently teams are assigned randomly when they register to a specific room.
 
 5. __Each member can see their teams and ambassador:__
     a. First of all, the ambassador at this point is assigned by the moderator so log in as fiech // password.
@@ -133,7 +133,9 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     d. Note that a moderator can submit a resolution when creating the simulation.
     
 7. __Moderator Setting Directives__:
-    a. TODO:
+    a. Log in as fiech // password
+    b. Enter a simulation space.
+    c. When viewing a country, at the bottom there is a text area where you can type in directives based on their position papers
     
 8. __Position Papers__:
     a. Log in as ryanb // password and select a simulation to which you are registered.
