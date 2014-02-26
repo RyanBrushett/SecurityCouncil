@@ -37,6 +37,8 @@
                 <textarea name="position-paper" class="textbox">{{{ positionPaper }}}</textarea>
                 <input type="submit" class="button" value="Submit Position Paper">
             </form>
+            <h2>Country directives</h2>
+            <textarea name="directives" disabled="true" class="textbox">{{{directives}}}</textarea>
             {{/userIsMember}}
             {{^userIsMember}}
                 {{#positionPaperVisible}}
