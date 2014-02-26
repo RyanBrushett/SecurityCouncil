@@ -22,7 +22,8 @@ exports.country = function (req, res) {
         name: country.getName(),
         countryId: country.getId(),
         simulation: simulation,
-        positionPaper: country.getPositionPaper()
+        positionPaper: country.getPositionPaper(),
+        positionPaperViewable: simulation.isPaperViewable()
     });
 };
 
@@ -53,4 +54,17 @@ exports.ambassador = function (req, res) {
     var ambassador = db.users[ambassadorId];
     country.setAmbassador(ambassador);
     res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
+};
+
+exports.positionPaperVisible = function (req, res) {
+    var simulationId = req.params.sid;
+    var simulation = db.simulations[simulationId];
+    var isVisibleInput = req.body["paperIsVisible"];
+    var paperIsVisible;
+    if (isVisibleInput == "visible") {
+        paperIsVisible = true;
+    }
+    else paperIsVisible = false;
+    simulation.setPaperVisible(paperIsVisible);
+    res.redirect('/moderator/simulation/' + simulationId);
 };

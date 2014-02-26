@@ -5,6 +5,7 @@ var Simulation = function (options) {
     this._name = options.name;
     this._resolution = options.resolution;
     this._chairperson = options.chairperson;
+    this._paperIsViewable = options.paperIsViewable || false;
 };
 
 Simulation.prototype.getId = function () {
@@ -46,6 +47,15 @@ Simulation.prototype.setChairperson = function (chairperson) {
 Simulation.prototype.getChairperson = function () {
     return this._chairperson;
 };
+
+Simulation.prototype.setPaperVisible = function (paperIsVisible) {
+    this._paperIsVisible = paperIsVisible;
+    console.log("Set visible mode to " + this._paperIsVisible);
+}
+
+Simulation.prototype.isPaperVisible = function () {
+    return this._paperIsVisible;
+}
 
 Simulation.prototype.addComment = function (comment) {
     this._comments.unshift(comment);
