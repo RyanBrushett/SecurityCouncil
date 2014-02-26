@@ -39,9 +39,9 @@
             {{#getResolution}}
             <hr class="separator">
             <h2>{{getTitle}}</h2>
-            <form action="/moderator/simulation/{{sid}}/resolution" method="post">
-                <textarea name="resolution" class="textbox">{{getContent}}</textarea>
-                <input type="submit" class="button">
+            <form action="/moderator/submit/{{sid}}" method="post">
+                <textarea name="resolution" class="textbox">{{{ getContent }}}</textarea>
+                <input type="submit" class="button" value="Set Resolution">
             </form>
             {{/getResolution}}
             <hr class="separator">

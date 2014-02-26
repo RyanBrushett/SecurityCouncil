@@ -23,3 +23,11 @@ exports.country = function (req, res) {
         simulation: simulation
     });
 };
+
+exports.submit = function (req, res) {
+    var simulationId = req.params.sid;
+    var resolutionContent = req.body["resolution"];
+    var simulation = db.simulations[simulationId];
+    simulation.getResolution().setContent(resolutionContent);
+    res.redirect('/moderator/simulation/' + simulationId);
+};
