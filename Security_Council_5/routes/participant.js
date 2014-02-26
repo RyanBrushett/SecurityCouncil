@@ -92,7 +92,8 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.getId(),
         positionPaper: country.getPositionPaper(),
-        positionPaperVisible: simulation.isPaperVisible()
+        positionPaperVisible: simulation.isPaperVisible(),
+        directives: country.getDirectives()
     });
 };
 
