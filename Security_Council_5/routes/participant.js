@@ -57,6 +57,7 @@ exports.dashboard = function(req, res) {
         }
     }
     res.render('participant/dashboard', {
+        user: user,
         joinedSimulations: simulationsJoined,
         notJoinedSimulations: simulationsNotJoined
     });
@@ -66,6 +67,11 @@ exports.simulation = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
     simulation.sid = req.params.sid;
+    simulation.joined = simulation.getCountries().some(function (country) {
+        var members = country.getMembers();
+        return (members.indexOf(user) >= 0);
+    });
+    simulation.username = user.getName();
     res.render('participant/simulation', simulation);
 };
 
@@ -81,6 +87,14 @@ exports.country = function(req, res) {
         members: countryMembers,
         name: country.getName(),
         simulation: simulation,
+        user: user,
         userIsMember: userIsMember
     });
+};
+
+exports.join = function(req, res) {
+    var user = db.users[req.session.userId];
+    var simulation = db.simulations[req.params.sid];
+    db.helpers.addUserToSimulation(simulation, user);
+    res.redirect('/participant/simulation/' + req.params.sid);
 };

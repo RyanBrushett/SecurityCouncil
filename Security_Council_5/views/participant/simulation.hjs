@@ -11,9 +11,15 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
+                    <li>You are {{ username }}</li>
                     <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    {{#joined}}
                     <li><a href="/participant/debate/{{ getId }}">Debate!</a></li>
+                    {{/joined}}
+                    {{^joined}}
+                    <li><a href="/participant/join/simulation/{{ getId }}">Join this simulation!</a></li>
+                    {{/joined}}
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>

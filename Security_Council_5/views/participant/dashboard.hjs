@@ -11,6 +11,7 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
+                    <li>You are {{ user.getName }}</li>
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
