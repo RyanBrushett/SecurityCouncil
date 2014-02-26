@@ -84,9 +84,17 @@ helpers.createResolution = function (options) {
 
 helpers.createSimulation = function (options) {
     options.id = simulations.length;
+    options.countries = Country.countries();
     var simulation = new Simulation(options);
     simulations.push(simulation);
     return simulation;
+};
+
+helpers.addUserToSimulation = function (simulation, user) {
+    // Randomly add a user to a team
+    var countries = simulation.getCountries();
+    var idx = Math.floor(Math.random() * countries.length);
+    countries[idx].addMember(user);
 };
 
 // The database
