@@ -27,10 +27,6 @@ i {
     font-style: normal;
 }
 
-label {
-    display: block;
-}
-
 table {}
 
 th {
@@ -41,8 +37,21 @@ th, td {
     min-width: 256px;
 }
 
-select {
-    margin-top: 1rem;
+label {
+    display: block;
+}
+
+input[type="radio"] + label {
+    display: inline;
+    margin-left: 10px;
+}
+
+input[type="radio"] {
+    margin-left: 10px;
+}
+
+input[type="radio"]:first-of-type {
+    margin-left: 0;
 }
 
 input[type="text"],
@@ -52,6 +61,10 @@ input[type="password"] {
     box-shadow: inset 0 1px 3px #aaa;
     min-width: 256px;
     padding: 0.5rem;
+}
+
+select {
+    margin-top: 1rem;
 }
 
 h1 {

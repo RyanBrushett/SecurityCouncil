@@ -5,7 +5,15 @@ exports.view = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    res.json(req.params);
+    var resolution = db.helpers.createResolution({
+        title: req.body.title,
+        content: req.body.content
+    });
+    db.helpers.createSimulation({
+        name: req.body.name,
+        resolution: resolution
+    });
+    res.redirect('/');
 };
 
 /*

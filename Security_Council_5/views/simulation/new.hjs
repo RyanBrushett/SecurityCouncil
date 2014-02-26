@@ -22,8 +22,10 @@
                     <input type="text" name="name" placeholder="Simulation name">
                 </p>
                 <p>
-                    <input type="text" name="resolution-title" placeholder="The title of the resolution">
-                    <textarea name="resolution">Sample resolution. Replace this with your resolution.</textarea>
+                    <input type="text" name="title" placeholder="The title of the resolution">
+                </p>
+                <p>
+                    <textarea name="content" class="textbox">Sample resolution. Replace this with your resolution.</textarea>
                 </p>
                 <p>Choose a sort method:</p>
                 <p>
@@ -33,7 +35,7 @@
                     <label for="manualteam">Manually Assign</label>
                 </p>
                 <p>
-                    <input type="submit" value="Create new simulation" clas="button">
+                    <input type="submit" value="Create new simulation" class="button">
                 </p>
             </form>
         </main>
