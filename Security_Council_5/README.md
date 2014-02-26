@@ -136,7 +136,10 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     a. Log in as ryanb // password and select a simulation to which you are registered.
     b. First, select your own team. You'll notice you can edit and save a position paper. Do this! Fill it with some words and hit save.
     c. Log in as dan // password and navigate to ryanb's team where you just saved a position paper.
-    d. You'll see the position paper but not be able to edit it. You can edit the position paper for Dan's team, however!
+    d. Notice that you cannot see the position paper submitted by ryanb. Then, go to dan’s team and submit some sample text for dan’s team’s position paper.
+    e. Next, log in as fiech // password and select a simulation.
+    f.  You can set the visibility of the nations’ position papers on or off using the selector at the top of the view. Set it to “visible”.
+    g.  If you log in as ryanb // password again, you will be able to look at the position papers submitted by dan’s team (and everyone else).
     
 9. __Debate__:
     a. Log in as ryanb // password and select a simulation to which you are registered.
