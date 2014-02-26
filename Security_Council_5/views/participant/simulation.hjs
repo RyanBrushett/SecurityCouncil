@@ -14,7 +14,7 @@
                     <li>You are {{ username }}</li>
                     <li><a href="/">Dashboard</a></li>
                     {{#joined}}
-                    <li><a href="/participant/debate/{{ getId }}">Debate!</a></li>
+                    <li><a href="/debate/{{ getId }}">Debate!</a></li>
                     {{/joined}}
                     {{^joined}}
                     <li><a href="/participant/join/simulation/{{ getId }}">Join this simulation!</a></li>

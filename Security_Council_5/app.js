@@ -3,6 +3,7 @@ var http = require('http');
 var path = require('path');
 
 // Routes
+var debate = require('./routes/debate');
 var moderator = require('./routes/moderator');
 var participant = require('./routes/participant');
 var session = require('./routes/session');
@@ -68,6 +69,9 @@ app.get('/participant/simulation/:sid', session.require, participant.simulation)
 app.get('/participant/simulation/:sid/:cid', session.require, participant.country);
 app.get('/participant/join/simulation/:sid', session.require, participant.join);
 app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
+
+// Debate view
+app.get('/debate/:id', session.require, debate.view);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {

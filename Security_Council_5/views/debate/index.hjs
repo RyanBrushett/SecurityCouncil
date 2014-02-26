@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+    <head>
+        <title>{{ getName }} Debate &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/debate.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1>Council</h1>
+            <nav class="navigation">
+                <ul>
+                    <li>You are Murmokait&#279;</li>
+                    <li><a href="/">Dashboard</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="content">
+            {{#getResolution}}
+            <section class="sidebar">
+                <nav class="tabs">
+                    <ul class="tabs__list">
+                        <li class="tabs__list__item current"><a>Resolution &middot; {{ getTitle }}</a></li>
+                    </ul>
+                </nav>
+                <div class="sidebar__content">
+                    {{{ getContent }}}
+                </div>
+            </section>
+            {{/getResolution}}
+            <section class="sidebar">
+                <nav class="tabs">
+                    <ul class="tabs__list">
+                        <li class="tabs__list__item current"><a>Channels</a></li>
+                    </ul>
+                </nav>
+                <nav class="sidebar__content">
+                    <ul class="conversations">
+                        <li><a>All members (entire cacus)</a></li>
+                        <li><a>Nigeria</a></li>
+                        <li><a>Russia, Chad</a></li>
+                    </ul>
+                </nav>
+            </section>
+            <section class="section">
+                <nav class="tabs">
+                    <ul class="tabs__list">
+                        <li class="tabs__list__item current"><a>Debate</a></li>
+                    </ul>
+                </nav>
+                <div class="discussion">
+                    <form action="/debate/{{ getId }}" method="post">
+                        <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
+                        <input type="submit" value="Comment" class="button">
+                    </form>
+                    <blockquote class="card">
+                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+                        <footer class="card-info">
+                            <p class="card-info__name">Adamu</p>
+                            <i class="card-info__status--against"></i>
+                            <img class="card-info__flag" src="/images/nigeria.svg" alt="Flag of Nigeria">
+                        </footer>
+                    </blockquote>
+                    <blockquote class="card">
+                        <p>Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+                        <footer class="card-info">
+                            <p class="card-info__name">Mangaral</p>
+                            <i class="card-info__status--against"></i>
+                            <img class="card-info__flag" src="/images/chad.svg" alt="Flag of Chad">
+                        </footer>
+                    </blockquote>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

@@ -151,6 +151,11 @@ body {
     margin-bottom: 1rem;
     padding: 1rem;
 }
+
+.card-info {
+    margin-top: 1px;
+}
+
 .card--textarea {
     border: none;
     resize: vertical;
@@ -181,11 +186,21 @@ body {
             animation: scaleout 1s infinite ease-in-out;
     */
 }
+
 .card-info__status--against {
     background-color: red;
 }
+
 .card-info__status--for {
     background-color: green;
+}
+
+textarea + input[type="submit"] {
+    margin-top: 1rem;
+}
+
+form + .card {
+    margin-top: 1rem;
 }
 
 /*****
