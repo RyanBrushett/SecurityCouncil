@@ -20,6 +20,7 @@ exports.country = function (req, res) {
         ambassador: country.getAmbassador(),
         members: country.getMembers(),
         name: country.getName(),
+        countryId: country.getId(),
         simulation: simulation
     });
 };
@@ -39,4 +40,16 @@ exports.chairperson = function (req, res) {
     var chairperson = db.users[chairpersonId];
     simulation.setChairperson(chairperson);
     res.redirect('/moderator/simulation/' + simulationId);
-}
+};
+
+exports.ambassador = function (req, res) {
+    var simulationId = req.params.sid;
+    var simulation = db.simulations[simulationId];
+    var countryId = req.params.cid;
+    var countries = simulation.getCountries();
+    var country = countries[countryId];
+    var ambassadorId = req.body["ambassador"];
+    var ambassador = db.users[ambassadorId];
+    country.setAmbassador(ambassador);
+    res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
+};

@@ -22,20 +22,6 @@
             {{#ambassador}}
             <p>Ambassador: {{ getName }}</p>
             {{/ambassador}}
-            {{^ambassador}}
-            {{#userIsMember}}
-            <form>
-                <p>
-                    <label>Select an ambassador:</label>
-                    <select>
-                        {{#members}}
-                        <option value="{{ getId }}">{{ getName }}</option>
-                        {{/members}}
-                    </select>
-                </p>
-            </form>
-            {{/userIsMember}}
-            {{/ambassador}}
             <hr class="separator">
             <h2>Members of {{ name }}</h2>
             <ul class="members">

@@ -60,6 +60,7 @@ app.get('/moderator/simulation/:sid', session.require, moderator.simulation);
 app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
 app.post('/moderator/submit/:sid', session.require, moderator.submit);
 app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
+app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
