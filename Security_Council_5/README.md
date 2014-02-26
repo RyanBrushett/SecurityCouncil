@@ -38,7 +38,7 @@ The app will confirm it has started by writing a message to the shell stating
 
         Express server listening on port 3000
 
-Then, using Chrome, connect to http://localhost:3000/
+Then, using Chrome, connect to http://localhost:3333/
 
 You'll be presented with a login page. You may log in with <username // password> ryanb // password
 
@@ -46,26 +46,9 @@ You'll be presented with a login page. You may log in with <username // password
 
 Simply open the project in Eclipse and run the app.js file.
 
-Then, using Chrome, connect to http://localhost:3000/
+Then, using Chrome, connect to http://localhost:3333/
 
 You'll be presented with a login page. You may log in with <username // password> ryanb // password
-
-### Testing the App
-
-	- Click on the admin link to be brought to the admin portal.
-		- From here you'll be presented with options such as a system overview / dashboard
-		- You'll be able to manage users
-		- You'll be able to create councils
-		- You'll be able to manage resolutions
-	- If you click on the Users button
-		- You'll be presented with a room list. We have pre-configured Security Council 17.
-		- You'll have a link to the admin portal
-		- You'll also have a logout button.
-		- Note that by clicking the Simulation name (Security Council 17) you'll be brought in to view more details about the room
-			- From in here you can click to join the ongoing chat/discussion
-				- In the discussion room you'll be presented with a default view of the resolution, divided into its clauses.
-					- You can select to "Discuss clause" to bring up the discussion list on that clause and view what people have been saying. It is from here that you can add your own voice to the conversation!
-					- You can click on "speakers list" to preview that as well.
 
 # (Ver2.0)
 
@@ -87,7 +70,7 @@ The group completed the following tasks for version 2.0:
 	- Implementing a design that would be database-friendly and refining the user/administrator/Council model with these APIs
 	- Refining the simulation room model
 	- Developing the nation teams model (enabling moderators to select ambassadors based on their own decision-making or participants’ elections)
-	- Refining the resolution model with extended support for amendments
+	- Refining the resolution model.
 	- Refining the user experience: simplifying and building consistency across pages
 
 #### FRONTEND:
@@ -117,19 +100,46 @@ The following requirements adapted from Dr. Anderson’s task descriptions
 
 When users first hit the page at http://sc-5.cs.mun.ca, they are presented with a login page. For the sake of testing, you can use the user ryanb. The admin user is fiech. All passwords are "password" (without quotes).
 
-1. Creating a new Simulation:
+1. __Creating a new Simulation:__
     a. Log in with user fiech // password to test. At the dashboard, click Create New Council.
     b. You are presented with a form to name the simulation and add a resolution. Note that the resolution can absolutely be updated/edited later.
     c. When you are happy with the properties, click create new simulation. You'll be redireceted to the admin dashboard and be able to select the new simulation. Users can now register for the simulation.
     
-2. Simulation participants register for SCSS:
+2. __Simulation participants register for SCSS:__
     a. Log in as ryanb // password. At the dashboard, you'll notice there are two types of simulations: Those you are registered for and those you are not. Select the simulation you created above.
     b. You'll notice a Join This Simulation button in the nav bar. Click this at this time.
     c. You're registered! This allows you to participate in debate, queues you for team selection, and allows you to become a chair.
 
-3. Moderator designates a chair:
+3. __Moderator designates a chair:__
     a. Log in as fiech // password. You'll be brought to your dashboard and see simulations again.
     b. The simulations will note whether or not a council chair has been selected. For our default test data, no chair has been selected.
     c. Click a council name to be brought to its properties page.
     d. You'll notice a section regarding selecting a chair. You are given a dropdown list of users registered in the SCSS.
     e. Select a chair and click Set Chairperson to update the chair for the room. This is reflected on the dashboard for all users.
+    
+4. __Participants are divided into teams:__
+    a. TODO:
+
+5. __Each member can see their teams and ambassador:__
+    a. First of all, the ambassador at this point is assigned by the moderator so log in as fiech // password.
+    b. Navigate to a simulation and select a team.
+    c. You'll be presented with a drop down of the team members. Select one and click Set Ambassador.
+    d. If you log in as a user, navigate to that simulation, and select the team, you'll notice the change reflected and that user is declared the ambassador.
+    
+6. __Moderator and Resolutions__:
+    a. Log in as fiech // password
+    b. Select a simulation. You'll be able to edit / view the current resolution. It supports HTML!
+    c. When a user logs in and selects an SCSS, they'll see the resolution displayed.
+    d. Note that a moderator can submit a resolution when creating the simulation.
+    
+8. __Position Papers__:
+    a. Log in as ryanb // password and select a simulation to which you are registered.
+    b. First, select your own team. You'll notice you can edit and save a position paper. Do this! Fill it with some words and hit save.
+    c. Log in as dan // password and navigate to ryanb's team where you just saved a position paper.
+    d. You'll see the position paper but not be able to edit it. You can edit the position paper for Dan's team, however!
+    
+9. __Debate__:
+    a. Log in as ryanb // password and select a simulation to which you are registered.
+    b. Click the Debate! link in the nav bar.
+    c. Right now, the debate screen has some dummy data but you'll see the resolution on the left side and a comment stream on the right.
+    d. Type a comment and click "comment" to comment.
