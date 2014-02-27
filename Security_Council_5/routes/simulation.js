@@ -14,6 +14,5 @@ exports.create = function(req, res) {
         resolution: resolution
     });
     var users = db.users;
-    // db.helpers.addAllUsersToSimulation(simulation, users);
     res.redirect('/');
 };
