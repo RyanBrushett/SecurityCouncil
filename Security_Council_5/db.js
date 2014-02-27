@@ -243,19 +243,21 @@ var countryCounter;
 //if the country number eclipses 15, reset it back.
 //if you run out of people, stop.
 for (peopleCounter = 0, countryCounter = 0; peopleCounter < users.length; peopleCounter++) {
-    if(!users[peopleCounter].isModerator())
+    if(!users[peopleCounter].isModerator()){
         countrySetSimulation1[countryCounter].addMember(users[peopleCounter]);
+    }
     countryCounter++;
-    if (countryCounter == 15) {
+    if (countryCounter === 15) {
         countryCounter = 0;
     }
 }
 
 for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; peopleCounter--) {
-    if(!users[peopleCounter].isModerator())
+    if(!users[peopleCounter].isModerator()){
         countrySetSimulation2[countryCounter].addMember(users[peopleCounter]);
+    }
     countryCounter++;
-    if (countryCounter == 15) {
+    if (countryCounter === 15) {
         countryCounter = 0;
     }
 }
@@ -323,18 +325,18 @@ helpers.addUserToSimulation = function (simulation, user) {
         user.getName();
         var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
         for(var j = 0; j < country.length; j++){
-            if (country[j].getName() == user.getPreferences()[0]){
+            if (country[j].getName() === user.getPreferences()[0]){
                 p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
-            } else if (country[j].getName() == user.getPreferences()[1]){
+            } else if (country[j].getName() === user.getPreferences()[1]){
                 p2length = country[j].getMembers().length; p2id = j;
-            } else if (country[j].getName() == user.getPreferences()[2]){
+            } else if (country[j].getName() === user.getPreferences()[2]){
                 p3length = country[j].getMembers().length; p3id = j;
             }
         }
         if (p1length < per_country){
             country[p1id].addMember(user);    // add to team list
         } else if (p2length < per_country){
-            country[p2id].addMember(user); 
+            country[p2id].addMember(user);
         } else if (p3length < per_country){
             country[p3id].addMember(user);    // add to team list
         } else {
