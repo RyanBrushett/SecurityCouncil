@@ -348,37 +348,31 @@ helpers.addAllUsersToSimulation = function (simulation, users) {
             for(var j = 0; j < country.length; j++){
                 if (country[j].getName() == user.getPreferences()[0]){
                     p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
-                }
-                else if (country[j].getName() == user.getPreferences()[1]){
+                } else if (country[j].getName() == user.getPreferences()[1]){
                     p2length = country[j].getMembers().length; p2id = j;
-                }
-                else if (country[j].getName() == user.getPreferences()[2]){
+                } else if (country[j].getName() == user.getPreferences()[2]){
                     p3length = country[j].getMembers().length; p3id = j;
                 }
             }
 
-            if(p1length < per_country)
+            if(p1length < per_country){
                 country[p1id].addMember(user);    // add to team list
-
-            else if(p2length < per_country)
-                country[p2id].addMember(user);    // add to team list
-
-            else if(p3length < per_country)
+            } else if(p2length < per_country){
+                country[p2id].addMember(user); 
+            } else if(p3length < per_country){
                 country[p3id].addMember(user);    // add to team list
-
-            else
+            } else{
                 unassigned.push(user);
+            }
         }
     }
 
 //    Randomly add a user to a team
     for(var i = 0; i < unassigned.length; i++){
         var index = Math.floor(Math.random() * country.length); 
-
         while(country[index].getMembers().length  >= per_country){
             index = Math.floor(Math.random() * country.length); 
         }
-
         country[index].addMember(unassigned[i]);
     }
 };
