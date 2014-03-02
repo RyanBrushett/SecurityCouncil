@@ -1,6 +1,6 @@
 var Motion = function(options) {
     this._id = options.id;
-    this._type = options.type || Motion.status[TO_ACT];
+    this._type = options.type || Motion.types[TO_ACT];
     this._mover = options.mover;
     this._seconder = options.seconder;
     this._status = options.status || Motion.status[IN_PROGRESS];
@@ -58,7 +58,7 @@ Motion.prototype.getBody = function() {
 // Setters
 
 Motion.prototype.setType = function(type) {
-    this._type = type;
+    this._type = Motion.Types[type];
 };
 
 Motion.prototype.setMover = function(mover) {
@@ -70,7 +70,7 @@ Motion.prototype.setSeconder = function(seconder) {
 };
 
 Motion.prototype.setStatus = function(status) {
-    this._status = status;
+    this._status = Motion.Status[status];
 };
 
 Motion.prototype.setVotes = function(votes) {
