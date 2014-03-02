@@ -5,7 +5,7 @@ var Motion = function(options) {
     this._seconder = options.seconder;
     this._status = options.status || Motion.status[IN_PROGRESS];
     this._votes = options.votes;
-    this._body = options.body;
+    this._body = options.body || '';
 };
 
 // Types
