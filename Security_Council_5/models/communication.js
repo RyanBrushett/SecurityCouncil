@@ -80,3 +80,5 @@ CommunicationChannel.prototype.addComment = function(comment) {
     this.setComments(comments);
     return comments;
 };
+
+module.exports = CommunicationChannel;
