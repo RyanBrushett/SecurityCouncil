@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Participant dashboard &middot; Council</title>
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+    </head>
+    <body>
+        <h2>It works.</h2>
+        {{simulation.getId}}
+        <br />
+        {{country.getName}}
+        <br />
+        {{motion}}
+    </body>
+</html>

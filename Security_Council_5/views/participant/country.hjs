@@ -47,6 +47,17 @@
                 <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
                 {{/positionPaperVisible}}
             {{/userIsMember}}
+            {{#userIsAmbassador}}
+            <hr class="separator">
+            <h2>Forward Motion</h2>
+            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}/motion" method="post">
+                <textarea name="motion" class="textbox"></textarea>
+                <input type="submit" class="button" value="Put Forward">
+            </form>
+            {{/userIsAmbassador}}
+            {{^userIsAmbassador}}
+            <br />
+            {{/userIsAmbassador}}
         </main>
     </body>
 </html>

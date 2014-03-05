@@ -71,6 +71,7 @@ app.get('/participant/simulation/:sid', session.require, session.restrictToUser,
 app.get('/participant/simulation/:sid/:cid', session.require, session.restrictToUser, participant.country);
 app.get('/participant/join/simulation/:sid', session.require, session.restrictToUser, participant.join);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
+app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.motion);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
