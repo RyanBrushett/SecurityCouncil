@@ -5,6 +5,7 @@ var Country = function (options) {
     this._name = options.name;
     this._positionPaper = options.positionPaper || '';
     this._directives = options.directives || '';
+    this._permanentMember = options.permanentMember || false;
 };
 
 Country.prototype.getId = function () {
@@ -16,6 +17,18 @@ Country.prototype.setAmbassador = function (user) {
         throw new Error('Moderators cannot belong to a team');
     }
     this._ambassador = user;
+};
+
+Country.prototype.setPermanentMember = function(perm) {
+    if (perm === true) {
+        this._permanentMember = true;
+    } else {
+        this._permanentMember = false;
+    }
+};
+
+Country.prototype.isPermanentMember = function() {
+    return this._permanentMember;
 };
 
 Country.prototype.getAmbassador = function () {
