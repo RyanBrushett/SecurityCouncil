@@ -1,6 +1,7 @@
 var User = function (options) {
     this._id = options.id;
     this._moderator = options.moderator || false;
+    this._chair = options.chair || false;
     this._name = options.name;
     this._password = options.password || 'password';
     this._username = options.username;
@@ -13,6 +14,14 @@ User.prototype.getId = function () {
 
 User.prototype.isModerator = function () {
     return !!this._moderator;
+};
+
+User.prototype.isChair = function() {
+    return !!this._chair;
+};
+
+User.prototype.setAsChair = function() {
+    this._chair = true;
 };
 
 User.prototype.setName = function (name) {

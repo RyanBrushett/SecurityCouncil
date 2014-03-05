@@ -24,7 +24,7 @@ exports.require = function(req, res, next) {
 
 exports.restrictToMod = function(req, res, next) {
     var user = db.users[req.session.userId];
-    if (user.isModerator() == true) {
+    if (user.isModerator()) {
         next();
     } else {
         res.redirect('/participant/dashboard');
@@ -33,10 +33,19 @@ exports.restrictToMod = function(req, res, next) {
 
 exports.restrictToUser = function(req, res, next) {
     var user = db.users[req.session.userId];
-    if (user.isModerator() == true) {
+    if (user.isModerator()) {
         res.redirect('/moderator/dashboard');
     } else {
         next();
+    }
+};
+
+exports.restrictToChair = function(req, res, next) {
+    var user = db.users[req.session.userId];
+    if (user.isChair()){
+        next();
+    } else {
+        res.redirect('/participant/dashboard');
     }
 };
 
@@ -48,7 +57,7 @@ exports.create = function(req, res) {
     var user;
     req.session.rerror = undefined;
     for (i = 0; i < users.length; i++) {
-        if (username == users[i].getUsername() && users[i].checkPassword(password)) {
+        if (username === users[i].getUsername() && users[i].checkPassword(password)) {
             user = users[i];
             break;
         }

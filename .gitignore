@@ -3,3 +3,4 @@ OLD_*
 .*.swp
 .express.log
 node_modules
+tests

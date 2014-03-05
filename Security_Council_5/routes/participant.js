@@ -59,7 +59,7 @@ exports.dashboard = function(req, res) {
     res.render('participant/dashboard', {
         user: user,
         joinedSimulations: simulationsJoined,
-        notJoinedSimulations: simulationsNotJoined
+        notJoinedSimulations: simulationsNotJoined,
     });
 };
 
