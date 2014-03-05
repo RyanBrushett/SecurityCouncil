@@ -53,7 +53,7 @@ Motion.prototype.getVotes = function() {
 
 Motion.prototype.getBody = function() {
     return this._body;
-}; 
+};
 
 // Setters
 
