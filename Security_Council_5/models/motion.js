@@ -1,9 +1,9 @@
 var Motion = function(options) {
     this._id = options.id;
-    this._type = options.type || Motion.types["TO_ACT"];
+    this._type = options.type || Motion.Types.TO_ACT;
     this._mover = options.mover;
     this._seconder = options.seconder;
-    this._status = options.status || Motion.status["DEBATING"];
+    this._status = options.status || Motion.Status.DEBATING;
     this._votes = options.votes;
     this._body = options.body || '';
 };
@@ -54,7 +54,15 @@ Motion.prototype.getVotes = function() {
 
 Motion.prototype.getBody = function() {
     return this._body;
-}; 
+};
+
+Motion.prototype.isInVote = function() {
+    if (this.getStatus() === 3){
+        return true;
+    } else {
+        return false;
+    }
+};
 
 // Setters
 
