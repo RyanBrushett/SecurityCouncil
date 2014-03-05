@@ -22,7 +22,8 @@ Motion.prototype.Status = {
     APPROVED:1,
     DENIED:2,
     IN_PROGRESS:3,
-    CLOSED:4
+    VOTING:4,
+    CLOSED:5
 };
 
 // Getters
