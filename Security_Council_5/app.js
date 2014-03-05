@@ -70,6 +70,7 @@ app.get('/participant/dashboard', session.require, session.restrictToUser, parti
 app.get('/participant/simulation/:sid', session.require, session.restrictToUser, participant.simulation);
 app.get('/participant/simulation/:sid/:cid', session.require, session.restrictToUser, participant.country);
 app.get('/participant/join/simulation/:sid', session.require, session.restrictToUser, participant.join);
+app.get('/participant/chair/:sid', session.require, session.restrictToUser, session.restrictToChair, participant.chair);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
 
 // Debate view

@@ -72,7 +72,28 @@ exports.simulation = function(req, res) {
         return (members.indexOf(user) >= 0);
     });
     simulation.username = user.getName();
+    
+    simulation.isChair = false;
+    if(simulation.getChairperson() === user){
+        simulation.isChair = true;
+    }
+    
     res.render('participant/simulation', simulation);
+};
+
+exports.chair = function(req, res) {
+    var user = db.users[req.session.userId];
+    var simulation = db.simulations[req.params.sid];
+    
+    isChair = false;
+    if(simulation.getChairperson() === user){
+        isChair = true;
+    }    
+    
+    res.render('participant/chair', {
+        user: user,
+        isChair: isChair
+    });
 };
 
 exports.country = function(req, res) {
