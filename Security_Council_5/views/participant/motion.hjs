@@ -7,10 +7,12 @@
     </head>
     <body>
         <h2>It works.</h2>
-        {{simulation.getId}}
+        {{ motion.getId }}
         <br />
-        {{country.getName}}
+        {{ country.getName }}
         <br />
-        {{motion}}
+        {{ motion.getBody }}
+        <br />
+        {{ motion.getType }}
     </body>
 </html>

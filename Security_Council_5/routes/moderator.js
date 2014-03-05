@@ -79,4 +79,4 @@ exports.directives = function (req, res) {
     var directives = req.body["directives"];
     country.setDirectives(directives);
     res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
-}
+};

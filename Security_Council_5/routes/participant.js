@@ -119,13 +119,20 @@ exports.submit = function(req, res) {
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
 
-exports.motion = function(req, res) {
+exports.createMotion = function(req, res) {
+    var motions = db.motions;
+    var type = req.body.motionType;
     var simulation = db.simulations[req.params.sid];
+    var countries = simulation.getCountries();
     var country = simulation.getCountries()[req.params.cid];
-    var motion = req.body.motion;
+    var id = db.motions.length;
+    var motion = db.helpers.createMotion({
+        type:type,
+        mover:countries[req.params.cid],
+        body:req.body.motion
+    });
     res.render('participant/motion', {
-       simulation:simulation,
-       country:country,
-       motion:motion
+        motion:motion,
+        country:motion.getMover()
     });
 };

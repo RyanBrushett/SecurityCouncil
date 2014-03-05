@@ -3,8 +3,12 @@ var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
 var Comment = require('./models/comment');
+var Motion = require('./models/motion');
+var CommunicationChannel = require('./models/communication');
 
 //Fake data
+
+var motions = [];
 
 var users = [
              new User({
@@ -317,6 +321,13 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
+helpers.createMotion = function (options) {
+    options.id = motions.length;
+    var motion = new Motion(options);
+    motions.push(motion);
+    return motion;
+};
+
 helpers.addUserToSimulation = function (simulation, user) {
     // Randomly add a user to a team
     var country = simulation.getCountries();
@@ -409,5 +420,6 @@ module.exports = {
         countries: Country.names,
         simulations: simulations,
         users: users,
-        helpers: helpers
+        helpers: helpers,
+        motions: motions
 };
