@@ -3,7 +3,7 @@ var Motion = function(options) {
     this._type = options.type || Motion.types["TO_ACT"];
     this._mover = options.mover;
     this._seconder = options.seconder;
-    this._status = options.status || Motion.status["IN_PROGRESS"];
+    this._status = options.status || Motion.status["DEBATING"];
     this._votes = options.votes;
     this._body = options.body || '';
 };
@@ -21,7 +21,7 @@ Motion.prototype.Types = {
 Motion.prototype.Status = {
     APPROVED:1,
     DENIED:2,
-    IN_PROGRESS:3,
+    DEBATING:3,
     VOTING:4,
     CLOSED:5
 };
