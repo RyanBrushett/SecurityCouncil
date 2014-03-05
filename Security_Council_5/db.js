@@ -11,223 +11,223 @@ var users = [
                  id: 0,
                  name: 'Ryan B',
                  username: 'ryanb',
-                 preferences: ['United Kingdom','Australia','China'],
+                 preferences: ['United Kingdom','Australia','China']
              }),
              new User({
                  id: 1,
                  name: 'Uche E',
                  username: 'uche',
-                 preferences: ['France','Rwanda','Chad'],
+                 preferences: ['France','Rwanda','Chad']
              }),
              new User({
                  id: 2,
                  name: '"Dan"',
                  username: 'dan',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 3,
                  name: 'Bukunola',
                  username: 'bukunola',
-                 preferences: ['Nigeria','Australia','Russia'],
+                 preferences: ['Nigeria','Australia','Russia']
              }),
              new User({
                  id: 4,
                  name: 'Frankie S',
                  username: 'frankie',
-                 preferences: ['Chile','Australia','Jordan'],
+                 preferences: ['Chile','Australia','Jordan']
              }),
              new User({
                  id: 5,
                  name: 'Alexandria',
                  username: 'alexandria',
-                 preferences: ['Argentina','Lithuania','France'],
+                 preferences: ['Argentina','Lithuania','France']
              }),
              new User({
                  id: 6,
                  name: 'Raoul',
                  username: 'raoulh',
-                 preferences: ['United States of America','Russia','United Kingdom'],
+                 preferences: ['United States of America','Russia','United Kingdom']
              }),
              new User({
                  id: 7,
                  name: 'Josephine',
                  username: 'josephine',
-                 preferences: ['United States of America','Luxembourg','Chad'],
+                 preferences: ['United States of America','Luxembourg','Chad']
              }),
              new User({
                  id: 8,
                  name: 'Bennett',
                  username: 'ben',
-                 preferences: ['Argentina','Chile','Chile'],
+                 preferences: ['Argentina','Chile','Chile']
              }),
              new User({
                  id: 9,
                  name: 'Muhammad',
                  username: 'muhammad',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 10,
                  name: 'Legolas',
                  username: 'legolas',
-                 preferences: ['Nigeria','Australia','Chad'],
+                 preferences: ['Nigeria','Australia','Chad']
              }),
              new User({
                  id: 11,
                  name: 'Jacqueline',
                  username: 'jackie',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 12,
                  name: 'Adrienne',
                  username: 'adrienne',
-                 preferences: ['Argentina','Nigeria','Chad'],
+                 preferences: ['Argentina','Nigeria','Chad']
              }),
              new User({
                  id: 13,
                  name: 'Avis Pang',
                  username: 'avisp',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 14,
                  name: 'Nicolasa',
                  username: 'ncarver',
-                 preferences: ['Nigeria','Australia','Chad'],
+                 preferences: ['Nigeria','Australia','Chad']
              }),
              new User({
                  id: 15,
                  name: 'Gwyndolyn',
                  username: 'gwyn',
-                 preferences: ['Luxembourg','Australia','Chad'],
+                 preferences: ['Luxembourg','Australia','Chad']
              }),
              new User({
                  id: 16,
                  name: 'Regina B',
                  username: 'rbalk',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 17,
                  name: 'Lena Hockenberry',
                  username: 'lenah',
-                 preferences: ['United Kingdom','Australia','Chad'],
+                 preferences: ['United Kingdom','Australia','Chad']
              }),
              new User({
                  id: 18,
                  name: 'Shelly',
                  username: 'sheldons',
-                 preferences: ['United Kingdom','Australia','Chad'],
+                 preferences: ['United Kingdom','Australia','Chad']
              }),
              new User({
                  id: 19,
                  name: 'Bonita Bowdoin',
                  username: 'bbowdoin',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 20,
                  name: 'Renea M',
                  username: 'renea',
-                 preferences: ['Luxembourg','Australia','Rwanda'],
+                 preferences: ['Luxembourg','Australia','Rwanda']
              }),
              new User({
                  id: 21,
                  name: 'Shawanda Gracey',
                  username: 'sgracey',
-                 preferences: ['Russia','Australia','Chad'],
+                 preferences: ['Russia','Australia','Chad']
              }),
              new User({
                  id: 22,
                  name: 'Isabelle P',
                  username: 'isabelle',
-                 preferences: ['Rwanda','Luxembourg','Chad'],
+                 preferences: ['Rwanda','Luxembourg','Chad']
              }),
              new User({
                  id: 23,
                  name: 'Deangelo M',
                  username: 'deangelo',
-                 preferences: ['Russia','Australia','Chad'],
+                 preferences: ['Russia','Australia','Chad']
              }),
              new User({
                  id: 24,
                  name: 'Sharon J',
                  username: 'sharonj',
-                 preferences: ['Argentina','Russia','Chad'],
+                 preferences: ['Argentina','Russia','Chad']
              }),
              new User({
                  id: 25,
                  name: 'Josef Maston',
                  username: 'jmaston',
-                 preferences: ['Rwanda','Luxembourg','Chad'],
+                 preferences: ['Rwanda','Luxembourg','Chad']
              }),
              new User({
                  id: 26,
                  name: 'Randolph T',
                  username: 'rtanaguchi',
-                 preferences: ['Argentina','China','Chad'],
+                 preferences: ['Argentina','China','Chad']
              }),
              new User({
                  id: 27,
                  name: 'Valerno N',
                  username: 'valerno',
-                 preferences: ['China','Republic of Korea','Chad'],
+                 preferences: ['China','Republic of Korea','Chad']
              }),
              new User({
                  id: 28,
                  name: 'Austin',
                  username: 'austin',
-                 preferences: ['Argentina','Rwanda','Chad'],
+                 preferences: ['Argentina','Rwanda','Chad']
              }),
              new User({
                  id: 29,
                  name: 'Javier Yokum',
                  username: 'jyokum',
-                 preferences: ['Republic of Korea','Australia','Chad'],
+                 preferences: ['Republic of Korea','Australia','Chad']
              }),
              new User({
                  id: 30,
                  name: 'Reed B',
                  username: 'reedb',
-                 preferences: ['Argentina','China','Chad'],
+                 preferences: ['Argentina','China','Chad']
              }),
              new User({
                  id: 31,
                  name: 'Jamey J',
                  username: 'jjune',
-                 preferences: ['China','Australia','Chad'],
+                 preferences: ['China','Australia','Chad']
              }),
              new User({
                  id: 32,
                  name: 'Chuck Primrose',
                  username: 'cprimrose',
-                 preferences: ['Argentina','Republic of Korea','Chad'],
+                 preferences: ['Argentina','Republic of Korea','Chad']
              }),
              new User({
                  id: 33,
                  name: 'Guillermo K',
                  username: 'guillermo',
-                 preferences: ['Republic of Korea','Rwanda','Chad'],
+                 preferences: ['Republic of Korea','Rwanda','Chad']
              }),
              new User({
                  id: 34,
                  name: 'Vernon Kratochvil',
                  username: 'vernon',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 35,
                  name: 'Andreas',
                  username: 'andreas',
-                 preferences: ['Jordan','United Kingdom','Republic of Korea'],
+                 preferences: ['Jordan','United Kingdom','Republic of Korea']
              }),
              new User({
                  id: 36,
                  name: 'Fiech',
                  username: 'fiech',
-                 moderator: true,
+                 moderator: true
              })
              ];
 

@@ -15,10 +15,28 @@ exports.redirect = function(req, res) {
 };
 
 exports.require = function(req, res, next) {
-    if (req.session.userId != undefined) {
+    if (req.session.userId !== undefined) {
         next();
     } else {
         res.redirect('/login');
+    }
+};
+
+exports.restrictToMod = function(req, res, next) {
+    var user = db.users[req.session.userId];
+    if (user.isModerator() == true) {
+        next();
+    } else {
+        res.redirect('/participant/dashboard');
+    }
+};
+
+exports.restrictToUser = function(req, res, next) {
+    var user = db.users[req.session.userId];
+    if (user.isModerator() == true) {
+        res.redirect('/moderator/dashboard');
+    } else {
+        next();
     }
 };
 
