@@ -42,6 +42,7 @@ Simulation.prototype.getResolution = function () {
 
 Simulation.prototype.setChairperson = function (chairperson) {
     this._chairperson = chairperson;
+    chairperson.setAsChair();
 };
 
 Simulation.prototype.getChairperson = function () {
