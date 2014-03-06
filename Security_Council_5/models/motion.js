@@ -1,6 +1,6 @@
 var Motion = function(options) {
     this._id = options.id;
-    this._type = options.type; 
+    this._type = options.type;
     this._mover = options.mover;
     this._seconder = options.seconder;
     this._status = options.status || this.Status.DEBATING;
