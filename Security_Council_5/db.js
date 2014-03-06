@@ -4,8 +4,11 @@ var Simulation = require('./models/simulation');
 var User = require('./models/user');
 var Comment = require('./models/comment');
 var Motion = require('./models/motion');
+var CommunicationChannel = require('./models/communication');
 
 //Fake data
+
+var motions = [];
 
 var users = [
              new User({
@@ -342,6 +345,13 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
+helpers.createMotion = function (options) {
+    options.id = motions.length;
+    var motion = new Motion(options);
+    motions.push(motion);
+    return motion;
+};
+
 helpers.addUserToSimulation = function (simulation, user) {
     // Randomly add a user to a team
     var country = simulation.getCountries();
@@ -409,22 +419,22 @@ helpers.addAllUsersToSimulation = function (simulation, users) {
                 }
             }
             if (p1length < per_country) {
-                country[p1id].addMember(user);    // add to team list
+                country[p1id].addMember(user); // add to team list
             } else if (p2length < per_country) {
-                country[p2id].addMember(user); 
+                country[p2id].addMember(user);
             } else if (p3length < per_country) {
-                country[p3id].addMember(user);    // add to team list
+                country[p3id].addMember(user); // add to team list
             } else {
                 unassigned.push(user);
             }
         }
     }
-    for (var i = 0; i < unassigned.length; i++) {
-        var index = Math.floor(Math.random() * country.length); 
+    for (var j = 0; j < unassigned.length; j++) {
+        var index = Math.floor(Math.random() * country.length);
         while(country[index].getMembers().length  >= per_country) {
-            index = Math.floor(Math.random() * country.length); 
+            index = Math.floor(Math.random() * country.length);
         }
-        country[index].addMember(unassigned[i]);
+        country[index].addMember(unassigned[j]);
     }
 };
 

@@ -107,6 +107,10 @@ exports.country = function(req, res) {
     var countryMembers = country.getMembers();
     var userIsMember = (countryMembers.indexOf(user) >= 0);
     var positionPaperVisible = simulation.isPaperVisible();
+    var userIsAmbassador = false;
+    if (typeof country.getAmbassador() !== "undefined") {
+        userIsAmbassador = (country.getAmbassador().getId() === user.getId());
+    }
     res.render('participant/country', {
         ambassador: country.getAmbassador(),
         members: countryMembers,
@@ -117,7 +121,8 @@ exports.country = function(req, res) {
         countryId: country.getId(),
         positionPaper: country.getPositionPaper(),
         positionPaperVisible: simulation.isPaperVisible(),
-        directives: country.getDirectives()
+        directives: country.getDirectives(),
+        userIsAmbassador: userIsAmbassador
     });
 };
 
@@ -136,4 +141,22 @@ exports.submit = function(req, res) {
     var country = simulation.getCountries()[countryId];
     country.setPositionPaper(positionPaper);
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
+};
+
+exports.createMotion = function(req, res) {
+    var motions = db.motions;
+    var type = req.body.motionType;
+    var simulation = db.simulations[req.params.sid];
+    var countries = simulation.getCountries();
+    var country = simulation.getCountries()[req.params.cid];
+    var id = db.motions.length;
+    var motion = db.helpers.createMotion({
+        type:type,
+        mover:countries[req.params.cid],
+        body:req.body.motion
+    });
+    res.render('participant/motion', {
+        motion:motion,
+        country:motion.getMover()
+    });
 };
