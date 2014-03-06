@@ -92,6 +92,7 @@ exports.chair = function(req, res) {
     
     res.render('participant/chair', {
         user: user,
+        motions: db.motions,
         isChair: isChair
     });
 };

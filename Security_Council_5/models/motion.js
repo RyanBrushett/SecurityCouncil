@@ -89,3 +89,5 @@ Motion.prototype.setVotes = function(votes) {
 Motion.prototype.setBody = function(body) {
     this._body = body;
 };
+
+module.exports = Motion;

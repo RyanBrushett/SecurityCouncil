@@ -3,6 +3,7 @@ var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
 var Comment = require('./models/comment');
+var Motion = require('./models/motion');
 
 //Fake data
 
@@ -288,6 +289,28 @@ var simulations = [
                    })
                    ];
 
+//TODO: I have no idea how enumeration works in javascript
+var motions = [
+               new Motion({
+                   id: 0,
+                   type: 1,
+                   mover: users[2],
+                   seconder: users[4],
+                   status: 3,
+                   votes: [],
+                   body: 'Web development is not much fun.'
+               }),
+               new Motion({
+                   id: 1,
+                   type: 1,
+                   mover: users[0],
+                   seconder: users[6],
+                   status: 3,
+                   votes: [],
+                   body: 'Web development is sort of fun.'
+               })               
+               ];
+
 //Helper functions
 
 var helpers = {};
@@ -409,5 +432,6 @@ module.exports = {
         countries: Country.names,
         simulations: simulations,
         users: users,
+        motions: motions,
         helpers: helpers
 };
