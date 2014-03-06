@@ -84,6 +84,7 @@ exports.simulation = function(req, res) {
 exports.chair = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var motions = simulation.getMotions();
     
     isChair = false;
     if(simulation.getChairperson() === user){
@@ -91,8 +92,9 @@ exports.chair = function(req, res) {
     }    
     
     res.render('participant/chair', {
+        simulation: simulation,
         user: user,
-        motions: db.motions,
+        motions: motions,
         isChair: isChair
     });
 };

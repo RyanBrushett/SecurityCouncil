@@ -263,6 +263,28 @@ for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; p
     }
 }
 
+//TODO: I have no idea how enumeration works in javascript
+var motions = [
+               new Motion({
+                   id: 0,
+                   type: 1,
+                   mover: users[2],
+                   seconder: users[4],
+                   status: 5,
+                   votes: [],
+                   body: 'Web development is not much fun.'
+               }),
+               new Motion({
+                   id: 1,
+                   type: 1,
+                   mover: users[0],
+                   seconder: users[6],
+                   status: 5,
+                   votes: [],
+                   body: 'Web development is sort of fun.'
+               })               
+               ];
+
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {
     countrySetSimulation2[countryCounter].addMember(users[peopleCounter]);
@@ -272,6 +294,7 @@ var simulations = [
                    new Simulation({
                        id: 0,
                        countries: countrySetSimulation1,
+                       motions: motions,
                        name: 'Political Science 2200',
                        resolution: new Resolution({
                            title: 'S/RES/2133(2013)',
@@ -281,6 +304,7 @@ var simulations = [
                    new Simulation({
                        id: 1,
                        countries: countrySetSimulation2,
+                       motions: [],
                        name: 'Political Science 3220',
                        resolution: new Resolution({
                            title: 'S/RES/2139(2013)',
@@ -288,28 +312,6 @@ var simulations = [
                        })
                    })
                    ];
-
-//TODO: I have no idea how enumeration works in javascript
-var motions = [
-               new Motion({
-                   id: 0,
-                   type: 1,
-                   mover: users[2],
-                   seconder: users[4],
-                   status: 3,
-                   votes: [],
-                   body: 'Web development is not much fun.'
-               }),
-               new Motion({
-                   id: 1,
-                   type: 1,
-                   mover: users[0],
-                   seconder: users[6],
-                   status: 3,
-                   votes: [],
-                   body: 'Web development is sort of fun.'
-               })               
-               ];
 
 //Helper functions
 
