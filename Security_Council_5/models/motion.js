@@ -3,19 +3,20 @@ var Motion = function(options) {
     this._type = options.type;
     this._mover = options.mover;
     this._seconder = options.seconder;
-    this._status = options.status || this.Status.DEBATING;
+    this._status = options.status || Motion.Status.TABLE;
     this._votes = options.votes;
     this._body = options.body || '';
 };
 
 // Statuses
 
-Motion.prototype.Status = {
-    APPROVED:1,
-    DENIED:2,
-    DEBATING:3,
-    VOTING:4,
-    CLOSED:5
+Motion.Status = {
+    TABLE:1,
+    DEBATE:2,
+    VOTE:3,
+    APPROVED:4,
+    DENIED:5,
+    CLOSED:6
 };
 
 // Getters
@@ -47,6 +48,15 @@ Motion.prototype.getVotes = function() {
 Motion.prototype.getBody = function() {
     return this._body;
 };
+
+Motion.prototype.isInDebate = function() {
+    if(this.getStatus() === 2){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 Motion.prototype.isInVote = function() {
     if (this.getStatus() === 3){
