@@ -84,19 +84,20 @@ exports.simulation = function(req, res) {
 exports.chair = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
-    var motions = simulation.getMotions();
+    simulation.username = user.getName();
+    simulation.sid = req.params.sid;
     
-    isChair = false;
+    simulation.isChair = false;
     if(simulation.getChairperson() === user){
-        isChair = true;
+        simulation.isChair = true;
     }    
     
-    res.render('participant/chair', {
-        simulation: simulation,
-        user: user,
-        motions: motions,
-        isChair: isChair
-    });
+    simulation.canVoteResolution = false;
+    if(simulation.getMotions().length === 0){
+        simulation.canVoteResolution = true;
+    }
+    
+    res.render('participant/chair', simulation);
 };
 
 exports.country = function(req, res) {

@@ -273,7 +273,7 @@ var motions = [
                    type: 1,
                    mover: users[2],
                    seconder: users[4],
-                   status: Motion.Status.CLOSED,
+                   status: Motion.Status.DEBATE,
                    votes: [],
                    body: 'Web development is not much fun.'
                }),
@@ -282,7 +282,7 @@ var motions = [
                    type: 1,
                    mover: users[0],
                    seconder: users[6],
-                   status: Motion.Status.CLOSED,
+                   status: Motion.Status.TABLED,
                    votes: [],
                    body: 'Web development is sort of fun.'
                })               

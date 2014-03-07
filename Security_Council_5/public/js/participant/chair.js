@@ -1,3 +1,3 @@
-function debateMotion(motionId){
-    alert("test");
+function debateMotion(sid, motionId){
+    alert("SID: " + sid);
 }
