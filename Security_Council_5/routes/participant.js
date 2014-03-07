@@ -105,18 +105,38 @@ exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     
     for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
         if(simulation.getMotions()[i].getId() === req.body.motionId){
-            var m = simulation.getMotions()[i];
             m.setStatus(Motion.Status.DEBATE);
             simulation.getMotions()[i] = simulation.getMotions()[i];
         }
         else{
-            simulation.getMotions()[i].setStatus(Motion.Status.TABLE);
+            m.setStatus(Motion.Status.TABLE);
+            simulation.getMotions()[i] = m;
         }
     }
     
+    simulation.getResolution().setInDebate(false);
+    
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end();
+};
+
+exports.debateResolution = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        m.setStatus(Motion.Status.TABLE);
+        simulation.getMotions()[i] = m;
+    }
+    
+    simulation.getResolution().setInDebate(true);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();    
 };
 
 exports.country = function(req, res) {

@@ -25,7 +25,12 @@
                 {{#getResolution}}
                 <div>
                     <h3>{{getTitle}}</h3>
-                    <button type="button" class="button" onclick="">Debate</button>
+                    {{#isInDebate}}
+                    In Debate
+                    {{/isInDebate}}
+                    {{^isInDebate}}
+                    <button type="button" class="button" onclick="debateResolution({{sid}})">Debate</button>
+                    {{/isInDebate}}
                     {{#canVoteResolution}}
                     <button type="button" class="button" onclick"">Vote</button>
                     {{/canVoteResolution}}

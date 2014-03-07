@@ -56,7 +56,7 @@ Motion.prototype.isInDebate = function() {
     else{
         return false;
     }
-}
+};
 
 Motion.prototype.isInVote = function() {
     if (this.getStatus() === 3){
