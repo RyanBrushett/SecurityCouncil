@@ -66,12 +66,31 @@ By focusing hard on a feature that is functionally the backbone of the applicati
 The group completed the following tasks for version 3.0:
 
 #### BACKEND:
-TODO: BULLET POINTS ABOUT THE BACKEND
+    - SQLite3 Database.
+    - Voting mechanic.
+    - Motions to ammend/act/vote etc.
+    - Ambassador and chair functions.
+    - User/role level security on routes and procedures.
+    - Communication channels in the proper sense.
+    - Position paper uploads in .doc / .pdf / .docx and other formats, along with a plaintext option.
 
 #### FRONTEND:
-The following requirements adapted from Dr. Anderson's task descriptions
+On top of those implemented in the previous iteration, the following requirements adapted from Dr. Anderson's task descriptions
 
-TODO: Numbered list of features added.
+1. Teams debate internally and prepare amendments to some/all articles of the resolution.
+    - Teams can propose to delete an article.
+    - Teams can propose new articles.
+    - Negotiations with other teams are ongoing.
+2. Teams submit amendments and other motions to the Chair.
+3. The Chair brings the amendments to a vote.
+    - Amendments are usually voted in order received, but the Chair may change the voting sequence.
+    - For each vote there is a debate among Security Council members.
+    - For each vote, team may elect to declare "not present" (affects the quorum rule).
+    - The timing of the vote is decided by the Chair.
+    - There might be several rounds of voting.
+4. The Chair brings the final resolution to a vote.
+    - The resolution is voted on.
+    - Permanent members have veto power (if perm. member says 'nay', it's considered a vito).
 
 ## How it works
 
