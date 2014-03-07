@@ -29,7 +29,7 @@
                     In Debate
                     {{/isInDebate}}
                     {{^isInDebate}}
-                    <button type="button" class="button" onclick="debateResolution({{sid}})">Debate</button>
+                    <button type="button" class="button" onclick="debateResolution({{sid}}, {{userId}})">Debate</button>
                     {{/isInDebate}}
                     {{#canVoteResolution}}
                     <button type="button" class="button" onclick"">Vote</button>
@@ -45,7 +45,7 @@
                         In Debate
                         {{/isInDebate}}
                         {{^isInDebate}} 
-                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{getId}})">Debate</button>
+                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
                         {{/isInDebate}}
                         
                         <button type="button" class="button">Vote</button>

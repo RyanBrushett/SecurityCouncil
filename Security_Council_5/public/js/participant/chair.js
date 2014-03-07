@@ -1,6 +1,7 @@
-function debateMotion(sid, motionId){
+function debateMotion(sid, userId, motionId){
     var req = {
         sid: sid,
+        userId: userId,
         motionId: motionId
     };
     var json = JSON.stringify(req);
@@ -21,9 +22,10 @@ function debateMotion(sid, motionId){
     });
 }
 
-function debateResolution(sid){
+function debateResolution(sid, userId){
     var req = {
-        sid: sid
+        sid: sid,
+        userId: userId
     };
     var json = JSON.stringify(req);
     
