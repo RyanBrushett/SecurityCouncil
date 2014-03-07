@@ -10,7 +10,7 @@ var Motion = function(options) {
 
 // Statuses
 
-Motion.prototype.Status = {
+Motion.Status = {
     APPROVED:1,
     DENIED:2,
     DEBATING:3,
