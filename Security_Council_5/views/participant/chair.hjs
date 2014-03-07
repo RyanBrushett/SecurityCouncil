@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/dashboard.css">
+        <script type="text/javascript" src="/js/ajax.js"></script>
         <script type="text/javascript" src="/js/participant/chair.js"></script>
     </head>
     <body>

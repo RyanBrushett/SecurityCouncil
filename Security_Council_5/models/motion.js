@@ -81,7 +81,7 @@ Motion.prototype.setSeconder = function(seconder) {
 };
 
 Motion.prototype.setStatus = function(status) {
-    this._status = Motion.Status[status];
+    this._status = status;
 };
 
 Motion.prototype.setVotes = function(votes) {

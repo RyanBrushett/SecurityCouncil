@@ -1,4 +1,5 @@
 var db = require('../db');
+var Motion = require('../models/motion');
 
 exports.create = function(req, res) {
     var p1 = req.param('p1');
@@ -98,6 +99,24 @@ exports.chair = function(req, res) {
     }
     
     res.render('participant/chair', simulation);
+};
+
+exports.debateMotion = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        if(simulation.getMotions()[i].getId() === req.body.motionId){
+            var m = simulation.getMotions()[i];
+            m.setStatus(Motion.Status.DEBATE);
+            simulation.getMotions()[i] = simulation.getMotions()[i];
+        }
+        else{
+            simulation.getMotions()[i].setStatus(Motion.Status.TABLE);
+        }
+    }
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();
 };
 
 exports.country = function(req, res) {
