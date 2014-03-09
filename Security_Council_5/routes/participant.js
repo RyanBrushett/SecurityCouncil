@@ -97,6 +97,20 @@ exports.country = function(req, res) {
     });
 };
 
+exports.ambassador = function (req, res) {
+	var user = db.users[req.session.userId];
+    var simulationId = req.params.sid;
+    var simulation = db.simulations[simulationId];
+    var countryId = req.params.cid;
+    var countries = simulation.getCountries();
+    var country = countries[countryId];
+    var ambassadorId = req.body["ambassador"];
+    var ambassador = db.users[ambassadorId];
+    user.setAmbassadorPreference(ambassador.getName());
+    country.updateAmbassador();
+    res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
+};
+
 exports.join = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
