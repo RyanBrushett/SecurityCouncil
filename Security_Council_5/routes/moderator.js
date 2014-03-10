@@ -23,6 +23,7 @@ exports.country = function (req, res) {
         countryId: country.getId(),
         simulation: simulation,
         positionPaper: country.getPositionPaper(),
+        positionPaperSummary: country.getPositionPaperSummary(),
         positionPaperVisible: simulation.isPaperVisible(),
         directives: country.getDirectives()
     });
