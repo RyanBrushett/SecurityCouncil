@@ -3,8 +3,12 @@ var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
 var Comment = require('./models/comment');
+var Motion = require('./models/motion');
+var CommunicationChannel = require('./models/communication');
 
 //Fake data
+
+var motions = [];
 
 var users = [
              new User({
@@ -262,6 +266,28 @@ for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; p
     }
 }
 
+//TODO: I have no idea how enumeration works in javascript
+var motions = [
+               new Motion({
+                   id: 0,
+                   type: 1,
+                   mover: users[2],
+                   seconder: users[4],
+                   status: Motion.Status.DEBATE,
+                   votes: [],
+                   body: 'Web development is not much fun.'
+               }),
+               new Motion({
+                   id: 1,
+                   type: 1,
+                   mover: users[0],
+                   seconder: users[6],
+                   status: Motion.Status.TABLED,
+                   votes: [],
+                   body: 'Web development is sort of fun.'
+               })               
+               ];
+
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {
     countrySetSimulation2[countryCounter].addMember(users[peopleCounter]);
@@ -271,6 +297,7 @@ var simulations = [
                    new Simulation({
                        id: 0,
                        countries: countrySetSimulation1,
+                       motions: motions,
                        name: 'Political Science 2200',
                        resolution: new Resolution({
                            title: 'S/RES/2133(2013)',
@@ -280,6 +307,7 @@ var simulations = [
                    new Simulation({
                        id: 1,
                        countries: countrySetSimulation2,
+                       motions: [],
                        name: 'Political Science 3220',
                        resolution: new Resolution({
                            title: 'S/RES/2139(2013)',
@@ -315,6 +343,12 @@ helpers.createSimulation = function (options) {
     var simulation = new Simulation(options);
     simulations.push(simulation);
     return simulation;
+};
+
+//TODO: should this push to the array, or just return the new motion?
+helpers.createMotion = function (simulation, options) {
+    options.id = simulation.getMotions().length;
+    return new Motion(options);
 };
 
 helpers.addUserToSimulation = function (simulation, user) {
@@ -384,22 +418,22 @@ helpers.addAllUsersToSimulation = function (simulation, users) {
                 }
             }
             if (p1length < per_country) {
-                country[p1id].addMember(user);    // add to team list
+                country[p1id].addMember(user); // add to team list
             } else if (p2length < per_country) {
-                country[p2id].addMember(user); 
+                country[p2id].addMember(user);
             } else if (p3length < per_country) {
-                country[p3id].addMember(user);    // add to team list
+                country[p3id].addMember(user); // add to team list
             } else {
                 unassigned.push(user);
             }
         }
     }
-    for (var i = 0; i < unassigned.length; i++) {
-        var index = Math.floor(Math.random() * country.length); 
+    for (var j = 0; j < unassigned.length; j++) {
+        var index = Math.floor(Math.random() * country.length);
         while(country[index].getMembers().length  >= per_country) {
-            index = Math.floor(Math.random() * country.length); 
+            index = Math.floor(Math.random() * country.length);
         }
-        country[index].addMember(unassigned[i]);
+        country[index].addMember(unassigned[j]);
     }
 };
 
@@ -409,5 +443,6 @@ module.exports = {
         countries: Country.names,
         simulations: simulations,
         users: users,
+        motions: motions,
         helpers: helpers
 };

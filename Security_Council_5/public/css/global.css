@@ -41,6 +41,12 @@ label {
     display: block;
 }
 
+input[type="file"] {
+    display:block;
+    margin: 10px;
+    margin-left: 0;
+}
+
 input[type="radio"] + label {
     display: inline;
     margin-left: 10px;

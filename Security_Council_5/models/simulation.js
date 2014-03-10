@@ -1,6 +1,7 @@
 var Simulation = function (options) {
     this._countries = options.countries || [];
     this._comments = options.comments || [];
+    this._motions = options.motions || [];
     this._id = options.id;
     this._name = options.name;
     this._resolution = options.resolution;
@@ -18,6 +19,10 @@ Simulation.prototype.getCountries = function () {
 
 Simulation.prototype.getComments = function () {
     return this._comments;
+};
+
+Simulation.prototype.getMotions = function () {
+    return this._motions;
 };
 
 Simulation.prototype.getName = function () {
@@ -59,6 +64,10 @@ Simulation.prototype.isPaperVisible = function () {
 
 Simulation.prototype.addComment = function (comment) {
     this._comments.unshift(comment);
+};
+
+Simulation.prototype.addMotion = function (motion) {
+    this._motions.push(motion);
 };
 
 module.exports = Simulation;

@@ -23,6 +23,7 @@ exports.country = function (req, res) {
         countryId: country.getId(),
         simulation: simulation,
         positionPaper: country.getPositionPaper(),
+        positionPaperSummary: country.getPositionPaperSummary(),
         positionPaperVisible: simulation.isPaperVisible(),
         directives: country.getDirectives()
     });
@@ -79,4 +80,4 @@ exports.directives = function (req, res) {
     var directives = req.body["directives"];
     country.setDirectives(directives);
     res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
-}
+};

@@ -1,29 +1,22 @@
 var Motion = function(options) {
     this._id = options.id;
-    this._type = options.type || Motion.Types.TO_ACT;
+    this._type = options.type;
     this._mover = options.mover;
     this._seconder = options.seconder;
-    this._status = options.status || Motion.Status.DEBATING;
+    this._status = options.status || Motion.Status.TABLE;
     this._votes = options.votes;
     this._body = options.body || '';
 };
 
-// Types
-
-Motion.prototype.Types = {
-    TO_AMMEND:1,
-    TO_VOTE:2,
-    TO_ACT:3
-};
-
 // Statuses
 
-Motion.prototype.Status = {
-    APPROVED:1,
-    DENIED:2,
-    DEBATING:3,
-    VOTING:4,
-    CLOSED:5
+Motion.Status = {
+    TABLE:1,
+    DEBATE:2,
+    VOTE:3,
+    APPROVED:4,
+    DENIED:5,
+    CLOSED:6
 };
 
 // Getters
@@ -56,6 +49,15 @@ Motion.prototype.getBody = function() {
     return this._body;
 };
 
+Motion.prototype.isInDebate = function() {
+    if(this.getStatus() === 2){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+
 Motion.prototype.isInVote = function() {
     if (this.getStatus() === 3){
         return true;
@@ -79,7 +81,7 @@ Motion.prototype.setSeconder = function(seconder) {
 };
 
 Motion.prototype.setStatus = function(status) {
-    this._status = Motion.Status[status];
+    this._status = status;
 };
 
 Motion.prototype.setVotes = function(votes) {
@@ -89,3 +91,5 @@ Motion.prototype.setVotes = function(votes) {
 Motion.prototype.setBody = function(body) {
     this._body = body;
 };
+
+module.exports = Motion;

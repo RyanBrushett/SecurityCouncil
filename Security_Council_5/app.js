@@ -20,6 +20,10 @@ app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.bodyParser({
+    keepExtensions: true,
+    uploadDir: __dirname + '/public/uploads'
+}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -70,7 +74,11 @@ app.get('/participant/dashboard', session.require, session.restrictToUser, parti
 app.get('/participant/simulation/:sid', session.require, session.restrictToUser, participant.simulation);
 app.get('/participant/simulation/:sid/:cid', session.require, session.restrictToUser, participant.country);
 app.get('/participant/join/simulation/:sid', session.require, session.restrictToUser, participant.join);
+app.get('/participant/chair/:sid', session.require, session.restrictToUser, session.restrictToChair, participant.chair);
+app.post('/participant/chair/debate/motion', session.require, session.restrictToUser, session.restrictToChair, participant.debateMotion);
+app.post('/participant/chair/debate/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.debateResolution);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
+app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.createMotion);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);

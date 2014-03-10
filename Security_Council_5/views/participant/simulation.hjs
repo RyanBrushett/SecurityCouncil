@@ -15,6 +15,9 @@
                     <li><a href="/">Dashboard</a></li>
                     {{#joined}}
                     <li><a href="/debate/{{ getId }}">Debate!</a></li>
+                        {{#isChair}}
+                        <li><a href="/participant/chair/{{sid}}">Chair</a></li>
+                        {{/isChair}}
                     {{/joined}}
                     {{^joined}}
                     <li><a href="/participant/join/simulation/{{ getId }}">Join this simulation!</a></li>

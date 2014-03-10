@@ -33,8 +33,12 @@
             <hr class="separator">
             {{#userIsMember}}
             <h2>Position paper</h2>
-            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" method="post">
-                <textarea name="position-paper" class="textbox">{{{ positionPaper }}}</textarea>
+            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" enctype="multipart/form-data" method="post">
+                <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{ positionPaperSummary }}}</textarea>
+                {{#positionPaper}}
+                <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+                {{/positionPaper}}
+                <input type="file" name="position-paper">
                 <input type="submit" class="button" value="Submit Position Paper">
             </form>
             <hr class="separator">
@@ -44,9 +48,23 @@
             {{^userIsMember}}
                 {{#positionPaperVisible}}
                 <h2>Position paper</h2>
-                <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+                <textarea disabled="true" class="textbox">{{{ positionPaperSummary }}}</textarea>
+                {{#positionPaper}}
+                <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+                {{/positionPaper}}
                 {{/positionPaperVisible}}
             {{/userIsMember}}
+            {{#userIsAmbassador}}
+            <hr class="separator">
+            <h2>Forward Motion</h2>
+            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}/motion" method="post">
+                <textarea name="motion" class="textbox"></textarea><br />
+                <input type="submit" class="button" value="Put Forward">
+            </form>
+            {{/userIsAmbassador}}
+            {{^userIsAmbassador}}
+            <br />
+            {{/userIsAmbassador}}
         </main>
     </body>
 </html>

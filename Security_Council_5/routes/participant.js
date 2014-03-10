@@ -1,4 +1,6 @@
+var path = require('path');
 var db = require('../db');
+var Motion = require('../models/motion');
 
 exports.create = function(req, res) {
     var p1 = req.param('p1');
@@ -72,7 +74,83 @@ exports.simulation = function(req, res) {
         return (members.indexOf(user) >= 0);
     });
     simulation.username = user.getName();
+    
+    simulation.isChair = false;
+    if(simulation.getChairperson() === user){
+        simulation.isChair = true;
+    }
+    
     res.render('participant/simulation', simulation);
+};
+
+exports.chair = function(req, res) {
+    var user = db.users[req.session.userId];
+    var simulation = db.simulations[req.params.sid];
+    simulation.username = user.getName();
+    simulation.userId = user.getId();
+    simulation.sid = req.params.sid;
+    
+    simulation.isChair = false;
+    if(simulation.getChairperson() === user){
+        simulation.isChair = true;
+    }    
+    
+    simulation.canVoteResolution = false;
+    if(simulation.getMotions().length === 0){
+        simulation.canVoteResolution = true;
+    }
+    
+    res.render('participant/chair', simulation);
+};
+
+exports.debateMotion = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(simulation.getMotions()[i].getId() === req.body.motionId){
+            m.setStatus(Motion.Status.DEBATE);
+            simulation.getMotions()[i] = simulation.getMotions()[i];
+        }
+        else{
+            m.setStatus(Motion.Status.TABLE);
+            simulation.getMotions()[i] = m;
+        }
+    }
+    
+    simulation.getResolution().setInDebate(false);
+    
+    var commentContent = "New motion under debate! \n";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "\n";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "\n";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();
+};
+
+exports.debateResolution = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        m.setStatus(Motion.Status.TABLE);
+        simulation.getMotions()[i] = m;
+    }
+    
+    simulation.getResolution().setInDebate(true);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();    
 };
 
 exports.country = function(req, res) {
@@ -83,6 +161,10 @@ exports.country = function(req, res) {
     var countryMembers = country.getMembers();
     var userIsMember = (countryMembers.indexOf(user) >= 0);
     var positionPaperVisible = simulation.isPaperVisible();
+    var userIsAmbassador = false;
+    if (typeof country.getAmbassador() !== "undefined") {
+        userIsAmbassador = (country.getAmbassador().getId() === user.getId());
+    }
     res.render('participant/country', {
         ambassador: country.getAmbassador(),
         members: countryMembers,
@@ -92,8 +174,10 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.getId(),
         positionPaper: country.getPositionPaper(),
+        positionPaperSummary: country.getPositionPaperSummary(),
         positionPaperVisible: simulation.isPaperVisible(),
-        directives: country.getDirectives()
+        directives: country.getDirectives(),
+        userIsAmbassador: userIsAmbassador
     });
 };
 
@@ -107,9 +191,27 @@ exports.join = function(req, res) {
 exports.submit = function(req, res) {
     var simulationId = req.params.sid;
     var countryId = req.params.cid;
-    var positionPaper = req.body["position-paper"];
+    var positionPaperSummary = req.body["position-paper-summary"];
+    var positionPaper = req.files["position-paper"];
     var simulation = db.simulations[simulationId];
     var country = simulation.getCountries()[countryId];
-    country.setPositionPaper(positionPaper);
+    country.setPositionPaperSummary(positionPaperSummary);
+    country.setPositionPaper(path.basename(positionPaper.path));
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
+};
+
+exports.createMotion = function(req, res) {
+    var motions = db.motions;
+    var simulation = db.simulations[req.params.sid];
+    var countries = simulation.getCountries();
+    var country = simulation.getCountries()[req.params.cid];
+    var id = db.motions.length;
+    var motion = db.helpers.createMotion({
+        mover:countries[req.params.cid],
+        body:req.body.motion
+    });
+    res.render('participant/motion', {
+        motion:motion,
+        country:motion.getMover()
+    });
 };
