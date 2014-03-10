@@ -63,7 +63,7 @@ By focusing hard on a feature that is functionally the backbone of the applicati
 
 ## Tasks
 
-The group completed the following tasks for version 3.0:
+The group completed the following tasks for version 3.0, sorted by backend functions, followed by user-facing functions:
 
 #### BACKEND:
     - SQLite3 Database.
