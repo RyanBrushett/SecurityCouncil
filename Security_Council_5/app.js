@@ -20,8 +20,6 @@ app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
 app.use(express.logger('dev'));
-// Yes, this is the cause of the warning
-// Yes, we need this to do file uploads
 app.use(express.bodyParser({
     keepExtensions: true,
     uploadDir: __dirname + '/public/uploads'
