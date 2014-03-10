@@ -56,7 +56,7 @@
                     {{/motionToVote}}
                     {{#getComments}}
                     <blockquote class="card">
-                        <p>{{getContent}}</p>
+                        <p>{{{getContent}}}</p>
                         <footer class="card-info">
                             {{#getUser}}
                             <p class="card-info__name--chair">{{getName}}</p>
