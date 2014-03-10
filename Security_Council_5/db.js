@@ -345,11 +345,10 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
-helpers.createMotion = function (options) {
-    options.id = motions.length;
-    var motion = new Motion(options);
-    motions.push(motion);
-    return motion;
+//TODO: should this push to the array, or just return the new motion?
+helpers.createMotion = function (simulation, options) {
+    options.id = simulation.getMotions().length;
+    return new Motion(options);
 };
 
 helpers.addUserToSimulation = function (simulation, user) {

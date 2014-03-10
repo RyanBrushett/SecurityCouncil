@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/dashboard.css">
+        <script type="text/javascript" src="/js/ajax.js"></script>
         <script type="text/javascript" src="/js/participant/chair.js"></script>
     </head>
     <body>
@@ -24,7 +25,12 @@
                 {{#getResolution}}
                 <div>
                     <h3>{{getTitle}}</h3>
-                    <button type="button" class="button" onclick="">Debate</button>
+                    {{#isInDebate}}
+                    In Debate
+                    {{/isInDebate}}
+                    {{^isInDebate}}
+                    <button type="button" class="button" onclick="debateResolution({{sid}}, {{userId}})">Debate</button>
+                    {{/isInDebate}}
                     {{#canVoteResolution}}
                     <button type="button" class="button" onclick"">Vote</button>
                     {{/canVoteResolution}}
@@ -39,7 +45,7 @@
                         In Debate
                         {{/isInDebate}}
                         {{^isInDebate}} 
-                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{getId}})">Debate</button>
+                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
                         {{/isInDebate}}
                         
                         <button type="button" class="button">Vote</button>
