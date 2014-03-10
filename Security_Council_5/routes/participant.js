@@ -1,3 +1,4 @@
+var path = require('path');
 var db = require('../db');
 
 exports.create = function(req, res) {
@@ -92,6 +93,7 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.getId(),
         positionPaper: country.getPositionPaper(),
+        positionPaperSummary: country.getPositionPaperSummary(),
         positionPaperVisible: simulation.isPaperVisible(),
         directives: country.getDirectives()
     });
@@ -107,9 +109,11 @@ exports.join = function(req, res) {
 exports.submit = function(req, res) {
     var simulationId = req.params.sid;
     var countryId = req.params.cid;
-    var positionPaper = req.body["position-paper"];
+    var positionPaperSummary = req.body["position-paper-summary"];
+    var positionPaper = req.files["position-paper"];
     var simulation = db.simulations[simulationId];
     var country = simulation.getCountries()[countryId];
-    country.setPositionPaper(positionPaper);
+    country.setPositionPaperSummary(positionPaperSummary);
+    country.setPositionPaper(path.basename(positionPaper.path));
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
