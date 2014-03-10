@@ -20,6 +20,10 @@ app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.bodyParser({
+    keepExtensions: true,
+    uploadDir: __dirname + '/public/uploads'
+}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());

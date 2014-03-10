@@ -4,3 +4,6 @@ OLD_*
 .express.log
 node_modules
 tests
+
+# Upload dir
+Security_Council_5/public/uploads

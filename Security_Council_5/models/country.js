@@ -3,7 +3,11 @@ var Country = function (options) {
     this._id = options.id;
     this._members = options.members || [];
     this._name = options.name;
-    this._positionPaper = options.positionPaper || '';
+    // Position papers can have both a summary (just a body of text
+    // that represents part of the position paper) and a single arbitrary
+    // file that goes along with it.
+    this._positionPaperSummary = options.positionPaperSummary || '';
+    this._positionPaper = options.positionPaper;
     this._directives = options.directives || '';
     this._permanentMember = options.permanentMember || false;
 };
@@ -52,6 +56,14 @@ Country.prototype.getName = function () {
 
 Country.prototype.flag = function () {
     return this._name.toLowerCase().replace(/ /g, '-') + '.svg';
+};
+
+Country.prototype.setPositionPaperSummary = function (summary) {
+    this._positionPaperSummary = summary;
+}
+
+Country.prototype.getPositionPaperSummary = function () {
+    return this._positionPaperSummary;
 };
 
 Country.prototype.setPositionPaper = function (positionPaper) {

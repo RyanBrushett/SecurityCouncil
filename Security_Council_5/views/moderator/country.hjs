@@ -42,7 +42,10 @@
             </ul>
             <hr class="separator">
             <h2>Position paper</h2>
-            <textarea disabled="true" class="textbox">{{{ positionPaper }}}</textarea>
+            <textarea disabled="true" class="textbox">{{{ positionPaperSummary }}}</textarea>
+            {{#positionPaper}}
+            <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+            {{/positionPaper}}
             <hr class="separator">
             <h2>Country directives</h2>
             <p>
