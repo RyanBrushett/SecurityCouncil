@@ -47,8 +47,7 @@ Country.prototype.updateAmbassador = function () { // Election process by partic
 		}
 	}
 	
-	if(ambassador == "")
-	{
+	if(ambassador == ""){
 		ambassador = majority[1];
 	}
 	
