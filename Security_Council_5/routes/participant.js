@@ -153,6 +153,39 @@ exports.debateResolution = function(req, res) {
     res.end();    
 };
 
+exports.voteMotion = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(m.getId() === req.body.motionId){
+            m.setStatus(Motion.Status.VOTE);
+            simulation.getMotions()[i] = m;
+        }
+        else{
+            m.setStatus(Motion.Status.TABLE);
+            simulation.getMotions()[i] = m;
+        }
+    }
+    
+    simulation.getResolution().setInDebate(false);
+    
+    var commentContent = "Motion open for voting! \n";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "\n";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "\n";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();    
+};
+
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];

@@ -48,7 +48,13 @@
                         <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
                         {{/isInDebate}}
                         
-                        <button type="button" class="button">Vote</button>
+                        {{#isInVote}}
+                        In Vote
+                        {{/isInVote}}
+                        {{^isInVote}}
+                        <button type="button" class="button" onclick="voteMotion({{sid}}, {{userId}}, {{getId}})">Vote</button>
+                        {{/isInVote}}
+                        
                         <button type="button" class="button">Trash</button>
                     </div>
                     <div>
