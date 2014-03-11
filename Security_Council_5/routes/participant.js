@@ -122,9 +122,9 @@ exports.debateMotion = function(req, res) {
     
     simulation.getResolution().setInDebate(false);
     
-    var commentContent = "New motion under debate! \n";
-    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "\n";
-    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "\n";
+    var commentContent = "New motion under debate! <br />";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
     
     var newComment = db.helpers.createComment(simulation, {
         content: commentContent,
