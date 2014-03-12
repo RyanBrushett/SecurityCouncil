@@ -1,5 +1,5 @@
 var db = require('../db');
-var Motions = require('../models/motion.js');
+var Motion = require('../models/motion.js');
 
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
@@ -98,14 +98,54 @@ exports.vote = function(req, res) {
             if(votesFor >= requiredVotes){
                 //Vote passes
                 console.log('pass');
+                
+                motions[req.params.mid].setStatus(Motion.Status.APPROVED);
+                
+                var commentContent = "Vote on motion passed! <br />";
+                commentContent += "Now debating the resolution.";
+                
+                var newComment = db.helpers.createComment(simulation, {
+                    content: commentContent,
+                    user: simulation.getChairperson()
+                });
+                simulation.addComment(newComment);
+                
+                simulation.getResolution().setInDebate(true);
             }
             else{
                 //Vote fails
                 console.log('fail');
+                
+                motions[req.params.mid].setStatus(Motion.Status.DENIED);
+                
+                var commentContent = "Vote on motion failed! <br />";
+                commentContent += "Now debating the resolution.";
+                
+                var newComment = db.helpers.createComment(simulation, {
+                    content: commentContent,
+                    user: simulation.getChairperson()
+                });
+                simulation.addComment(newComment);                
+                
+                simulation.getResolution().setInDebate(true);
             }
         }
         else{
             console.log('quorum not met');
+            
+            motions[req.params.mid].setStatus(Motion.Status.DEBATE);
+            motions[req.params.mid].setVotes([]);
+            
+            var commentContent = "Quorum not met! <br />";
+            commentContent += "Continuing debate on the motion.<br /> <br />";
+            commentContent += simulation.getMotions()[req.params.mid].getBody() + "<br />";
+            commentContent += "Moved by: " + simulation.getMotions()[req.params.mid].getMover().getName() + "<br />";            
+            
+            var newComment = db.helpers.createComment(simulation, {
+                content: commentContent,
+                user: simulation.getChairperson()
+            });
+            simulation.addComment(newComment);            
         }
     }
     
@@ -117,14 +157,18 @@ exports.vote = function(req, res) {
 //Checks voting permissions for a given user
 function checkMotion(simulation, user) {
     var s = simulation;
+    s.voting = false;
+    
     var motions = s.getMotions();
     for(var i = 0; i < motions.length; i++){
-        if(motions[i].getStatus() === Motions.Status.VOTE){
+        if(motions[i].getStatus() === Motion.Status.VOTE){
+            s.voting = true;
+            s.motionToVote = motions[i];
+            
             if(!db.helpers.hasUserVoted(motions[i], user)){
                 s.hasNotVoted = true;
                 
                 if(db.helpers.isUserAmbassador(s, user)){
-                    s.motionToVote = motions[i];
                     s.userCanVote = true;
                 }
                 else{

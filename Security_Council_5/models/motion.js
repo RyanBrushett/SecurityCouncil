@@ -2,9 +2,9 @@ var Motion = function(options) {
     this._id = options.id;
     this._type = options.type;
     this._mover = options.mover;
-    this._seconder = options.seconder;
+    this._seconder = options.seconder || '';
     this._status = options.status || Motion.Status.TABLE;
-    this._votes = options.votes;
+    this._votes = options.votes || [];
     this._body = options.body || '';
 };
 
@@ -62,6 +62,24 @@ Motion.prototype.isInVote = function() {
     if (this.getStatus() === 3){
         return true;
     } else {
+        return false;
+    }
+};
+
+Motion.prototype.isApproved = function() {
+    if(this.getStatus() === 4){
+        return true;
+    }
+    else{
+        return false;
+    }
+};
+
+Motion.prototype.isDenied = function() {
+    if(this.getStatus() === 5){
+        return true;
+    }
+    else{
         return false;
     }
 };

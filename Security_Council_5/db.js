@@ -271,8 +271,8 @@ var motions = [
                new Motion({
                    id: 0,
                    type: 1,
-                   mover: users[2],
-                   seconder: users[4],
+                   mover: countrySetSimulation1[0],
+                   seconder: countrySetSimulation1[2],
                    status: Motion.Status.DEBATE,
                    votes: [],
                    body: 'Web development is not much fun.'
@@ -280,8 +280,8 @@ var motions = [
                new Motion({
                    id: 1,
                    type: 1,
-                   mover: users[0],
-                   seconder: users[6],
+                   mover: countrySetSimulation1[1],
+                   seconder: countrySetSimulation1[2],
                    status: Motion.Status.TABLED,
                    votes: [],
                    body: 'Web development is sort of fun.'
@@ -345,7 +345,7 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
-//TODO: should this push to the array, or just return the new motion?
+//NOTE: should this push to the array, or just return the new motion?
 helpers.createMotion = function (simulation, options) {
     options.id = simulation.getMotions().length;
     return new Motion(options);
