@@ -248,17 +248,19 @@ exports.submit = function(req, res) {
 };
 
 exports.createMotion = function(req, res) {
-    var motions = db.motions;
     var simulation = db.simulations[req.params.sid];
     var countries = simulation.getCountries();
     var country = simulation.getCountries()[req.params.cid];
-    var id = db.motions.length;
-    var motion = db.helpers.createMotion({
+
+    var motion = db.helpers.createMotion(simulation, {
         mover:countries[req.params.cid],
         body:req.body.motion
     });
-    res.render('participant/motion', {
+    simulation.getMotions().push(motion);
+    
+    /*res.render('participant/motion', {
         motion:motion,
         country:motion.getMover()
-    });
+    });*/
+    res.redirect('/participant/simulation/' + req.params.sid + '/' + req.params.cid);
 };
