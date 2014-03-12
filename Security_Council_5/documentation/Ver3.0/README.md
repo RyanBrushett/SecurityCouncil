@@ -96,4 +96,34 @@ On top of those implemented in the previous iteration, the following requirement
 
 When users first hit the page at http://sc-5.cs.mun.ca, they are presented with a login page. For the sake of testing, you can use the user ryanb. The admin user is fiech. All passwords are "password" (without quotes).
 
-TODO: Enumerate points here and add process for testing
+1. Motions to the chair:
+    - Log in as fiech // password. Click on Political Science 2200. Set Ryan B as the chairperson for this example.
+    - Log out and log back in as ryanb // password. Click on Political Science 2200. Note that you are the chair.
+    - Select "Chair" from the navigation section of the screen. You'll notice The Resolution is under debate but there are two motions.
+    - Click debate on one of the two motions.
+    - If you check the debate! screen in Political Science 2200, you'll notice an alert from the chair that indicates a new motion is under debate.
+    - It also has the motion text. Coversation can begin about this motion from there.
+2. If vote is selected by the chair:
+    - From the chair screen as above, make sure a motion is selected for debate, and click on Vote.
+    - Using the Fiech account, in Political Science 2200, select a team and assign an ambassador.
+        - For this example, log in as fiech and select Argentina. Set ryanb as the ambassador for argentina.
+    - Log in using ryanb and enter the debate for Political Science 2200. You'll notice the comment box has been replaced with a voting system
+    - Vote yay, nay, or not present.
+    - The conversation box is returned.
+3. Ambassador putting forward a motion to the chair:
+    - The ambassador can put forward a motion by entering the simulation and selecting their team, very similar to how they'd add a position paper.
+    - Enter Political Science 2200 as ryanb, assuming he is the ambassador for Argentina as per the example above.
+    - Select Argentina where ryanb is the ambassador.
+    - Notice the motion text field at the bottom. The Ambassador is the only team member who can use this box.
+    - Submitting a motion will have it appear on the motion list managed by the chair.
+    - Since you are both the chair and ambassador for the sake of testing, head back to the chair menu and notice your motion has now appeared.
+4. Some notes about motions:
+    - Debate on motions & the resolution is mutually exclusive (only one motion or resolution can be debated at a time).
+        - Choosing to debate a motion just serves to signal to users what is happening. It is up to them to actually debate the correct motion.
+    - When the chair clicks debate on a motion, that motion is flagged for debate (and all others are tabled). A comment is inserted into the debate view indicating the change.
+    - When the chair clicks vote, this disables commenting until the vote is complete
+        - At this time, ambassadors can vote from the debate view.
+        - Other users will have a notice that a particular motion is up for voting.
+        - Only a motion or resolution that is currently under debate should be allowed for voting (ie, you can not debate one motion and vote another)
+    - When the vote is complete, the results will be posted to the chair and the moderator.
+    - A (passed) vote on the resolution signals the end of the simulation.
