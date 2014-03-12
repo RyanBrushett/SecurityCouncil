@@ -21,12 +21,14 @@ Country.prototype.setAmbassador = function (user) { // Manual override by Modera
 
 Country.prototype.updateAmbassador = function () { // Election process by participants
 	var votes = [];
+	var no_preference = 0;
 	var vote_count = [];
 	var majority = [-1, ""];
 	var ambassador = "";
 	for (var i = 0; i < this._members.length; i++) {
 		var user_preference = this._members[i].getAmbassadorPreference();
 		if(user_preference == ""){
+			no_preference = no_preference + 1; 
 			continue;
 		}
 		if(votes.indexOf(user_preference) < 0){
@@ -37,7 +39,10 @@ Country.prototype.updateAmbassador = function () { // Election process by partic
 		var index = votes.indexOf(user_preference);
 		vote_count[index] = vote_count[index] + 1;
 
-		if(vote_count[index] > this._members.length/2){
+		if(no_preference > this._members.length/2){
+			return;
+		}
+		else if(vote_count[index] > this._members.length/2){
 			ambassador = votes[index];
 			continue;
 		}
