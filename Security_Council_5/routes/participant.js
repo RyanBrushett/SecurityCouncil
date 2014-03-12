@@ -171,7 +171,7 @@ exports.voteMotion = function(req, res) {
 
                 var vote = {
                     vote: v,
-                    user: user
+                    user: undefined
                 };
                 votes.push(vote);
             }

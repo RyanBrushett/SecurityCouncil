@@ -8,27 +8,7 @@ exports.view = function(req, res) {
     simulation.currentUser = currentUser;
     simulation.sid = req.params.id;
     
-    //Check if there is a motion up for debate
-    var motions = simulation.getMotions();
-    for(var i = 0; i < motions.length; i++){
-        if(motions[i].getStatus() === Motions.Status.VOTE){
-            if(!db.helpers.hasUserVoted(motions[i], currentUser)){
-                simulation.hasNotVoted = true;
-                
-                if(db.helpers.isUserAmbassador(simulation, currentUser)){
-                    simulation.motionToVote = motions[i];
-                    simulation.userCanVote = true;
-                }
-                else{
-                    simulation.userCanVote = false;
-                }
-            }
-            else{
-                simulation.hasNotVoted = false;
-                simulation.userCanVote = false;
-            }
-        }
-    }
+    simulation = checkMotion(simulation, currentUser);
     
     res.render('debate/index', simulation);
 };
@@ -61,26 +41,7 @@ exports.comment = function(req, res) {
     });
     simulation.addComment(newComment);
     
-    //Check if there is a motion up for debate
-    var motions = simulation.getMotions();
-    for(var i = 0; i < motions.length; i++){
-        if(motions[i].getStatus() === Motions.Status.VOTE){
-            if(!db.helpers.hasUserVoted(motions[i], currentUser)){
-                simulation.hasNotVoted = true;
-                
-                if(db.helpers.isUserAmbassador(simulation, currentUser)){
-                    simulation.motionToVote = motions[i];
-                    simulation.userCanVote = true;
-                }
-                else{
-                    simulation.userCanVote = false;
-                }
-            }
-            else{
-                simulation.hasNotVoted = false;
-            }
-        }
-    }    
+    simulation = checkMotion(simulation, currentUser);  
     
     res.render('debate/index', simulation);
 };
@@ -148,26 +109,34 @@ exports.vote = function(req, res) {
         }
     }
     
-    //Check if there is a motion up for debate
-    var motions = simulation.getMotions();
+    simulation = checkMotion(simulation, currentUser);
+    
+    res.render('debate/index', simulation);
+};
+
+//Checks voting permissions for a given user
+function checkMotion(simulation, user) {
+    var s = simulation;
+    var motions = s.getMotions();
     for(var i = 0; i < motions.length; i++){
         if(motions[i].getStatus() === Motions.Status.VOTE){
-            if(!db.helpers.hasUserVoted(motions[i], currentUser)){
-                simulation.hasNotVoted = true;
+            if(!db.helpers.hasUserVoted(motions[i], user)){
+                s.hasNotVoted = true;
                 
-                if(db.helpers.isUserAmbassador(simulation, currentUser)){
-                    simulation.motionToVote = motions[i];
-                    simulation.userCanVote = true;
+                if(db.helpers.isUserAmbassador(s, user)){
+                    s.motionToVote = motions[i];
+                    s.userCanVote = true;
                 }
                 else{
-                    simulation.userCanVote = false;
+                    s.userCanVote = false;
                 }
             }
             else{
-                simulation.hasNotVoted = false;
+                s.hasNotVoted = false;
+                s.userCanVote = false;
             }
         }
     }
     
-    res.render('debate/index', simulation);
-};
+    return s;
+}

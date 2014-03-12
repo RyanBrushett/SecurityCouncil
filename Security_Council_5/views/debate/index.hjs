@@ -40,18 +40,23 @@
                 <h2>Debate</h2>
                 <div class="discussion">
                     {{#motionToVote}}
-                        {{#userCanVote}}
-                        <form action="/debate/vote/{{sid}}/{{getId}}" method="post">
-                            <input type="radio" name="vote" value="yay" checked>Yay</input>
-                            <input type="radio" name="vote" value="nay">Nay</input>
-                            <input type="radio" name="vote" value="absent">Not Present</input>
-                            <input type="submit" value="Vote!" class="button" />
-                        </form>
-                        {{/userCanVote}}
-                        {{^userCanVote}}
-                        There is a motion up for voting.<br />
-                        {{getBody}}
-                        {{/userCanVote}}
+                        {{#hasNotVoted}}
+                            {{#userCanVote}}
+                            <form action="/debate/vote/{{sid}}/{{getId}}" method="post">
+                                <input type="radio" name="vote" value="yay" checked>Yay</input>
+                                <input type="radio" name="vote" value="nay">Nay</input>
+                                <input type="radio" name="vote" value="absent">Not Present</input>
+                                <input type="submit" value="Vote!" class="button" />
+                            </form>
+                            {{/userCanVote}}
+                            {{^userCanVote}}
+                            There is a motion up for voting.<br />
+                            {{getBody}}
+                            {{/userCanVote}}
+                        {{/hasNotVoted}}
+                        {{^hasNotVoted}}
+                            You have already voted on this motion.
+                        {{/hasNotVoted}}
                     {{/motionToVote}}
                     {{^motionToVote}}
                     <form action="/debate/{{ getId }}" method="post">
