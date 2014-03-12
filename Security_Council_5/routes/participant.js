@@ -112,11 +112,9 @@ exports.debateMotion = function(req, res) {
         
         if(simulation.getMotions()[i].getId() === req.body.motionId){
             m.setStatus(Motion.Status.DEBATE);
-            simulation.getMotions()[i] = simulation.getMotions()[i];
         }
         else{
             m.setStatus(Motion.Status.TABLE);
-            simulation.getMotions()[i] = m;
         }
     }
     
@@ -144,7 +142,6 @@ exports.debateResolution = function(req, res) {
         var m = simulation.getMotions()[i];
         
         m.setStatus(Motion.Status.TABLE);
-        simulation.getMotions()[i] = m;
     }
     
     simulation.getResolution().setInDebate(true);
@@ -176,11 +173,9 @@ exports.voteMotion = function(req, res) {
                 votes.push(vote);
             }
             m.setVotes(votes);
-            simulation.getMotions()[i] = m;
         }
         else{
             m.setStatus(Motion.Status.TABLE);
-            simulation.getMotions()[i] = m;
         }
     }
     
