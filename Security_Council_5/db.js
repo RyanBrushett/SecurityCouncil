@@ -351,6 +351,28 @@ helpers.createMotion = function (simulation, options) {
     return new Motion(options);
 };
 
+helpers.isUserAmbassador = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        if(countries[i].getAmbassador() === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+helpers.hasUserVoted = function(motion, user) {
+    for(var i = 0; i < motion.getVotes().length; i++){
+        var vote = motion.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
 helpers.addUserToSimulation = function (simulation, user) {
     // Randomly add a user to a team
     var country = simulation.getCountries();

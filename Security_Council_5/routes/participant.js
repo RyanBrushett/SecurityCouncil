@@ -153,6 +153,53 @@ exports.debateResolution = function(req, res) {
     res.end();    
 };
 
+exports.voteMotion = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(m.getId() === req.body.motionId){
+            m.setStatus(Motion.Status.VOTE);
+            //simulation.getMotions()[i] = m;
+            
+            //TEMP
+            var votes = m.getVotes();
+            for(var j = 0; j < simulation.getCountries().length - 1; j++){
+                var v = Math.floor(Math.random()*3 + 1);
+
+                var vote = {
+                    vote: v,
+                    user: undefined
+                };
+                votes.push(vote);
+            }
+            m.setVotes(votes);
+            simulation.getMotions()[i] = m;
+        }
+        else{
+            m.setStatus(Motion.Status.TABLE);
+            simulation.getMotions()[i] = m;
+        }
+    }
+    
+    simulation.getResolution().setInDebate(false);
+    
+    var commentContent = "Motion open for voting! <br />";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();    
+};
+
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
