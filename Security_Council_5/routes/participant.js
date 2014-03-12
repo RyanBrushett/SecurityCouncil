@@ -162,6 +162,20 @@ exports.voteMotion = function(req, res) {
         
         if(m.getId() === req.body.motionId){
             m.setStatus(Motion.Status.VOTE);
+            //simulation.getMotions()[i] = m;
+            
+            //TEMP
+            var votes = m.getVotes();
+            for(var j = 0; j < simulation.getCountries().length - 1; j++){
+                var v = Math.floor(Math.random()*3 + 1);
+
+                var vote = {
+                    vote: v,
+                    user: user
+                };
+                votes.push(vote);
+            }
+            m.setVotes(votes);
             simulation.getMotions()[i] = m;
         }
         else{
@@ -172,9 +186,9 @@ exports.voteMotion = function(req, res) {
     
     simulation.getResolution().setInDebate(false);
     
-    var commentContent = "Motion open for voting! \n";
-    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "\n";
-    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "\n";
+    var commentContent = "Motion open for voting! <br />";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
     
     var newComment = db.helpers.createComment(simulation, {
         content: commentContent,

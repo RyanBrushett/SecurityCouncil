@@ -41,7 +41,12 @@
                 <div class="discussion">
                     {{#motionToVote}}
                         {{#userCanVote}}
-                        You can vote! Hot damn.<br />
+                        <form action="/debate/vote/{{sid}}/{{getId}}" method="post">
+                            <input type="radio" name="vote" value="yay" checked>Yay</input>
+                            <input type="radio" name="vote" value="nay">Nay</input>
+                            <input type="radio" name="vote" value="absent">Not Present</input>
+                            <input type="submit" value="Vote!" class="button" />
+                        </form>
                         {{/userCanVote}}
                         {{^userCanVote}}
                         There is a motion up for voting.<br />
