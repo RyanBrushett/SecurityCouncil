@@ -273,9 +273,9 @@ var motions = [
                    type: 1,
                    mover: countrySetSimulation1[0],
                    seconder: countrySetSimulation1[2],
-                   status: Motion.Status.DEBATE,
+                   status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is not much fun.'
+                   body: 'Web development sure is great.'
                }),
                new Motion({
                    id: 1,
@@ -284,7 +284,7 @@ var motions = [
                    seconder: countrySetSimulation1[2],
                    status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is sort of fun.'
+                   body: 'This is another motion.'
                })               
                ];
 

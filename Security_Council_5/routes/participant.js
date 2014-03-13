@@ -252,10 +252,5 @@ exports.createMotion = function(req, res) {
         body:req.body.motion
     });
     simulation.getMotions().push(motion);
-    
-    /*res.render('participant/motion', {
-        motion:motion,
-        country:motion.getMover()
-    });*/
     res.redirect('/participant/simulation/' + req.params.sid + '/' + req.params.cid);
 };
