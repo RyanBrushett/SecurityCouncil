@@ -374,6 +374,16 @@ helpers.hasUserVoted = function(motion, user) {
     return false;
 };
 
+helpers.hasUserVotedResolution = function(resolution, user) {
+    for(var i = 0; i < resolution.getVotes().length; i++){
+        var vote = resolution.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    return false;
+};
+
 helpers.addUserToSimulation = function (simulation, user) {
     // Randomly add a user to a team
     var country = simulation.getCountries();

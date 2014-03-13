@@ -8,7 +8,7 @@ exports.view = function(req, res) {
     simulation.currentUser = currentUser;
     simulation.sid = req.params.id;
     
-    simulation = checkMotion(simulation, currentUser);
+    simulation = checkVotingPermissions(simulation, currentUser);
     
     res.render('debate/index', simulation);
 };
@@ -41,7 +41,7 @@ exports.comment = function(req, res) {
     });
     simulation.addComment(newComment);
     
-    simulation = checkMotion(simulation, currentUser);  
+    simulation = checkVotingPermissions(simulation, currentUser);  
     
     res.render('debate/index', simulation);
 };
@@ -149,20 +149,23 @@ exports.vote = function(req, res) {
         }
     }
     
-    simulation = checkMotion(simulation, currentUser);
+    simulation = checkVotingPermissions(simulation, currentUser);
     
     res.render('debate/index', simulation);
 };
 
 //Checks voting permissions for a given user
-function checkMotion(simulation, user) {
+function checkVotingPermissions(simulation, user) {
     var s = simulation;
     s.voting = false;
+    s.votingMotion = false;
+    s.votingResolution = false;
     
     var motions = s.getMotions();
     for(var i = 0; i < motions.length; i++){
         if(motions[i].getStatus() === Motion.Status.VOTE){
             s.voting = true;
+            s.votingMotion = true;
             s.motionToVote = motions[i];
             
             if(!db.helpers.hasUserVoted(motions[i], user)){
@@ -180,6 +183,26 @@ function checkMotion(simulation, user) {
                 s.userCanVote = false;
             }
         }
+    }
+    
+    if((s.votingMotion === false) && s.getResolution().isInVote()){
+        s.voting = true;
+        s.votingResolution = true;
+        
+        if(!db.helpers.hasUserVotedResolution(s.getResolution(), user)){
+            s.hasNotVoted = true;
+            
+            if(db.helpers.isUserAmbassador(s, user)){
+                s.userCanVote = true;
+            }
+            else{
+                s.userCanVote = false;
+            }
+        }
+        else{
+            s.hasNotVoted = false;
+            s.userCanVote = false;
+        }        
     }
     
     return s;
