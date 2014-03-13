@@ -281,7 +281,9 @@ exports.submit = function(req, res) {
     var simulation = db.simulations[simulationId];
     var country = simulation.getCountries()[countryId];
     country.setPositionPaperSummary(positionPaperSummary);
-    country.setPositionPaper(path.basename(positionPaper.path));
+    if (positionPaper.size > 0 && positionPaper.name) {
+        country.setPositionPaper(path.basename(positionPaper.path));
+    }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
 
