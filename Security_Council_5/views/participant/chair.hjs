@@ -32,7 +32,12 @@
                     <button type="button" class="button" onclick="debateResolution({{sid}}, {{userId}})">Debate</button>
                     {{/isInDebate}}
                     {{#canVoteResolution}}
-                    <button type="button" class="button" onclick"">Vote</button>
+                        {{#isInDebate}}
+                        <button type="button" class="button" onclick="voteResolution({{sid}}, {{userId}})">Vote</button>
+                        {{/isInDebate}}
+                        {{#isInVote}}
+                        In Vote
+                        {{/isInVote}}
                     {{/canVoteResolution}}
                 </div>
                 <br />
@@ -40,7 +45,7 @@
                 {{#getMotions}}
                 <div>
                     <div>
-                        <!-- this should be changed so that it doesn't look ridiculous -->
+                        <!-- this should be changed so that it doesn't look ridiculous -->       
                         {{#isInDebate}}
                         In Debate
                         {{/isInDebate}}
@@ -48,7 +53,15 @@
                         <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
                         {{/isInDebate}}
                         
-                        <button type="button" class="button">Vote</button>
+                        {{#isInVote}}
+                        In Vote
+                        {{/isInVote}}
+                        {{^isInVote}}
+                            {{#isInDebate}}
+                            <button type="button" class="button" onclick="voteMotion({{sid}}, {{userId}}, {{getId}})">Vote</button>
+                            {{/isInDebate}}
+                        {{/isInVote}}
+                        
                         <button type="button" class="button">Trash</button>
                     </div>
                     <div>
