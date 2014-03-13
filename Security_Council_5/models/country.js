@@ -23,7 +23,7 @@ Country.prototype.updateAmbassador = function () { // Election process by partic
 	var votes = [];
 	var no_preference = 0;
 	var vote_count = [];
-	var majority = [-1, ""];
+	var majority = [1, ""];
 	var ambassador = "";
 	for (var i = 0; i < this._members.length; i++) {
 		var user_preference = this._members[i].getAmbassadorPreference();
@@ -42,7 +42,7 @@ Country.prototype.updateAmbassador = function () { // Election process by partic
 		if(no_preference > this._members.length/2){
 			return;
 		}
-		else if(vote_count[index] > this._members.length/2){
+		if(vote_count[index] > this._members.length/2){
 			ambassador = votes[index];
 			continue;
 		}
@@ -59,8 +59,9 @@ Country.prototype.updateAmbassador = function () { // Election process by partic
 	for (var j = 0; j < this._members.length; j++) {
 		if(this._members[j].getName() == ambassador){
 			this._ambassador = this._members[j];
+			return;
 		}
-		return;
+		
 	}
 };
 
