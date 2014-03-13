@@ -93,11 +93,15 @@
                         <p>{{{getContent}}}</p>
                         <footer class="card-info">
                             {{#getUser}}
-                            <p class="card-info__name--chair">{{getName}}</p>
                             {{#isChair}}
+                            <p class="card-info__name--chair">{{getName}}</p>
                             <p class="card-info__name--chair">Council Chair</p>
-                            {{/isChair}}
                             <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">
+                            {{/isChair}}
+                            {{^isChair}}
+                            <p>{{getName}}</p>
+                            <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">                            
+                            {{/isChair}}
                             {{/getUser}}
                         </footer>
                     </blockquote>
