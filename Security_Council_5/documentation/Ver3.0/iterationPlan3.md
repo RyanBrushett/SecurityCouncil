@@ -16,7 +16,7 @@ Comp 4770 - Group 5
 
 ### Tasks for participants
 - Participants should be able to elect ambassadors on their team.
-- Participants should be able to upload .doc, .pdf, and other binary-style files to the server as position papers
+- Participants should be able to upload .doc, .pdf, and other common files to the server as position papers
     - Users should be encouraged to include a plaintext summary in the text box upon upload.
     - Option to use purely plaintext exists.
 - Ambassadors should be able to forward a motion. This could be an amendment, an action, a vote, etc.
