@@ -60,7 +60,7 @@ Country.prototype.flag = function () {
 
 Country.prototype.setPositionPaperSummary = function (summary) {
     this._positionPaperSummary = summary;
-}
+};
 
 Country.prototype.getPositionPaperSummary = function () {
     return this._positionPaperSummary;

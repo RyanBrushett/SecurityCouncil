@@ -106,6 +106,7 @@ exports.chair = function(req, res) {
 exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
@@ -137,6 +138,7 @@ exports.debateMotion = function(req, res) {
 exports.debateResolution = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
@@ -162,6 +164,7 @@ exports.debateResolution = function(req, res) {
 exports.voteMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
@@ -208,6 +211,8 @@ exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     var resolution = simulation.getResolution();
+    
+    user.setFlag('united-nations.svg');
     
     resolution.setInDebate(false);
     resolution.setInVote(true);

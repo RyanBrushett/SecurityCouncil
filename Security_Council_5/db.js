@@ -363,6 +363,37 @@ helpers.isUserAmbassador = function(simulation, user) {
     return false;
 };
 
+helpers.isUserCountryPermanent = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                if((countries[i].getName() === 'China') ||
+                    (countries[i].getName() === 'Russia') ||
+                    (countries[i].getName() === 'France') ||
+                    (countries[i].getName() === 'United States of America') ||
+                    (countries[i].getName() === 'United Kingdom')){
+                    
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
+helpers.getUserCountry = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                return countries[i];
+            }
+        }
+    }
+}
+
 helpers.hasUserVoted = function(motion, user) {
     for(var i = 0; i < motion.getVotes().length; i++){
         var vote = motion.getVotes()[i];
@@ -371,6 +402,16 @@ helpers.hasUserVoted = function(motion, user) {
         }
     }
     
+    return false;
+};
+
+helpers.hasUserVotedResolution = function(resolution, user) {
+    for(var i = 0; i < resolution.getVotes().length; i++){
+        var vote = resolution.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
     return false;
 };
 
