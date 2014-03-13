@@ -154,6 +154,110 @@ exports.vote = function(req, res) {
     res.render('debate/index', simulation);
 };
 
+exports.voteResolution = function(req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var currentUser = db.users[req.session.userId];
+    
+    simulation.currentUser = currentUser;
+    simulation.sid = req.params.sid;
+
+    var currentVotes = simulation.getResolution().getVotes();
+    
+    var numericVote = 0;
+    if(req.body.vote == "yay") numericVote = 1;
+    if(req.body.vote == "nay") numericVote = 2;
+    if(req.body.vote == "absent") numericVote = 3;
+    
+    var newVote = {
+        vote: numericVote,
+        user: currentUser
+    };
+    
+    currentVotes.push(newVote);
+    simulation.getResolution().setVotes(currentVotes);
+    
+    //Determine if vote is finished, maybe should be in a separate method
+    if(currentVotes.length === simulation.getCountries().length){
+        var votesFor = 0;
+        var votesAgainst = 0;
+        var numAbsent = 0;
+        for(var i = 0; i < currentVotes.length; i++){
+            if(currentVotes[i].vote === 1){
+                votesFor++;
+            }
+            else if(currentVotes[i].vote === 2){
+                votesAgainst++;
+            }
+            else{
+                numAbsent++;
+            }
+        }
+        
+        console.log(votesFor);
+        console.log(votesAgainst);
+        console.log(numAbsent);
+        
+        var quorum = Math.round(simulation.getCountries().length * (2.0 / 3.0));
+        console.log(quorum);
+        if((currentVotes.length - numAbsent) >= quorum){       
+            var requiredVotes = Math.floor(simulation.getCountries().length / 2) + 1;
+            
+            if(votesFor >= requiredVotes){
+                //Vote passes
+                console.log('pass');
+                
+                simulation.getResolution().setStatus(1);
+                
+                var commentContent = "Vote on resolution passed! <br />";
+                
+                var newComment = db.helpers.createComment(simulation, {
+                    content: commentContent,
+                    user: simulation.getChairperson()
+                });
+                simulation.addComment(newComment);
+                
+                simulation.getResolution().setInDebate(false);
+            }
+            else{
+                //Vote fails
+                console.log('fail');
+                
+                simulation.getResolution().setStatus(2);
+                
+                var commentContent = "Vote on resolution failed! <br />";
+                commentContent += "Now debating the resolution.";
+                
+                var newComment = db.helpers.createComment(simulation, {
+                    content: commentContent,
+                    user: simulation.getChairperson()
+                });
+                simulation.addComment(newComment);                
+                
+                simulation.getResolution().setInDebate(true);
+            }
+        }
+        else{
+            console.log('quorum not met');
+            
+            simulation.getResolution().setInDebate(true);
+            simulation.getResolution().setVotes([]);
+            
+            var commentContent = "Quorum not met! <br />";
+            commentContent += "Continuing debate on the resolution.<br /> <br />";         
+            
+            var newComment = db.helpers.createComment(simulation, {
+                content: commentContent,
+                user: simulation.getChairperson()
+            });
+            simulation.addComment(newComment);            
+        }
+    }
+    
+    simulation = checkVotingPermissions(simulation, currentUser);
+    
+    res.render('debate/index', simulation);    
+};
+
 //Checks voting permissions for a given user
 function checkVotingPermissions(simulation, user) {
     var s = simulation;

@@ -4,6 +4,7 @@ var Resolution = function (options) {
     this._inDebate = true;
     this._inVote = false;
     this._votes = options.votes || [];
+    this._voteStatus = 0;
 };
 
 Resolution.prototype.setTitle = function (title) {
@@ -44,6 +45,14 @@ Resolution.prototype.getVotes = function () {
 
 Resolution.prototype.setVotes = function (votes) {
     this.votes = votes;
+};
+
+Resolution.prototype.setVoteStatus = function (status){
+    this._voteStatus = status;
+};
+
+Resolution.prototype.getVoteStatus = function() {
+    return this._voteStatus;
 };
 
 module.exports = Resolution;

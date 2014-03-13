@@ -363,6 +363,26 @@ helpers.isUserAmbassador = function(simulation, user) {
     return false;
 };
 
+helpers.isUserCountryPermanent = function(user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                if((countries[i].getName() === 'China') ||
+                    (countries[i].getName() === 'Russia') ||
+                    (countries[i].getName() === 'France') ||
+                    (countries[i].getName() === 'United States of America') ||
+                    (countries[i].getName() === 'United Kingdom')){
+                    
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
 helpers.hasUserVoted = function(motion, user) {
     for(var i = 0; i < motion.getVotes().length; i++){
         var vote = motion.getVotes()[i];
