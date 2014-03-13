@@ -363,7 +363,7 @@ helpers.isUserAmbassador = function(simulation, user) {
     return false;
 };
 
-helpers.isUserCountryPermanent = function(user) {
+helpers.isUserCountryPermanent = function(simulation, user) {
     var countries = simulation.getCountries();
     for(var i = 0; i < countries.length; i++){
         for(var j = 0; j < countries[i].getMembers().length; j++){
@@ -382,6 +382,17 @@ helpers.isUserCountryPermanent = function(user) {
     
     return false;
 };
+
+helpers.getUserCountry = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                return countries[i];
+            }
+        }
+    }
+}
 
 helpers.hasUserVoted = function(motion, user) {
     for(var i = 0; i < motion.getVotes().length; i++){
