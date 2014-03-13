@@ -129,3 +129,15 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
         - Only a motion or resolution that is currently under debate should be allowed for voting (ie, you can not debate one motion and vote another)
     - When the vote is complete, the results will be posted to the chair and the moderator.
     - A (passed) vote on the resolution signals the end of the simulation.
+5. Uploading position papers:
+    - Users now have the option to upload position papers in any file format.
+    - This is done from the position paper section of the user's country page. They can still use the plaintext option as before.
+    - Log in as ryanb // password, navigate to Political Science 2200. Select Argentina. Observe.
+    - When a position paper is uploaded, it ends up in the public/uploads/ directory on the server to be fetched.
+    - TODO: A note on naming convention
+    
+    
+    
+    
+    
+    

@@ -8,6 +8,7 @@ Comp 4770 - Group 5
     - General UI polish in the form of making sure there's reliable and consistent navigation
     - Making sure buttons are placed where they'd be expected
     - Making sure the debate screen is readable and usable
+    - Moderator page should also list users by username, not just name
 - A comprehensive set of instructions on use.
 
 ### Moderators
