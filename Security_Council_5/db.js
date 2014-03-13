@@ -267,26 +267,27 @@ for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; p
 }
 
 //TODO: I have no idea how enumeration works in javascript
-var motions = [
+/*var motions = [
                new Motion({
                    id: 0,
                    type: 1,
-                   mover: users[2],
-                   seconder: users[4],
-                   status: Motion.Status.DEBATE,
+                   mover: countrySetSimulation1[0],
+                   seconder: countrySetSimulation1[2],
+                   status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is not much fun.'
+                   body: 'Web development sure is great.'
                }),
                new Motion({
                    id: 1,
                    type: 1,
-                   mover: users[0],
-                   seconder: users[6],
+                   mover: countrySetSimulation1[1],
+                   seconder: countrySetSimulation1[2],
                    status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is sort of fun.'
+                   body: 'This is another motion.'
                })               
-               ];
+               ];*/
+var motions = [];
 
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {
@@ -345,10 +346,32 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
-//TODO: should this push to the array, or just return the new motion?
+//NOTE: should this push to the array, or just return the new motion?
 helpers.createMotion = function (simulation, options) {
     options.id = simulation.getMotions().length;
     return new Motion(options);
+};
+
+helpers.isUserAmbassador = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        if(countries[i].getAmbassador() === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+helpers.hasUserVoted = function(motion, user) {
+    for(var i = 0; i < motion.getVotes().length; i++){
+        var vote = motion.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    
+    return false;
 };
 
 helpers.addUserToSimulation = function (simulation, user) {
