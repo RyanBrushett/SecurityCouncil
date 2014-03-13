@@ -3,6 +3,7 @@
 An app developed for COMP4770 in Winter 2013/2014 by Group 5
 
 ## Group 5 is...
+
 	- Whymarrh Whitby
 	- Ryan Murphy
 	- Bukunola Ladele
@@ -13,13 +14,12 @@ An app developed for COMP4770 in Winter 2013/2014 by Group 5
 ## Contents
 
 This application installation contains:
-	- app.js (the main file used to run the application)
-	- tempdb.js (the temporary database info used in the application demo and testing)
+	- app.js (the main application file)
+	- db.js (the temporary database info used in the application demo and testing)
+	- The models directory (contains the oject models)
 	- package.json (the json file describing the app's versioning and dependencies)
-	- The node modules folder (the Node modules used in this project: currently Express and Hogan)
-	- The public folder (a folder containing the public Javascript functions and CSS stylesheets used here)
-	- The routes folder (includes the routes used by the app)
-	- The templates folder (simply the XML templating for comment styles in the conversation channels of the app)
+	- The public folder (a folder containing the public Javascript functions and CSS stylesheets used here. Also home to uploaded files)
+	- The routes folder (includes the controllers used by the app)
 	- The views folder (the folder containing the .hjs views of the app)
 	- The documentation folder (the folder containing iteration implementation plans, domain models, and use cases)
 	- This README file.
@@ -32,6 +32,7 @@ To run this app there are two possible methods.
 
 Change into the `/path/to_/SC_Sim_5/Security_Council_5` directory from a shell and execute
 
+        $ npm install
         $ node app.js
 
 The app will confirm it has started by writing a message to the shell stating
@@ -44,7 +45,7 @@ You'll be presented with a login page. You may log in with <username // password
 
 ### With the Node.JS Eclipse Plugin
 
-Simply open the project in Eclipse and run the app.js file.
+After running npm install from the same directory as the package.json, simply open the project in Eclipse and run the app.js file.
 
 Then, using Chrome, connect to http://localhost:3333/
 
@@ -58,14 +59,15 @@ After refining our application for version 2, we focused on completing the featu
 
 ## Process
 
-Group 5's plan for Iteration 3 revolves mostly around completion of the featureset and refinement of the views used. We started by focusing on the voting mechanic heavily and all of the offshoots of that feature e.g. allowing amendments to pass, votes to fail, etc.
+Group 5's plan for Iteration 3 revolved mostly around completion of the featureset and refinement of the views used. We started by focusing on the voting mechanic heavily and all of the offshoots of that feature e.g. allowing amendments to pass, votes to fail, etc.
 By focusing hard on a feature that is functionally the backbone of the application (voting), we were able to really shape the application and bring it closer to its final state.
 
 ## Tasks
 
-The group completed the following tasks for version 3.0, sorted by backend functions, followed by user-facing functions:
+The group completed the following tasks for version 3.0, sorted by backend functions first, followed by user-facing functions:
 
 #### BACKEND:
+
     - SQLite3 Database.
     - Voting mechanic.
     - Motions to ammend/act/vote etc.
