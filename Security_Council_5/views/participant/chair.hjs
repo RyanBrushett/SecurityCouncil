@@ -33,8 +33,11 @@
                     {{/isInDebate}}
                     {{#canVoteResolution}}
                         {{#isInDebate}}
-                        <button type="button" class="button" onclick"">Vote</button>
+                        <button type="button" class="button" onclick="voteResolution({{sid}}, {{userId}})">Vote</button>
                         {{/isInDebate}}
+                        {{#isInVote}}
+                        In Vote
+                        {{/isInVote}}
                     {{/canVoteResolution}}
                 </div>
                 <br />
@@ -42,10 +45,7 @@
                 {{#getMotions}}
                 <div>
                     <div>
-                        <!-- this should be changed so that it doesn't look ridiculous -->
-                        {{^isApproved}}
-                        {{^isDenied}}
-       
+                        <!-- this should be changed so that it doesn't look ridiculous -->       
                         {{#isInDebate}}
                         In Debate
                         {{/isInDebate}}
@@ -61,16 +61,6 @@
                             <button type="button" class="button" onclick="voteMotion({{sid}}, {{userId}}, {{getId}})">Vote</button>
                             {{/isInDebate}}
                         {{/isInVote}}
-                        
-                        {{/isDenied}}
-                        {{/isApproved}}
-                        
-                        {{#isApproved}}
-                        This motion was approved.
-                        {{/isApproved}}
-                        {{#isDenied}}
-                        This motion was denied.
-                        {{/isDenied}}
                         
                         <button type="button" class="button">Trash</button>
                     </div>

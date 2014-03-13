@@ -267,7 +267,7 @@ for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; p
 }
 
 //TODO: I have no idea how enumeration works in javascript
-var motions = [
+/*var motions = [
                new Motion({
                    id: 0,
                    type: 1,
@@ -286,7 +286,8 @@ var motions = [
                    votes: [],
                    body: 'This is another motion.'
                })               
-               ];
+               ];*/
+var motions = [];
 
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {

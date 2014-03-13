@@ -78,6 +78,7 @@ app.get('/participant/chair/:sid', session.require, session.restrictToUser, sess
 app.post('/participant/chair/debate/motion', session.require, session.restrictToUser, session.restrictToChair, participant.debateMotion);
 app.post('/participant/chair/debate/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.debateResolution);
 app.post('/participant/chair/vote/motion', session.require, session.restrictToUser, session.restrictToChair, participant.voteMotion);
+app.post('/participant/chair/vote/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.voteResolution);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
 app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.createMotion);
 
