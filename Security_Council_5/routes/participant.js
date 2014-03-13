@@ -145,6 +145,15 @@ exports.debateResolution = function(req, res) {
     }
     
     simulation.getResolution().setInDebate(true);
+    simulation.getResolution().setInVote(false);
+    
+    var commentContent = "Resolution is now up for debate! <br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);    
     
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end();    
@@ -193,6 +202,40 @@ exports.voteMotion = function(req, res) {
     
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end();    
+};
+
+exports.voteResolution = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    var resolution = simulation.getResolution();
+    
+    resolution.setInDebate(false);
+    resolution.setInVote(true);
+    
+    //TEMP
+    var votes = resolution.getVotes();
+    for(var j = 0; j < simulation.getCountries().length - 1; j++){
+        var v = Math.floor(Math.random()*3 + 1);
+
+        var vote = {
+            vote: v,
+            user: undefined
+        };
+        votes.push(vote);
+    }
+    resolution.setVotes(votes);
+    
+    var commentContent = "Resolution open for voting! <br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();     
+    
 };
 
 exports.country = function(req, res) {

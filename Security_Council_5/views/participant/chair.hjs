@@ -33,8 +33,11 @@
                     {{/isInDebate}}
                     {{#canVoteResolution}}
                         {{#isInDebate}}
-                        <button type="button" class="button" onclick"">Vote</button>
+                        <button type="button" class="button" onclick="voteResolution({{sid}}, {{userId}})">Vote</button>
                         {{/isInDebate}}
+                        {{#isInVote}}
+                        In Vote
+                        {{/isInVote}}
                     {{/canVoteResolution}}
                 </div>
                 <br />
