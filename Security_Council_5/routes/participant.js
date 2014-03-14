@@ -167,15 +167,14 @@ exports.voteMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     user.setFlag('united-nations.svg');
+    var motion;
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
         
         if(m.getId() === req.body.motionId){
             m.setStatus(Motion.Status.VOTE);
-            //simulation.getMotions()[i] = m;
-            
-            //TEMP
+            motion = m;
             var votes = m.getVotes();
             for(var j = 0; j < simulation.getCountries().length - 1; j++){
                 var v = Math.floor(Math.random()*3 + 1);
@@ -190,14 +189,15 @@ exports.voteMotion = function(req, res) {
         }
         else{
             m.setStatus(Motion.Status.TABLE);
+            motion = m;
         }
     }
     
     simulation.getResolution().setInDebate(false);
     
     var commentContent = "Motion open for voting! <br />";
-    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
-    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
+    commentContent += motion.getBody() + "<br />";
+    commentContent += "Moved by: " + motion.getMover().getName() + "<br />";
     
     var newComment = db.helpers.createComment(simulation, {
         content: commentContent,
