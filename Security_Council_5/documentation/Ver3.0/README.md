@@ -2,6 +2,12 @@
 
 An app developed for COMP4770 in Winter 2013/2014 by Group 5
 
+# Things we meant to include but left out:
+- As you may have noticed in the README, we including some information about a fancy new way to create communication channels with tagged names and usernames.
+- This has been excluded as a bug has come up that we didn't detect early.
+- Rather than submit a partially-working project knowingly, we've decided to exclude this branch and make it a top priority for Iteration 4.
+- Sorry about this.
+
 ## Group 5 is...
 
 	- Whymarrh Whitby
