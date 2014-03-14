@@ -32,7 +32,7 @@ To run this app there are two possible methods.
 
 Change into the `/path/to_/SC_Sim_5/Security_Council_5` directory from a shell and execute
 
-        $ npm install
+        $ npm install # won't do anything unless required
         $ node app.js
 
 The app will confirm it has started by writing a message to the shell stating
