@@ -90,6 +90,28 @@ function voteResolution(sid, userId){
         error: function(req){
             alert('AJAX Failed');
         }
-    });    
-    
+    });       
+}
+
+function deleteMotion(sid, userId, motionId){
+    var req = {
+            sid: sid,
+            userId: userId,
+            motionId: motionId
+        };
+    var json = JSON.stringify(req);
+    r = '/participant/chair/delete/motion';
+    ajax.ajax_req({
+        method: "POST",
+        url: r,
+        mime: 'application/json',
+        doc: json,
+        ok: function(res){
+            var div = document.getElementById(motionId);
+            div.parentNode.removeChild(div);
+        },
+        error: function(res){
+            alert('AJAX Failed. Contact person who wrote this software if it keeps happening');
+        }
+    });
 }

@@ -8,8 +8,6 @@ var CommunicationChannel = require('./models/communication');
 
 //Fake data
 
-var motions = [];
-
 var users = [
              new User({
                  id: 0,
@@ -347,8 +345,9 @@ helpers.createSimulation = function (options) {
 };
 
 //NOTE: should this push to the array, or just return the new motion?
+var MOTION_ID = 0;
 helpers.createMotion = function (simulation, options) {
-    options.id = simulation.getMotions().length;
+    options.id = MOTION_ID++;
     return new Motion(options);
 };
 

@@ -107,23 +107,26 @@ exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     user.setFlag('united-nations.svg');
+    var motion;
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
         
         if(simulation.getMotions()[i].getId() === req.body.motionId){
             m.setStatus(Motion.Status.DEBATE);
+            motion = m;
         }
         else{
             m.setStatus(Motion.Status.TABLE);
+            motion = m;
         }
     }
     
     simulation.getResolution().setInDebate(false);
     
     var commentContent = "New motion under debate! <br />";
-    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
-    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
+    commentContent += motion.getBody() + "<br />";
+    commentContent += "Moved by: " + motion.getMover().getName() + "<br />";
     
     var newComment = db.helpers.createComment(simulation, {
         content: commentContent,
@@ -142,7 +145,6 @@ exports.debateResolution = function(req, res) {
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
-        
         m.setStatus(Motion.Status.TABLE);
     }
     
@@ -241,6 +243,23 @@ exports.voteResolution = function(req, res) {
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end();     
     
+};
+
+exports.deleteResolution = function(req, res){
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(simulation.getMotions()[i].getId() === req.body.motionId){
+            simulation.getMotions().splice(i,1);
+            break;
+        }
+    }
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    res.end();
 };
 
 exports.country = function(req, res) {

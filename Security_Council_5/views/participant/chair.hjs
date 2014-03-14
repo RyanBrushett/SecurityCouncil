@@ -43,7 +43,7 @@
                 <br />
                 {{/getResolution}}
                 {{#getMotions}}
-                <div>
+                <div id="{{getId}}">
                     <div>
                         <!-- this should be changed so that it doesn't look ridiculous -->       
                         {{#isInDebate}}
@@ -62,7 +62,7 @@
                             {{/isInDebate}}
                         {{/isInVote}}
                         
-                        <button type="button" class="button">Trash</button>
+                        <button type="button" class="button" onclick="deleteMotion({{sid}}, {{userId}}, {{getId}})">Trash</button>
                     </div>
                     <div>
                         {{#getMover}}
