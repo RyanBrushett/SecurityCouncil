@@ -32,6 +32,19 @@
                     {{/getChairperson}}
                     <li>Number of participants: {{ getNumberOfParticipants }}</li>
                 </ul>
+                <!-- this should be somewhere else, probably. - Dan -->
+                Approved motions: <br />
+                {{#getMotions}}
+                    {{#isApproved}}
+                    {{getBody}}
+                    {{/isApproved}}
+                {{/getMotions}}
+                Denied motions: <br />
+                {{#getMotions}}
+                    {{#isDenied}}
+                    {{getBody}}
+                    {{/isDenied}}
+                {{/getMotions}}
             </section>
             {{/simulations}}
         </main>

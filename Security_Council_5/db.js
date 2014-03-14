@@ -267,26 +267,27 @@ for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; p
 }
 
 //TODO: I have no idea how enumeration works in javascript
-var motions = [
+/*var motions = [
                new Motion({
                    id: 0,
                    type: 1,
-                   mover: users[2],
-                   seconder: users[4],
-                   status: Motion.Status.DEBATE,
+                   mover: countrySetSimulation1[0],
+                   seconder: countrySetSimulation1[2],
+                   status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is not much fun.'
+                   body: 'Web development sure is great.'
                }),
                new Motion({
                    id: 1,
                    type: 1,
-                   mover: users[0],
-                   seconder: users[6],
+                   mover: countrySetSimulation1[1],
+                   seconder: countrySetSimulation1[2],
                    status: Motion.Status.TABLED,
                    votes: [],
-                   body: 'Web development is sort of fun.'
+                   body: 'This is another motion.'
                })               
-               ];
+               ];*/
+var motions = [];
 
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {
@@ -345,64 +346,115 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
-//TODO: should this push to the array, or just return the new motion?
+//NOTE: should this push to the array, or just return the new motion?
 helpers.createMotion = function (simulation, options) {
     options.id = simulation.getMotions().length;
     return new Motion(options);
 };
 
-helpers.addUserToSimulation = function (simulation, user) {
-    // Randomly add a user to a team
-    var country = simulation.getCountries();
-    var per_country = users.length / 15;
-    if (!user.isModerator()) {
-        user.getName();
-        var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
-        for (var j = 0; j < country.length; j++) {
-            if (country[j].getName() === user.getPreferences()[0]) {
-                p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
-            } else if (country[j].getName() === user.getPreferences()[1]) {
-                p2length = country[j].getMembers().length; p2id = j;
-            } else if (country[j].getName() === user.getPreferences()[2]) {
-                p3length = country[j].getMembers().length; p3id = j;
-            }
-        }
-        if (p1length < per_country) {
-            country[p1id].addMember(user);    // add to team list
-        } else if (p2length < per_country) {
-            country[p2id].addMember(user);
-        } else if (p3length < per_country) {
-            country[p3id].addMember(user);    // add to team list
-        } else {
-            for (var i = 0; i < country.length; i++) {
-                if (country[i].getMembers().length < per_country) {
-                    country[i].addMember(user);
-                    return;
-                }
-            }
-            var idx = Math.floor(Math.random() * country.length);
-            country[idx].addMember(user);
+helpers.isUserAmbassador = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        if(countries[i].getAmbassador() === user){
+            return true;
         }
     }
+    
+    return false;
+};
+
+helpers.isUserCountryPermanent = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                if((countries[i].getName() === 'China') ||
+                    (countries[i].getName() === 'Russia') ||
+                    (countries[i].getName() === 'France') ||
+                    (countries[i].getName() === 'United States of America') ||
+                    (countries[i].getName() === 'United Kingdom')){
+                    
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
+helpers.getUserCountry = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                return countries[i];
+            }
+        }
+    }
+}
+
+helpers.hasUserVoted = function(motion, user) {
+    for(var i = 0; i < motion.getVotes().length; i++){
+        var vote = motion.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+helpers.hasUserVotedResolution = function(resolution, user) {
+    for(var i = 0; i < resolution.getVotes().length; i++){
+        var vote = resolution.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    return false;
+};
+
+helpers.addUserToSimulation = function (simulation, user) {
+	// Add a user to a team
+	var country = simulation.getCountries();
+	var per_country = users.length / 15;
+	if (!user.isModerator()) {
+		user.getName();
+		var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
+		for (var j = 0; j < country.length; j++) {
+			if (country[j].getName() === user.getPreferences()[0]) {
+				p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
+			} else if (country[j].getName() === user.getPreferences()[1]) {
+				p2length = country[j].getMembers().length; p2id = j;
+			} else if (country[j].getName() === user.getPreferences()[2]) {
+				p3length = country[j].getMembers().length; p3id = j;
+			}
+		}
+		if (p1length < per_country) {
+			country[p1id].addMember(user);    // add to team list
+		} else if (p2length < per_country) {
+			country[p2id].addMember(user);
+		} else if (p3length < per_country) {
+			country[p3id].addMember(user);    // add to team list
+		} else {
+			var count = Math.floor(Math.random() * country.length);	
+			for (var i = 0; i < country.length; i++) {
+				if (country[(i+count)%country.length].getMembers().length < per_country) {
+					country[(i+count)%country.length].addMember(user);
+					return;
+				}
+			}
+			var idx = Math.floor(Math.random() * country.length);
+			country[idx].addMember(user);
+		}
+	}
 };
 
 helpers.addAllUsersToSimulation = function (simulation, users) {
-    var country = simulation.getCountries();
-    var peopleCounter;
-    var countryCounter;
-    //for each person, add that person to a country, then increase the country number./
-    //if the country number eclipses 15, reset it back.
-    //if you run out of people, stop.
-    for (peopleCounter = 0, countryCounter = 0; peopleCounter < 34; peopleCounter++) {
-        //    country[countryCounter].addMember(users[peopleCounter]);
-        countryCounter++;
-        if (countryCounter === 15) {
-            countryCounter = 0;
-        }
-    }
-
-    var per_country = users.length / 15;
-    var unassigned = [];
+	var country = simulation.getCountries();
+	var per_country = users.length / 15;
+	var unassigned = [];
 
     for (var i = 0; i < users.length; i++) {
         var user = users[i];

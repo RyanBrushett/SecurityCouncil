@@ -77,12 +77,17 @@ app.get('/participant/join/simulation/:sid', session.require, session.restrictTo
 app.get('/participant/chair/:sid', session.require, session.restrictToUser, session.restrictToChair, participant.chair);
 app.post('/participant/chair/debate/motion', session.require, session.restrictToUser, session.restrictToChair, participant.debateMotion);
 app.post('/participant/chair/debate/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.debateResolution);
+app.post('/participant/chair/vote/motion', session.require, session.restrictToUser, session.restrictToChair, participant.voteMotion);
+app.post('/participant/chair/vote/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.voteResolution);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
 app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.createMotion);
+app.post('/participant/ambassador/:sid/:cid', session.require, session.restrictToUser, participant.ambassador);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
 app.post('/debate/:id', session.require, debate.comment);
+app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
+app.post('/debate/vote/:sid', session.require, debate.voteResolution);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {

@@ -106,17 +106,16 @@ exports.chair = function(req, res) {
 exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
         
         if(simulation.getMotions()[i].getId() === req.body.motionId){
             m.setStatus(Motion.Status.DEBATE);
-            simulation.getMotions()[i] = simulation.getMotions()[i];
         }
         else{
             m.setStatus(Motion.Status.TABLE);
-            simulation.getMotions()[i] = m;
         }
     }
     
@@ -139,18 +138,109 @@ exports.debateMotion = function(req, res) {
 exports.debateResolution = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
     
     for(var i = 0; i < simulation.getMotions().length; i++){
         var m = simulation.getMotions()[i];
         
         m.setStatus(Motion.Status.TABLE);
-        simulation.getMotions()[i] = m;
     }
     
     simulation.getResolution().setInDebate(true);
+    simulation.getResolution().setInVote(false);
+    
+    var commentContent = "Resolution is now up for debate! <br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);    
     
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end();    
+};
+
+exports.voteMotion = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    user.setFlag('united-nations.svg');
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(m.getId() === req.body.motionId){
+            m.setStatus(Motion.Status.VOTE);
+            //simulation.getMotions()[i] = m;
+            
+            //TEMP
+            var votes = m.getVotes();
+            for(var j = 0; j < simulation.getCountries().length - 1; j++){
+                var v = Math.floor(Math.random()*3 + 1);
+
+                var vote = {
+                    vote: v,
+                    user: undefined
+                };
+                votes.push(vote);
+            }
+            m.setVotes(votes);
+        }
+        else{
+            m.setStatus(Motion.Status.TABLE);
+        }
+    }
+    
+    simulation.getResolution().setInDebate(false);
+    
+    var commentContent = "Motion open for voting! <br />";
+    commentContent += simulation.getMotions()[req.body.motionId].getBody() + "<br />";
+    commentContent += "Moved by: " + simulation.getMotions()[req.body.motionId].getMover().getName() + "<br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();    
+};
+
+exports.voteResolution = function(req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    var resolution = simulation.getResolution();
+    
+    user.setFlag('united-nations.svg');
+    
+    resolution.setInDebate(false);
+    resolution.setInVote(true);
+    
+    //TEMP
+    var votes = resolution.getVotes();
+    for(var j = 0; j < simulation.getCountries().length - 1; j++){
+        var v = Math.floor(Math.random()*3 + 1);
+
+        var vote = {
+            vote: v,
+            user: undefined
+        };
+        votes.push(vote);
+    }
+    resolution.setVotes(votes);
+    
+    var commentContent = "Resolution open for voting! <br />";
+    
+    var newComment = db.helpers.createComment(simulation, {
+        content: commentContent,
+        user: user
+    });
+    simulation.addComment(newComment);
+    
+    res.writeHead(200, {'Content-Type': 'application/json'});
+    res.end();     
+    
 };
 
 exports.country = function(req, res) {
@@ -181,6 +271,20 @@ exports.country = function(req, res) {
     });
 };
 
+exports.ambassador = function (req, res) {
+	var user = db.users[req.session.userId];
+    var simulationId = req.params.sid;
+    var simulation = db.simulations[simulationId];
+    var countryId = req.params.cid;
+    var countries = simulation.getCountries();
+    var country = countries[countryId];
+    var ambassadorId = req.body["ambassador"];
+    var ambassador = db.users[ambassadorId];
+    user.setAmbassadorPreference(ambassador.getName());
+    country.updateAmbassador();
+    res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
+};
+
 exports.join = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
@@ -196,22 +300,21 @@ exports.submit = function(req, res) {
     var simulation = db.simulations[simulationId];
     var country = simulation.getCountries()[countryId];
     country.setPositionPaperSummary(positionPaperSummary);
-    country.setPositionPaper(path.basename(positionPaper.path));
+    if (positionPaper.size > 0 && positionPaper.name) {
+        country.setPositionPaper(path.basename(positionPaper.path));
+    }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
 
 exports.createMotion = function(req, res) {
-    var motions = db.motions;
     var simulation = db.simulations[req.params.sid];
     var countries = simulation.getCountries();
     var country = simulation.getCountries()[req.params.cid];
-    var id = db.motions.length;
-    var motion = db.helpers.createMotion({
+
+    var motion = db.helpers.createMotion(simulation, {
         mover:countries[req.params.cid],
         body:req.body.motion
     });
-    res.render('participant/motion', {
-        motion:motion,
-        country:motion.getMover()
-    });
+    simulation.getMotions().push(motion);
+    res.redirect('/participant/simulation/' + req.params.sid + '/' + req.params.cid);
 };

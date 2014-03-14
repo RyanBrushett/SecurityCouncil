@@ -39,20 +39,69 @@
             <section class="section">
                 <h2>Debate</h2>
                 <div class="discussion">
+                    {{#votingMotion}}
+                    {{#motionToVote}}
+                        {{#hasNotVoted}}
+                            {{#userCanVote}}
+                            <form action="/debate/vote/{{sid}}/{{getId}}" method="post">
+                                <input type="radio" name="vote" value="yay" checked>Yay</input>
+                                <input type="radio" name="vote" value="nay">Nay</input>
+                                <input type="radio" name="vote" value="absent">Not Present</input>
+                                <input type="submit" value="Vote!" class="button" />
+                            </form>
+                            {{/userCanVote}}
+                            {{^userCanVote}}
+                            There is a motion up for voting.<br />
+                            {{getBody}}
+                            {{/userCanVote}}
+                        {{/hasNotVoted}}
+                        {{^hasNotVoted}}
+                            You have already voted on this motion.
+                        {{/hasNotVoted}}
+                    {{/motionToVote}}
+                    {{/votingMotion}}
+                    
+                    {{#votingResolution}}
+                        {{#hasNotVoted}}
+                            {{#userCanVote}}
+                            <form action="/debate/vote/{{sid}}" method="post">
+                                <input type="radio" name="vote" value="yay" checked>Yay</input>
+                                <input type="radio" name="vote" value="nay">Nay</input>
+                                <input type="radio" name="vote" value="absent">Not Present</input>
+                                <input type="submit" value="Vote!" class="button" />
+                            </form>
+                            {{/userCanVote}}
+                            {{^userCanVote}}
+                            The resolution is up for voting.<br />
+                            {{getBody}}
+                            {{/userCanVote}}
+                        {{/hasNotVoted}}
+                        {{^hasNotVoted}}
+                            You have already voted on this resolution.
+                        {{/hasNotVoted}}                    
+                    {{/votingResolution}}
+                    
+                    {{^voting}}
                     <form action="/debate/{{ getId }}" method="post">
                         <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
                         <input type="submit" value="Comment" class="button">
-                    </form>
+                    </form>                    
+                    {{/voting}}
+                    
                     {{#getComments}}
                     <blockquote class="card">
                         <p>{{{getContent}}}</p>
                         <footer class="card-info">
                             {{#getUser}}
-                            <p class="card-info__name--chair">{{getName}}</p>
                             {{#isChair}}
+                            <p class="card-info__name--chair">{{getName}}</p>
                             <p class="card-info__name--chair">Council Chair</p>
-                            {{/isChair}}
                             <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">
+                            {{/isChair}}
+                            {{^isChair}}
+                            <p>{{getName}}</p>
+                            <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">                            
+                            {{/isChair}}
                             {{/getUser}}
                         </footer>
                     </blockquote>
