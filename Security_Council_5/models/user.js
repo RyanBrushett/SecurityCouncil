@@ -6,6 +6,7 @@ var User = function (options) {
     this._password = options.password || 'password';
     this._username = options.username;
     this._preferences = options.preferences;
+    this._ambassadorpreference = '';
 };
 
 User.prototype.getId = function () {
@@ -34,6 +35,14 @@ User.prototype.getName = function () {
 
 User.prototype.getPreferences = function () {
     return this._preferences;
+};
+
+User.prototype.getAmbassadorPreference = function () {
+    return this._ambassadorpreference;
+};
+
+User.prototype.setAmbassadorPreference = function (ambassadorpreference) {
+	this._ambassadorpreference = ambassadorpreference;
 };
 
 User.prototype.checkPassword = function (password) {
