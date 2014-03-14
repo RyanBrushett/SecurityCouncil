@@ -5,6 +5,7 @@ var Simulation = function (options) {
     this._name = options.name;
     this._resolution = options.resolution;
     this._chairperson = options.chairperson;
+    this._countriesSize = options.countriesSize || 2;
     this._paperIsViewable = options.paperIsViewable || false;
 };
 
@@ -59,6 +60,10 @@ Simulation.prototype.isPaperVisible = function () {
 
 Simulation.prototype.addComment = function (comment) {
     this._comments.unshift(comment);
+};
+
+Simulation.prototype.getCountriesSize = function () {
+    return this._countriesSize;
 };
 
 module.exports = Simulation;

@@ -320,7 +320,7 @@ helpers.createSimulation = function (options) {
 helpers.addUserToSimulation = function (simulation, user) {
 	// Add a user to a team
 	var country = simulation.getCountries();
-	var per_country = users.length / 15;
+	var per_country = simulation.getCountriesSize();
 	if (!user.isModerator()) {
 		user.getName();
 		var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
