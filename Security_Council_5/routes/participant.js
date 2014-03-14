@@ -243,6 +243,23 @@ exports.voteResolution = function(req, res) {
     
 };
 
+exports.deleteResolution = function(req, res){
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.userId];
+    
+    for(var i = 0; i < simulation.getMotions().length; i++){
+        var m = simulation.getMotions()[i];
+        
+        if(simulation.getMotions()[i].getId() === req.body.motionId){
+            simulation.getMotions().splice(i,1);
+            break;
+        }
+    }
+
+    res.writeHead(200, {'Content-Type':'application/json'});
+    res.end();
+};
+
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
