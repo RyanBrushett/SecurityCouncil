@@ -291,7 +291,7 @@ exports.country = function(req, res) {
 };
 
 exports.ambassador = function (req, res) {
-	var user = db.users[req.session.userId];
+    var user = db.users[req.session.userId];
     var simulationId = req.params.sid;
     var simulation = db.simulations[simulationId];
     var countryId = req.params.cid;
