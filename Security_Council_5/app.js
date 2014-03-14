@@ -81,6 +81,7 @@ app.post('/participant/chair/vote/motion', session.require, session.restrictToUs
 app.post('/participant/chair/vote/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.voteResolution);
 app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
 app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.createMotion);
+app.post('/participant/ambassador/:sid/:cid', session.require, session.restrictToUser, participant.ambassador);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
