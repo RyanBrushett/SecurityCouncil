@@ -90,9 +90,16 @@ On top of those implemented in the previous iteration, the following requirement
     - For each vote, team may elect to declare "not present" (affects the quorum rule).
     - The timing of the vote is decided by the Chair.
     - There might be several rounds of voting.
+    - The chair can self-moderate the motions.
+        - E.g. if someone submits a joke-motion, the chair can trash it before it makes it to debate.
 4. The Chair brings the final resolution to a vote.
     - The resolution is voted on.
     - Permanent members have veto power (if perm. member says 'nay', it's considered a vito).
+5. Teams can embed youtube videos in the communication channels.
+6. Teams can create new communication channels by name with who they'd like to talk to.
+    - E.g. if I create a communication channel called "Russia, China", all of the members of Russia and China are added.
+    - If I create a communication channel called @ryanb, @gwyn, only the users Ryan B and Gwyn are added.
+
 
 ## How it works
 
@@ -134,7 +141,15 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     - This is done from the position paper section of the user's country page. They can still use the plaintext option as before.
     - Log in as ryanb // password, navigate to Political Science 2200. Select Argentina. Observe.
     - When a position paper is uploaded, it ends up in the public/uploads/ directory on the server to be fetched.
-    - TODO: A note on naming convention
+6. Users can embed Youtube videos in the communication channels:
+    - Simply go to youtube.com, find the video you'd like to embed, copy the embed link, and post that as a comment!
+7. Vetos:
+    - If a permanent member votes "no" on the resolution at the end of the semester, the resolution is vetoed and the country who vetoed the resolution is noted in the debate channel.
+8. Launching a communication channel:
+    - This is all done from the debate screen.
+    - If one created a communication channel called "Russia, China", all of the members of Russia and China are added.
+    - If one created a communication channel called @ryanb, @gwyn, only the users Ryan B and Gwyn are added.
+    - You can mix-and-match. e.g. I can add "Russia, @ryanb, China"
     
     
     
