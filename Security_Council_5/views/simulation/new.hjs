@@ -27,6 +27,10 @@
                 <p>
                     <textarea name="content" class="textbox">Sample resolution. Replace this with your resolution.</textarea>
                 </p>
+                <p>Enter ideal number of participants per team:</p>
+                <p>
+                    <input type="text" name="perteam" placeholder="Enter a number">
+                </p>
                 <p>Choose a sort method:</p>
                 <p>
                     <input type="radio" id="priority-sort" name="sort" value="priority" checked>
