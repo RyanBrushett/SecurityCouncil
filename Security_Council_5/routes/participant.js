@@ -106,7 +106,6 @@ exports.chair = function(req, res) {
 exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
-    console.log(req.body.motionId);
     user.setFlag('united-nations.svg');
     var motion;
     

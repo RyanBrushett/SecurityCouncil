@@ -43,7 +43,7 @@
                 <br />
                 {{/getResolution}}
                 {{#getMotions}}
-                <div>
+                <div id="{{getId}}">
                     <div>
                         <!-- this should be changed so that it doesn't look ridiculous -->       
                         {{#isInDebate}}

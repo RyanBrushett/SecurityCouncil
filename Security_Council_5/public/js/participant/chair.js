@@ -107,7 +107,8 @@ function deleteMotion(sid, userId, motionId){
         mime: 'application/json',
         doc: json,
         ok: function(res){
-            location.reload();
+            var div = document.getElementById(motionId);
+            div.parentNode.removeChild(div);
         },
         error: function(res){
             alert('AJAX Failed. Contact person who wrote this software if it keeps happening');
