@@ -20,6 +20,10 @@ app.use(express.cookieParser('signature'));
 app.use(express.session());
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.bodyParser({
+    keepExtensions: true,
+    uploadDir: __dirname + '/public/uploads'
+}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
@@ -56,25 +60,35 @@ app.get('/simulation/new', session.require, simulation.view);
 app.post('/simulation/new', session.require, simulation.create);
 
 // Moderator
-app.get('/moderator/dashboard', session.require, moderator.dashboard);
-app.get('/moderator/simulation/:sid', session.require, moderator.simulation);
-app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
-app.post('/moderator/submit/:sid', session.require, moderator.submit);
-app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
-app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
-app.post('/moderator/simulation/visible-paper/:sid', session.require, moderator.positionPaperVisible)
-app.post('/moderator/directives/:sid/:cid', session.require, moderator.directives);
+app.get('/moderator/dashboard', session.require, session.restrictToMod, moderator.dashboard);
+app.get('/moderator/simulation/:sid', session.require, session.restrictToMod, moderator.simulation);
+app.get('/moderator/simulation/:sid/:cid', session.require, session.restrictToMod, moderator.country);
+app.post('/moderator/submit/:sid', session.require, session.restrictToMod, moderator.submit);
+app.post('/moderator/simulation/chairperson/:sid', session.require, session.restrictToMod, moderator.chairperson);
+app.post('/moderator/ambassador/:sid/:cid', session.require, session.restrictToMod, moderator.ambassador);
+app.post('/moderator/simulation/visible-paper/:sid', session.require, session.restrictToMod, moderator.positionPaperVisible);
+app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToMod, moderator.directives);
 
 // Participant
-app.get('/participant/dashboard', session.require, participant.dashboard);
-app.get('/participant/simulation/:sid', session.require, participant.simulation);
-app.get('/participant/simulation/:sid/:cid', session.require, participant.country);
-app.get('/participant/join/simulation/:sid', session.require, participant.join);
-app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
+app.get('/participant/dashboard', session.require, session.restrictToUser, participant.dashboard);
+app.get('/participant/simulation/:sid', session.require, session.restrictToUser, participant.simulation);
+app.get('/participant/simulation/:sid/:cid', session.require, session.restrictToUser, participant.country);
+app.get('/participant/join/simulation/:sid', session.require, session.restrictToUser, participant.join);
+app.get('/participant/chair/:sid', session.require, session.restrictToUser, session.restrictToChair, participant.chair);
+app.post('/participant/chair/debate/motion', session.require, session.restrictToUser, session.restrictToChair, participant.debateMotion);
+app.post('/participant/chair/debate/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.debateResolution);
+app.post('/participant/chair/vote/motion', session.require, session.restrictToUser, session.restrictToChair, participant.voteMotion);
+app.post('/participant/chair/vote/resolution', session.require, session.restrictToUser, session.restrictToChair, participant.voteResolution);
+app.post('/participant/chair/delete/motion', session.require, session.restrictToUser, session.restrictToChair, participant.deleteResolution);
+app.post('/participant/submit/:sid/:cid', session.require, session.restrictToUser, participant.submit);
+app.post('/participant/submit/:sid/:cid/motion', session.require, session.restrictToUser, participant.createMotion);
+app.post('/participant/ambassador/:sid/:cid', session.require, session.restrictToUser, participant.ambassador);
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
 app.post('/debate/:id', session.require, debate.comment);
+app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
+app.post('/debate/vote/:sid', session.require, debate.voteResolution);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {

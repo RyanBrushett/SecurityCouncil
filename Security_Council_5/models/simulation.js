@@ -1,10 +1,12 @@
 var Simulation = function (options) {
     this._countries = options.countries || [];
     this._comments = options.comments || [];
+    this._motions = options.motions || [];
     this._id = options.id;
     this._name = options.name;
     this._resolution = options.resolution;
     this._chairperson = options.chairperson;
+    this._countriesSize = options.countriesSize || 2;
     this._paperIsViewable = options.paperIsViewable || false;
 };
 
@@ -18,6 +20,10 @@ Simulation.prototype.getCountries = function () {
 
 Simulation.prototype.getComments = function () {
     return this._comments;
+};
+
+Simulation.prototype.getMotions = function () {
+    return this._motions;
 };
 
 Simulation.prototype.getName = function () {
@@ -42,6 +48,7 @@ Simulation.prototype.getResolution = function () {
 
 Simulation.prototype.setChairperson = function (chairperson) {
     this._chairperson = chairperson;
+    chairperson.setAsChair();
 };
 
 Simulation.prototype.getChairperson = function () {
@@ -58,6 +65,14 @@ Simulation.prototype.isPaperVisible = function () {
 
 Simulation.prototype.addComment = function (comment) {
     this._comments.unshift(comment);
+};
+
+Simulation.prototype.addMotion = function (motion) {
+    this._motions.push(motion);
+};
+
+Simulation.prototype.getCountriesSize = function () {
+    return this._countriesSize;
 };
 
 module.exports = Simulation;

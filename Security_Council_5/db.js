@@ -3,6 +3,8 @@ var Resolution = require('./models/resolution');
 var Simulation = require('./models/simulation');
 var User = require('./models/user');
 var Comment = require('./models/comment');
+var Motion = require('./models/motion');
+var CommunicationChannel = require('./models/communication');
 
 //Fake data
 
@@ -11,223 +13,223 @@ var users = [
                  id: 0,
                  name: 'Ryan B',
                  username: 'ryanb',
-                 preferences: ['United Kingdom','Australia','China'],
+                 preferences: ['United Kingdom','Australia','China']
              }),
              new User({
                  id: 1,
                  name: 'Uche E',
                  username: 'uche',
-                 preferences: ['France','Rwanda','Chad'],
+                 preferences: ['France','Rwanda','Chad']
              }),
              new User({
                  id: 2,
                  name: '"Dan"',
                  username: 'dan',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 3,
                  name: 'Bukunola',
                  username: 'bukunola',
-                 preferences: ['Nigeria','Australia','Russia'],
+                 preferences: ['Nigeria','Australia','Russia']
              }),
              new User({
                  id: 4,
                  name: 'Frankie S',
                  username: 'frankie',
-                 preferences: ['Chile','Australia','Jordan'],
+                 preferences: ['Chile','Australia','Jordan']
              }),
              new User({
                  id: 5,
                  name: 'Alexandria',
                  username: 'alexandria',
-                 preferences: ['Argentina','Lithuania','France'],
+                 preferences: ['Argentina','Lithuania','France']
              }),
              new User({
                  id: 6,
                  name: 'Raoul',
                  username: 'raoulh',
-                 preferences: ['United States of America','Russia','United Kingdom'],
+                 preferences: ['United States of America','Russia','United Kingdom']
              }),
              new User({
                  id: 7,
                  name: 'Josephine',
                  username: 'josephine',
-                 preferences: ['United States of America','Luxembourg','Chad'],
+                 preferences: ['United States of America','Luxembourg','Chad']
              }),
              new User({
                  id: 8,
                  name: 'Bennett',
                  username: 'ben',
-                 preferences: ['Argentina','Chile','Chile'],
+                 preferences: ['Argentina','Chile','Chile']
              }),
              new User({
                  id: 9,
                  name: 'Muhammad',
                  username: 'muhammad',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 10,
                  name: 'Legolas',
                  username: 'legolas',
-                 preferences: ['Nigeria','Australia','Chad'],
+                 preferences: ['Nigeria','Australia','Chad']
              }),
              new User({
                  id: 11,
                  name: 'Jacqueline',
                  username: 'jackie',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 12,
                  name: 'Adrienne',
                  username: 'adrienne',
-                 preferences: ['Argentina','Nigeria','Chad'],
+                 preferences: ['Argentina','Nigeria','Chad']
              }),
              new User({
                  id: 13,
                  name: 'Avis Pang',
                  username: 'avisp',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 14,
                  name: 'Nicolasa',
                  username: 'ncarver',
-                 preferences: ['Nigeria','Australia','Chad'],
+                 preferences: ['Nigeria','Australia','Chad']
              }),
              new User({
                  id: 15,
                  name: 'Gwyndolyn',
                  username: 'gwyn',
-                 preferences: ['Luxembourg','Australia','Chad'],
+                 preferences: ['Luxembourg','Australia','Chad']
              }),
              new User({
                  id: 16,
                  name: 'Regina B',
                  username: 'rbalk',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 17,
                  name: 'Lena Hockenberry',
                  username: 'lenah',
-                 preferences: ['United Kingdom','Australia','Chad'],
+                 preferences: ['United Kingdom','Australia','Chad']
              }),
              new User({
                  id: 18,
                  name: 'Shelly',
                  username: 'sheldons',
-                 preferences: ['United Kingdom','Australia','Chad'],
+                 preferences: ['United Kingdom','Australia','Chad']
              }),
              new User({
                  id: 19,
                  name: 'Bonita Bowdoin',
                  username: 'bbowdoin',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 20,
                  name: 'Renea M',
                  username: 'renea',
-                 preferences: ['Luxembourg','Australia','Rwanda'],
+                 preferences: ['Luxembourg','Australia','Rwanda']
              }),
              new User({
                  id: 21,
                  name: 'Shawanda Gracey',
                  username: 'sgracey',
-                 preferences: ['Russia','Australia','Chad'],
+                 preferences: ['Russia','Australia','Chad']
              }),
              new User({
                  id: 22,
                  name: 'Isabelle P',
                  username: 'isabelle',
-                 preferences: ['Rwanda','Luxembourg','Chad'],
+                 preferences: ['Rwanda','Luxembourg','Chad']
              }),
              new User({
                  id: 23,
                  name: 'Deangelo M',
                  username: 'deangelo',
-                 preferences: ['Russia','Australia','Chad'],
+                 preferences: ['Russia','Australia','Chad']
              }),
              new User({
                  id: 24,
                  name: 'Sharon J',
                  username: 'sharonj',
-                 preferences: ['Argentina','Russia','Chad'],
+                 preferences: ['Argentina','Russia','Chad']
              }),
              new User({
                  id: 25,
                  name: 'Josef Maston',
                  username: 'jmaston',
-                 preferences: ['Rwanda','Luxembourg','Chad'],
+                 preferences: ['Rwanda','Luxembourg','Chad']
              }),
              new User({
                  id: 26,
                  name: 'Randolph T',
                  username: 'rtanaguchi',
-                 preferences: ['Argentina','China','Chad'],
+                 preferences: ['Argentina','China','Chad']
              }),
              new User({
                  id: 27,
                  name: 'Valerno N',
                  username: 'valerno',
-                 preferences: ['China','Republic of Korea','Chad'],
+                 preferences: ['China','Republic of Korea','Chad']
              }),
              new User({
                  id: 28,
                  name: 'Austin',
                  username: 'austin',
-                 preferences: ['Argentina','Rwanda','Chad'],
+                 preferences: ['Argentina','Rwanda','Chad']
              }),
              new User({
                  id: 29,
                  name: 'Javier Yokum',
                  username: 'jyokum',
-                 preferences: ['Republic of Korea','Australia','Chad'],
+                 preferences: ['Republic of Korea','Australia','Chad']
              }),
              new User({
                  id: 30,
                  name: 'Reed B',
                  username: 'reedb',
-                 preferences: ['Argentina','China','Chad'],
+                 preferences: ['Argentina','China','Chad']
              }),
              new User({
                  id: 31,
                  name: 'Jamey J',
                  username: 'jjune',
-                 preferences: ['China','Australia','Chad'],
+                 preferences: ['China','Australia','Chad']
              }),
              new User({
                  id: 32,
                  name: 'Chuck Primrose',
                  username: 'cprimrose',
-                 preferences: ['Argentina','Republic of Korea','Chad'],
+                 preferences: ['Argentina','Republic of Korea','Chad']
              }),
              new User({
                  id: 33,
                  name: 'Guillermo K',
                  username: 'guillermo',
-                 preferences: ['Republic of Korea','Rwanda','Chad'],
+                 preferences: ['Republic of Korea','Rwanda','Chad']
              }),
              new User({
                  id: 34,
                  name: 'Vernon Kratochvil',
                  username: 'vernon',
-                 preferences: ['Argentina','Australia','Chad'],
+                 preferences: ['Argentina','Australia','Chad']
              }),
              new User({
                  id: 35,
                  name: 'Andreas',
                  username: 'andreas',
-                 preferences: ['Jordan','United Kingdom','Republic of Korea'],
+                 preferences: ['Jordan','United Kingdom','Republic of Korea']
              }),
              new User({
                  id: 36,
                  name: 'Fiech',
-                 username: 'fiech',            
-                 moderator: true,
+                 username: 'fiech',
+                 moderator: true
              })
              ];
 
@@ -243,22 +245,47 @@ var countryCounter;
 //if the country number eclipses 15, reset it back.
 //if you run out of people, stop.
 for (peopleCounter = 0, countryCounter = 0; peopleCounter < users.length; peopleCounter++) {
-    if(!users[peopleCounter].isModerator())
+    if (!users[peopleCounter].isModerator()) {
         countrySetSimulation1[countryCounter].addMember(users[peopleCounter]);
+    }
     countryCounter++;
-    if (countryCounter == 15) {
+    if (countryCounter === 15) {
         countryCounter = 0;
     }
 }
 
 for (peopleCounter = users.length - 1, countryCounter = 0; peopleCounter >= 0; peopleCounter--) {
-    if(!users[peopleCounter].isModerator())
+    if (!users[peopleCounter].isModerator()) {
         countrySetSimulation2[countryCounter].addMember(users[peopleCounter]);
+    }
     countryCounter++;
-    if (countryCounter == 15) {
+    if (countryCounter === 15) {
         countryCounter = 0;
     }
 }
+
+//TODO: I have no idea how enumeration works in javascript
+/*var motions = [
+               new Motion({
+                   id: 0,
+                   type: 1,
+                   mover: countrySetSimulation1[0],
+                   seconder: countrySetSimulation1[2],
+                   status: Motion.Status.TABLED,
+                   votes: [],
+                   body: 'Web development sure is great.'
+               }),
+               new Motion({
+                   id: 1,
+                   type: 1,
+                   mover: countrySetSimulation1[1],
+                   seconder: countrySetSimulation1[2],
+                   status: Motion.Status.TABLED,
+                   votes: [],
+                   body: 'This is another motion.'
+               })               
+               ];*/
+var motions = [];
 
 
 /*for (countryCounter = 0, peopleCounter = 34; countryCounter < 15 && peopleCounter > 0; countryCounter++, peopleCounter--) {
@@ -269,6 +296,7 @@ var simulations = [
                    new Simulation({
                        id: 0,
                        countries: countrySetSimulation1,
+                       motions: motions,
                        name: 'Political Science 2200',
                        resolution: new Resolution({
                            title: 'S/RES/2133(2013)',
@@ -278,6 +306,7 @@ var simulations = [
                    new Simulation({
                        id: 1,
                        countries: countrySetSimulation2,
+                       motions: [],
                        name: 'Political Science 3220',
                        resolution: new Resolution({
                            title: 'S/RES/2139(2013)',
@@ -315,71 +344,147 @@ helpers.createSimulation = function (options) {
     return simulation;
 };
 
-helpers.addUserToSimulation = function (simulation, user) {
-    // Randomly add a user to a team
+//NOTE: should this push to the array, or just return the new motion?
+var MOTION_ID = 0;
+helpers.createMotion = function (simulation, options) {
+    options.id = MOTION_ID++;
+    return new Motion(options);
+};
+
+helpers.isUserAmbassador = function(simulation, user) {
     var countries = simulation.getCountries();
-    var idx = Math.floor(Math.random() * countries.length);
-    countries[idx].addMember(user);
+    for(var i = 0; i < countries.length; i++){
+        if(countries[i].getAmbassador() === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+helpers.isUserCountryPermanent = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                if((countries[i].getName() === 'China') ||
+                    (countries[i].getName() === 'Russia') ||
+                    (countries[i].getName() === 'France') ||
+                    (countries[i].getName() === 'United States of America') ||
+                    (countries[i].getName() === 'United Kingdom')){
+                    
+                    return true;
+                }
+            }
+        }
+    }
+    
+    return false;
+};
+
+helpers.getUserCountry = function(simulation, user) {
+    var countries = simulation.getCountries();
+    for(var i = 0; i < countries.length; i++){
+        for(var j = 0; j < countries[i].getMembers().length; j++){
+            if(countries[i].getMembers()[j] === user){
+                return countries[i];
+            }
+        }
+    }
+}
+
+helpers.hasUserVoted = function(motion, user) {
+    for(var i = 0; i < motion.getVotes().length; i++){
+        var vote = motion.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    
+    return false;
+};
+
+helpers.hasUserVotedResolution = function(resolution, user) {
+    for(var i = 0; i < resolution.getVotes().length; i++){
+        var vote = resolution.getVotes()[i];
+        if(vote.user === user){
+            return true;
+        }
+    }
+    return false;
+};
+
+helpers.addUserToSimulation = function (simulation, user) {
+	// Add a user to a team
+	var country = simulation.getCountries();
+	var per_country = simulation.getCountriesSize();
+	if (!user.isModerator()) {
+		user.getName();
+		var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
+		for (var j = 0; j < country.length; j++) {
+			if (country[j].getName() === user.getPreferences()[0]) {
+				p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
+			} else if (country[j].getName() === user.getPreferences()[1]) {
+				p2length = country[j].getMembers().length; p2id = j;
+			} else if (country[j].getName() === user.getPreferences()[2]) {
+				p3length = country[j].getMembers().length; p3id = j;
+			}
+		}
+		if (p1length < per_country) {
+			country[p1id].addMember(user);    // add to team list
+		} else if (p2length < per_country) {
+			country[p2id].addMember(user);
+		} else if (p3length < per_country) {
+			country[p3id].addMember(user);    // add to team list
+		} else {
+			var count = Math.floor(Math.random() * country.length);	
+			for (var i = 0; i < country.length; i++) {
+				if (country[(i+count)%country.length].getMembers().length < per_country) {
+					country[(i+count)%country.length].addMember(user);
+					return;
+				}
+			}
+			var idx = Math.floor(Math.random() * country.length);
+			country[idx].addMember(user);
+		}
+	}
 };
 
 helpers.addAllUsersToSimulation = function (simulation, users) {
-    var country = simulation.getCountries();
-    var peopleCounter;
-    var countryCounter;
-    //for each person, add that person to a country, then increase the country number./
-    //if the country number eclipses 15, reset it back.
-    //if you run out of people, stop.
-    for (peopleCounter = 0, countryCounter = 0; peopleCounter < 34; peopleCounter++) {
-        //    country[countryCounter].addMember(users[peopleCounter]);
-        countryCounter++;
-        if (countryCounter == 15) {
-            countryCounter = 0;
-        }
-    }
+	var country = simulation.getCountries();
+	var per_country = users.length / 15;
+	var unassigned = [];
 
-    var per_country = users.length / 15;
-    var unassigned = [];
-
-    for(var i = 0; i < users.length; i++){
+    for (var i = 0; i < users.length; i++) {
         var user = users[i];
-
-        if(!user.isModerator()){
+        if (!user.isModerator()) {
             var p1length; var p1id; var p2length; var p2id; var p3length; var p3id;
-            for(var j = 0; j < country.length; j++){
-                if (country[j].getName() == user.getPreferences()[0]){
+            for (var j = 0; j < country.length; j++) {
+                if (country[j].getName() === user.getPreferences()[0]) {
                     p1length = country[j].getMembers().length; p1id = j; // get the number of people already in the country specified
-                }
-                else if (country[j].getName() == user.getPreferences()[1]){
+                } else if (country[j].getName() === user.getPreferences()[1]) {
                     p2length = country[j].getMembers().length; p2id = j;
-                }
-                else if (country[j].getName() == user.getPreferences()[2]){
+                } else if (country[j].getName() === user.getPreferences()[2]) {
                     p3length = country[j].getMembers().length; p3id = j;
                 }
             }
-
-            if(p1length < per_country)
-                country[p1id].addMember(user);    // add to team list
-
-            else if(p2length < per_country)
-                country[p2id].addMember(user);    // add to team list
-
-            else if(p3length < per_country)
-                country[p3id].addMember(user);    // add to team list
-
-            else
+            if (p1length < per_country) {
+                country[p1id].addMember(user); // add to team list
+            } else if (p2length < per_country) {
+                country[p2id].addMember(user);
+            } else if (p3length < per_country) {
+                country[p3id].addMember(user); // add to team list
+            } else {
                 unassigned.push(user);
+            }
         }
     }
-
-//    Randomly add a user to a team
-    for(var i = 0; i < unassigned.length; i++){
-        var index = Math.floor(Math.random() * country.length); 
-
-        while(country[index].getMembers().length  >= per_country){
-            index = Math.floor(Math.random() * country.length); 
+    for (var j = 0; j < unassigned.length; j++) {
+        var index = Math.floor(Math.random() * country.length);
+        while(country[index].getMembers().length  >= per_country) {
+            index = Math.floor(Math.random() * country.length);
         }
-
-        country[index].addMember(unassigned[i]);
+        country[index].addMember(unassigned[j]);
     }
 };
 
@@ -389,5 +494,6 @@ module.exports = {
         countries: Country.names,
         simulations: simulations,
         users: users,
+        motions: motions,
         helpers: helpers
 };

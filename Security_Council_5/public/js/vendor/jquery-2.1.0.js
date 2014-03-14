@@ -6293,7 +6293,7 @@ function defaultPrefilter( elem, props, opts ) {
 	// handle queue: false promises
 	if ( !opts.queue ) {
 		hooks = jQuery._queueHooks( elem, "fx" );
-		if ( hooks.unqueued == null ) {
+		if ( hooks.unqueued === null ) {
 			hooks.unqueued = 0;
 			oldfire = hooks.empty.fire;
 			hooks.empty.fire = function() {

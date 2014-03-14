@@ -3,19 +3,82 @@ var Country = function (options) {
     this._id = options.id;
     this._members = options.members || [];
     this._name = options.name;
-    this._positionPaper = options.positionPaper || '';
+    // Position papers can have both a summary (just a body of text
+    // that represents part of the position paper) and a single arbitrary
+    // file that goes along with it.
+    this._positionPaperSummary = options.positionPaperSummary || '';
+    this._positionPaper = options.positionPaper;
     this._directives = options.directives || '';
+    this._permanentMember = options.permanentMember || false;
 };
 
 Country.prototype.getId = function () {
     return this._id;
 };
 
-Country.prototype.setAmbassador = function (user) {
+Country.prototype.setAmbassador = function (user) { // Manual override by Moderator.
     if (user.isModerator()) {
         throw new Error('Moderators cannot belong to a team');
     }
     this._ambassador = user;
+};
+
+Country.prototype.updateAmbassador = function () { // Election process by participants
+    var votes = [];
+    var no_preference = 0;
+    var vote_count = [];
+    var majority = [1, ""];
+    var ambassador = "";
+    for (var i = 0; i < this._members.length; i++) {
+        var user_preference = this._members[i].getAmbassadorPreference();
+        if(user_preference == ""){
+            no_preference = no_preference + 1; 
+            continue;
+        }
+        if(votes.indexOf(user_preference) < 0){
+            votes[vote_count.length] = user_preference;
+            vote_count[vote_count.length] = 0;
+        }
+
+        var index = votes.indexOf(user_preference);
+        vote_count[index] = vote_count[index] + 1;
+
+        if(no_preference > this._members.length/2){
+            return;
+        }
+        if(vote_count[index] > this._members.length/2){
+            ambassador = votes[index];
+            continue;
+        }
+        else if(vote_count[index] > majority[0]){
+            majority[0] = vote_count[index];
+            majority[1] = votes[index];
+        }
+    }
+    
+    if(ambassador == ""){
+        ambassador = majority[1];
+    }
+    
+    for (var j = 0; j < this._members.length; j++) {
+        if(this._members[j].getName() == ambassador){
+            this._ambassador = this._members[j];
+            return;
+        }
+        
+    }
+};
+
+Country.prototype.setPermanentMember = function(perm) {
+    if (perm === true) {
+        this._permanentMember = true;
+    } else {
+        this._permanentMember = false;
+    }
+};
+
+Country.prototype.isPermanentMember = function() {
+    return this._permanentMember;
 };
 
 Country.prototype.getAmbassador = function () {
@@ -39,6 +102,14 @@ Country.prototype.getName = function () {
 
 Country.prototype.flag = function () {
     return this._name.toLowerCase().replace(/ /g, '-') + '.svg';
+};
+
+Country.prototype.setPositionPaperSummary = function (summary) {
+    this._positionPaperSummary = summary;
+};
+
+Country.prototype.getPositionPaperSummary = function () {
+    return this._positionPaperSummary;
 };
 
 Country.prototype.setPositionPaper = function (positionPaper) {

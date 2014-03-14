@@ -11,9 +11,9 @@ exports.create = function(req, res) {
     });
     var simulation = db.helpers.createSimulation({
         name: req.body.name,
-        resolution: resolution
+        resolution: resolution,
+        countriesSize: req.body.perteam
     });
     var users = db.users;
-    // db.helpers.addAllUsersToSimulation(simulation, users);
     res.redirect('/');
 };
