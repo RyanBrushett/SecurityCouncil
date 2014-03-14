@@ -15,7 +15,6 @@ Comp 4770 - Group 5
 - Ability to control simulations a little closer e.g. more moderation power
     - Deleting comments, communicating more with chair.
 - Moderators should be able to open chats.
-- Moderators/chairs viewing completed motions.
 - Reporting tools for the moderator.
     
 ### Testing and Documentation
