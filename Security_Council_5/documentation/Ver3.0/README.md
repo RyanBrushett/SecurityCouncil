@@ -150,8 +150,11 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     - If one created a communication channel called "Russia, China", all of the members of Russia and China are added.
     - If one created a communication channel called @ryanb, @gwyn, only the users Ryan B and Gwyn are added.
     - You can mix-and-match. e.g. I can add "Russia, @ryanb, China"
-    
-    
+    - Press enter to craete the channel.
+9. Users can elect their own ambassador:
+    - A user simply logs in, goes into a simulation within which they are already assigned a team.
+    - The user is presented with the option to vote for an ambassador on their team.
+    - If the majority of the team members vote for a specific person, the user is made the ambassador.
     
     
     
