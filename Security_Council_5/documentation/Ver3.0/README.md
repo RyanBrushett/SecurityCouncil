@@ -155,7 +155,3 @@ When users first hit the page at http://sc-5.cs.mun.ca, they are presented with 
     - A user simply logs in, goes into a simulation within which they are already assigned a team.
     - The user is presented with the option to vote for an ambassador on their team.
     - If the majority of the team members vote for a specific person, the user is made the ambassador.
-    
-    
-    
-    
