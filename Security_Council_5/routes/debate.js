@@ -49,13 +49,21 @@ exports.comment = function(req, res) {
 exports.vote = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
-    currentUser.setFlag('united-nations.svg');
+    var mid = req.params.mid;
     
+    currentUser.setFlag('united-nations.svg');
     simulation.currentUser = currentUser;
     simulation.sid = req.params.sid;
     
     var motions = simulation.getMotions();
-    var currentVotes = motions[req.params.mid].getVotes();
+    var motion;
+    for(var i = 0; i < motions.length; i++){
+        var m = motions[i];
+        if(m.getId() == mid){
+            motion = m;
+        }
+    }
+    var currentVotes = motion.getVotes();
     
     var numericVote = 0;
     if(req.body.vote == "yay") numericVote = 1;
@@ -68,7 +76,7 @@ exports.vote = function(req, res) {
     };
     
     currentVotes.push(newVote);
-    motions[req.params.mid].setVotes(currentVotes);
+    motion.setVotes(currentVotes);
     
     //Determine if vote is finished, maybe should be in a separate method
     if(currentVotes.length === simulation.getCountries().length){
@@ -87,20 +95,20 @@ exports.vote = function(req, res) {
             }
         }
         
-        console.log(votesFor);
-        console.log(votesAgainst);
-        console.log(numAbsent);
+        console.log("Votes For: " + votesFor);
+        console.log("Votes Against: " + votesAgainst);
+        console.log("Absent: " + numAbsent);
         
         var quorum = Math.round(simulation.getCountries().length * (2.0 / 3.0));
-        console.log(quorum);
+        console.log("Quorum: " + quorum);
         if((currentVotes.length - numAbsent) >= quorum){       
             var requiredVotes = Math.floor(simulation.getCountries().length / 2) + 1;
             
             if(votesFor >= requiredVotes){
                 //Vote passes
-                console.log('pass');
+                console.log('Result: pass');
                 
-                motions[req.params.mid].setStatus(Motion.Status.APPROVED);
+                motion.setStatus(Motion.Status.APPROVED);
                 
                 var commentContent = "Vote on motion passed! <br />";
                 commentContent += "Now debating the resolution.";
@@ -115,9 +123,9 @@ exports.vote = function(req, res) {
             }
             else{
                 //Vote fails
-                console.log('fail');
+                console.log('Result: fail');
                 
-                motions[req.params.mid].setStatus(Motion.Status.DENIED);
+                motion.setStatus(Motion.Status.DENIED);
                 
                 var commentContent = "Vote on motion failed! <br />";
                 commentContent += "Now debating the resolution.";
@@ -134,13 +142,13 @@ exports.vote = function(req, res) {
         else{
             console.log('quorum not met');
             
-            motions[req.params.mid].setStatus(Motion.Status.DEBATE);
-            motions[req.params.mid].setVotes([]);
+            motion.setStatus(Motion.Status.DEBATE);
+            motion.setVotes([]);
             
             var commentContent = "Quorum not met! <br />";
             commentContent += "Continuing debate on the motion.<br /> <br />";
-            commentContent += simulation.getMotions()[req.params.mid].getBody() + "<br />";
-            commentContent += "Moved by: " + simulation.getMotions()[req.params.mid].getMover().getName() + "<br />";            
+            commentContent += motion.getBody() + "<br />";
+            commentContent += "Moved by: " + motion.getMover().getName() + "<br />";            
             
             var newComment = db.helpers.createComment(simulation, {
                 content: commentContent,
@@ -218,9 +226,9 @@ exports.voteResolution = function(req, res) {
                 }
             }
             
-            console.log(votesFor);
-            console.log(votesAgainst);
-            console.log(numAbsent);
+            console.log("Votes For: " + votesFor);
+            console.log("Votes Against: " + votesAgainst);
+            console.log("Absent: " + numAbsent);
             
             var quorum = Math.round(simulation.getCountries().length * (2.0 / 3.0));
             console.log(quorum);
