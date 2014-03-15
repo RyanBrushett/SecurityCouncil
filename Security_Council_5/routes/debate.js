@@ -57,6 +57,8 @@ exports.vote = function(req, res) {
     
     var motions = simulation.getMotions();
     var motion;
+
+    // Needed to get the motion by Id. This should be in the model
     for(var i = 0; i < motions.length; i++){
         var m = motions[i];
         if(m.getId() == mid){
