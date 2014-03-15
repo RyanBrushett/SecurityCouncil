@@ -56,15 +56,8 @@ exports.vote = function(req, res) {
     simulation.sid = req.params.sid;
     
     var motions = simulation.getMotions();
-    var motion;
+    var motion = db.helpers.getMotionById(mid);
 
-    // Needed to get the motion by Id. This should be in the model
-    for(var i = 0; i < motions.length; i++){
-        var m = motions[i];
-        if(m.getId() == mid){
-            motion = m;
-        }
-    }
     var currentVotes = motion.getVotes();
     
     var numericVote = 0;

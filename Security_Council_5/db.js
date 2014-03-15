@@ -414,6 +414,15 @@ helpers.hasUserVotedResolution = function(resolution, user) {
     return false;
 };
 
+helpers.getMotionById = function(id) {
+    for(var i = 0; i < motions.length; i++){
+        var m = motions[i];
+        if(m.getId() == id){
+            return m;
+        }
+    }
+};
+
 helpers.addUserToSimulation = function (simulation, user) {
 	// Add a user to a team
 	var country = simulation.getCountries();
