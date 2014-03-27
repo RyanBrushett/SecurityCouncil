@@ -1,4 +1,4 @@
-# COUNCIL
+# SECURITY COUNCIL
 
 An app developed for COMP4770 in Winter 2013/2014 by Group 5
 
@@ -69,11 +69,16 @@ Further maintenance may be done by members outside of the course for fun!
 
 ## Process
 
-    TODO:
+We really wanted to focus hard on design for this iteration so our first few meetings to start this iteration were held in a conference room away from distractions.
+This allowed us to focus in on the things that we needed to do the most and make some key decisions, notably the inclusion or otherwise of a database (which, as you know, we left out of our last iteration).
+A major component of the final iteration is going to be design and usability but focusing on the user experience and an intuitive flow.
 
 ## Tasks
 
-    TODO:
+    - Allow for **full** moderation/administration by a moderator.
+    - Implement a SQLite3 Database.
+    - Focus and refine the user experience and design of the product.
+    - Allow for reporting / analysis of metrics by the moderator.
 
 #### BACKEND:
 
