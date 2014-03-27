@@ -5,15 +5,13 @@ exports.view = function(req, res) {
 };
 
 exports.create = function(req, res) {
-    var resolution = db.helpers.createResolution({
+    var simulation = db.helpers.createSimulation({
+        name: req.body.name,
+        countriesSize: req.body.perteam
+    });
+    db.helpers.createResolution(simulation, {
         title: req.body.title,
         content: req.body.content
     });
-    var simulation = db.helpers.createSimulation({
-        name: req.body.name,
-        resolution: resolution,
-        countriesSize: req.body.perteam
-    });
-    var users = db.users;
     res.redirect('/');
 };

@@ -1,4 +1,5 @@
 .DS_Store
+
 OLD_*
 .*.swp
 .express.log
@@ -7,3 +8,7 @@ tests
 
 # Upload dir
 Security_Council_5/public/uploads
+
+# Databases
+*.db
+*.sqlite3

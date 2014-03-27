@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>{{ name }} &middot; Council</title>
+        <title>{{name}} &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/country.css">
@@ -11,46 +11,47 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
+                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
-                    <li><a href="/moderator/simulation/{{ simulation.getId }}">Back to {{ simulation.getName }}</a></li>
+                    <li><a href="/moderator/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <h2>{{ name }}</h2>
+            <h2>{{name}}</h2>
             {{#ambassador}}
-            <p>Ambassador: {{ getName }}</p>
+            <p>Ambassador: {{name}}</p>
             {{/ambassador}}
-            <form action="/moderator/ambassador/{{simulation.getId }}/{{ countryId }}" method="post">
+            <form action="/moderator/ambassador/{{simulation.id}}/{{countryId}}" method="post">
                 <p>
                     <label>Select an ambassador:</label>
                     <select name="ambassador">
                         {{#members}}
-                        <option value="{{ getId }}">{{ getName }}</option>
+                        <option value="{{id}}">{{name}} <em>(@{{username}})</em></option>
                         {{/members}}
                     </select>
                     <input type="submit" class="button" value="Set Ambassador">
                 </p>
             </form>
             <hr class="separator">
-            <h2>Members of {{ name }}</h2>
+            <h2>Members of {{name}}</h2>
             <ul class="members">
                 {{#members}}
-                <li>{{ getName }}</li>
+                <li>{{name}}</li>
                 {{/members}}
             </ul>
             <hr class="separator">
             <h2>Position paper</h2>
-            <textarea disabled="true" class="textbox">{{{ positionPaperSummary }}}</textarea>
             {{#positionPaper}}
-            <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+            <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
+            <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
             {{/positionPaper}}
             <hr class="separator">
             <h2>Country directives</h2>
             <p>
                 Set directives for this country, based on their position paper.
-                <form action="/moderator/directives/{{ simulation.getId }}/{{ countryId }}" method="post">
+                <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
                     <textarea name="directives" class="textbox">{{{directives}}}</textarea>
                     <input type="submit" class="button" value="Set Directives">
             </form>
