@@ -5,7 +5,7 @@ exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     currentUser.flag = undefined;
-    checkVotingPermissions(simulation, currentUser);
+    db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser
@@ -33,7 +33,7 @@ exports.comment = function(req, res) {
         content: req.body.comment,
         user: currentUser
     });
-    checkVotingPermissions(simulation, currentUser);
+    db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
 
@@ -110,7 +110,7 @@ exports.vote = function(req, res) {
             });
         }
     }
-    checkVotingPermissions(simulation, currentUser);
+    db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
 
@@ -199,6 +199,6 @@ exports.voteResolution = function(req, res) {
             }
         }
     }
-    checkVotingPermissions(simulation, currentUser);
+    db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
