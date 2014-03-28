@@ -1,7 +1,10 @@
 var db = require('../db');
 
 exports.view = function(req, res) {
-    res.render('simulation/new');
+    var currentUser = db.users[req.session.userId];
+    res.render('simulation/new', {
+        user: currentUser
+    });
 };
 
 exports.create = function(req, res) {
