@@ -158,8 +158,7 @@ module.exports.loadCompleted = function (cache) {
     // TODO: Moar relationships
     // I will wait until they are finalized first
     module.exports.simulations = cache['Simulation'];
-    module.exports.users = cache['User'];
-    console.log(cache);
+    module.exports.users = cache['User'].concat(cache['Moderator']);
     console.log('Previous state loaded');
 };
 
