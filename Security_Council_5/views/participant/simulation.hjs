@@ -10,14 +10,14 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
-                    <li>You are {{currentUser.username}}</li>
+                    <li>You are {{currentUser.name}}</li>
                     <li><a href="/">Dashboard</a></li>
                     {{#simulationJoined}}
                     <li><a href="/debate/{{simulation.id}}">Debate!</a></li>
-                        {{#chair}}
-                        <li><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
-                        {{/chair}}
                     {{/simulationJoined}}
+                    {{#isChair}}
+                    <li><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    {{/isChair}}
                     {{^simulationJoined}}
                     <li><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
                     {{/simulationJoined}}
@@ -49,7 +49,7 @@
                     <td>
                         <ul class="country__members">
                             {{#members}}
-                            <li data-id="{{id}}" class="country__member">{{name}}</li>
+                            <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
                             {{/members}}
                         </ul>
                     </td>
