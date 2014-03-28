@@ -248,7 +248,7 @@ helpers.createComment = function (simulation, options) {
     options.id = simulation.comments.length;
     var comment = new models.Comment(options);
     module.exports.save(comment);
-    simulation.comments.push(comment);
+    simulation.comments.unshift(comment);
     module.exports.save(simulation);
     return comment;
 };
