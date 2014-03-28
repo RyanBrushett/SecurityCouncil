@@ -37,7 +37,7 @@
             </div>
             <br>
             {{/simulation.resolution}}
-            {{#motions}}
+            {{#simulation.motions}}
             <div id="{{id}}">
                 <div>
                     {{#inDebate}}In Debate{{/inDebate}}
@@ -57,7 +57,7 @@
                     <p>{{body}}</p>
                 </div>
             </div>
-            {{/motions}}
+            {{/simulation.motions}}
         </main>
     </body>
 </html>
