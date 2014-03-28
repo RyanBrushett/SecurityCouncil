@@ -232,7 +232,6 @@ helpers.createModerator = function (options) {
     var user = new models.Moderator(options);
     module.exports.save(user);
     module.exports.users.push(user);
-    
     return user;
 };
 
@@ -304,6 +303,18 @@ helpers.getUserCountry = function(simulation, user) {
     for (i = 0; i < countries.length; i++) {
         if (countries[i].members.indexOf(user) >= 0) {
             return countries[i];
+        }
+    }
+};
+
+helpers.setUserFlag = function (simulation, user) {
+    var i, j, members;
+    for (i = 0; i < simulation.countries.length; i++) {
+        members = simulation.countries[i].members;
+        for (j = 0; j < members.length; j++) {
+            if (user.id == members[j].id) {
+                user.flag = simulation.countries[i].flag;
+            }
         }
     }
 };

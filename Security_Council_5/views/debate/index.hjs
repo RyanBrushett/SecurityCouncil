@@ -43,7 +43,7 @@
                     {{#simulation.motionToVote}}
                         {{#hasNotVoted}}
                             {{#userCanVote}}
-                            <form action="/debate/vote/{{sid}}/{{id}}" method="post">
+                            <form action="/debate/vote/{{simulation.id}}/{{id}}" method="post">
                                 <input type="radio" name="vote" value="yay" checked>Yay</input>
                                 <input type="radio" name="vote" value="nay">Nay</input>
                                 <input type="radio" name="vote" value="absent">Not Present</input>
@@ -63,7 +63,7 @@
                     {{#simulation.votingResolution}}
                         {{#hasNotVoted}}
                             {{#userCanVote}}
-                            <form action="/debate/vote/{{sid}}" method="post">
+                            <form action="/debate/vote/{{simulation.id}}" method="post">
                                 <input type="radio" name="vote" value="yay" checked>Yay</input>
                                 <input type="radio" name="vote" value="nay">Nay</input>
                                 <input type="radio" name="vote" value="absent">Not Present</input>
@@ -71,7 +71,7 @@
                             </form>
                             {{/userCanVote}}
                             {{^userCanVote}}
-                            The resolution is up for voting.<br />
+                            The resolution is up for voting.<br>
                             {{body}}
                             {{/userCanVote}}
                         {{/hasNotVoted}}
@@ -80,7 +80,7 @@
                         {{/hasNotVoted}}
                     {{/simulation.votingResolution}}
                     {{^simulation.voting}}
-                    <form action="/debate/{{id}}" method="post">
+                    <form action="/debate/{{simulation.id}}" method="post">
                         <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
                         <input type="submit" value="Comment" class="button">
                     </form>

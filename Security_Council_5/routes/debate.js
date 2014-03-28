@@ -4,7 +4,7 @@ var Motion = require('../models/motion.js');
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
-    currentUser.flag = undefined;
+    db.helpers.setUserFlag(simulation, currentUser);
     db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', {
         simulation: simulation,
@@ -15,26 +15,16 @@ exports.view = function(req, res) {
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
-    simulation.sid = req.params.id;
-    var countries = simulation.countries;
-    for (var i = 0; i < countries.length; i++) {
-        var members = countries[i].members;
-        for (var j = 0; j < members.length; j++) {
-            if (currentUser.id === members[j].id) {
-                currentUser.setFlag(countries[i].flag);
-            }
-            else {
-                currentUser.flag = undefined;
-            }
-        }
-    }
-    simulation.currentUser = currentUser;
+    db.helpers.setUserFlag(simulation, currentUser);
     db.helpers.createComment(simulation, {
         content: req.body.comment,
         user: currentUser
     });
     db.helpers.checkVotingPermissions(simulation, currentUser);
-    res.render('debate/index', simulation);
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser
+    });
 };
 
 exports.vote = function(req, res) {
