@@ -56,9 +56,17 @@ exports.dashboard = function(req, res) {
 exports.simulation = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
-    var joined = simulation.countries.some(function (country) {
+    /*var joined = simulation.countries.some(function (country) {
         return (country.members.indexOf(user) >= 0);
-    });
+    });*/
+    var joined = false;
+    for(var i = 0; i < simulation.countries.length; i++){
+        for(var j = 0; j < simulation.countries[i].members.length; j++){
+            if(simulation.countries[i].members[j] == user){
+                joined = true;
+            }
+        }
+    }
     res.render('participant/simulation', {
         currentUser: user,
         isChair: (simulation.chairperson === user),

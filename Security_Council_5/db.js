@@ -1,5 +1,5 @@
 var fs = require('fs');
-var SQLite3 = require('SQLite3').verbose();
+var SQLite3 = require('sqlite3').verbose();
 
 // Models
 

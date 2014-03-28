@@ -12,15 +12,15 @@
                 <ul>
                     <li>You are {{currentUser.username}}</li>
                     <li><a href="/">Dashboard</a></li>
-                    {{#joined}}
+                    {{#simulationJoined}}
                     <li><a href="/debate/{{simulation.id}}">Debate!</a></li>
                         {{#chair}}
                         <li><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                         {{/chair}}
-                    {{/joined}}
-                    {{^joined}}
+                    {{/simulationJoined}}
+                    {{^simulationJoined}}
                     <li><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
-                    {{/joined}}
+                    {{/simulationJoined}}
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>

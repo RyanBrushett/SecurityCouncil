@@ -22,10 +22,10 @@ function checkVotingPermissions(simulation, user) {
             }
         }
     }
-    if ((s.votingMotion === false) && s.getResolution().isInVote()) {
+    if ((s.votingMotion === false) && s.resolution.inVote) {
         s.voting = true;
         s.votingResolution = true;
-        if (!db.helpers.hasUserVoted(s.getResolution(), user)) {
+        if (!db.helpers.hasUserVoted(s.resolution, user)) {
             s.hasNotVoted = true;
             s.userCanVote = db.helpers.isUserAmbassador(s, user);
         }
