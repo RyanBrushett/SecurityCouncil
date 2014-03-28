@@ -24,15 +24,15 @@
             <p>Ambassador: {{name}}</p>
             {{/ambassador}}
             <form action="/moderator/ambassador/{{simulation.id}}/{{countryId}}" method="post">
+                <p><label>Select an ambassador:</label></p>
                 <p>
-                    <label>Select an ambassador:</label>
                     <select name="ambassador">
                         {{#members}}
                         <option value="{{id}}">{{name}}</option>
                         {{/members}}
                     </select>
-                    <input type="submit" class="button" value="Set Ambassador">
                 </p>
+                <p><input type="submit" class="button" value="Set Ambassador"></p>
             </form>
             <hr class="separator">
             <h2>Members of {{name}}</h2>
@@ -41,20 +41,19 @@
                 <li>{{name}}  <em>(@{{username}})</em></li>
                 {{/members}}
             </ul>
+            {{#positionPaper}}
             <hr class="separator">
             <h2>Position paper</h2>
-            {{#positionPaper}}
             <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
             <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
-            {{/positionPaper}}
             <hr class="separator">
             <h2>Country directives</h2>
-            <p>
-                Set directives for this country, based on their position paper.
-                <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
-                    <textarea name="directives" class="textbox">{{{directives}}}</textarea>
-                    <input type="submit" class="button" value="Set Directives">
+            <p>Set directives for this country, based on their position paper.</p>
+            <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
+                <textarea name="directives" class="textbox">{{{directives}}}</textarea>
+                <input type="submit" class="button" value="Set Directives">
             </form>
+            {{/positionPaper}}
         </main>
     </body>
 </html>
