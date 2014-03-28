@@ -1,47 +1,11 @@
 var db = require('../db');
 var Motion = require('../models/motion.js');
 
-function checkVotingPermissions(simulation, user) {
-    var s = simulation;
-    s.voting = false;
-    s.votingMotion = false;
-    s.votingResolution = false;
-    var motions = s.motions;
-    for (var i = 0; i < motions.length; i++) {
-        if (motions[i].status === Motion.Status.VOTE) {
-            s.voting = true;
-            s.votingMotion = true;
-            s.motionToVote = motions[i];
-            if (!db.helpers.hasUserVoted(motions[i], user)) {
-                s.hasNotVoted = true;
-                s.userCanVote = db.helpers.isUserAmbassador(s, user);
-            }
-            else {
-                s.hasNotVoted = false;
-                s.userCanVote = false;
-            }
-        }
-    }
-    if ((s.votingMotion === false) && s.resolution.inVote) {
-        s.voting = true;
-        s.votingResolution = true;
-        if (!db.helpers.hasUserVoted(s.resolution, user)) {
-            s.hasNotVoted = true;
-            s.userCanVote = db.helpers.isUserAmbassador(s, user);
-        }
-        else {
-            s.hasNotVoted = false;
-            s.userCanVote = false;
-        }
-    }
-    return s;
-}
-
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     currentUser.flag = undefined;
-    simulation = checkVotingPermissions(simulation, currentUser);
+    checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser
@@ -69,7 +33,7 @@ exports.comment = function(req, res) {
         content: req.body.comment,
         user: currentUser
     });
-    simulation = checkVotingPermissions(simulation, currentUser);
+    checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
 
@@ -146,7 +110,7 @@ exports.vote = function(req, res) {
             });
         }
     }
-    simulation = checkVotingPermissions(simulation, currentUser);
+    checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
 
@@ -235,6 +199,6 @@ exports.voteResolution = function(req, res) {
             }
         }
     }
-    simulation = checkVotingPermissions(simulation, currentUser);
+    checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };

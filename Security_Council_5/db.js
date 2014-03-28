@@ -362,6 +362,41 @@ helpers.addUserToSimulation = function (simulation, user) {
     }
 };
 
+helpers.checkVotingPermissions = function (simulation, user) {
+    var s = simulation;
+    s.voting = false;
+    s.votingMotion = false;
+    s.votingResolution = false;
+    var motions = s.motions;
+    for (var i = 0; i < motions.length; i++) {
+        if (motions[i].status === Motion.Status.VOTE) {
+            s.voting = true;
+            s.votingMotion = true;
+            s.motionToVote = motions[i];
+            if (!db.helpers.hasUserVoted(motions[i], user)) {
+                s.hasNotVoted = true;
+                s.userCanVote = db.helpers.isUserAmbassador(s, user);
+            }
+            else {
+                s.hasNotVoted = false;
+                s.userCanVote = false;
+            }
+        }
+    }
+    if ((s.votingMotion === false) && s.resolution.inVote) {
+        s.voting = true;
+        s.votingResolution = true;
+        if (!db.helpers.hasUserVoted(s.resolution, user)) {
+            s.hasNotVoted = true;
+            s.userCanVote = db.helpers.isUserAmbassador(s, user);
+        }
+        else {
+            s.hasNotVoted = false;
+            s.userCanVote = false;
+        }
+    }
+};
+
 // Filler data
 
 module.exports.fillWithData = function () {
