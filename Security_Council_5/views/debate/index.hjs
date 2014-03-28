@@ -16,6 +16,8 @@
                     <li><img src="/images/{{currentUser.flag}}" width="32px", height="32px"></li>
                     {{/currentUser.flag}}
                     <li><a href="/">Dashboard</a></li>
+                    <li><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
