@@ -312,6 +312,10 @@ helpers.userIsMemberOfCountry = function (country, user) {
     });
 };
 
+helpers.userIsAmbassadorOfCountry = function (country, user) {
+    return (country.ambassador && (country.ambassador.id == user.id));
+};
+
 helpers.setUserFlag = function (simulation, user) {
     var i, j, members;
     for (i = 0; i < simulation.countries.length; i++) {
