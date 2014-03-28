@@ -306,6 +306,12 @@ helpers.getUserCountry = function(simulation, user) {
     }
 };
 
+helpers.userIsMemberOfCountry = function (country, user) {
+    return country.members.some(function (member) {
+        return member.id == user.id;
+    });
+};
+
 helpers.setUserFlag = function (simulation, user) {
     var i, j, members;
     for (i = 0; i < simulation.countries.length; i++) {

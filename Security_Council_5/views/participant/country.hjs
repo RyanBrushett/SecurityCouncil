@@ -44,8 +44,8 @@
                 <li>{{name}}</li>
                 {{/members}}
             </ul>
-            <hr class="separator">
             {{#userIsMember}}
+            <hr class="separator">
             <h2>Position paper</h2>
             <form action="/participant/submit/{{simulation.id}}/{{countryId}}" enctype="multipart/form-data" method="post">
                 <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaperSummary}}}</textarea>
@@ -60,13 +60,14 @@
             <textarea name="directives" disabled="true" class="textbox">{{{directives}}}</textarea>
             {{/userIsMember}}
             {{^userIsMember}}
-                {{#positionPaperVisible}}
-                <h2>Position paper</h2>
-                <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
-                {{#positionPaper}}
-                <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
-                {{/positionPaper}}
-                {{/positionPaperVisible}}
+            {{#positionPaperVisible}}
+            <hr class="separator">
+            <h2>Position paper</h2>
+            <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
+            {{#positionPaper}}
+            <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+            {{/positionPaper}}
+            {{/positionPaperVisible}}
             {{/userIsMember}}
             {{#userIsAmbassador}}
             <hr class="separator">

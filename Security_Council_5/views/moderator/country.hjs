@@ -13,8 +13,8 @@
                 <ul>
                     <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
                     <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
                     <li><a href="/moderator/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
@@ -28,7 +28,7 @@
                     <label>Select an ambassador:</label>
                     <select name="ambassador">
                         {{#members}}
-                        <option value="{{id}}">{{name}} <em>(@{{username}})</em></option>
+                        <option value="{{id}}">{{name}}</option>
                         {{/members}}
                     </select>
                     <input type="submit" class="button" value="Set Ambassador">
@@ -38,7 +38,7 @@
             <h2>Members of {{name}}</h2>
             <ul class="members">
                 {{#members}}
-                <li>{{name}}</li>
+                <li>{{name}}  <em>(@{{username}})</em></li>
                 {{/members}}
             </ul>
             <hr class="separator">

@@ -189,12 +189,11 @@ exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
     var country = simulation.countries[req.params.cid];
-    var countryMembers = country.members;
-    var userIsMember = (countryMembers.indexOf(user) >= 0);
+    var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = (country.ambassador && (country.ambassador.id === user.id));
     res.render('participant/country', {
         ambassador: country.ambassador,
-        members: countryMembers,
+        members: country.members,
         name: country.name,
         simulation: simulation,
         simulationId: simulation.id,
