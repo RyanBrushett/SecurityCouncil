@@ -561,7 +561,7 @@ module.exports.fillWithData = function () {
     // Create filler users
     users.map(helpers.createUser);
     helpers.createModerator({
-        name: 'Fiech',
+        name: 'Dr. Fiech',
         username: 'fiech'
     });
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
