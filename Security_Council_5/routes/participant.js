@@ -217,7 +217,7 @@ exports.ambassador = function(req, res) {
     var countryId = req.params.cid;
     var ambassadorId = req.body["ambassador"];
     var ambassador = db.users[ambassadorId];
-    user.setAmbassadorPreference(ambassador.name);
+    user.ambassadorPreference = ambassador.name;
     db.helpers.updateAmbassador(simulation.countries[countryId]);
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };

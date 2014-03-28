@@ -29,7 +29,7 @@ exports.create = function(req, res) {
     var users = db.users;
     var user;
     req.session.rerror = undefined;
-    for (i = 0; i < users.length; i++) {
+    for (i = 0; i < users.length; i++) {     
         if (username === users[i].username && users[i].password === password) {
             user = users[i];
             break;

@@ -232,6 +232,7 @@ helpers.createModerator = function (options) {
     var user = new models.Moderator(options);
     module.exports.save(user);
     module.exports.users.push(user);
+    
     return user;
 };
 
