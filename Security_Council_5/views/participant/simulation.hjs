@@ -49,7 +49,7 @@
                     <td>
                         <ul class="country__members">
                             {{#members}}
-                            <li data-id="{{id}}" class="country__member">{{name}} (@{{username}})</li>
+                            <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
                             {{/members}}
                         </ul>
                     </td>
