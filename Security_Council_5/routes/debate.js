@@ -1,343 +1,240 @@
 var db = require('../db');
 var Motion = require('../models/motion.js');
 
+function checkVotingPermissions(simulation, user) {
+    var s = simulation;
+    s.voting = false;
+    s.votingMotion = false;
+    s.votingResolution = false;
+    var motions = s.motions;
+    for (var i = 0; i < motions.length; i++) {
+        if (motions[i].status === Motion.Status.VOTE) {
+            s.voting = true;
+            s.votingMotion = true;
+            s.motionToVote = motions[i];
+            if (!db.helpers.hasUserVoted(motions[i], user)) {
+                s.hasNotVoted = true;
+                s.userCanVote = db.helpers.isUserAmbassador(s, user);
+            }
+            else {
+                s.hasNotVoted = false;
+                s.userCanVote = false;
+            }
+        }
+    }
+    if ((s.votingMotion === false) && s.resolution.inVote) {
+        s.voting = true;
+        s.votingResolution = true;
+        if (!db.helpers.hasUserVoted(s.resolution, user)) {
+            s.hasNotVoted = true;
+            s.userCanVote = db.helpers.isUserAmbassador(s, user);
+        }
+        else {
+            s.hasNotVoted = false;
+            s.userCanVote = false;
+        }
+    }
+    return s;
+}
+
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     currentUser.flag = undefined;
-    simulation.currentUser = currentUser;
-    simulation.sid = req.params.id;
-    
     simulation = checkVotingPermissions(simulation, currentUser);
-    
-    res.render('debate/index', simulation);
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser
+    });
 };
 
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     simulation.sid = req.params.id;
-    
-    var countries = simulation.getCountries();
-    for(var i = 0; i < countries.length; i++){
-        var members = countries[i].getMembers();
-        for(var j = 0; j < members.length; j++){
-            if(currentUser.getId() === members[j].getId()){
-                //currentUser.flag = countries[i].flag();
-                currentUser.setFlag(countries[i].flag());
-                console.log(currentUser.getFlag());
+    var countries = simulation.countries;
+    for (var i = 0; i < countries.length; i++) {
+        var members = countries[i].members;
+        for (var j = 0; j < members.length; j++) {
+            if (currentUser.id === members[j].id) {
+                currentUser.setFlag(countries[i].flag);
             }
-            else{
+            else {
                 currentUser.flag = undefined;
             }
         }
     }
-    
     simulation.currentUser = currentUser;
-    
-    var newComment = db.helpers.createComment(simulation, {
+    db.helpers.createComment(simulation, {
         content: req.body.comment,
         user: currentUser
     });
-    simulation.addComment(newComment);
-    
-    simulation = checkVotingPermissions(simulation, currentUser);  
-    
+    simulation = checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
 
 exports.vote = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
-    var mid = req.params.mid;
-    
-    currentUser.setFlag('united-nations.svg');
+    var motion = simulation.motions[req.params.mid];
+    var currentVotes = motion.votes;
+    var numericVote = 0;
+    currentUser.flag = 'united-nations.svg';
     simulation.currentUser = currentUser;
     simulation.sid = req.params.sid;
-    
-    var motions = simulation.getMotions();
-    var motion = db.helpers.getMotionById(mid);
-
-    var currentVotes = motion.getVotes();
-    
-    var numericVote = 0;
-    if(req.body.vote == "yay") numericVote = 1;
-    if(req.body.vote == "nay") numericVote = 2;
-    if(req.body.vote == "absent") numericVote = 3;
-    
-    var newVote = {
+    if (req.body.vote == 'yay') {
+        numericVote = 1;
+    }
+    if (req.body.vote == 'nay') {
+        numericVote = 2;
+    }
+    if(req.body.vote == 'absent') {
+        numericVote = 3;
+    }
+    db.helpers.createVote(motion, {
         vote: numericVote,
         user: currentUser
-    };
-    
-    currentVotes.push(newVote);
-    motion.setVotes(currentVotes);
-    
-    //Determine if vote is finished, maybe should be in a separate method
-    if(currentVotes.length === simulation.getCountries().length){
+    });
+    // Determine if vote is finished, maybe should be in a separate method
+    if (currentVotes.length === simulation.countries.length) {
         var votesFor = 0;
         var votesAgainst = 0;
         var numAbsent = 0;
-        for(var i = 0; i < currentVotes.length; i++){
-            if(currentVotes[i].vote === 1){
+        for (var i = 0; i < currentVotes.length; i++) {
+            if (currentVotes[i].vote === 1) {
                 votesFor++;
             }
-            else if(currentVotes[i].vote === 2){
+            else if (currentVotes[i].vote === 2) {
                 votesAgainst++;
             }
-            else{
+            else {
                 numAbsent++;
             }
         }
-        
-        console.log("Votes For: " + votesFor);
-        console.log("Votes Against: " + votesAgainst);
-        console.log("Absent: " + numAbsent);
-        
-        var quorum = Math.round(simulation.getCountries().length * (2.0 / 3.0));
-        console.log("Quorum: " + quorum);
-        if((currentVotes.length - numAbsent) >= quorum){       
-            var requiredVotes = Math.floor(simulation.getCountries().length / 2) + 1;
-            
-            if(votesFor >= requiredVotes){
-                //Vote passes
-                console.log('Result: pass');
-                
-                motion.setStatus(Motion.Status.APPROVED);
-                
-                var commentContent = "Vote on motion passed! <br />";
-                commentContent += "Now debating the resolution.";
-                
-                var newComment = db.helpers.createComment(simulation, {
-                    content: commentContent,
-                    user: simulation.getChairperson()
+        var quorum = Math.round(simulation.countries.length * (2.0 / 3.0));
+        if ((currentVotes.length - numAbsent) >= quorum) {
+            var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
+            if (votesFor >= requiredVotes) {
+                motion.status = Motion.Status.APPROVED;
+                db.helpers.createComment(simulation, {
+                    content: 'Vote on motion passed!\nNow debating the resolution.',
+                    user: simulation.chairperson
                 });
-                simulation.addComment(newComment);
-                
-                simulation.getResolution().setInDebate(true);
+                simulation.resolution.inDebate = true;
             }
-            else{
-                //Vote fails
-                console.log('Result: fail');
-                
-                motion.setStatus(Motion.Status.DENIED);
-                
-                var commentContent = "Vote on motion failed! <br />";
-                commentContent += "Now debating the resolution.";
-                
-                var newComment = db.helpers.createComment(simulation, {
+            else {
+                motion.status = Motion.Status.DENIED;
+                var commentContent = 'Vote on motion failed!\n';
+                commentContent += 'Now debating the resolution.';
+                db.helpers.createComment(simulation, {
                     content: commentContent,
-                    user: simulation.getChairperson()
+                    user: simulation.chairperson
                 });
-                simulation.addComment(newComment);                
-                
-                simulation.getResolution().setInDebate(true);
+                simulation.resolution.inDebate = true;
             }
         }
-        else{
-            console.log('quorum not met');
-            
-            motion.setStatus(Motion.Status.DEBATE);
-            motion.setVotes([]);
-            
-            var commentContent = "Quorum not met! <br />";
-            commentContent += "Continuing debate on the motion.<br /> <br />";
-            commentContent += motion.getBody() + "<br />";
-            commentContent += "Moved by: " + motion.getMover().getName() + "<br />";            
-            
-            var newComment = db.helpers.createComment(simulation, {
+        else {
+            motion.status = Motion.Status.DEBATE;
+            motion.votes = [];
+            var commentContent = 'Quorum not met!\n';
+            commentContent += 'Continuing debate on the motion.\n';
+            commentContent += motion.body + '\n';
+            commentContent += 'Moved by: ' + motion.mover.name + '\n';
+            db.helpers.createComment(simulation, {
                 content: commentContent,
-                user: simulation.getChairperson()
+                user: simulation.chairperson
             });
-            simulation.addComment(newComment);            
         }
     }
-    
     simulation = checkVotingPermissions(simulation, currentUser);
-    
     res.render('debate/index', simulation);
 };
 
 exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
-    currentUser.setFlag('united-nations.svg');
-    
+    currentUser.flag = 'united-nations.svg';
     simulation.currentUser = currentUser;
     simulation.sid = req.params.sid;
-
-    var currentVotes = simulation.getResolution().getVotes();
-    
+    var currentVotes = simulation.resolution.votes;
     var numericVote = 0;
-    if(req.body.vote == "yay") numericVote = 1;
-    if(req.body.vote == "nay") numericVote = 2;
-    if(req.body.vote == "absent") numericVote = 3;
-    
+    if (req.body.vote == "yay") {
+        numericVote = 1;
+    }
+    if (req.body.vote == "nay") {
+        numericVote = 2;
+    }
+    if (req.body.vote == "absent") {
+        numericVote = 3;
+    }
     var veto = false;
-    if(db.helpers.isUserCountryPermanent(simulation, currentUser)){
-        if(numericVote == 2){
-            //Vote fails
-            console.log('veto');
+    if (db.helpers.isUserCountryPermanent(simulation, currentUser)) {
+        if (numericVote == 2) {
             veto = true;
-            
-            simulation.getResolution().setVoteStatus(2);
-            
-            var commentContent = "Vote on resolution failed due to veto by " + db.helpers.getUserCountry(simulation, currentUser).getName() +"! <br />";
-            
-            var newComment = db.helpers.createComment(simulation, {
+            simulation.resolution.status = 2;
+            var country = db.helpers.getUserCountry(simulation, currentUser).name
+            var commentContent = 'Vote on resolution failed due to veto by ' + country + '!\n';
+            db.helpers.createComment(simulation, {
                 content: commentContent,
-                user: simulation.getChairperson()
+                user: simulation.chairperson
             });
-            simulation.addComment(newComment);                
-            
-            simulation.getResolution().setInDebate(false); 
-            simulation.getResolution().setInVote(false);
+            simulation.resolution.inDebate = false;
+            simulation.resolution.inVote = false;
         }
     }
-    
-    if(!veto){
-        var newVote = {
+    if (!veto) {
+        db.helpers.createVote(simulation.resolution, {
             vote: numericVote,
             user: currentUser
-        };
-        
-        currentVotes.push(newVote);
-        simulation.getResolution().setVotes(currentVotes);
-        
-        //Determine if vote is finished, maybe should be in a separate method
-        if(currentVotes.length === simulation.getCountries().length){
+        });
+        // Determine if vote is finished, maybe should be in a separate method
+        if (currentVotes.length === simulation.countries.length) {
             var votesFor = 0;
             var votesAgainst = 0;
             var numAbsent = 0;
-            for(var i = 0; i < currentVotes.length; i++){
-                if(currentVotes[i].vote === 1){
+            for (var i = 0; i < currentVotes.length; i++) {
+                if (currentVotes[i].vote === 1) {
                     votesFor++;
                 }
-                else if(currentVotes[i].vote === 2){
+                else if (currentVotes[i].vote === 2) {
                     votesAgainst++;
                 }
-                else{
+                else {
                     numAbsent++;
                 }
             }
-            
-            console.log("Votes For: " + votesFor);
-            console.log("Votes Against: " + votesAgainst);
-            console.log("Absent: " + numAbsent);
-            
-            var quorum = Math.round(simulation.getCountries().length * (2.0 / 3.0));
-            console.log(quorum);
-            if((currentVotes.length - numAbsent) >= quorum){       
-                var requiredVotes = Math.floor(simulation.getCountries().length / 2) + 1;
-                
-                if(votesFor >= requiredVotes){
-                    //Vote passes
-                    console.log('pass');
-                    
-                    simulation.getResolution().setVoteStatus(1);
-                    
-                    var commentContent = "Vote on resolution passed! <br />";
-                    
-                    var newComment = db.helpers.createComment(simulation, {
-                        content: commentContent,
-                        user: simulation.getChairperson()
+            var quorum = Math.round(simulation.countries.length * (2.0 / 3.0));
+            if ((currentVotes.length - numAbsent) >= quorum) {
+                var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
+                if (votesFor >= requiredVotes) {
+                    simulation.resolution.status = 1;
+                    db.helpers.createComment(simulation, {
+                        content: 'Vote on resolution passed!\n',
+                        user: simulation.chairperson
                     });
-                    simulation.addComment(newComment);
-                    
-                    simulation.getResolution().setInDebate(false);
+                    simulation.resolution.inDebate = false;
                 }
-                else{
-                    //Vote fails
-                    console.log('fail');
-                    
-                    simulation.getResolution().setVoteStatus(2);
-                    
-                    var commentContent = "Vote on resolution failed! <br />";
-                    
-                    var newComment = db.helpers.createComment(simulation, {
-                        content: commentContent,
-                        user: simulation.getChairperson()
+                else {
+                    simulation.resolution.status = 2;
+                    db.helpers.createComment(simulation, {
+                        content: 'Vote on resolution failed!\n',
+                        user: simulation.chairperson
                     });
-                    simulation.addComment(newComment);                
-                    
-                    simulation.getResolution().setInDebate(false);
+                    simulation.resolution.setInDebate(false);
                 }
             }
-            else{
-                console.log('quorum not met');
-                
-                simulation.getResolution().setVoteStatus(0);
-                simulation.getResolution().setInDebate(true);
-                simulation.getResolution().setVotes([]);
-                simulation.getResolution().setInVote(false);
-                
-                var commentContent = "Quorum not met! <br />";
-                commentContent += "Continuing debate on the resolution.<br /> <br />";         
-                
-                var newComment = db.helpers.createComment(simulation, {
-                    content: commentContent,
-                    user: simulation.getChairperson()
+            else {
+                simulation.resolution.voteStatus = 0;
+                simulation.resolution.inDebate = true;
+                simulation.resolution.votes = [];
+                simulation.resolution.inVote = false;
+                db.helpers.createComment(simulation, {
+                    content: 'Quorum not met!\nContinuing debate on the resolution.\n',
+                    user: simulation.chairperson
                 });
-                simulation.addComment(newComment);            
             }
         }
     }
-    
     simulation = checkVotingPermissions(simulation, currentUser);
-    
-    res.render('debate/index', simulation);    
+    res.render('debate/index', simulation);
 };
-
-//Checks voting permissions for a given user
-function checkVotingPermissions(simulation, user) {
-    var s = simulation;
-    s.voting = false;
-    s.votingMotion = false;
-    s.votingResolution = false;
-    
-    var motions = s.getMotions();
-    for(var i = 0; i < motions.length; i++){
-        if(motions[i].getStatus() === Motion.Status.VOTE){
-            s.voting = true;
-            s.votingMotion = true;
-            s.motionToVote = motions[i];
-            
-            if(!db.helpers.hasUserVoted(motions[i], user)){
-                s.hasNotVoted = true;
-                
-                if(db.helpers.isUserAmbassador(s, user)){
-                    s.userCanVote = true;
-                }
-                else{
-                    s.userCanVote = false;
-                }
-            }
-            else{
-                s.hasNotVoted = false;
-                s.userCanVote = false;
-            }
-        }
-    }
-    
-    if((s.votingMotion === false) && s.getResolution().isInVote()){
-        s.voting = true;
-        s.votingResolution = true;
-        
-        if(!db.helpers.hasUserVotedResolution(s.getResolution(), user)){
-            s.hasNotVoted = true;
-            
-            if(db.helpers.isUserAmbassador(s, user)){
-                s.userCanVote = true;
-            }
-            else{
-                s.userCanVote = false;
-            }
-        }
-        else{
-            s.hasNotVoted = false;
-            s.userCanVote = false;
-        }        
-    }
-    
-    return s;
-}

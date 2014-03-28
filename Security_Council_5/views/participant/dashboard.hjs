@@ -11,7 +11,7 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
-                    <li>You are {{ user.getName }}</li>
+                    <li>You are {{user.name}}</li>
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
@@ -22,16 +22,15 @@
             {{#joinedSimulations}}
             <section class="simulation">
                 <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/participant/simulation/{{ getId }}">{{ getName }}</a>
+                    <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                 </h3>
                 <ul class="statistics">
-                    {{#getChairperson}}
-                    <li>Chair: {{getName}}</li>
-                    {{/getChairperson}}
-                    {{^getChairperson}}
+                    {{#chairperson}}
+                    <li>Chair: {{name}}</li>
+                    {{/chairperson}}
+                    {{^chairperson}}
                     <li>No chairperson has been selected for this simulation yet</li>
-                    {{/getChairperson}}
-                    <li>Number of participants: {{ getNumberOfParticipants }}</li>
+                    {{/chairperson}}
                 </ul>
             </section>
             {{/joinedSimulations}}
@@ -39,16 +38,15 @@
             {{#notJoinedSimulations}}
             <section class="simulation">
                 <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/participant/simulation/{{ getId }}">{{ getName }}</a>
+                    <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                 </h3>
                 <ul class="statistics">
-                    {{#getChairperson}}
-                    <li>Chair: {{getName}}</li>
-                    {{/getChairperson}}
-                    {{^getChairperson}}
+                    {{#chairperson}}
+                    <li>Chair: {{name}}</li>
+                    {{/chairperson}}
+                    {{^chairperson}}
                     <li>No chairperson has been selected for this simulation yet</li>
-                    {{/getChairperson}}
-                    <li>Number of participants: {{ getNumberOfParticipants }}</li>
+                    {{/chairperson}}
                 </ul>
             </section>
             {{/notJoinedSimulations}}
