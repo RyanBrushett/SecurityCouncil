@@ -7,6 +7,6 @@ function User(options) {
     this.password = options.password || 'password';
     this.preferences = options.preferences || [];
     this.username = options.username;
-};
+}
 
 module.exports = User;

@@ -420,6 +420,9 @@ helpers.checkVotingPermissions = function (simulation, user) {
     return s;
 };
 
+helpers.createCommunicationChannel = function (simulation, users) {
+};
+
 // Filler data
 
 module.exports.fillWithData = function () {
