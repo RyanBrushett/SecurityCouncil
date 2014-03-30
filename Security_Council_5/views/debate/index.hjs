@@ -41,52 +41,52 @@
             <section class="section">
                 <h2>Debate</h2>
                 <div class="discussion">
-                    {{#simulation.votingMotion}}
-                    {{#simulation.motionToVote}}
-                        {{#hasNotVoted}}
-                            {{#userCanVote}}
+                    {{#permissions.votingMotion}}
+                    {{#permissions.motionToVote}}
+                        {{#permissions.hasNotVoted}}
+                            {{#permissions.userCanVote}}
                             <form action="/debate/vote/{{simulation.id}}/{{id}}" method="post">
                                 <input type="radio" name="vote" value="yay" checked>Yay</input>
                                 <input type="radio" name="vote" value="nay">Nay</input>
                                 <input type="radio" name="vote" value="absent">Not Present</input>
                                 <input type="submit" value="Vote!" class="button" />
                             </form>
-                            {{/userCanVote}}
-                            {{^userCanVote}}
+                            {{/permissions.userCanVote}}
+                            {{^permissions.userCanVote}}
                             There is a motion up for voting.<br />
                             {{getBody}}
-                            {{/userCanVote}}
-                        {{/hasNotVoted}}
-                        {{^hasNotVoted}}
+                            {{/permissions.userCanVote}}
+                        {{/permissions.hasNotVoted}}
+                        {{^permissions.hasNotVoted}}
                             You have already voted on this motion.
-                        {{/hasNotVoted}}
-                    {{/simulation.motionToVote}}
-                    {{/simulation.votingMotion}}
-                    {{#simulation.votingResolution}}
-                        {{#hasNotVoted}}
-                            {{#userCanVote}}
+                        {{/permissions.hasNotVoted}}
+                    {{/permissions.motionToVote}}
+                    {{/permissions.votingMotion}}
+                    {{#permissions.votingResolution}}
+                        {{#permissions.hasNotVoted}}
+                            {{#permissions.userCanVote}}
                             <form action="/debate/vote/{{simulation.id}}" method="post">
                                 <input type="radio" name="vote" value="yay" checked>Yay</input>
                                 <input type="radio" name="vote" value="nay">Nay</input>
                                 <input type="radio" name="vote" value="absent">Not Present</input>
                                 <input type="submit" value="Vote!" class="button" />
                             </form>
-                            {{/userCanVote}}
-                            {{^userCanVote}}
+                            {{/permissions.userCanVote}}
+                            {{^permissions.userCanVote}}
                             The resolution is up for voting.<br>
                             {{body}}
-                            {{/userCanVote}}
-                        {{/hasNotVoted}}
-                        {{^hasNotVoted}}
+                            {{/permissions.userCanVote}}
+                        {{/permissions.hasNotVoted}}
+                        {{^permissions.hasNotVoted}}
                             You have already voted on this resolution.
-                        {{/hasNotVoted}}
-                    {{/simulation.votingResolution}}
-                    {{^simulation.voting}}
+                        {{/permissions.hasNotVoted}}
+                    {{/permissions.votingResolution}}
+                    {{^permissions.voting}}
                     <form action="/debate/{{simulation.id}}" method="post">
                         <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
                         <input type="submit" value="Comment" class="button">
                     </form>
-                    {{/simulation.voting}}
+                    {{/permissions.voting}}
                     {{#simulation.comments}}
                     <blockquote class="card">
                         <p>{{{content}}}</p>

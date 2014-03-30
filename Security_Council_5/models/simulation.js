@@ -9,9 +9,9 @@ function Simulation(options) {
     this.name = options.name;
     this.paperIsViewable = !!options.paperIsViewable;
     this.resolution = options.resolution;
-    this.voting = !!options.voting;
-    this.votingMotion = !!options.votingMotion;
-    this.votingResolution = !!options.votingResolution;
+    //this.voting = !!options.voting;
+    //this.votingMotion = !!options.votingMotion;
+    //this.votingResolution = !!options.votingResolution;
 };
 
 module.exports = Simulation;

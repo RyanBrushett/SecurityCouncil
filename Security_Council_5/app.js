@@ -79,7 +79,7 @@ app.post('/participant/chair/debate/motion', session.require, participant.debate
 app.post('/participant/chair/debate/resolution', session.require, participant.debateResolution);
 app.post('/participant/chair/vote/motion', session.require, participant.voteMotion);
 app.post('/participant/chair/vote/resolution', session.require, participant.voteResolution);
-app.post('/participant/chair/delete/motion', session.require, participant.deleteResolution);
+app.post('/participant/chair/delete/motion', session.require, participant.deleteMotion);
 
 // Participant -- Submit
 app.post('/participant/submit/:sid/:cid', session.require, participant.submit);
