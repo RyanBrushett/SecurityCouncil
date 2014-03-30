@@ -387,9 +387,8 @@ helpers.checkVotingPermissions = function (simulation, user) {
     s.voting = false;
     s.votingMotion = false;
     s.votingResolution = false;
-    var motions = s.motions;
-    for (var i = 0; i < motions.length; i++) {
-        //if (motions[i].status === Motion.Status.VOTE) {
+    var i, motions = s.motions;
+    for (i = 0; i < motions.length; i++) {
         if (motions[i].inVote && !motions[i].inDebate) {
             s.voting = true;
             s.votingMotion = true;
@@ -405,7 +404,7 @@ helpers.checkVotingPermissions = function (simulation, user) {
         }
     }
     if ((s.votingMotion === false) && s.resolution.inVote) {
-        s.voting = true; 
+        s.voting = true;
         s.votingResolution = true;
         if (!helpers.hasUserVoted(s.resolution, user)) {
             s.hasNotVoted = true;

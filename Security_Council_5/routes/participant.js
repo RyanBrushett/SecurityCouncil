@@ -87,9 +87,9 @@ exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     user.flag = 'united-nations.svg';
-    var motion;
-    for (var i = 0; i < simulation.motions.length; i++) {
-        var m = simulation.motions[i];
+    var i, m, motion;
+    for (i = 0; i < simulation.motions.length; i++) {
+        m = simulation.motions[i];
         if (simulation.motions[i].id === req.body.motionId) {
             m.inDebate = true;
             motion = m;
@@ -101,10 +101,9 @@ exports.debateMotion = function(req, res) {
     }
     simulation.resolution.inDebate = false;
     db.helpers.createComment(simulation, {
-        content: 'New motion under debate!<br />' + motion.body + '<br />' + 'Moved by: ' + motion.mover.name + '<br />',
+        content: 'New motion under debate!\n' + motion.body + '\n' + 'Moved by: ' + motion.mover.name + '\n',
         user: user
     });
-    
     res.send(200);
 };
 
@@ -123,7 +122,6 @@ exports.debateResolution = function(req, res) {
         content: 'Resolution is now up for debate!',
         user: user
     });
-    
     res.send(200);
 };
 
@@ -154,10 +152,9 @@ exports.voteMotion = function(req, res) {
     }
     simulation.resolution.inDebate = false;
     db.helpers.createComment(simulation, {
-        content: 'Motion open for voting!<br />' + motion.body + '<br />Moved by: ' + motion.mover.name,
+        content: 'Motion open for voting!\n' + motion.body + '\nMoved by: ' + motion.mover.name,
         user: user
     });
-    
     res.send(200);
 };
 
@@ -180,7 +177,7 @@ exports.voteResolution = function(req, res) {
         content: 'Resolution open for voting!',
         user: user
     });
-    
+
     res.send(200);
 };
 
