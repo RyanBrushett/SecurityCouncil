@@ -95,6 +95,7 @@ app.get('/debate/:id', session.require, debate.view);
 app.post('/debate/:id', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
+/* app.post('/debate/:id/:cid', session.require, session.restrictToModerator, debate.deleteComment); */
 
 // Communication Channels
 app.post('/debate/:id/communication/create', session.require, debate.createChannel);
