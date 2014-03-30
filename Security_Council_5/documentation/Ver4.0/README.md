@@ -75,7 +75,7 @@ A major component of the final iteration is going to be design and usability but
 
 ## Tasks
 
-    - Allow for **full** moderation/administration by a moderator.
+    - Allow for *full* moderation/administration by a moderator.
     - Implement a SQLite3 Database.
     - Focus and refine the user experience and design of the product.
     - Allow for reporting / analysis of metrics by the moderator.
@@ -90,10 +90,12 @@ A major component of the final iteration is going to be design and usability but
 - Expanded moderator functionality.
     - Creating new moderators.
     - Default admin account.
+    - Moderators can access debate and post events/communicate with users.
 
 #### FRONTEND:
 
-    TODO:
+- Dramatically updated views and user experience.
+
 
 ## How it works
 
