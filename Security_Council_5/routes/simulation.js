@@ -1,19 +1,20 @@
 var db = require('../db');
 
 exports.view = function(req, res) {
-    res.render('simulation/new');
+    var currentUser = db.users[req.session.userId];
+    res.render('simulation/new', {
+        user: currentUser
+    });
 };
 
 exports.create = function(req, res) {
-    var resolution = db.helpers.createResolution({
+    var simulation = db.helpers.createSimulation({
+        name: req.body.name,
+        countriesSize: req.body.perteam
+    });
+    db.helpers.createResolution(simulation, {
         title: req.body.title,
         content: req.body.content
     });
-    var simulation = db.helpers.createSimulation({
-        name: req.body.name,
-        resolution: resolution,
-        countriesSize: req.body.perteam
-    });
-    var users = db.users;
     res.redirect('/');
 };

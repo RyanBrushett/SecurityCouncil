@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Chair Agenda &middot; Council</title>
+        <title>Chair &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/dashboard.css">
@@ -13,69 +13,50 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul>
-                    <li>You are {{username}}</li>
+                    <li>You are {{user.name}}</li>
                     <li><a href="/">Dashboard</a></li>
+                    <li><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <h2>{{getName}} &middot; Council</h2>
-            {{#isChair}}
-                {{#getResolution}}
+            {{#simulation.resolution}}
+            <h2>{{simulation.name}} - {{title}}</h2>
+            <div id="resolution">
+                {{#inDebate}}In Debate{{/inDebate}}
+                {{^inDebate}}
+                <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
+                {{/inDebate}}
+                {{#canVoteResolution}}
+                    {{#inVote}}In Vote{{/inVote}}
+                    {{^inVote}}
+                    <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+                    {{/inVote}}
+                {{/canVoteResolution}}
+            </div>
+            {{/simulation.resolution}}
+            {{#simulation.motions}}
+            <div id="{{id}}">
                 <div>
-                    <h3>{{getTitle}}</h3>
-                    {{#isInDebate}}
-                    In Debate
-                    {{/isInDebate}}
-                    {{^isInDebate}}
-                    <button type="button" class="button" onclick="debateResolution({{sid}}, {{userId}})">Debate</button>
-                    {{/isInDebate}}
-                    {{#canVoteResolution}}
-                        {{#isInDebate}}
-                        <button type="button" class="button" onclick="voteResolution({{sid}}, {{userId}})">Vote</button>
-                        {{/isInDebate}}
-                        {{#isInVote}}
-                        In Vote
-                        {{/isInVote}}
-                    {{/canVoteResolution}}
+                    {{#inDebate}}In Debate{{/inDebate}}
+                    {{^inDebate}}
+                    <button type="button" class="button" onclick="debateMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Debate</button>
+                    {{/inDebate}}
+                    {{#inVote}}In Vote{{/inVote}}
+                    {{^inVote}}
+                        {{#inDebate}}
+                        <button type="button" class="button" onclick="voteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Vote</button>
+                        {{/inDebate}}
+                    {{/inVote}}
+                    <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Trash</button>
                 </div>
-                <br />
-                {{/getResolution}}
-                {{#getMotions}}
-                <div id="{{getId}}">
-                    <div>
-                        <!-- this should be changed so that it doesn't look ridiculous -->       
-                        {{#isInDebate}}
-                        In Debate
-                        {{/isInDebate}}
-                        {{^isInDebate}} 
-                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
-                        {{/isInDebate}}
-                        
-                        {{#isInVote}}
-                        In Vote
-                        {{/isInVote}}
-                        {{^isInVote}}
-                            {{#isInDebate}}
-                            <button type="button" class="button" onclick="voteMotion({{sid}}, {{userId}}, {{getId}})">Vote</button>
-                            {{/isInDebate}}
-                        {{/isInVote}}
-                        
-                        <button type="button" class="button" onclick="deleteMotion({{sid}}, {{userId}}, {{getId}})">Trash</button>
-                    </div>
-                    <div>
-                        {{#getMover}}
-                        <p>Moved By: {{getName}}</p>
-                        {{/getMover}}
-                        <p>{{getBody}}</p>
-                    </div>
+                <div>
+                    {{#mover}}<p>Moved By: {{name}}</p>{{/mover}}
+                    <p>{{body}}</p>
                 </div>
-                {{/getMotions}} 
-            {{/isChair}}
-            {{^isChair}}
-            Afraid not, friend.
-            {{/isChair}}
+            </div>
+            {{/simulation.motions}}
         </main>
     </body>
 </html>

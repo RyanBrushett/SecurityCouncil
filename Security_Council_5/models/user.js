@@ -1,68 +1,12 @@
-var User = function (options) {
-    this._id = options.id;
-    this._moderator = options.moderator || false;
-    this._chair = options.chair || false;
-    this._name = options.name;
-    this._password = options.password || 'password';
-    this._username = options.username;
-    this._preferences = options.preferences;
-    this._ambassadorpreference = '';
-};
-
-User.prototype.getId = function () {
-    return this._id;
-};
-
-User.prototype.isModerator = function () {
-    return !!this._moderator;
-};
-
-User.prototype.isChair = function() {
-    return !!this._chair;
-};
-
-User.prototype.setAsChair = function() {
-    this._chair = true;
-};
-
-User.prototype.setName = function (name) {
-    this._name = name;
-};
-
-User.prototype.getName = function () {
-    return this._name;
-};
-
-User.prototype.getPreferences = function () {
-    return this._preferences;
-};
-
-User.prototype.getAmbassadorPreference = function () {
-    return this._ambassadorpreference;
-};
-
-User.prototype.setAmbassadorPreference = function (ambassadorpreference) {
-	this._ambassadorpreference = ambassadorpreference;
-};
-
-User.prototype.checkPassword = function (password) {
-    return (this._password === password);
-};
-
-User.prototype.getPassword = function () {
-    return this._password;
-};
-
-User.prototype.getUsername = function () {
-    return this._username;
-};
-
-User.prototype.setFlag = function (flag) {
-    this._flag = flag;
-};
-
-User.prototype.getFlag = function (){
-    return this._flag;
-};
+function User(options) {
+    options = options || {};
+    this.ambassadorPreference = options.ambassadorPreference;
+    this.chair = !!options.chair;
+    this.id = options.id;
+    this.name = options.name;
+    this.password = options.password || 'password';
+    this.preferences = options.preferences || [];
+    this.username = options.username;
+}
 
 module.exports = User;
