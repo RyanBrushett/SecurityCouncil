@@ -55,17 +55,17 @@ app.post('/signup', participant.create);
 
 // Simulation
 app.get('/simulation/new', session.require, simulation.view);
-app.post('/simulation/new', session.require, simulation.create);
+app.post('/simulation/new', session.require, session.restrictToModerator, simulation.create);
 
 // Moderator
-app.get('/moderator/dashboard', session.require, moderator.dashboard);
-app.get('/moderator/simulation/:sid', session.require, moderator.simulation);
-app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
-app.post('/moderator/submit/:sid', session.require, moderator.submit);
-app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
-app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
-app.post('/moderator/simulation/visible-paper/:sid', session.require, moderator.positionPaperVisible);
-app.post('/moderator/directives/:sid/:cid', session.require, moderator.directives);
+app.get('/moderator/dashboard', session.require, session.restrictToModerator, moderator.dashboard);
+app.get('/moderator/simulation/:sid', session.require, session.restrictToModerator, moderator.simulation);
+app.get('/moderator/simulation/:sid/:cid', session.require, session.restrictToModerator, moderator.country);
+app.post('/moderator/submit/:sid', session.require, session.restrictToModerator, moderator.submit);
+app.post('/moderator/simulation/chairperson/:sid', session.require, session.restrictToModerator, moderator.chairperson);
+app.post('/moderator/ambassador/:sid/:cid', session.require, session.restrictToModerator, moderator.ambassador);
+app.post('/moderator/simulation/visible-paper/:sid', session.require, session.restrictToModerator, moderator.positionPaperVisible);
+app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToModerator, moderator.directives);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
