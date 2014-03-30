@@ -4,12 +4,12 @@ An app developed for COMP4770 in Winter 2013/2014 by Group 5
 
 ## Group 5 is...
 
-	- Whymarrh Whitby
-	- Ryan Murphy
-	- Bukunola Ladele
-	- Uchenna Edozien
-	- Daniel Cook
-	- Ryan Brushett
+    - Whymarrh Whitby
+    - Ryan Murphy
+    - Bukunola Ladele
+    - Uchenna Edozien
+    - Daniel Cook
+    - Ryan Brushett
 
 ## Contents
 
@@ -82,7 +82,14 @@ A major component of the final iteration is going to be design and usability but
 
 #### BACKEND:
 
-    TODO:
+- SQLite3 Database
+    - Everything starts in memory.
+    - They are mirrored onto the database by looking at the object and using its properties as "columns".
+    - On load, it will pull the data from the database and load it in memory.
+    - See db.js and wat.db.
+- Expanded moderator functionality.
+    - Creating new moderators.
+    - Default admin account.
 
 #### FRONTEND:
 
