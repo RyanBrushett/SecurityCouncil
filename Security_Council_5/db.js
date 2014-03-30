@@ -418,6 +418,7 @@ helpers.checkVotingPermissions = function (simulation, user) {
 };
 
 helpers.createCommunicationChannel = function (simulation, users) {
+    return;
 };
 
 // Filler data

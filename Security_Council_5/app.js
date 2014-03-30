@@ -94,6 +94,10 @@ app.post('/debate/:id', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
 
+// Communication Channels
+app.post('/debate/communication/create', session.require, debate.createChannel);
+app.post('/debate/communication/delete', session.require, debate.deleteChannel);
+
 // Create server
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));

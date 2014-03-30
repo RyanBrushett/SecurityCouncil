@@ -192,3 +192,11 @@ exports.voteResolution = function(req, res) {
     db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', simulation);
 };
+
+exports.createChannel = function (req, res) {
+    return;
+};
+
+exports.deleteChannel = function (req, res) {
+    return;
+};
