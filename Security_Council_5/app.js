@@ -66,6 +66,8 @@ app.post('/moderator/simulation/chairperson/:sid', session.require, session.rest
 app.post('/moderator/ambassador/:sid/:cid', session.require, session.restrictToModerator, moderator.ambassador);
 app.post('/moderator/simulation/visible-paper/:sid', session.require, session.restrictToModerator, moderator.positionPaperVisible);
 app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToModerator, moderator.directives);
+app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
+app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);

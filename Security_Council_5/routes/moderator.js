@@ -74,3 +74,23 @@ exports.directives = function (req, res) {
     country.directives = req.body["directives"];
     res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
 };
+
+exports.create = function (req, res) {
+    var name = req.body.name;
+    var username = req.body.username;
+    var password = req.body.password;
+    
+    var moderator = db.helpers.createModerator({
+        name: name,
+        username: username,
+        password: password
+    });
+    
+    res.redirect('/moderator/dashboard');
+};
+
+exports.viewCreate = function (req, res) {
+    res.render('moderator/new', {
+        user: db.users[req.session.userId]
+    });
+};
