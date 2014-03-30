@@ -12,6 +12,7 @@ function Simulation(options) {
     this.voting = !!options.voting;
     this.votingMotion = !!options.votingMotion;
     this.votingResolution = !!options.votingResolution;
-};
+    this.communicationChannels = options.communicationChannels || [];
+}
 
 module.exports = Simulation;
