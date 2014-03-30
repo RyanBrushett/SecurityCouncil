@@ -5,10 +5,12 @@ exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
-    db.helpers.checkVotingPermissions(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', {
         simulation: simulation,
-        currentUser: currentUser
+        currentUser: currentUser,
+        permissions: perm
     });
 };
 
@@ -20,10 +22,12 @@ exports.comment = function(req, res) {
         content: req.body.comment,
         user: currentUser
     });
-    db.helpers.checkVotingPermissions(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     res.render('debate/index', {
         simulation: simulation,
-        currentUser: currentUser
+        currentUser: currentUser,
+        permissions: perm
     });
 };
 
@@ -34,8 +38,7 @@ exports.vote = function(req, res) {
     var currentVotes = motion.votes;
     var numericVote = 0;
     currentUser.flag = 'united-nations.svg';
-    simulation.currentUser = currentUser;
-    simulation.sid = req.params.sid;
+
     if (req.body.vote == 'yay') {
         numericVote = 1;
     }
@@ -69,7 +72,10 @@ exports.vote = function(req, res) {
         if ((currentVotes.length - numAbsent) >= quorum) {
             var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
             if (votesFor >= requiredVotes) {
-                motion.status = Motion.Status.APPROVED;
+                motion.isApproved = true;
+                motion.inDebate = false;
+                motion.inVote = false;
+                
                 db.helpers.createComment(simulation, {
                     content: 'Vote on motion passed!\nNow debating the resolution.',
                     user: simulation.chairperson
@@ -77,7 +83,10 @@ exports.vote = function(req, res) {
                 simulation.resolution.inDebate = true;
             }
             else {
-                motion.status = Motion.Status.DENIED;
+                motion.isDenied = true;
+                motion.inVote = false;
+                motion.inDebate = false;
+                
                 var commentContent = 'Vote on motion failed!\n';
                 commentContent += 'Now debating the resolution.';
                 db.helpers.createComment(simulation, {
@@ -88,7 +97,9 @@ exports.vote = function(req, res) {
             }
         }
         else {
-            motion.status = Motion.Status.DEBATE;
+            motion.inDebate = true;
+            motion.inVote = false;
+            
             motion.votes = [];
             var commentContent = 'Quorum not met!\n';
             commentContent += 'Continuing debate on the motion.\n';
@@ -100,16 +111,20 @@ exports.vote = function(req, res) {
             });
         }
     }
-    db.helpers.checkVotingPermissions(simulation, currentUser);
-    res.render('debate/index', simulation);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser,
+        permissions: perm
+    });
 };
 
 exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
     currentUser.flag = 'united-nations.svg';
-    simulation.currentUser = currentUser;
-    simulation.sid = req.params.sid;
+
     var currentVotes = simulation.resolution.votes;
     var numericVote = 0;
     if (req.body.vote == "yay") {
@@ -125,8 +140,8 @@ exports.voteResolution = function(req, res) {
     if (db.helpers.isUserCountryPermanent(simulation, currentUser)) {
         if (numericVote == 2) {
             veto = true;
-            simulation.resolution.status = 2;
-            var country = db.helpers.getUserCountry(simulation, currentUser).name
+            simulation.resolution.isDenied = true;
+            var country = db.helpers.getUserCountry(simulation, currentUser).name;
             var commentContent = 'Vote on resolution failed due to veto by ' + country + '!\n';
             db.helpers.createComment(simulation, {
                 content: commentContent,
@@ -161,7 +176,7 @@ exports.voteResolution = function(req, res) {
             if ((currentVotes.length - numAbsent) >= quorum) {
                 var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
                 if (votesFor >= requiredVotes) {
-                    simulation.resolution.status = 1;
+                    simulation.resolution.isApproved = true;
                     db.helpers.createComment(simulation, {
                         content: 'Vote on resolution passed!\n',
                         user: simulation.chairperson
@@ -169,12 +184,12 @@ exports.voteResolution = function(req, res) {
                     simulation.resolution.inDebate = false;
                 }
                 else {
-                    simulation.resolution.status = 2;
+                    simulation.resolution.isDenied = true;
                     db.helpers.createComment(simulation, {
                         content: 'Vote on resolution failed!\n',
                         user: simulation.chairperson
                     });
-                    simulation.resolution.setInDebate(false);
+                    simulation.resolution.inDebate = false;
                 }
             }
             else {
@@ -189,8 +204,13 @@ exports.voteResolution = function(req, res) {
             }
         }
     }
-    db.helpers.checkVotingPermissions(simulation, currentUser);
-    res.render('debate/index', simulation);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser,
+        permissions: perm
+    });
 };
 
 exports.createChannel = function (req, res) {

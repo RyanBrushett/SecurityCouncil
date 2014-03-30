@@ -383,11 +383,12 @@ helpers.addUserToSimulation = function (simulation, user) {
 };
 
 helpers.checkVotingPermissions = function (simulation, user) {
-    var s = simulation;
+    var s = {};
+    
     s.voting = false;
     s.votingMotion = false;
     s.votingResolution = false;
-    var i, motions = s.motions;
+    var i, motions = simulation.motions;
     for (i = 0; i < motions.length; i++) {
         if (motions[i].inVote && !motions[i].inDebate) {
             s.voting = true;
@@ -395,7 +396,7 @@ helpers.checkVotingPermissions = function (simulation, user) {
             s.motionToVote = motions[i];
             if (!helpers.hasUserVoted(motions[i], user)) {
                 s.hasNotVoted = true;
-                s.userCanVote = helpers.isUserAmbassador(s, user);
+                s.userCanVote = helpers.isUserAmbassador(simulation, user);
             }
             else {
                 s.hasNotVoted = false;
@@ -403,18 +404,20 @@ helpers.checkVotingPermissions = function (simulation, user) {
             }
         }
     }
-    if ((s.votingMotion === false) && s.resolution.inVote) {
+    if ((s.votingMotion === false) && simulation.resolution.inVote) {
         s.voting = true;
         s.votingResolution = true;
-        if (!helpers.hasUserVoted(s.resolution, user)) {
+        if (!helpers.hasUserVoted(simulation.resolution, user)) {
             s.hasNotVoted = true;
-            s.userCanVote = helpers.isUserAmbassador(s, user);
+            s.userCanVote = helpers.isUserAmbassador(simulation, user);
         }
         else {
             s.hasNotVoted = false;
             s.userCanVote = false;
         }
     }
+    
+    return s;
 };
 
 helpers.createCommunicationChannel = function (simulation, users) {

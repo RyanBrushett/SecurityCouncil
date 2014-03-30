@@ -76,6 +76,7 @@ exports.simulation = function(req, res) {
 exports.chair = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    
     res.render('participant/chair', {
         canVoteResolution: (simulation.motions.length === 0),
         currentUser: user,
@@ -181,7 +182,7 @@ exports.voteResolution = function(req, res) {
     res.send(200);
 };
 
-exports.deleteResolution = function(req, res) {
+exports.deleteMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     for (var i = 0; i < simulation.motions.length; i++) {
@@ -191,6 +192,13 @@ exports.deleteResolution = function(req, res) {
             break;
         }
     }
+    
+    var isLast = false;
+    if(simulation.motions.length === 0) {
+        isLast = true;
+        simulation.resolution.inDebate = true;
+    }
+    res.send(200, {isLast: isLast});
 };
 
 exports.country = function(req, res) {
