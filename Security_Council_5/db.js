@@ -215,7 +215,6 @@ helpers.createVote = function (votable, options) {
     var vote = new models.Vote(options);
     votable.votes.push(vote);
     module.exports.save(vote);
-    module.exports.save(a);
 };
 
 helpers.createUser = function (options) {
@@ -390,13 +389,14 @@ helpers.checkVotingPermissions = function (simulation, user) {
     s.votingResolution = false;
     var motions = s.motions;
     for (var i = 0; i < motions.length; i++) {
-        if (motions[i].status === Motion.Status.VOTE) {
+        //if (motions[i].status === Motion.Status.VOTE) {
+        if (motions[i].inVote && !motions[i].inDebate) {
             s.voting = true;
             s.votingMotion = true;
             s.motionToVote = motions[i];
-            if (!db.helpers.hasUserVoted(motions[i], user)) {
+            if (!helpers.hasUserVoted(motions[i], user)) {
                 s.hasNotVoted = true;
-                s.userCanVote = db.helpers.isUserAmbassador(s, user);
+                s.userCanVote = helpers.isUserAmbassador(s, user);
             }
             else {
                 s.hasNotVoted = false;
@@ -405,11 +405,11 @@ helpers.checkVotingPermissions = function (simulation, user) {
         }
     }
     if ((s.votingMotion === false) && s.resolution.inVote) {
-        s.voting = true;
+        s.voting = true; 
         s.votingResolution = true;
-        if (!db.helpers.hasUserVoted(s.resolution, user)) {
+        if (!helpers.hasUserVoted(s.resolution, user)) {
             s.hasNotVoted = true;
-            s.userCanVote = db.helpers.isUserAmbassador(s, user);
+            s.userCanVote = helpers.isUserAmbassador(s, user);
         }
         else {
             s.hasNotVoted = false;

@@ -90,20 +90,22 @@ exports.debateMotion = function(req, res) {
     var motion;
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
-        if (simulation.motions[i].is === req.body.motionId) {
-            m.status = Motion.Status.DEBATE;
+        if (simulation.motions[i].id === req.body.motionId) {
+            m.inDebate = true;
             motion = m;
         }
         else {
-            m.status = Motion.Status.TABLE;
+            m.inDebate = false;
             motion = m;
         }
     }
     simulation.resolution.inDebate = false;
     db.helpers.createComment(simulation, {
-        content: 'New motion under debate!\n' + motion.body + '\n' + 'Moved by: ' + motion.mover.name + '\n',
+        content: 'New motion under debate!<br />' + motion.body + '<br />' + 'Moved by: ' + motion.mover.name + '<br />',
         user: user
     });
+    
+    res.send(200);
 };
 
 exports.debateResolution = function(req, res) {
@@ -112,7 +114,8 @@ exports.debateResolution = function(req, res) {
     user.flag = 'united-nations.svg';
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
-        m.status = Motion.Status.TABLE;
+        m.inDebate = false;
+        m.inVote = false;
     }
     simulation.resolution.inDebate = true;
     simulation.resolution.inVote = false;
@@ -120,6 +123,8 @@ exports.debateResolution = function(req, res) {
         content: 'Resolution is now up for debate!',
         user: user
     });
+    
+    res.send(200);
 };
 
 exports.voteMotion = function(req, res) {
@@ -130,26 +135,30 @@ exports.voteMotion = function(req, res) {
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
         if (m.id === req.body.motionId) {
-            m.status = Motion.Status.VOTE;
+            m.inVote = true;
+            m.inDebate = false;
             motion = m;
             for (var j = 0; j < simulation.countries.length - 1; j++) {
                 var v = Math.floor(Math.random() * 3 + 1);
-                db.createVote(motion, {
+                db.helpers.createVote(motion, {
                     vote: v,
                     user: undefined
                 });
             }
         }
         else {
-            m.status = Motion.Status.TABLE;
+            m.inDebate = false;
+            m.inVote = false;
             motion = m;
         }
     }
-    simulation.resolution.setInDebate = false;
+    simulation.resolution.inDebate = false;
     db.helpers.createComment(simulation, {
-        content: 'Motion open for voting!' + motion.body + '\nMoved by: ' + motion.mover.name,
+        content: 'Motion open for voting!<br />' + motion.body + '<br />Moved by: ' + motion.mover.name,
         user: user
     });
+    
+    res.send(200);
 };
 
 exports.voteResolution = function(req, res) {
@@ -162,7 +171,7 @@ exports.voteResolution = function(req, res) {
     // TEMP
     for (var j = 0; j < simulation.countries.length - 1; j++) {
         var v = Math.floor(Math.random() * 3 + 1);
-        db.createVote(resolution, {
+        db.helpers.createVote(resolution, {
             vote: v,
             user: undefined
         });
@@ -171,6 +180,8 @@ exports.voteResolution = function(req, res) {
         content: 'Resolution open for voting!',
         user: user
     });
+    
+    res.send(200);
 };
 
 exports.deleteResolution = function(req, res) {

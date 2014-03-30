@@ -28,10 +28,10 @@
             <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
             {{/inDebate}}
             {{#canVoteResolution}}
-                {{#inDebate}}
-                <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
-                {{/inDebate}}
                 {{#inVote}}In Vote{{/inVote}}
+                {{^inVote}}
+                <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+                {{/inVote}}
             {{/canVoteResolution}}
             <br>
             {{/simulation.resolution}}

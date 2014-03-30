@@ -4,7 +4,9 @@ function Motion(options) {
     this.id = options.id;
     this.mover = options.mover;
     this.seconder = options.seconder;
-    this.status = options.status || Motion.Status.TABLE;
+    //this.status = options.status || Motion.Status.TABLE;
+    this.isDebate = false;
+    this.isVote = false;
     this.type = options.type;
     this.votes = options.votes || [];
 };
