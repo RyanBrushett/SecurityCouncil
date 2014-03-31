@@ -420,7 +420,13 @@ helpers.checkVotingPermissions = function (simulation, user) {
     return s;
 };
 
-helpers.createCommunicationChannel = function (simulation, users) {
+var COMM_ID = 0;
+helpers.createCommunicationChannel = function (options) {
+    /*
+    These are going to need unique IDs so they need to be created with
+    options.id = COMM_ID++;
+    blah blah return comm channel after saving.
+    */
     return;
 };
 
