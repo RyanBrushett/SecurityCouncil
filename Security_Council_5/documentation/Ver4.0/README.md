@@ -91,12 +91,13 @@ A major component of the final iteration is going to be design and usability but
     - Creating new moderators.
     - Default admin account.
     - Moderators can access debate and post events/communicate with users.
-    - Tracked metrics, viewable by the moderator, for reporting.
+    - Tracked metrics, viewable by the moderator.
 
 #### FRONTEND:
 
 - Dramatically updated views and user experience.
 - Added the ability to view metrics about the system.
+    - Metrics can be displayed by team or by user, along with general system metrics.
 - Streamline communication channels and made them universal (see instructions)
 
 ## How it works
