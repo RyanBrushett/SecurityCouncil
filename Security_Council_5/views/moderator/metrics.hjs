@@ -15,27 +15,21 @@
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/logout">Logout</a></li>
                     <li><a href="/simulation/new">Create a new simulation</a></li>
-                    <li><a href="/moderator/create">Create a moderator</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            {{#simulations}}
-            <section class="simulation">
-                <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
-                </h3>
-                <ul class="statistics">
-                    {{#chairperson}}
-                    <li>Chair: {{name}}</li>
-                    {{/chairperson}}
-                    {{^chairperson}}
-                    <li>No chairperson has been selected</li>
-                    {{/chairperson}}
-                </ul>
-            </section>
-            {{/simulations}}
-            
+            <h3>Sim ID: {{simId}}</h3>
+            <h3>Sim Name: {{simName}}</h3>
+            <h3>Total Num of Comments: {{totalComments}}</h3>
+            <h3>Total Num of Teams: {{numTeams}}</h3>
+            <h3>Total Number of Participants: {{numUsers}}</h3>
+            <h3>Comments Per User</h3>
+            {{#users}}
+            <ul>
+                <li>{{username}}'s comments: <b>{{numberOfComments}}</b></li>
+            </ul>
+            {{/users}}
         </main>
     </body>
 </html>
