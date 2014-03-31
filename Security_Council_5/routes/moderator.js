@@ -102,8 +102,8 @@ exports.metricsPage = function (req, res) {
     var numUsers = 0;
     var numMotions = simulation.motions.length;
     for (var i = 0; i < numTeams; i++) {
-        var country = simulation.countries[i];
-        for (var j = 0; j < country.members.length; j++) {
+        var _country = simulation.countries[i];
+        for (var j = 0; j < _country.members.length; j++) {
             numUsers++;
         }
     }
@@ -125,15 +125,16 @@ exports.metricsPageByUser = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
+    var numMotions = simulation.motions.length;
     var users = [];
     for (var i = 0; i < numTeams; i++) {
-        var country = simulation.countries[i];
-        for (var j = 0; j < country.members.length; j++) {
+        var _country = simulation.countries[i];
+        for (var j = 0; j < _country.members.length; j++) {
             numUsers++;
-            var tempUser = country.members[j];
-            tempUser.teamname = country.name;
-            tempUser.numberOfComments = 0;
-            users.push(tempUser);
+            var _tempUser = _country.members[j];
+            _tempUser.teamname = _country.name;
+            _tempUser.numberOfComments = 0;
+            users.push(_tempUser);
         }
     }
     for (var i = 0; i < totalComments; i++) {
@@ -161,15 +162,16 @@ exports.metricsPageByTeam = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
+    var numMotions = simulation.motions.length;
     var users = [];
     for (var i = 0; i < numTeams; i++) {
-        var country = simulation.countries[i];
-        for (var j = 0; j < country.members.length; j++) {
+        var _country = simulation.countries[i];
+        for (var j = 0; j < _country.members.length; j++) {
             numUsers++;
-            var tempUser = country.members[j];
-            tempUser.teamname = country.name;
-            tempUser.numberOfComments = 0;
-            users.push(tempUser);
+            var _tempUser = _country.members[j];
+            _tempUser.teamname = _country.name;
+            _tempUser.numberOfComments = 0;
+            users.push(_tempUser);
         }
     }
     for (var i = 0; i < totalComments; i++) {
@@ -180,11 +182,20 @@ exports.metricsPageByTeam = function (req, res) {
         }
     }
     for (var i = 0; i < numTeams; i++) {
-        var country = simulation.countries[i];
-        country.comments = 0;
+        var _country = simulation.countries[i];
+        _country.comments = 0;
+        _country.numMotions = 0;
         for (var j = 0; j < users.length; j++) {
-            if (country.name === users[j].teamname) {
-                country.comments += users[j].numberOfComments;
+            if (_country.name === users[j].teamname) {
+                _country.comments += users[j].numberOfComments;
+            }
+        }
+    }
+    for (var i = 0; i < numMotions; i++) {
+        var _motion = simulation.motions[i];
+        for (var j = 0; j < numTeams; j++) {
+            if (_motion.mover.id === simulation.countries[j].id) {
+                simulation.countries[j].numMotions += 1;
             }
         }
     }

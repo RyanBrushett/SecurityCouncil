@@ -29,12 +29,14 @@
                     <td><h4>Team Name</h4></td>
                     <td><h4>Number of Members</h4></td>
                     <td><h4>Number of Comments Made</h4></td>
+                    <td><h4>Number of Motions</h4></td>
                 </tr>
                 {{#simulation.countries}}
                 <tr>
                     <td>{{name}}</td>
                     <td>{{members.length}}</td>
                     <td>{{comments}}</td>
+                    <td>{{numMotions}}</td>
                 </tr>
                 {{/simulation.countries}}
             </table>
