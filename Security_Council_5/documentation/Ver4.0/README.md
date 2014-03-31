@@ -13,7 +13,7 @@ An app developed for COMP4770 in Winter 2013/2014 by Group 5
 
 ## Contents
 
-This application installation is based on the Model-View-Controller application design pattern and contains:
+This project is based on the Model-View-Controller application design pattern and contains:
     - A sqlite3 database.
     - An app.js file that is the 'brain' of the application.
     - A routes directory that contains all of the controllers for the application.
@@ -21,7 +21,6 @@ This application installation is based on the Model-View-Controller application 
     - A views directory that contains all of the html / hjs pages for the application.
     - A public directory that is home to both the public javascript and CSS files, as well as the uploaded position papers.
     - This README.md file.
-    - A config.js that allows one to switch to an in-memory database for debug / testing.
 
 ## Installing and running the app
 
@@ -84,11 +83,13 @@ A major component of the final iteration is going to be design and usability but
 
 - SQLite3 Database
     - Everything starts in memory.
-    - They are mirrored onto the database by looking at the object and using its properties as "columns".
+    - Objects are mirrored onto the database by looking at the object and using its properties as "columns".
+    - Whenever an operation occurs, the object is saved back to the database.
     - On load, it will pull the data from the database and load it in memory.
     - See db.js and wat.db.
 - Expanded moderator functionality.
     - Creating new moderators.
+    - Moderators are now their own Object type.
     - Default admin account.
     - Moderators can access debate and post events/communicate with users.
     - Tracked metrics, viewable by the moderator.
@@ -98,8 +99,9 @@ A major component of the final iteration is going to be design and usability but
 - Dramatically updated views and user experience.
 - Added the ability to view metrics about the system.
     - Metrics can be displayed by team or by user, along with general system metrics.
-- Streamline communication channels and made them universal (see instructions)
+- Streamlined communication channels which are more 'universal' (see instructions for expansion on use)
 
 ## How it works
 
-    TODO:
+Some Testing notes:
+    TODO
