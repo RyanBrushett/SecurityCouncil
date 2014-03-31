@@ -100,24 +100,92 @@ exports.metricsPage = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
+    for (var i = 0; i < numTeams; i++) {
+        var country = simulation.countries[i];
+        for (var j = 0; j < country.members.length; j++) {
+            numUsers++;
+        }
+    }
+    
+    res.render('moderator/metricsdash', {
+        user : db.users[req.session.userId],
+        simId : simulation.id,
+        simulation : simulation,
+        simName : simulation.name,
+        totalComments : totalComments,
+        numTeams : numTeams,
+        numUsers : numUsers
+    });
+};
+
+exports.metricsPageByUser = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var totalComments = simulation.comments.length;
+    var numTeams = simulation.countries.length;
+    var numUsers = 0;
     var users = [];
     for (var i = 0; i < numTeams; i++) {
         var country = simulation.countries[i];
         for (var j = 0; j < country.members.length; j++) {
             numUsers++;
-            users.push(country.members[j]);
+            var tempUser = country.members[j];
+            tempUser.teamname = country.name;
+            users.push(tempUser);
         }
     }
     for (var i = 0; i < totalComments; i++) {
         for (var j = 0; j < users.length; j++) {
             if (simulation.comments[i].user.id === users[j].id) {
                 users[j].numberOfComments += 1;
-                console.log(users[j].numberOfComments);
             }
         }
     }
     
-    res.render('moderator/metrics', {
+    res.render('moderator/usermetrics', {
+        user : db.users[req.session.userId],
+        users : users,
+        simId : simulation.id,
+        simulation : simulation,
+        simName : simulation.name,
+        totalComments : totalComments,
+        numTeams : numTeams,
+        numUsers : numUsers
+    });
+};
+
+exports.metricsPageByTeam = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var totalComments = simulation.comments.length;
+    var numTeams = simulation.countries.length;
+    var numUsers = 0;
+    var users = [];
+    for (var i = 0; i < numTeams; i++) {
+        var country = simulation.countries[i];
+        for (var j = 0; j < country.members.length; j++) {
+            numUsers++;
+            var tempUser = country.members[j];
+            tempUser.teamname = country.name;
+            users.push(tempUser);
+        }
+    }
+    for (var i = 0; i < totalComments; i++) {
+        for (var j = 0; j < users.length; j++) {
+            if (simulation.comments[i].user.id === users[j].id) {
+                users[j].numberOfComments += 1;
+            }
+        }
+    }
+    for (var i = 0; i < numTeams; i++) {
+        var country = simulation.countries[i];
+        country.comments = 0;
+        for (var j = 0; j < users.length; j++) {
+            if (country.name === users[j].teamname) {
+                country.comments += users[j].numberOfComments;
+            }
+        }
+    }
+    
+    res.render('moderator/teammetrics', {
         user : db.users[req.session.userId],
         users : users,
         simId : simulation.id,
