@@ -166,7 +166,7 @@ module.exports.loadCompleted = function (cache) {
 
 var helpers = module.exports.helpers = {};
 
-helpers.updateAmbassador = function (country) {
+helpers.updateAmbassador = function (country, user, preference) {
     var countryMembers = country.members;
     var votes = [];
     var noPreference = 0;
@@ -175,6 +175,14 @@ helpers.updateAmbassador = function (country) {
     var ambassador;
     var i, numberOfMembers = countryMembers.length;
     var userPreference;
+    
+    for (var i = 0; i < numberOfMembers; i++) {
+        if (user.name === countryMembers[i].name) {
+            countryMembers[i].ambassadorPreference = preference;
+            break;
+        }
+    }
+    
     for (i = 0; i < numberOfMembers; i++) {
         var userPreference = countryMembers[i].ambassadorPreference;
         if (!userPreference) {
