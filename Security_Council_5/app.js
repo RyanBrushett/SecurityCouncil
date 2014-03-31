@@ -68,6 +68,7 @@ app.post('/moderator/simulation/visible-paper/:sid', session.require, session.re
 app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToModerator, moderator.directives);
 app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
 app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
+app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);

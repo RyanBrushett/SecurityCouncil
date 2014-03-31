@@ -90,7 +90,28 @@ exports.create = function (req, res) {
 };
 
 exports.viewCreate = function (req, res) {
-    res.render('moderator/new', {
+    res.render('moderator/createmod', {
         user: db.users[req.session.userId]
+    });
+};
+
+exports.metricsPage = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var totalComments = simulation.comments.length;
+    var numTeams = simulation.countries.length;
+    var numUsers = 0;
+    for (var i = 0; i < numTeams; i++) {
+        var country = simulation.countries[i];
+        for (var j = 0; j < country.members.length; j++) {
+            numUsers++;
+        }
+    }
+    res.render('moderator/metrics', {
+        user : db.users[req.session.userId],
+        simId : simulation.id,
+        simName : simulation.name,
+        totalComments : totalComments,
+        numTeams : numTeams,
+        numUsers : numUsers
     });
 };

@@ -14,6 +14,7 @@
                     <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/debate/{{simulation.id}}">View the Debate</a></li>
+                    <li><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
                     <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
