@@ -96,7 +96,12 @@ exports.debateMotion = function(req, res) {
             motion = m;
         }
         else {
+            if (m.inVote) {
+                m.votes = [];
+            }
+            
             m.inDebate = false;
+            m.inVote = false;
             motion = m;
         }
     }
@@ -117,6 +122,11 @@ exports.debateResolution = function(req, res) {
         m.inDebate = false;
         m.inVote = false;
     }
+    
+    if (simulation.resolution.inVote) {
+        simulation.resolution.votes = [];
+    }
+    
     simulation.resolution.inDebate = true;
     simulation.resolution.inVote = false;
     var newComment = db.helpers.createComment(simulation, {
@@ -230,8 +240,7 @@ exports.ambassador = function(req, res) {
     var countryId = req.params.cid;
     var ambassadorId = req.body["ambassador"];
     var ambassador = db.users[ambassadorId];
-    user.ambassadorPreference = ambassador.name;
-    db.helpers.updateAmbassador(simulation, simulation.countries[countryId]);
+    db.helpers.updateAmbassador(simulation.countries[countryId], user, ambassador.name);
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
 

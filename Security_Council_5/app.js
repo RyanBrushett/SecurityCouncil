@@ -66,6 +66,11 @@ app.post('/moderator/simulation/chairperson/:sid', session.require, session.rest
 app.post('/moderator/ambassador/:sid/:cid', session.require, session.restrictToModerator, moderator.ambassador);
 app.post('/moderator/simulation/visible-paper/:sid', session.require, session.restrictToModerator, moderator.positionPaperVisible);
 app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToModerator, moderator.directives);
+app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
+app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
+app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
+app.get('/moderator/metrics/peruser/:sid', session.require, session.restrictToModerator, moderator.metricsPageByUser);
+app.get('/moderator/metrics/perteam/:sid', session.require, session.restrictToModerator, moderator.metricsPageByTeam);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
@@ -93,6 +98,7 @@ app.get('/debate/:id', session.require, debate.view);
 app.post('/debate/:id', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
+/* app.post('/debate/:id/:cid', session.require, session.restrictToModerator, debate.deleteComment); */
 
 // Communication Channels
 app.post('/debate/:id/communication/create', session.require, debate.createChannel);
