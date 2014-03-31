@@ -69,6 +69,8 @@ app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToM
 app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
 app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
 app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
+app.get('/moderator/metrics/peruser/:sid', session.require, session.restrictToModerator, moderator.metricsPageByUser);
+app.get('/moderator/metrics/perteam/:sid', session.require, session.restrictToModerator, moderator.metricsPageByTeam);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
