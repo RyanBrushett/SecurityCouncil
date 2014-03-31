@@ -432,7 +432,7 @@ module.exports.fillWithData = function () {
         {
             name: 'Ryan B',
             username: 'ryanb',
-            preferences: ['United Kingdom', 'Australia', 'China']
+            preferences: ['United Kingdom', 'Australia', 'China'],
         }, {
             name: 'Uche E',
             username: 'uche',
@@ -592,6 +592,7 @@ module.exports.fillWithData = function () {
         content: 'The General Assembly,\n\nReminding all nations of the celebration of the 50th anniversary of the Universal Declaration of Human Rights, which recognizes the inherent dignity, equality and inalienable rights of all global citizens,\n\nReaffirming its Resolution 33/1996 of 25 July 1996, which encourages Governments to work with UN bodies aimed at improving the coordination and effectiveness of humanitarian assistance,\n\nNoting with satisfaction the past efforts of various relevant UN bodies and nongovernmental organizations,\n\nStressing the fact that the United Nations faces significant financial obstacles and is in need of reform, particularly in the humanitarian realm,\n\nEncourages all relevant agencies of the United Nations to collaborate more closely with countries at the grassroots level to enhance the carrying out of relief efforts;\n\nUrges member states to comply with the goals of the UN Department of Humanitarian Affairs to streamline efforts of humanitarian aid;<br/>Requests that all nations develop rapid deployment forces to better enhance the coordination of relief efforts of humanitarian assistance in complex emergencies;\n\nCalls for the development of a United Nations Trust Fund that encourages voluntary donations from the private transnational sector to aid in funding the implementation of rapid deployment forces;\n\nStresses the continuing need for impartial and objective information on the political, economic and social situations and events of all countries;\n\nCalls upon states to respond quickly and generously to consolidated appeals for humanitarian assistance; and \n\n Requests the expansion of preventive actions and assurance of post-conflict assistance through reconstruction and development.'
     });
     users.forEach(function (user) {
+        user.numberOfComments = 0;
         helpers.addUserToSimulation(s1, user);
         helpers.addUserToSimulation(s2, user);
     });

@@ -100,15 +100,28 @@ exports.metricsPage = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
+    var users = [];
     for (var i = 0; i < numTeams; i++) {
         var country = simulation.countries[i];
         for (var j = 0; j < country.members.length; j++) {
             numUsers++;
+            users.push(country.members[j]);
         }
     }
+    for (var i = 0; i < totalComments; i++) {
+        for (var j = 0; j < users.length; j++) {
+            if (simulation.comments[i].user.id === users[j].id) {
+                users[j].numberOfComments += 1;
+                console.log(users[j].numberOfComments);
+            }
+        }
+    }
+    
     res.render('moderator/metrics', {
         user : db.users[req.session.userId],
+        users : users,
         simId : simulation.id,
+        simulation : simulation,
         simName : simulation.name,
         totalComments : totalComments,
         numTeams : numTeams,

@@ -24,6 +24,12 @@
             <h3>Total Num of Comments: {{totalComments}}</h3>
             <h3>Total Num of Teams: {{numTeams}}</h3>
             <h3>Total Number of Participants: {{numUsers}}</h3>
+            <h3>Comments Per User</h3>
+            {{#users}}
+            <ul>
+                <li>{{username}}'s comments: <b>{{numberOfComments}}</b></li>
+            </ul>
+            {{/users}}
         </main>
     </body>
 </html>
