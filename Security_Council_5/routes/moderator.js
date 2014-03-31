@@ -100,6 +100,7 @@ exports.metricsPage = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
+    var numMotions = simulation.motions.length;
     for (var i = 0; i < numTeams; i++) {
         var country = simulation.countries[i];
         for (var j = 0; j < country.members.length; j++) {
@@ -114,7 +115,8 @@ exports.metricsPage = function (req, res) {
         simName : simulation.name,
         totalComments : totalComments,
         numTeams : numTeams,
-        numUsers : numUsers
+        numUsers : numUsers,
+        numMotions : numMotions
     });
 };
 
@@ -130,6 +132,7 @@ exports.metricsPageByUser = function (req, res) {
             numUsers++;
             var tempUser = country.members[j];
             tempUser.teamname = country.name;
+            tempUser.numberOfComments = 0;
             users.push(tempUser);
         }
     }
@@ -165,6 +168,7 @@ exports.metricsPageByTeam = function (req, res) {
             numUsers++;
             var tempUser = country.members[j];
             tempUser.teamname = country.name;
+            tempUser.numberOfComments = 0;
             users.push(tempUser);
         }
     }

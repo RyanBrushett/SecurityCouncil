@@ -45,6 +45,10 @@
                     <td>Total Participants</td>
                     <td>{{numUsers}}</td>
                 </tr>
+                <tr>
+                    <td>Total Motions Put Forward</td>
+                    <td>{{numMotions}}</td>
+                </tr>
             </table>
         </main>
     </body>
