@@ -166,7 +166,7 @@ module.exports.loadCompleted = function (cache) {
 
 var helpers = module.exports.helpers = {};
 
-helpers.updateAmbassador = function (country) {
+helpers.updateAmbassador = function (simulation, country) {
     var countryMembers = country.members;
     var votes = [];
     var noPreference = 0;
@@ -205,6 +205,7 @@ helpers.updateAmbassador = function (country) {
     for (var i = 0; i < numberOfMembers; i++) {
         if (countryMembers[i].name == ambassador) {
             country.ambassador = countryMembers[i];
+            helpers.addAndPruneAmbassadors(simulation, country);
             break;
         }
     }
@@ -380,10 +381,6 @@ helpers.addUserToSimulation = function (simulation, user) {
         countries[idx].members.push(user);
         module.exports.save(countries[idx]);
     }
-    
-    if (simulation.communicationChannels[0] != undefined) {
-        simulation.communicationChannels[0].participants.push(user); //Push all users to the default channel
-    }
 };
 
 helpers.checkVotingPermissions = function (simulation, user) {
@@ -422,6 +419,30 @@ helpers.checkVotingPermissions = function (simulation, user) {
     }
     
     return s;
+};
+
+//Add an ambassador to the default comm channel, and remove anyone else from a country from the default channel
+helpers.addAndPruneAmbassadors = function (simulation, country) {
+    simulation.communicationChannels[0].participants.push(country.ambassador);
+    
+    for (var i = 0; i < country.members.length; i++) {
+
+        var idx = -1;
+        for (var j = 0; j < simulation.communicationChannels[0].participants.length; j++) {
+            if (simulation.communicationChannels[0].participants[j].username === country.members[i].username) {
+                idx = j;
+            }
+        }
+
+        if (country.members[i].username != country.ambassador.username) {
+            if (idx >= 0) {
+                simulation.communicationChannels[0].participants.splice(idx, 1);
+            }
+        }
+    }
+    
+    module.exports.save(simulation);
+    module.exports.save(simulation.communicationChannels[0]);
 };
 
 var COMM_ID = 0;

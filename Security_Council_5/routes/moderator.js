@@ -57,6 +57,7 @@ exports.ambassador = function (req, res) {
     var ambassadorId = req.body["ambassador"];
     var ambassador = db.users[ambassadorId];
     country.ambassador = ambassador;
+    db.helpers.addAndPruneAmbassadors(db.simulations[simulationId], country);
     res.redirect('/moderator/simulation/' + simulationId + '/' + countryId);
 };
 
