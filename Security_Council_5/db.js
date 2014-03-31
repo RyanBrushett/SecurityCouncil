@@ -581,6 +581,10 @@ module.exports.fillWithData = function () {
         name: 'Dr. Fiech',
         username: 'fiech'
     });
+    helpers.createModerator({
+        name: 'moderator',
+        username: 'moderator'
+    });
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
     helpers.createResolution(s1, {
