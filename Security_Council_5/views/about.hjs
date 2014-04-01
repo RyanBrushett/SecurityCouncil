@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Login or register &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/login.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a> &nbsp | &nbsp <a href="/about">README</a></h1>
+        </header>
+        <main>
+            <div class="section">
+            <h2>About</h2>
+            <p>This is Computer Science 4770 Group 5's Security Council Project!</p>
+            <p>The version of the application is the state that it was in around the middle of March.</p>
+            <p>We wanted to leave you with a little better of an idea of what this would look like by<br/>
+            linking to a mockup here and talking about features.</p>
+            <p>Among the goals for April 4th are:
+            <ol style="padding-left:20px">
+                <li>A full overhaul of the user experience and appearance of the application</li>
+                <li>A more complete moderation mechanic</li>
+                <li>More complete and universal communication between all participants and moderators</li>
+                <li>A more robust 'chair' mechanic including a much redesigned view</li>
+                <li>Offline storage so that if the application is shut down or the server crashes, the state is saved along the way</li>
+            </ol>
+            </p>
+            <p>An early concept of the look we're going for can be seen <a href="/images/debate-mockup.jpg">here</a><br/>
+            There will be minor differences (e.g. no user display photos) but it should give you an idea.</p>
+            </div>
+            <div class="section">
+            <h2>How To</h2>
+            <p>To get an idea how to use the application, we'll have you use the following accounts:</p>
+            <table>
+                <tr>
+                    <td>
+                        <h4><u>Username</u></h4>
+                    </td>
+                    <td>
+                        <h4><u>Password</u></h4>
+                    </td>
+                    <td>
+                        <h4><u>Type of User</u></h4>
+                    </td>
+                </tr>
+                <tr>
+                    <td>fiech</td><td>password</td><td>Moderator</td>
+                </tr>
+                <tr>
+                    <td>ryanb</td><td>password</td><td>Regular User</td>
+                </tr>
+            </table>
+            <br/>
+            <p>You can, of course, create your own account from the registration page at any point!<br/>
+            Note that any account created from the registration page will be a regular user.<br/>
+            The moderator can be used to appoint any* regular user as a chairperson (* we'll
+            change this<br />in the final release) and ambassadors can be elected by the members of the team<br/>
+            or appointed by the moderator</p>
+            <p>So <a href="/">click here to go back to the login page</a> and log in!</p>
+            <h3>Some common tasks</h3>
+            <ol style="padding-left:20px">
+                <li><b>Log in as a moderator and appoint a chairperson and ambassador.</b>
+                <ul style="padding-left:20px;">
+                    <li>Log in using the fiech moderator account</li>
+                    <li>Select a Simulation (e.g. Political Science 2200)</li>
+                    <li>You should see the option to appoint a chairperson</li>
+                    <li>Make note of who you selected!</li>
+                </ul>
+                </li>
+                <li><b>Appoint a chairperson</b>
+                <ul style="padding-left:20px;">
+                    <li>Make sure you're logged into the fiech moderator account</li>
+                    <li>Select a Simulation from the dashboard (e.g. Political Science 2200)</li>
+                    <li>Scroll beyond the resolution to the country list</li>
+                    <li>Select a country (e.g. Argentina)</li>
+                    <li>Set a chairperson using the dropdown in the country page</li>
+                </ul>
+                </li>
+                <li><b>Log in as a user and start doing things!</b>
+                <ul style="padding-left:20px;">
+                    <li>Make sure you are logged out of the moderator account</li>
+                    <li>Log in as the user you appointed as an ambassador</li>
+                    <li>Select the simulation in which they were appointed ambassador</li>
+                    <li>Scroll down to the country list and select the team they are ambassador for</li>
+                    <li>In the country page, you can scroll down and create motions</li>
+                    <li>You can also vote to make someone else ambassador<br/>
+                    NOTE that the ambassador will only change if enough votes on the team are cast</li>
+                    <li>You can also type out or upload position papers from here</li>
+                    <li>For the sake of testing, put forward a motion that says anything.<br/>
+                    NOTE that a motion is typed out and received as so by the chair SO you can write<br/>
+                    a motion to ammend, a motion to boot out the chair, a motion to make Dr. Fiech the <br/>
+                    official mascot of the UN Security Council, etc.</li>
+                </ul>
+                </li>
+                <li><b>Access the Debate</b>
+                <ul style="padding-left:20px;">
+                    <li>As the ambassador you appointed previously, go back to the dashboard</li>
+                    <li>Select the simulation in which you're an ambassador from the dashboard<br/>
+                    (e.g. Political Science 2200)</li>
+                    <li>Click on the "Debate!" button at the top of the simulation page</li>
+                    <li>Type out some comments!</li>
+                </ul>
+                </li>
+                <li><b>Do some chairperson stuff</b>
+                <ul style="padding-left:20px;">
+                    <li>Log out and log back in as the chairperson you originally appointed.</li>
+                    <li>Select the simulation in which you're a chairperson from the dashboard<br/>
+                    (e.g. Political Science 2200)</li>
+                    <li>Click on the "Chair" link at the top of the simulation page</li>
+                    <li>You'll see some motions! We're aware this screen is not perfect. This view<br/>
+                    was originally intended to just stay here long enough for testing but due<br/>
+                    to some time constraints, it was left in place for the previous submission</li>
+                    <li>Click on a few buttons! You can trash a motion from here (if it's silly,<br/>
+                    for example), you can set one into debate mode (more on that in a second) and,<br/>
+                    once a motion has been debated, you can set it to a vote!</li>
+                    <li>Set a motion in debate and go back to the debate screen as the ambassador<br/>
+                    NOTE this is where it's handy for testing purposes to have the ambassador<br/>
+                    and the chair be the same person</li>
+                    <li>You'll notice in the debate screen a comment from the chair about the new motion!</li>
+                    <li>As the chair, you can set the motion into a vote as well. If you do that<br/>
+                    and log in as the ambassador, you can vote on the motion! You can test this out as well.</li>
+                    <li>NOTE that in this version, once a motion is placed thru, the burden is on the moderator<br/>
+                    to update the resolution or application (e.g. change the chair) as this person sees fit.</li>
+                </ul>
+                </li>
+            </ol>
+            <br/>
+            <h3>In closing!</h3>
+            <p>We hope this gets you started! You should be able to play around with the application a<br/>
+            little at this point and see what it's all about. I hope this is clear! Feel free to get in<br/>
+            touch through Dr. Fiech if you have any questions. We hope you enjoy it and we look forward<br/>
+            to delivering a final product.</p>
+            </div>
+        </main>
+    </body>
+</html>

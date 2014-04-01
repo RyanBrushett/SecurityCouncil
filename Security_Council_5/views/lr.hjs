@@ -8,7 +8,7 @@
     </head>
     <body>
         <header class="header">
-            <h1><a href="/">Council</a></h1>
+            <h1><a href="/">Council</a> &nbsp | &nbsp <a href="/about">README</a></h1>
         </header>
         <main>
             <form class="section" action="/login" method="post">

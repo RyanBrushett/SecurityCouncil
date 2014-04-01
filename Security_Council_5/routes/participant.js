@@ -337,3 +337,7 @@ exports.createMotion = function(req, res) {
     simulation.getMotions().push(motion);
     res.redirect('/participant/simulation/' + req.params.sid + '/' + req.params.cid);
 };
+
+exports.about = function(req, res) {
+    res.render('about');
+};

@@ -54,6 +54,7 @@ app.post('/login', session.create);
 // User registration
 app.get('/signup', session.view);
 app.post('/signup', participant.create);
+app.get('/about', participant.about);
 
 // Simulation
 app.get('/simulation/new', session.require, simulation.view);
