@@ -1,7 +1,6 @@
 # Testing the Application
-=========================
 
-## Initial Set up:
+### Initial Set up:
 
 1. The first thing you'll want to do is log in as moderator using the password Education--01 (that's two dashes)
 2. From here, initial set up of the application must be complete. You'll likely want to create a new moderator account so that THE moderator account does not get used a whole lot.
@@ -11,7 +10,7 @@
 4. Once you're logged in, click on "Create a New Simulation". Fill out the options accordingly.
 5. Once you're happy with that and have submitted the new simulation, you're ready to tell your users to sign up.
 
-## User Sign Up:
+### User Sign Up:
 
 1. A user hits the login page and does not have an account. They must fill out the registration form.
 2. Note that if the passwords don't match OR if they select the same team more than once as their preference, they'll be warned and asked to redo the form.

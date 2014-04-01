@@ -1,5 +1,4 @@
 # The Future of This Project
-============================
 
 ## If We Were To Continue / Had Unlimited Time:
 
@@ -14,3 +13,7 @@
     - Have the moderator be able to remove users from channels.
     - Fully delete simulation spaces to minimize DB footprint.
     - Control more closely the teams, number of members, etc.
+4. More elaborate metrics
+    - More detail for all measurables.
+    - Visualizations
+
