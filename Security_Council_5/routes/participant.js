@@ -93,6 +93,7 @@ exports.debateMotion = function(req, res) {
         m = simulation.motions[i];
         if (simulation.motions[i].id === req.body.motionId) {
             m.inDebate = true;
+            m.inVote = false;
             motion = m;
         }
         else {
