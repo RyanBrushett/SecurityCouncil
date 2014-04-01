@@ -212,3 +212,40 @@ exports.metricsPageByTeam = function (req, res) {
         numUsers : numUsers
     });
 };
+
+exports.metricsPageMotions = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var motions = simulation.motions;
+    var numMotions = motions.length;
+    var inDebate = 0;
+    var inVote = 0;
+    var numApproved = 0;
+    var numDenied = 0;
+    var numDeleted = 0;
+    for (var i = 0; i < numMotions; i++) {
+        if (motions[i].isDebate) {
+            inDebate++;
+        } else if (motions[i].isVote) {
+            inVote++;
+        } else if (motions[i].isApproved) {
+            numApproved++;
+        } else if (motions[i].isDenied) {
+            numDenied++;
+        } else if (motions[i].isDeleted) {
+            numDeleted++;
+        } else {
+            continue;
+        }
+    }
+    res.render('moderator/motionmetrics', {
+        user : db.users[req.session.userId],
+        simId : simulation.id,
+        indebate : inDebate,
+        invote : inVote,
+        numapproved : numApproved,
+        numdenied : numDenied,
+        numdeleted : numDeleted,
+        totalMotions : numMotions,
+        motions : motions
+    });
+};

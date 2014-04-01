@@ -37,10 +37,10 @@
             </div>
             {{/simulation.resolution}}
             {{#simulation.motions}}
-            {{#isDenied}}
+            {{#isDeleted}}
             <div></div>
-            {{/isDenied}}
-            {{^isDenied}}
+            {{/isDeleted}}
+            {{^isDeleted}}
             <div id="{{id}}">
                 <div>
                     {{#inDebate}}In Debate{{/inDebate}}
@@ -54,13 +54,16 @@
                         {{/inDebate}}
                     {{/inVote}}
                     <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Trash</button>
+                    {{#isDenied}}
+                    <h3>Motion was rejected</h3>
+                    {{/isDenied}}
                 </div>
                 <div>
                     {{#mover}}<p>Moved By: {{name}}</p>{{/mover}}
                     <p>{{body}}</p>
                 </div>
             </div>
-            {{/isDenied}}
+            {{/isDeleted}}
             {{/simulation.motions}}
         </main>
     </body>

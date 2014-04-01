@@ -71,6 +71,7 @@ app.post('/moderator/create', session.require, session.restrictToModerator, mode
 app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
 app.get('/moderator/metrics/peruser/:sid', session.require, session.restrictToModerator, moderator.metricsPageByUser);
 app.get('/moderator/metrics/perteam/:sid', session.require, session.restrictToModerator, moderator.metricsPageByTeam);
+app.get('/moderator/metrics/motions/:sid', session.require, session.restrictToModerator, moderator.metricsPageMotions);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);

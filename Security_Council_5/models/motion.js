@@ -8,6 +8,7 @@ function Motion(options) {
     this.isVote = false;
     this.isApproved = false;
     this.isDenied = false;
+    this.isDeleted = false;
     this.type = options.type;
     this.votes = options.votes || [];
 };
