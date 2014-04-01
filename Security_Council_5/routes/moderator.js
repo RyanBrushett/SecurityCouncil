@@ -186,6 +186,9 @@ exports.metricsPageByTeam = function (req, res) {
         var _country = simulation.countries[i];
         _country.comments = 0;
         _country.numMotions = 0;
+        _country.motionsApproved = 0;
+        _country.motionsDenied = 0;
+        _country.motionsDeleted = 0;
         for (var j = 0; j < users.length; j++) {
             if (_country.name === users[j].teamname) {
                 _country.comments += users[j].numberOfComments;
@@ -196,7 +199,17 @@ exports.metricsPageByTeam = function (req, res) {
         var _motion = simulation.motions[i];
         for (var j = 0; j < numTeams; j++) {
             if (_motion.mover.id === simulation.countries[j].id) {
-                simulation.countries[j].numMotions += 1;
+                var _country = simulation.countries[j];
+                _country.numMotions += 1;
+                if (_motion.isApproved) {
+                    _country.motionsApproved += 1;
+                } else if (_motion.isDenied) {
+                    _country.motionsDenied += 1;
+                } else if (_motion.isDeleted) {
+                    _country.motionsDeleted += 1;
+                } else {
+                    continue;
+                }
             }
         }
     }
@@ -210,5 +223,42 @@ exports.metricsPageByTeam = function (req, res) {
         totalComments : totalComments,
         numTeams : numTeams,
         numUsers : numUsers
+    });
+};
+
+exports.metricsPageMotions = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var motions = simulation.motions;
+    var numMotions = motions.length;
+    var inDebate = 0;
+    var inVote = 0;
+    var numApproved = 0;
+    var numDenied = 0;
+    var numDeleted = 0;
+    for (var i = 0; i < numMotions; i++) {
+        if (motions[i].inDebate) {
+            inDebate++;
+        } else if (motions[i].inVote) {
+            inVote++;
+        } else if (motions[i].isApproved) {
+            numApproved++;
+        } else if (motions[i].isDenied) {
+            numDenied++;
+        } else if (motions[i].isDeleted) {
+            numDeleted++;
+        } else {
+            continue;
+        }
+    }
+    res.render('moderator/motionmetrics', {
+        user : db.users[req.session.userId],
+        simId : simulation.id,
+        indebate : inDebate,
+        invote : inVote,
+        numapproved : numApproved,
+        numdenied : numDenied,
+        numdeleted : numDeleted,
+        totalMotions : numMotions,
+        motions : motions
     });
 };

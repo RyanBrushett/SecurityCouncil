@@ -93,6 +93,7 @@ exports.debateMotion = function(req, res) {
         m = simulation.motions[i];
         if (simulation.motions[i].id === req.body.motionId) {
             m.inDebate = true;
+            m.inVote = false;
             motion = m;
         }
         else {
@@ -198,7 +199,11 @@ exports.deleteMotion = function(req, res) {
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
         if(simulation.motions[i].id === req.body.motionId) {
-            simulation.motions.splice(i, 1);
+            simulation.motions[i].isDeleted = true;
+            simulation.motions[i].inVote = false;
+            simulation.motions[i].inDebate = false;
+            simulation.motions[i].isApproved = false;
+            simulation.motions[i].isDenied = false;
             break;
         }
     }
