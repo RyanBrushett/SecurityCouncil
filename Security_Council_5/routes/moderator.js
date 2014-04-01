@@ -186,6 +186,9 @@ exports.metricsPageByTeam = function (req, res) {
         var _country = simulation.countries[i];
         _country.comments = 0;
         _country.numMotions = 0;
+        _country.motionsApproved = 0;
+        _country.motionsDenied = 0;
+        _country.motionsDeleted = 0;
         for (var j = 0; j < users.length; j++) {
             if (_country.name === users[j].teamname) {
                 _country.comments += users[j].numberOfComments;
@@ -196,7 +199,17 @@ exports.metricsPageByTeam = function (req, res) {
         var _motion = simulation.motions[i];
         for (var j = 0; j < numTeams; j++) {
             if (_motion.mover.id === simulation.countries[j].id) {
-                simulation.countries[j].numMotions += 1;
+                var _country = simulation.countries[j];
+                _country.numMotions += 1;
+                if (_motion.isApproved) {
+                    _country.motionsApproved += 1;
+                } else if (_motion.isDenied) {
+                    _country.motionsDenied += 1;
+                } else if (_motion.isDeleted) {
+                    _country.motionsDeleted += 1;
+                } else {
+                    continue;
+                }
             }
         }
     }
