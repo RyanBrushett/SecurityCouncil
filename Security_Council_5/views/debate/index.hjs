@@ -83,7 +83,7 @@
                     {{/permissions.votingResolution}}
                     {{^permissions.voting}}
                         {{#userCanComment}}
-                        <form action="/debate/{{simulation.id}}/0" method="post">
+                        <form action="/debate/{{simulation.id}}/{{channel.id}}" method="post">
                             <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
                             <input type="submit" value="Comment" class="button">
                         </form>
