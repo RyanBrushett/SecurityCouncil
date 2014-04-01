@@ -630,7 +630,8 @@ module.exports.fillWithData = function () {
     });
     helpers.createModerator({
         name: 'moderator',
-        username: 'moderator'
+        username: 'moderator',
+        password: 'Education--01'
     });
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
