@@ -103,5 +103,6 @@ A major component of the final iteration is going to be design and usability but
 
 ## How it works
 
-Some Testing notes:
-    TODO
+See Testing.md
+See TechnicalNotes.md
+ 
