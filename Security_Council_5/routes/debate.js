@@ -256,22 +256,7 @@ exports.voteResolution = function(req, res) {
 };
 
 exports.createChannel = function (req, res) {
-    /*
-    get simulation
-    get users from country OR get users
-    var commchannel = db.helpers.createCommunicationChannel(options);
-    some other shit.
-    return the comm channel so we can use the ID in the view (useful for deleting)
-    the ok function in the ajax call will update the debate view.
-    */
-    return;
 };
 
 exports.deleteChannel = function (req, res) {
-    /*
-    get comm channel by id
-    delete some shit
-    return ok so the ok fn from the ajax call can update the debate view.
-    */
-    return;
 };

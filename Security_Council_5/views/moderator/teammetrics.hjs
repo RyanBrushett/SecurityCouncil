@@ -28,9 +28,12 @@
             <table>
                 <tr>
                     <td><h4>Team Name</h4></td>
-                    <td><h4>Number of Members</h4></td>
-                    <td><h4>Number of Comments Made</h4></td>
-                    <td><h4>Number of Motions</h4></td>
+                    <td><h4>Members</h4></td>
+                    <td><h4>Comments Made</h4></td>
+                    <td><h4>Motions</h4></td>
+                    <td><h4>Motions Approved</h4></td>
+                    <td><h4>Motions Denied</h4></td>
+                    <td><h4>Motions Deleted</h4></td>
                 </tr>
                 {{#simulation.countries}}
                 <tr>
@@ -38,6 +41,9 @@
                     <td>{{members.length}}</td>
                     <td>{{comments}}</td>
                     <td>{{numMotions}}</td>
+                    <td>{{motionsApproved}}</td>
+                    <td>{{motionsDenied}}</td>
+                    <td>{{motionsDeleted}}</td>
                 </tr>
                 {{/simulation.countries}}
             </table>

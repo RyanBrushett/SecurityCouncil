@@ -200,6 +200,10 @@ exports.deleteMotion = function(req, res) {
         var m = simulation.motions[i];
         if(simulation.motions[i].id === req.body.motionId) {
             simulation.motions[i].isDeleted = true;
+            simulation.motions[i].inVote = false;
+            simulation.motions[i].inDebate = false;
+            simulation.motions[i].isApproved = false;
+            simulation.motions[i].isDenied = false;
             break;
         }
     }
