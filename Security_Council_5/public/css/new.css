@@ -1,5 +1,5 @@
 * {
-      box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -11,6 +11,11 @@ html {
 a {
   cursor: pointer;
   color:white;
+  text-decoration: none;
+}
+
+a:hover {
+  color:#7F7F7F;
 }
 
 img {
@@ -36,11 +41,57 @@ h3, h4 {
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   font-family: Bitter, sans-serif;
   font-weight: 400;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#simulation-name {
+  padding-left: 1rem;
+}
+
+.channels {
+  overflow: auto;
+  overflow-x: hidden;
+  flex: 0 0 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#create-new-channel {
+  background-color: #464646;
+  font-family: Raleway, sans-serif;
+  font-weight: 200;
+  padding: 10px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+
+}
+
+#channel-list {
+
+}
+
+#a-channel {
+
+}
+
+.debate {
+  overflow: auto;
+  width: 40%;
+  overflow: auto;
+  overflow-x: hidden;
+  flex: 0 0 40%;
 }
 
 .header {
@@ -80,42 +131,6 @@ body {
   justify-content: flex-end;
 }
 
-#simulation-name {
-  font-family: Montserrat, sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 1.7rem;
-}
-
-.infobar {
-    display: flex;
-  flex-direction: row;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #6db0fa;
-}
-
-.infobar p {
-  padding: 15px;
-  font-family: Raleway, sans-serif;
-  font-weight: 100;
-  font-size: 1.4rem;
-}
-
-.active {
-  background-color: #fac76d;
-  color: white;
-}
-
-.status {
-  background-color: #464646;
-  font-family: Raleway, sans-serif;
-  font-weight: 400;
-  padding: 10px;
-  border-radius: 12px;
-  color: white;
-}
 
 main {
   display: flex;
@@ -130,56 +145,33 @@ main section {
   flex: 1;
 }
 
-main section:first-of-type .foo {
-  padding-right: 10px;
-  border-right: 1px solid gray;
+.new-simulation-form {
+  flex: 0 0 100%;
+  padding-left: 2em;
 }
 
-.simulation {
-  flex: 0 0 16em;
+
+/**********
+ DISCUSSION
+ **********/
+
+.textbox {
+    height: 6em;
+    width: 40%;
+    font-family: Raleway, sans-serif;
+    font-size: 1em;
 }
 
-.simulation form {
-  padding: 15px 0;
+.textbox-small {
+    height: 1.5em;
+    width: 40%;
+    font-family: Raleway, sans-serif;
+    font-size: 1em;
 }
 
-.simulation form label {
-  display: block;
-}
-
-.menu {
-  
-}
-
-.menu li {
-  padding: 5px;
-}
-
-.menu .active {
-  border-radius: 3px;
-}
-
-.countries {
-  flex: 0 0 20em;
-}
-
-.ambassador {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.ambassador p:first-of-type {
-  font-weight: bold;
-}
-
-.content {
-  background-color: #252525;
-  color: white;
-  overflow: auto;
-  overflow-x: hidden;
-}
-
-.resolution {
-  font-size: 1em;
+textarea + input[type="submit"] {
+    margin-top: 1rem;
+    font-size: .8em;
+    display: block;
+    margin: 1rem auto 0;
 }

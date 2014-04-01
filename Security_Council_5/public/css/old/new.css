@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+      box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -11,11 +11,6 @@ html {
 a {
   cursor: pointer;
   color:white;
-  text-decoration: none;
-}
-
-a:hover {
-  color:#7F7F7F;
 }
 
 img {
@@ -41,51 +36,11 @@ h3, h4 {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
   height: 100%;
   font-family: Bitter, sans-serif;
   font-weight: 400;
-}
-
-#simulation-name {
-  padding-left: 1rem;
-}
-
-.channels {
-  overflow: auto;
-  overflow-x: hidden;
-  flex: 0 0 20%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-#create-new-channel {
-  background-color: #464646;
-  font-family: Raleway, sans-serif;
-  font-weight: 200;
-  padding: 10px;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-
-}
-
-#channel-list {
-
-}
-
-#a-channel {
-
-}
-
-.debate {
-  overflow: auto;
-  width: 40%;
-  overflow: auto;
-  overflow-x: hidden;
-  flex: 0 0 40%;
 }
 
 .header {
@@ -133,7 +88,7 @@ body {
 }
 
 .infobar {
-  display: flex;
+    display: flex;
   flex-direction: row;
   flex: 0 0 auto;
   align-items: center;
@@ -154,7 +109,7 @@ body {
 }
 
 .status {
-  background-color: #fac76d;
+  background-color: #464646;
   font-family: Raleway, sans-serif;
   font-weight: 400;
   padding: 10px;
@@ -175,13 +130,13 @@ main section {
   flex: 1;
 }
 
-main section:first-of-type {
+main section:first-of-type .foo {
   padding-right: 10px;
   border-right: 1px solid gray;
 }
 
 .simulation {
-  flex: 0 0 20%;
+  flex: 0 0 16em;
 }
 
 .simulation form {
@@ -218,105 +173,13 @@ main section:first-of-type {
   font-weight: bold;
 }
 
-.resolution {
+.content {
   background-color: #252525;
-  width: 40%;
   color: white;
   overflow: auto;
   overflow-x: hidden;
-  flex: 0 0 40%;
 }
 
-.resolution-content {
+.resolution {
   font-size: 1em;
-  font-family: Raleway, sans-serif;
-  font-weight: 200;
-}
-
-.new-simulation-form {
-  flex: 0 0 100%;
-}
-
-/**********
- DISCUSSION
- **********/
-
-.textbox {
-    width: 100%;
-    height: 6em;
-    font-family: Raleway, sans-serif;
-    font-size: 1em;
-}
-
-.card,
-.card--textarea {
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
-    display: flex;
-    flex-direction: row;
-    font: inherit;
-    margin-bottom: 1rem;
-    padding: 1rem;
-    width: 100%;
-}
-
-.card-content {
-    overflow: auto;
-    overflow-x: hidden;
-    font-family: Raleway, sans-serif;
-    font-size: 1em;
-    height: 8em;
-}
-
-.card-info {
-    margin-top: 1px;
-}
-
-.card--textarea {
-    border: none;
-    resize: vertical;
-}
-
-.card-info {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 8rem;
-    justify-content: flex-start;
-    order: -1;
-    padding-right: 1rem;
-}
-.card-info__flag {
-    box-shadow: 0 0 1px rgba(0, 0, 0, 0.25);
-    width: 90%;
-}
-.card-info__name--chair {
-  color: blue;
-}
-.card-info__status--against,
-.card-info__status--for {
-    border-radius: 100%;
-    cursor: pointer;
-    display: inline-flex;
-    height: 15px;
-    margin: 1rem;
-    width: 15px;
-}
-
-.card-info__status--against {
-    background-color: red;
-}
-
-.card-info__status--for {
-    background-color: green;
-}
-
-textarea + input[type="submit"] {
-    margin-top: 1rem;
-    font-size: .8em;
-    display: block;
-    margin: 1rem auto 0;
-}
-
-form + .card {
-    margin-top: 1rem;
 }
