@@ -4,8 +4,6 @@
         <title>{{simulation.name}} Debate &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/debate.css">
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/new.css">
         <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>
     </head>
     <body>
@@ -22,7 +20,6 @@
                     {{/currentUser.flag}}
                     {{getCountries}}
                     <li><a href="/participant/simulation/{{sid}}/{{getId}}/{{getName}}">Country</a></li>
-                    <li><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
                 </ul>
                 <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>
@@ -30,17 +27,20 @@
             </nav>
         </header>
         <section class="infobar">
-            <p class="active" id="simulation-name">{{simulation.name}}</p>
-            <p><span class="status">Debating: Motion 6</span></p>
+            <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">Debating: Motion 6</span></p></a>
         </section>
         <main>
         <section class="channels">
+        <div id="channel-list">
             <h3>Channels</h3>
             <ul class="menu">
             {{#simulation.channels}}
-                <li>{{label}}</li>
+                <li id="a-channel">{{label}}</li>
             {{/simulation.channels}}
             </ul>
+        </div>
+            <a href="" id="create-new-channel">Create new channel</a>
         </section>
         <section class="debate">
             <div class="discussion">
@@ -92,7 +92,7 @@
                 {{/permissions.voting}}
                 {{#simulation.comments}}
                 <blockquote class="card">
-                    <p>{{{content}}}</p>
+                    <p class="card-content">{{{content}}}</p>
                     <footer class="card-info">
                         {{#user}}
                         {{#isChair}}
@@ -110,10 +110,10 @@
                 {{/simulation.comments}}
             </div>
         </section>
-        <section class="content">
+        <section class="resolution">
             {{#simulation.resolution}}
             <h3>{{title}}</h3>
-            <p>{{{content}}}</p>
+            <p class="resolution-content">{{content}}</p>
             {{/simulation.resolution}}
         </section>
         </main>
