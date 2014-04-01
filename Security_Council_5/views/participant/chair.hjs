@@ -42,6 +42,10 @@
             {{/isDeleted}}
             {{^isDeleted}}
             <div id="{{id}}">
+                {{#isDenied}}
+                <h3>Motion was rejected</h3>
+                {{/isDenied}}
+                {{^isDenied}}
                 <div>
                     {{#inDebate}}In Debate{{/inDebate}}
                     {{^inDebate}}
@@ -54,10 +58,8 @@
                         {{/inDebate}}
                     {{/inVote}}
                     <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Trash</button>
-                    {{#isDenied}}
-                    <h3>Motion was rejected</h3>
-                    {{/isDenied}}
                 </div>
+                {{/isDenied}}
                 <div>
                     {{#mover}}<p>Moved By: {{name}}</p>{{/mover}}
                     <p>{{body}}</p>

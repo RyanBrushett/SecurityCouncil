@@ -223,9 +223,9 @@ exports.metricsPageMotions = function (req, res) {
     var numDenied = 0;
     var numDeleted = 0;
     for (var i = 0; i < numMotions; i++) {
-        if (motions[i].isDebate) {
+        if (motions[i].inDebate) {
             inDebate++;
-        } else if (motions[i].isVote) {
+        } else if (motions[i].inVote) {
             inVote++;
         } else if (motions[i].isApproved) {
             numApproved++;
