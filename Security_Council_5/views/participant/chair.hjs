@@ -37,6 +37,10 @@
             </div>
             {{/simulation.resolution}}
             {{#simulation.motions}}
+            {{#isDenied}}
+            <div></div>
+            {{/isDenied}}
+            {{^isDenied}}
             <div id="{{id}}">
                 <div>
                     {{#inDebate}}In Debate{{/inDebate}}
@@ -56,6 +60,7 @@
                     <p>{{body}}</p>
                 </div>
             </div>
+            {{/isDenied}}
             {{/simulation.motions}}
         </main>
     </body>
