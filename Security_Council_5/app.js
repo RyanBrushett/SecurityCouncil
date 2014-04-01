@@ -96,7 +96,7 @@ app.post('/participant/ambassador/:sid/:cid', session.require, participant.ambas
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
 app.get('/debate/:id/:chid', session.require, debate.viewChannel);
-app.post('/debate/:id/:chid', session.require, debate.comment);
+app.post('/debate/comment/:id/:chid', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
 /* app.post('/debate/:id/:cid', session.require, session.restrictToModerator, debate.deleteComment); */
