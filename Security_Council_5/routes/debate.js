@@ -7,27 +7,57 @@ exports.view = function(req, res) {
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(simulation.communicationChannels[0], currentUser);
+    
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
-        permissions: perm
+        permissions: perm,
+        channel: simulation.communicationChannels[0],
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
     });
+};
+
+exports.viewChannel = function (req, res) {
+    var simulation = db.simulations[req.params.id];
+    var commChannel = simulation.communicationChannels[req.params.chid];
+    var currentUser = db.users[req.session.userId];
+    db.helpers.setUserFlag(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser,
+        permissions: perm,
+        channel: commChannel,
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
+    });    
 };
 
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
+    var commChannel = simulation.communicationChannels[req.params.chid];
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
-    db.helpers.createComment(simulation, {
+    db.helpers.createComment(commChannel, {
         content: req.body.comment,
         user: currentUser
     });
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
-        permissions: perm
+        permissions: perm,
+        channel: commChannel,
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
     });
 };
 
@@ -35,6 +65,7 @@ exports.vote = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
     var motion = simulation.motions[req.params.mid];
+    var commChannel = simulation.communicationChannels[0];
     var currentVotes = motion.votes;
     var numericVote = 0;
     currentUser.flag = 'united-nations.svg';
@@ -76,7 +107,7 @@ exports.vote = function(req, res) {
                 motion.inDebate = false;
                 motion.inVote = false;
                 
-                db.helpers.createComment(simulation, {
+                db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Vote on motion passed!\nNow debating the resolution.',
                     user: simulation.chairperson
                 });
@@ -89,7 +120,7 @@ exports.vote = function(req, res) {
                 
                 var commentContent = 'Vote on motion failed!\n';
                 commentContent += 'Now debating the resolution.';
-                db.helpers.createComment(simulation, {
+                db.helpers.createComment(simulation.communicationChannels[0], {
                     content: commentContent,
                     user: simulation.chairperson
                 });
@@ -105,7 +136,7 @@ exports.vote = function(req, res) {
             commentContent += 'Continuing debate on the motion.\n';
             commentContent += motion.body + '\n';
             commentContent += 'Moved by: ' + motion.mover.name + '\n';
-            db.helpers.createComment(simulation, {
+            db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
@@ -113,16 +144,22 @@ exports.vote = function(req, res) {
     }
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
-        permissions: perm
+        permissions: perm,
+        channel: commChannel,
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
     });
 };
 
 exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
+    var commChannel = simulation.communicationChannels[0];
     currentUser.flag = 'united-nations.svg';
 
     var currentVotes = simulation.resolution.votes;
@@ -143,7 +180,7 @@ exports.voteResolution = function(req, res) {
             simulation.resolution.isDenied = true;
             var country = db.helpers.getUserCountry(simulation, currentUser).name;
             var commentContent = 'Vote on resolution failed due to veto by ' + country + '!\n';
-            db.helpers.createComment(simulation, {
+            db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
@@ -177,7 +214,7 @@ exports.voteResolution = function(req, res) {
                 var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
                 if (votesFor >= requiredVotes) {
                     simulation.resolution.isApproved = true;
-                    db.helpers.createComment(simulation, {
+                    db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution passed!\n',
                         user: simulation.chairperson
                     });
@@ -185,7 +222,7 @@ exports.voteResolution = function(req, res) {
                 }
                 else {
                     simulation.resolution.isDenied = true;
-                    db.helpers.createComment(simulation, {
+                    db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution failed!\n',
                         user: simulation.chairperson
                     });
@@ -197,7 +234,7 @@ exports.voteResolution = function(req, res) {
                 simulation.resolution.inDebate = true;
                 simulation.resolution.votes = [];
                 simulation.resolution.inVote = false;
-                db.helpers.createComment(simulation, {
+                db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Quorum not met!\nContinuing debate on the resolution.\n',
                     user: simulation.chairperson
                 });
@@ -206,9 +243,35 @@ exports.voteResolution = function(req, res) {
     }
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
-        permissions: perm
+        permissions: perm,
+        channel: commChannel,
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
     });
+};
+
+exports.createChannel = function (req, res) {
+    /*
+    get simulation
+    get users from country OR get users
+    var commchannel = db.helpers.createCommunicationChannel(options);
+    some other shit.
+    return the comm channel so we can use the ID in the view (useful for deleting)
+    the ok function in the ajax call will update the debate view.
+    */
+    return;
+};
+
+exports.deleteChannel = function (req, res) {
+    /*
+    get comm channel by id
+    delete some shit
+    return ok so the ok fn from the ajax call can update the debate view.
+    */
+    return;
 };

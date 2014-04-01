@@ -1,4 +1,5 @@
 var db = require('../db');
+var Moderator = require('../models/moderator');
 
 exports.view = function(req, res) {
     res.render('lr', {
@@ -43,6 +44,15 @@ exports.create = function(req, res) {
             req.session.userId = user.id;
             res.redirect('/');
         });
+    }
+};
+
+exports.restrictToModerator = function(req, res, next) {
+    var user = db.users[req.session.userId];
+    if (user.moderator) {
+        next();
+    } else {
+        res.redirect('/participant/dashboard');
     }
 };
 

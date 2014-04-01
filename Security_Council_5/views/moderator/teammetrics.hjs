@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Moderator dashboard &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/debate/{{simulation.id}}">View the Debate</a></li>
+                    <li><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/simulation/new">Create a new simulation</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2><a href="/moderator/metrics/peruser/{{simId}}">Metrics By User</a></h2>
+            <h2><a href="/moderator/metrics/perteam/{{simId}}">Metrics By Team</a></h2>
+            <h2><a href="/moderator/metrics/{{simulation.id}}">Metrics Overview</a></h2>
+            <table>
+                <tr>
+                    <td><h4>Team Name</h4></td>
+                    <td><h4>Number of Members</h4></td>
+                    <td><h4>Number of Comments Made</h4></td>
+                    <td><h4>Number of Motions</h4></td>
+                </tr>
+                {{#simulation.countries}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{members.length}}</td>
+                    <td>{{comments}}</td>
+                    <td>{{numMotions}}</td>
+                </tr>
+                {{/simulation.countries}}
+            </table>
+        </main>
+    </body>
+</html>

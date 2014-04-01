@@ -82,29 +82,41 @@
                         {{/permissions.hasNotVoted}}
                     {{/permissions.votingResolution}}
                     {{^permissions.voting}}
-                    <form action="/debate/{{simulation.id}}" method="post">
-                        <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
-                        <input type="submit" value="Comment" class="button">
-                    </form>
+                        {{#userCanComment}}
+                        <form action="/debate/{{simulation.id}}/{{channel.id}}" method="post">
+                            <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
+                            <input type="submit" value="Comment" class="button">
+                        </form>
+                        {{/userCanComment}}
+                        {{^userCanComment}}
+                        You do not have permission to write on this channel.
+                        {{/userCanComment}}
                     {{/permissions.voting}}
-                    {{#simulation.comments}}
+                    {{#userCanRead}}
+                        {{#channel.comments}}
+                        <blockquote class="card">
+                            <p>{{{content}}}</p>
+                            <footer class="card-info">
+                                {{#user}}
+                                {{#isChair}}
+                                <p class="card-info__name--chair">{{name}}</p>
+                                <p class="card-info__name--chair">Council Chair</p>
+                                <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
+                                {{/isChair}}
+                                {{^isChair}}
+                                <p>{{name}}</p>
+                                <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
+                                {{/isChair}}
+                                {{/user}}
+                            </footer>
+                        </blockquote>
+                        {{/channel.comments}}
+                    {{/userCanRead}}
+                    {{^userCanRead}}
                     <blockquote class="card">
-                        <p>{{{content}}}</p>
-                        <footer class="card-info">
-                            {{#user}}
-                            {{#isChair}}
-                            <p class="card-info__name--chair">{{name}}</p>
-                            <p class="card-info__name--chair">Council Chair</p>
-                            <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
-                            {{/isChair}}
-                            {{^isChair}}
-                            <p>{{name}}</p>
-                            <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
-                            {{/isChair}}
-                            {{/user}}
-                        </footer>
+                        <p>You do not have permission to read this channel.</p>
                     </blockquote>
-                    {{/simulation.comments}}
+                    {{/userCanRead}}
                 </div>
             </section>
         </main>

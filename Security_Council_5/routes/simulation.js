@@ -16,5 +16,9 @@ exports.create = function(req, res) {
         title: req.body.title,
         content: req.body.content
     });
+    db.helpers.createCommunicationChannel(simulation, {
+        label: "Default", //I have no idea what to label the default channel -- Dan
+        permissions: false
+    }); 
     res.redirect('/');
 };

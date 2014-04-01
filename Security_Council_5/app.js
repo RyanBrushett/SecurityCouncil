@@ -55,19 +55,22 @@ app.post('/signup', participant.create);
 
 // Simulation
 app.get('/simulation/new', session.require, simulation.view);
-app.post('/simulation/new', session.require, simulation.create);
+app.post('/simulation/new', session.require, session.restrictToModerator, simulation.create);
 
 // Moderator
-app.get('/moderator/dashboard', session.require, moderator.dashboard);
-app.get('/moderator/simulation/:sid', session.require, moderator.simulation);
-app.get('/moderator/simulation/:sid/:cid', session.require, moderator.country);
-app.get('/moderator/create', session.require, moderator.viewCreate);
-app.post('/moderator/create', session.require, moderator.create);
-app.post('/moderator/submit/:sid', session.require, moderator.submit);
-app.post('/moderator/simulation/chairperson/:sid', session.require, moderator.chairperson);
-app.post('/moderator/ambassador/:sid/:cid', session.require, moderator.ambassador);
-app.post('/moderator/simulation/visible-paper/:sid', session.require, moderator.positionPaperVisible);
-app.post('/moderator/directives/:sid/:cid', session.require, moderator.directives);
+app.get('/moderator/dashboard', session.require, session.restrictToModerator, moderator.dashboard);
+app.get('/moderator/simulation/:sid', session.require, session.restrictToModerator, moderator.simulation);
+app.get('/moderator/simulation/:sid/:cid', session.require, session.restrictToModerator, moderator.country);
+app.post('/moderator/submit/:sid', session.require, session.restrictToModerator, moderator.submit);
+app.post('/moderator/simulation/chairperson/:sid', session.require, session.restrictToModerator, moderator.chairperson);
+app.post('/moderator/ambassador/:sid/:cid', session.require, session.restrictToModerator, moderator.ambassador);
+app.post('/moderator/simulation/visible-paper/:sid', session.require, session.restrictToModerator, moderator.positionPaperVisible);
+app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToModerator, moderator.directives);
+app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
+app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
+app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
+app.get('/moderator/metrics/peruser/:sid', session.require, session.restrictToModerator, moderator.metricsPageByUser);
+app.get('/moderator/metrics/perteam/:sid', session.require, session.restrictToModerator, moderator.metricsPageByTeam);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
@@ -92,9 +95,15 @@ app.post('/participant/ambassador/:sid/:cid', session.require, participant.ambas
 
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
-app.post('/debate/:id', session.require, debate.comment);
+app.get('/debate/:id/:chid', session.require, debate.viewChannel);
+app.post('/debate/comment/:id/:chid', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
+/* app.post('/debate/:id/:cid', session.require, session.restrictToModerator, debate.deleteComment); */
+
+// Communication Channels
+app.post('/debate/:id/communication/create', session.require, debate.createChannel);
+app.post('/debate/:id/communication/delete', session.require, debate.deleteChannel);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {

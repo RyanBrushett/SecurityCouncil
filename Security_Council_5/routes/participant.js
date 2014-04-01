@@ -96,12 +96,17 @@ exports.debateMotion = function(req, res) {
             motion = m;
         }
         else {
+            if (m.inVote) {
+                m.votes = [];
+            }
+            
             m.inDebate = false;
+            m.inVote = false;
             motion = m;
         }
     }
     simulation.resolution.inDebate = false;
-    db.helpers.createComment(simulation, {
+    db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'New motion under debate!\n' + motion.body + '\n' + 'Moved by: ' + motion.mover.name + '\n',
         user: user
     });
@@ -117,9 +122,14 @@ exports.debateResolution = function(req, res) {
         m.inDebate = false;
         m.inVote = false;
     }
+    
+    if (simulation.resolution.inVote) {
+        simulation.resolution.votes = [];
+    }
+    
     simulation.resolution.inDebate = true;
     simulation.resolution.inVote = false;
-    var newComment = db.helpers.createComment(simulation, {
+    var newComment = db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Resolution is now up for debate!',
         user: user
     });
@@ -152,7 +162,7 @@ exports.voteMotion = function(req, res) {
         }
     }
     simulation.resolution.inDebate = false;
-    db.helpers.createComment(simulation, {
+    db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Motion open for voting!\n' + motion.body + '\nMoved by: ' + motion.mover.name,
         user: user
     });
@@ -174,7 +184,7 @@ exports.voteResolution = function(req, res) {
             user: undefined
         });
     }
-    db.helpers.createComment(simulation, {
+    db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Resolution open for voting!',
         user: user
     });
@@ -230,8 +240,7 @@ exports.ambassador = function(req, res) {
     var countryId = req.params.cid;
     var ambassadorId = req.body["ambassador"];
     var ambassador = db.users[ambassadorId];
-    user.ambassadorPreference = ambassador.name;
-    db.helpers.updateAmbassador(simulation.countries[countryId]);
+    db.helpers.updateAmbassador(simulation, simulation.countries[countryId], user, ambassador.name);
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
 
