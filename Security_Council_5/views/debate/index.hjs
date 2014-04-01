@@ -18,8 +18,7 @@
                     {{#currentUser.flag}}
                     <li><img src="/images/{{ currentUser.flag }}" width="24px", height="24px"></li>
                     {{/currentUser.flag}}
-                    {{getCountries}}
-                    <li><a href="/participant/simulation/{{sid}}/{{getId}}/{{getName}}">Country</a></li>
+                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
                 <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>

@@ -240,7 +240,7 @@ main section:first-of-type {
 .textbox {
     width: 100%;
     height: 6em;
-    font-family: Bitter, sans-serif;
+    font-family: Raleway, sans-serif;
     font-size: 1em;
 }
 
@@ -258,6 +258,8 @@ main section:first-of-type {
 .card-content {
     overflow: auto;
     overflow-x: hidden;
+    font-family: Raleway, sans-serif;
+    font-size: 1em;
     height: 8em;
 }
 
