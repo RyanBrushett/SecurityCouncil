@@ -166,7 +166,7 @@ module.exports.loadCompleted = function (cache) {
 
 var helpers = module.exports.helpers = {};
 
-helpers.updateAmbassador = function (country, user, preference) {
+helpers.updateAmbassador = function (simulation, country, user, preference) {
     var countryMembers = country.members;
     var votes = [];
     var noPreference = 0;
@@ -253,12 +253,12 @@ helpers.createResolution = function (simulation, options) {
     return r;
 };
 
-helpers.createComment = function (simulation, options) {
-    options.id = simulation.comments.length;
+helpers.createComment = function (channel, options) {
+    options.id = channel.comments.length;
     var comment = new models.Comment(options);
     module.exports.save(comment);
-    simulation.comments.unshift(comment);
-    module.exports.save(simulation);
+    channel.comments.unshift(comment);
+    module.exports.save(channel);
     return comment;
 };
 
@@ -428,6 +428,29 @@ helpers.checkVotingPermissions = function (simulation, user) {
     }
     
     return s;
+};
+
+helpers.checkPostingPermissions = function (channel, user) {
+    p = {};
+    
+    p.userCanComment = false;
+    for (var i = 0; i < channel.participants.length; i++) {
+        if (channel.participants[i].username === user.username) {
+            p.userCanComment = true;
+        }
+    }
+    
+    p.userCanRead = false;
+    for (var i = 0; i < channel.participants.length; i++) {
+        if (channel.participants[i].username === user.username) {
+            p.userCanRead = true;
+        }
+    }
+    if (channel.permissions === false) {
+        p.userCanRead = true;
+    }
+    
+    return p;
 };
 
 //Add an ambassador to the default comm channel, and remove anyone else from a country from the default channel
@@ -635,10 +658,12 @@ module.exports.fillWithData = function () {
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
     helpers.createCommunicationChannel(s1, {
-        label: "Default"
-    }); 
+        label: "Default",
+        permissions: false
+    });
     helpers.createCommunicationChannel(s2, {
-        label: "Default"
+        label: "Default",
+        permissions: false
     }); 
     helpers.createResolution(s1, {
         title: 'S/RES/2139(2013)',
