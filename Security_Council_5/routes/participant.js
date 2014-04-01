@@ -198,7 +198,7 @@ exports.deleteMotion = function(req, res) {
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
         if(simulation.motions[i].id === req.body.motionId) {
-            simulation.motions.splice(i, 1);
+            simulation.motions[i].isDeleted = true;
             break;
         }
     }
