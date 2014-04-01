@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Moderator dashboard &middot; Council</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+    </head>
+    <body>
+        <header class="header">
+            <h1><a href="/">Council</a></h1>
+            <nav class="navigation">
+                <ul>
+                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/debate/{{simulation.id}}">View the Debate</a></li>
+                    <li><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/simulation/new">Create a new simulation</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <h2><a href="/moderator/metrics/peruser/{{simId}}">Metrics By User</a></h2>
+            <h2><a href="/moderator/metrics/perteam/{{simId}}">Metrics By Team</a></h2>
+            <h2><a href="/moderator/metrics/motions/{{simId}}">Motion Metrics</a></h2>
+            <h2><a href="/moderator/metrics/{{simId}}">Metrics Overview</a></h2>
+            <table>
+                <tr>
+                    <td>Sim ID</td>
+                    <td>{{simId}}</td>
+                </tr>
+                <tr>
+                    <td>Sim Name</td>
+                    <td>{{simName}}</td>
+                </tr>
+                <tr>
+                    <td>Total Comments</td>
+                    <td>{{totalComments}}</td>
+                </tr>
+                <tr>
+                    <td>Total Teams</td>
+                    <td>{{numTeams}}</td>
+                </tr>
+                <tr>
+                    <td>Total Participants</td>
+                    <td>{{numUsers}}</td>
+                </tr>
+                <tr>
+                    <td>Total Motions Put Forward</td>
+                    <td>{{numMotions}}</td>
+                </tr>
+            </table>
+        </main>
+    </body>
+</html>
