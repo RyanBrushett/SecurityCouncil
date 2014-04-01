@@ -8,3 +8,14 @@
     - A good idea is to create a new moderator for each simulation, though this is not strictly required.
     - The 'initial' moderator account CAN be used but is generally discouraged. A 'named' moderator account is more meaningful for end users.
 3. At this point you'll want to log in as your new moderator. From here you should create a new simulation!
+4. Once you're logged in, click on "Create a New Simulation". Fill out the options accordingly.
+5. Once you're happy with that and have submitted the new simulation, you're ready to tell your users to sign up.
+
+## User Sign Up:
+
+1. A user hits the login page and does not have an account. They must fill out the registration form.
+2. Note that if the passwords don't match OR if they select the same team more than once as their preference, they'll be warned and asked to redo the form.
+3. Once the user account is created, they'll automatically be logged in and they can see simulations they are not a member of.
+4. The user will select the simulation and, from the simulation page, be given the option to join the simulation.
+*NOTE* that upon joining the user will be assigned to their team using a weighted algorithm to determine what team to assign them to. See TechnicalNotes.md for details.
+5. This process repeats for each user.
