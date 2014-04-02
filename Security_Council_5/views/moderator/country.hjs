@@ -45,7 +45,11 @@
             <hr class="separator">
             <h2>Position paper</h2>
             <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
+            {{#plainTextPP}}
+            {{/plainTextPP}}
+            {{^plainTextPP}}
             <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+            {{/plainTextPP}}
             <hr class="separator">
             <h2>Country directives</h2>
             <p>Set directives for this country, based on their position paper.</p>

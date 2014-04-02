@@ -20,6 +20,12 @@ exports.country = function (req, res) {
     var simulation = db.simulations[req.params.sid];
     var countries = simulation.countries;
     var country = countries[req.params.cid];
+    var plainTextPP = false;
+    if (typeof country.positionPaper != 'undefined') {
+        if (country.positionPaper.file === null){
+            plainTextPP = true;
+        }
+    }
     res.render('moderator/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -27,6 +33,7 @@ exports.country = function (req, res) {
         countryId: country.id,
         simulation: simulation,
         positionPaper: country.positionPaper,
+        plainTextPP: plainTextPP,
         positionPaperVisible: simulation.paperIsViewable,
         directives: country.directives,
         user: user
