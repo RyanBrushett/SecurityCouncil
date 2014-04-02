@@ -29,11 +29,11 @@
             <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
             <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#debateReso}}
-                Debating Resolution
+                Debating the resolution
                 {{/debateReso}}
                 {{^debateReso}}
                     {{#voteReso}}
-                    Voting Resolution
+                    Voting on the resolution
                     {{/voteReso}}
                     {{^voteReso}}
                     {{/voteReso}}
