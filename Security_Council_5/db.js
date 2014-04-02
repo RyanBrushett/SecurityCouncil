@@ -226,12 +226,29 @@ helpers.createVote = function (votable, options) {
     module.exports.save(vote);
 };
 
+var POSITION_PAPER_ID = 0;
 helpers.setPositionPaper = function (country, options) {
-    return;
+    var id = POSITION_PAPER_ID++;
+    options.id = id;
+    var positionPaper = new models.PositionPaper(options);
+    country.positionPaper = positionPaper;
+    module.exports.save(positionPaper);
+    module.exports.save(country);
+    return positionPaper;
 };
 
 helpers.setPositionPaperPlainText = function (country, text) {
-    return;
+    var id = POSITION_PAPER_ID++;
+    var options = {
+        id : id,
+        summary : text,
+        file : null
+    };
+    var positionPaper = new models.PositionPaper(options);
+    country.positionPaper = positionPaper;
+    module.exports.save(positionPaper);
+    module.exports.save(country);
+    return positionPaper;
 };
 
 helpers.createUser = function (options) {

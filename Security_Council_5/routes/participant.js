@@ -219,6 +219,7 @@ exports.deleteMotion = function(req, res) {
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var countries = simulation.countries;
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
@@ -262,9 +263,7 @@ exports.submit = function(req, res) {
     var simulation = db.simulations[simulationId];
     var country = simulation.countries[countryId];
     var positionPaper = req.files["position-paper"];
-    /* Here's the defect */
     if (positionPaper.size > 0 && positionPaper.name) {
-        // broken function
         db.helpers.setPositionPaper(country, {
             summary: req.body["position-paper-summary"],
             file: path.basename(positionPaper.path)
