@@ -10,7 +10,7 @@ html {
 
 a {
   cursor: pointer;
-  color:white;
+  color: white;
   text-decoration: none;
 }
 
@@ -91,7 +91,13 @@ input[type="checkbox"]:checked {
 }
 
 #a-channel {
-
+  background-color: #464646;
+  font-family: Raleway, sans-serif;
+  font-weight: 200;
+  padding: 2px;
+  border-radius: 6px;
+  color: white;
+  text-align: center;
 }
 
 .debate {

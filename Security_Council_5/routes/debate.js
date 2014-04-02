@@ -5,18 +5,12 @@ exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     var userCountry = db.helpers.getUserCountry(simulation, currentUser);
-    var debateResolution = false;
-    var voteResolution = false;
+    var debateResolution = simulation.resolution.inDebate || false;
+    var voteResolution = simulation.resolution.inVote || false;
     var users = db.users;
     var countries = db.countries;
     
     db.helpers.setUserFlag(simulation, currentUser);
-    
-    if (simulation.resolution.inVote) {
-        voteResolution = true;
-    } else if (simulation.resolution.inDebate) {
-        debateResolution = true;
-    }
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(simulation.communicationChannels[0], currentUser);

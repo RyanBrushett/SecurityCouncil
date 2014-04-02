@@ -32,19 +32,19 @@
                 Debating the resolution
                 {{/debateReso}}
                 {{^debateReso}}
-                    {{#voteReso}}
-                    Voting on the resolution
-                    {{/voteReso}}
-                    {{^voteReso}}
-                    {{/voteReso}}
-                    {{#simulation.motions}}
-                    {{#inDebate}}
-                    Debating motion {{{id}}}
-                    {{/inDebate}}
-                    {{#inVote}}
-                    Voting on motion {{{id}}}
-                    {{/inVote}}
-                    {{/simulation.motions}}
+                {{#voteReso}}
+                Voting on the resolution
+                {{/voteReso}}
+                {{^voteReso}}
+                {{/voteReso}}
+                {{#simulation.motions}}
+                {{#inDebate}}
+                Debating motion {{{id}}}
+                {{/inDebate}}
+                {{#inVote}}
+                Voting on motion {{{id}}}
+                {{/inVote}}
+                {{/simulation.motions}}
                 {{/debateReso}}
             </span></p></a>
         </section>
@@ -53,14 +53,14 @@
         <div id="channel-list">
             <h3>Channels</h3>
             <ul class="menu">
-            {{#simulation.channels}}
-                <li id="a-channel">{{label}}</li>
-            {{/simulation.channels}}
+            {{#simulation.communicationChannels}}
+                <li id="a-channel"><a href="">{{label}}</a></li>
+            {{/simulation.communicationChannels}}
             </ul>
         </div>
             <a href="#modal" id="create-new-channel">Create new channel</a>
         </section>
-        <section class="section">
+        <section class="debate">
                 <h2>Debate</h2>
                 <div class="discussion">
                     {{#permissions.votingMotion}}
