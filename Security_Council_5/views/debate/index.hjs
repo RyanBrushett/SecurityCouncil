@@ -28,14 +28,24 @@
         <section class="infobar">
             <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
             <p><span class="status"><a href="/debate/{{simulation.id}}">
-            {{#simulation.motions}}
-            {{#inDebate}}
-            Debating motion {{{id}}}
-            {{/inDebate}}
-            {{#inVote}}
-            Voting on motion {{{id}}}
-            {{/inVote}}
-            {{/simulation.motions}}
+                {{#debateReso}}
+                Debating Resolution
+                {{/debateReso}}
+                {{^debateReso}}
+                    {{#voteReso}}
+                    Voting Resolution
+                    {{/voteReso}}
+                    {{^voteReso}}
+                    {{/voteReso}}
+                    {{#simulation.motions}}
+                    {{#inDebate}}
+                    Debating motion {{{id}}}
+                    {{/inDebate}}
+                    {{#inVote}}
+                    Voting on motion {{{id}}}
+                    {{/inVote}}
+                    {{/simulation.motions}}
+                {{/debateReso}}
             </span></p></a>
         </section>
         <main>
