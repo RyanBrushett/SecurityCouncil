@@ -48,6 +48,14 @@ body {
   font-weight: 400;
 }
 
+td {
+    border-bottom-color: #464646;
+    border-bottom-width: 1px;
+    border-bottom-style: solid; 
+    padding-right: 20px;
+    text-align: right;
+}
+
 #simulation-name {
   padding-left: 1rem;
 }
