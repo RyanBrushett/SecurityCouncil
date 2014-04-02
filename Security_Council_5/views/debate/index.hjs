@@ -60,90 +60,7 @@
         </div>
             <a href="#modal" id="create-new-channel">Create new channel</a>
         </section>
-        <section class="debate">
-            <div class="discussion">
-                {{#permissions.votingMotion}}
-                {{#permissions.motionToVote}}
-                    {{#permissions.hasNotVoted}}
-                        {{#permissions.userCanVote}}
-                        <form action="/debate/vote/{{simulation.id}}/{{id}}" method="post">
-                            <input type="radio" name="vote" value="yay" checked>Yay</input>
-                            <input type="radio" name="vote" value="nay">Nay</input>
-                            <input type="radio" name="vote" value="absent">Not Present</input>
-                            <input type="submit" value="Vote!" class="button" />
-                        </form>
-                        {{/permissions.userCanVote}}
-                        {{^permissions.userCanVote}}
-                        There is a motion up for voting.<br />
-                        {{getBody}}
-                        {{/permissions.userCanVote}}
-                    {{/permissions.hasNotVoted}}
-                    {{^permissions.hasNotVoted}}
-                        You have already voted on this motion.
-                    {{/permissions.hasNotVoted}}
-                {{/permissions.motionToVote}}
-                {{/permissions.votingMotion}}
-                {{#permissions.votingResolution}}
-                    {{#permissions.hasNotVoted}}
-                        {{#permissions.userCanVote}}
-                        <form action="/debate/vote/{{simulation.id}}" method="post">
-                            <input type="radio" name="vote" value="yay" checked>Yay</input>
-                            <input type="radio" name="vote" value="nay">Nay</input>
-                            <input type="radio" name="vote" value="absent">Not Present</input>
-                            <input type="submit" value="Vote!" class="button" />
-                        </form>
-                        {{/permissions.userCanVote}}
-                        {{^permissions.userCanVote}}
-                        The resolution is up for voting.<br>
-                        {{body}}
-                        {{/permissions.userCanVote}}
-                    {{/permissions.hasNotVoted}}
-                    {{^permissions.hasNotVoted}}
-                        You have already voted on this resolution.
-                    {{/permissions.hasNotVoted}}
-                {{/permissions.votingResolution}}
-                {{^permissions.voting}}
-                <form action="/debate/{{simulation.id}}" method="post">
-                    <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
-                    <input type="submit" value="Comment" class="button">
-                </form>
-                {{/permissions.voting}}
-                {{#simulation.comments}}
-                <blockquote class="card">
-                    <p class="card-content">{{{content}}}</p>
-                    <footer class="card-info">
-                        {{#user}}
-                        {{#isChair}}
-                        <p class="card-info__name--chair">{{name}}</p>
-                        <p class="card-info__name--chair">Council Chair</p>
-                        <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
-                        {{/isChair}}
-                        {{^isChair}}
-                        <p>{{name}}</p>
-                        <img class="card-info__flag" src="/images/{{flag}}" alt="Country Flag">
-                        {{/isChair}}
-                        {{/user}}
-                    </footer>
-                </blockquote>
-                {{/simulation.comments}}
-            </div>
-        </section>
-        <section class="resolution">
-            {{#simulation.resolution}}
-            <h3>{{title}}</h3>
-            <p class="resolution-content">{{content}}</p>
-            {{/simulation.resolution}}
-            <section class="sidebar">
-                <h2>Channels</h2>
-                <nav class="sidebar__content">
-                    <ul class="conversations">
-                        <li><a>All members (entire cacus)</a></li>
-                        <li><a>Nigeria</a></li>
-                        <li><a>Russia, Chad</a></li>
-                    </ul>
-                </nav>
-            </section>
-            <section class="section">
+        <section class="section">
                 <h2>Debate</h2>
                 <div class="discussion">
                     {{#permissions.votingMotion}}
@@ -224,6 +141,12 @@
                     {{/userCanRead}}
                 </div>
             </section>
+        </section>
+        <section class="resolution">
+            {{#simulation.resolution}}
+            <h3>{{title}}</h3>
+            <p class="resolution-content">{{content}}</p>
+            {{/simulation.resolution}}
         </section>
         <div id="modal">
             {{#simulation.countries}}
