@@ -135,9 +135,14 @@
             {{/simulation.resolution}}
         </section>
         <div id="modal">
-        {{#simulation.users}}
-        <input type="checkbox" name="id" value="{{username}}">{{username}}
-        {{/simulation.users}}
+            {{#simulation.countries}}
+                <h4><input type="checkbox" name="{{id}}" value="{{name}}">    {{name}}</h4>
+                {{#members}}
+                <p class="channel-user-option">{{username}}    <input type="checkbox" name="id" value="{{name}}"></p>
+                {{/members}}
+            {{/simulation.countries}}
+            <a href="" id="create-new-channel">Confirm</a>
+            <a href="" id="create-new-channel">Cancel</a>
         </div>
         </main>
     </body>

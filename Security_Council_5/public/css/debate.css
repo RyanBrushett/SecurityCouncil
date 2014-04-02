@@ -48,6 +48,20 @@ body {
   font-weight: 400;
 }
 
+
+input[type="checkbox"] {
+    display:inline-block;
+    width: 2em;
+    height: 2em;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    background: #464646 left top no-repeat;
+    cursor:pointer;
+}
+input[type="checkbox"]:checked {
+    background: #464646 -19px top no-repeat;
+}
+
 #simulation-name {
   padding-left: 1rem;
 }
@@ -234,20 +248,29 @@ main section:first-of-type {
 
 #modal {
   z-index: 999;
-  background-color: white;
+  padding: 20px;
+  background-color: #6db0fa;
+  color: white;
   display: none;
   top: 25%;
   left: 25%;
   position: absolute;
   margin: 0 auto 0 auto;
-  flex-direction: column;
-  width: 40%;
+  width: 60%;
+  height: 60%;
   overflow: auto;
   overflow-x: hidden;
+  border: @gray solid 1px;
+  border-radius: 5px;
 }
 
 #modal:target {
   display: block;
+}
+
+.channel-user-option {
+  font-family: Raleway, sans-serif;
+  text-align: right;
 }
 
 /**********

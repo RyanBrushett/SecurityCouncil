@@ -7,6 +7,9 @@ exports.view = function(req, res) {
     var userCountry = db.helpers.getUserCountry(simulation, currentUser);
     var debateResolution = false;
     var voteResolution = false;
+    var users = db.users;
+    var countries = db.countries;
+    
     db.helpers.setUserFlag(simulation, currentUser);
     
     if (simulation.resolution.inVote) {
@@ -22,7 +25,8 @@ exports.view = function(req, res) {
         userCountry: userCountry,
         permissions: perm,
         debateReso: debateResolution,
-        voteReso: voteResolution
+        voteReso: voteResolution,
+        users: users
     });
 };
 
