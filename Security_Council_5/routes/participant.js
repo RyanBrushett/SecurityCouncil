@@ -219,6 +219,7 @@ exports.deleteMotion = function(req, res) {
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var countries = simulation.countries;
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
@@ -267,6 +268,8 @@ exports.submit = function(req, res) {
             summary: req.body["position-paper-summary"],
             file: path.basename(positionPaper.path)
         });
+    } else if (req.body["position-paper-summary"]) {
+        db.helpers.setPositionPaperPlainText(country, req.body["position-paper-summary"]);
     }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };

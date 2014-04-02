@@ -48,9 +48,9 @@
             <hr class="separator">
             <h2>Position paper</h2>
             <form action="/participant/submit/{{simulation.id}}/{{countryId}}" enctype="multipart/form-data" method="post">
-                <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaperSummary}}}</textarea>
+                <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaper.summary}}}</textarea>
                 {{#positionPaper}}
-                <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+                <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
                 {{/positionPaper}}
                 <input type="file" name="position-paper">
                 <input type="submit" class="button" value="Submit Position Paper">
@@ -62,9 +62,9 @@
             {{^userIsMember}}
             {{#positionPaperVisible}}
             <hr class="separator">
+            {{#positionPaper}}
             <h2>Position paper</h2>
             <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
-            {{#positionPaper}}
             <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
             {{/positionPaper}}
             {{/positionPaperVisible}}
