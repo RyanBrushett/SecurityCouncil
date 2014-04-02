@@ -4,10 +4,11 @@ function Motion(options) {
     this.id = options.id;
     this.mover = options.mover;
     this.seconder = options.seconder;
-    this.isDebate = false;
-    this.isVote = false;
-    this.isApproved = false;
-    this.isDenied = false;
+    this.inDebate = options.inDebate || false;
+    this.inVote = options.inVote || false;
+    this.isApproved = options.isApproved || false;
+    this.isDenied = options.isDenied || false;
+    this.isDeleted = options.isDeleted || false;
     this.type = options.type;
     this.votes = options.votes || [];
 };
