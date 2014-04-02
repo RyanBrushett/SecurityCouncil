@@ -101,14 +101,77 @@ exports.metricsPage = function (req, res) {
     var totalComments = simulation.comments.length;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
-    var numMotions = simulation.motions.length;
+    var motions = simulation.motions;
+    var numMotions = motions.length;
+    var inDebate = 0;
+    var inVote = 0;
+    var numApproved = 0;
+    var numDenied = 0;
+    var numDeleted = 0;
+    var users = [];
     for (var i = 0; i < numTeams; i++) {
         var _country = simulation.countries[i];
         for (var j = 0; j < _country.members.length; j++) {
             numUsers++;
+            var _tempUser = _country.members[j];
+            _tempUser.teamname = _country.name;
+            _tempUser.numberOfComments = 0;
+            users.push(_tempUser);
         }
     }
-    
+    for (var i = 0; i < totalComments; i++) {
+        for (var j = 0; j < users.length; j++) {
+            if (simulation.comments[i].user.id === users[j].id) {
+                users[j].numberOfComments += 1;
+            }
+        }
+    }
+    for (var i = 0; i < numTeams; i++) {
+        var _country = simulation.countries[i];
+        _country.comments = 0;
+        _country.numMotions = 0;
+        _country.motionsApproved = 0;
+        _country.motionsDenied = 0;
+        _country.motionsDeleted = 0;
+        for (var j = 0; j < users.length; j++) {
+            if (_country.name === users[j].teamname) {
+                _country.comments += users[j].numberOfComments;
+            }
+        }
+    }
+    for (var i = 0; i < numMotions; i++) {
+        var _motion = simulation.motions[i];
+        for (var j = 0; j < numTeams; j++) {
+            if (_motion.mover.id === simulation.countries[j].id) {
+                var _country = simulation.countries[j];
+                _country.numMotions += 1;
+                if (_motion.isApproved) {
+                    _country.motionsApproved += 1;
+                } else if (_motion.isDenied) {
+                    _country.motionsDenied += 1;
+                } else if (_motion.isDeleted) {
+                    _country.motionsDeleted += 1;
+                } else {
+                    continue;
+                }
+            }
+        }
+    }
+    for (var i = 0; i < numMotions; i++) {
+        if (motions[i].inDebate) {
+            inDebate++;
+        } else if (motions[i].inVote) {
+            inVote++;
+        } else if (motions[i].isApproved) {
+            numApproved++;
+        } else if (motions[i].isDenied) {
+            numDenied++;
+        } else if (motions[i].isDeleted) {
+            numDeleted++;
+        } else {
+            continue;
+        }
+    }
     res.render('moderator/metricsdash', {
         user : db.users[req.session.userId],
         simId : simulation.id,
@@ -117,7 +180,15 @@ exports.metricsPage = function (req, res) {
         totalComments : totalComments,
         numTeams : numTeams,
         numUsers : numUsers,
-        numMotions : numMotions
+        numMotions : numMotions,
+        indebate : inDebate,
+        invote : inVote,
+        numapproved : numApproved,
+        numdenied : numDenied,
+        numdeleted : numDeleted,
+        totalMotions : numMotions,
+        motions : motions,
+        users : users,
     });
 };
 
