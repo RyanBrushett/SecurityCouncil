@@ -1,5 +1,5 @@
 * {
-      box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -271,6 +271,9 @@ main section:first-of-type {
 .channel-user-option {
   font-family: Raleway, sans-serif;
   text-align: right;
+
+.new-simulation-form {
+  flex: 0 0 100%;
 }
 
 /**********
