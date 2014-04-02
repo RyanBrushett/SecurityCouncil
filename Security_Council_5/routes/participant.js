@@ -219,9 +219,16 @@ exports.deleteMotion = function(req, res) {
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var countries = simulation.countries;
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
+    var plainTextPP = false;
+    if (typeof country.positionPaper != 'undefined') {
+        if (country.positionPaper.file === null){
+            plainTextPP = true;
+        }
+    }
     res.render('participant/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -232,6 +239,7 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.id,
         positionPaper: country.positionPaper,
+        plainTextPP: plainTextPP,
         positionPaperVisible: simulation.paperIsViewable,
         directives: country.directives,
         userIsAmbassador: userIsAmbassador
@@ -267,6 +275,8 @@ exports.submit = function(req, res) {
             summary: req.body["position-paper-summary"],
             file: path.basename(positionPaper.path)
         });
+    } else if (req.body["position-paper-summary"]) {
+        db.helpers.setPositionPaperPlainText(country, req.body["position-paper-summary"]);
     }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
