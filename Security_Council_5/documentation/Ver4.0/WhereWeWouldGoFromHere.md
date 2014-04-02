@@ -16,4 +16,3 @@
 4. More elaborate metrics
     - More detail for all measurables.
     - Visualizations
-

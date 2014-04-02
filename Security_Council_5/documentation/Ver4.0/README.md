@@ -20,6 +20,7 @@ This project is based on the Model-View-Controller application design pattern an
     - A models directory that contains all of the models for the application.
     - A views directory that contains all of the html / hjs pages for the application.
     - A public directory that is home to both the public javascript and CSS files, as well as the uploaded position papers.
+    - A documentation directory that contains the meat of the documentation including a copy of this README and other related files.
     - This README.md file.
 
 ## Installing and running the app
@@ -57,6 +58,8 @@ Then, using Chrome, connect to http://localhost:3333/
 You'll be presented with a login page. You may log in with <username // password> ryanb // password
 
 You can stop the application within eclipse.
+
+- - -
 
 # (Ver4.0)
 
@@ -103,6 +106,8 @@ A major component of the final iteration is going to be design and usability but
 
 ## How it works
 
-See Testing.md
-See TechnicalNotes.md
- 
+Navigate to the documentation/Ver4.0/ directory and:
+
+- See Testing.md
+- See TechnicalNotes.md
+- See WhwreWeWouldGoFromHere.md

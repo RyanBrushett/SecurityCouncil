@@ -10,6 +10,7 @@
 - If the users can not be placed in his/her third preference, the system iterates through all countries (starting at a random point). If the number of people in that country is less than the ideal number, add user to that team.
 - If all countries are full (worst case scenario) add the user to any random country.
 
+- - -
 
 # Users Vote on Ambassador:
 
