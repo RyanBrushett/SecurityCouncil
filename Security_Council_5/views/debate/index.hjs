@@ -61,7 +61,6 @@
             <a href="#modal" id="create-new-channel">Create new channel</a>
         </section>
         <section class="debate">
-                <h2>Debate</h2>
                 <div class="discussion">
                     {{#permissions.votingMotion}}
                     {{#permissions.motionToVote}}
