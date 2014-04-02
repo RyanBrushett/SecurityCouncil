@@ -52,40 +52,51 @@ body {
   padding-left: 1rem;
 }
 
-.channels {
+.metrics-options {
   overflow: auto;
   overflow-x: hidden;
   flex: 0 0 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-#create-new-channel {
-  background-color: #464646;
-  font-family: Raleway, sans-serif;
-  font-weight: 200;
-  padding: 10px;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-
+#overview {
+    display: none;
 }
 
-#channel-list {
-
+#overview:target {
+    display: flex;
 }
 
-#a-channel {
-
+#user {
+    display: none;
 }
 
-.debate {
-  overflow: auto;
-  width: 40%;
+#user:target {
+    display: flex;
+}
+
+#team {
+    display: none;
+}
+
+#team:target {
+    display: flex;
+}
+
+#motion {
+    display: none;
+}
+
+#motion:target {
+    display: flex;
+}
+
+.metrics-view {
+  display: flex;
   overflow: auto;
   overflow-x: hidden;
-  flex: 0 0 40%;
+  flex: 0 0 80%;
 }
 
 .header {
@@ -193,7 +204,11 @@ main section:first-of-type {
 }
 
 .menu {
-  
+  display: flex;
+}
+
+.menu-option {
+    color: #464646;
 }
 
 .menu li {
