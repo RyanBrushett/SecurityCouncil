@@ -4,16 +4,26 @@ var Motion = require('../models/motion.js');
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
+    var debateResolution = false;
+    var voteResolution = false;
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(simulation.communicationChannels[0], currentUser);
+    
+    if (simulation.resolution.inVote) {
+        voteResolution = true;
+    } else if (simulation.resolution.inDebate) {
+        debateResolution = true;
+    }
     
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
         permissions: perm,
         channel: simulation.communicationChannels[0],
+        voteReso: voteResoltion,
+        debateReso: debateResolution,
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
     });
