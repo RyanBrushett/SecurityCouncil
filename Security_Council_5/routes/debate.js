@@ -22,7 +22,7 @@ exports.view = function(req, res) {
         currentUser: currentUser,
         permissions: perm,
         channel: simulation.communicationChannels[0],
-        voteReso: voteResoltion,
+        voteReso: voteResolution,
         debateReso: debateResolution,
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
