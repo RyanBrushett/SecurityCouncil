@@ -262,6 +262,7 @@ exports.submit = function(req, res) {
     var simulation = db.simulations[simulationId];
     var country = simulation.countries[countryId];
     var positionPaper = req.files["position-paper"];
+    /* Here's the defect */
     if (positionPaper.size > 0 && positionPaper.name) {
         db.helpers.setPositionPaper(country, {
             summary: req.body["position-paper-summary"],
