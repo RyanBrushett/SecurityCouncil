@@ -264,10 +264,13 @@ exports.submit = function(req, res) {
     var positionPaper = req.files["position-paper"];
     /* Here's the defect */
     if (positionPaper.size > 0 && positionPaper.name) {
+        // broken function
         db.helpers.setPositionPaper(country, {
             summary: req.body["position-paper-summary"],
             file: path.basename(positionPaper.path)
         });
+    } else if (req.body["position-paper-summary"]) {
+        // function to just set plain text
     }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
