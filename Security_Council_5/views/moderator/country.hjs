@@ -46,6 +46,7 @@
             <h2>Position paper</h2>
             <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
             {{#plainTextPP}}
+            <p>Plain Text Position Paper. See textbox above.</p>
             {{/plainTextPP}}
             {{^plainTextPP}}
             <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
