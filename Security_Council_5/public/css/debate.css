@@ -277,6 +277,7 @@ main section:first-of-type {
 .channel-user-option {
   font-family: Raleway, sans-serif;
   text-align: right;
+}
 
 .new-simulation-form {
   flex: 0 0 100%;
@@ -293,6 +294,13 @@ main section:first-of-type {
     font-size: 1em;
 }
 
+.textbox-small {
+    width: 100%;
+    height: 2em;
+    font-family: Raleway, sans-serif;
+    font-size: 1em;
+}
+
 .card,
 .card--textarea {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
@@ -302,14 +310,14 @@ main section:first-of-type {
     margin-bottom: 1rem;
     padding: 1rem;
     width: 100%;
+    height: 8em;
+    overflow: auto;
+    overflow-x: hidden;
 }
 
 .card-content {
-    overflow: auto;
-    overflow-x: hidden;
     font-family: Raleway, sans-serif;
     font-size: 1em;
-    height: 8em;
 }
 
 .card-info {

@@ -49,19 +49,18 @@
             </span></p></a>
         </section>
         <main>
-        <section class="channels">
-        <div id="channel-list">
-            <h3>Channels</h3>
-            <ul class="menu">
-            {{#simulation.communicationChannels}}
-                <li id="a-channel"><a href="">{{label}}</a></li>
-            {{/simulation.communicationChannels}}
-            </ul>
-        </div>
-            <a href="#modal" id="create-new-channel">Create new channel</a>
-        </section>
+            <section class="channels">
+            <div id="channel-list">
+                <h3>Channels</h3>
+                <ul class="menu">
+                {{#simulation.communicationChannels}}
+                    <li id="a-channel"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a></li>
+                {{/simulation.communicationChannels}}
+                </ul>
+            </div>
+                <a href="#modal" id="create-new-channel">Create new channel</a>
+            </section>
         <section class="debate">
-            <div class="discussion">
                 {{#permissions.votingMotion}}
                 {{#permissions.motionToVote}}
                     {{#permissions.hasNotVoted}}
@@ -138,7 +137,6 @@
                     <p>You do not have permission to read this channel.</p>
                 </blockquote>
                 {{/userCanRead}}
-            </div>
         </section>
         <section class="resolution">
             {{#simulation.resolution}}
@@ -147,14 +145,15 @@
             {{/simulation.resolution}}
         </section>
         <div id="modal">
+            <input type="text" class="textbox-small" placeholder="New channel name">
             {{#simulation.countries}}
                 <h4><input type="checkbox" name="{{id}}" value="{{name}}">    {{name}}</h4>
                 {{#members}}
                 <p class="channel-user-option">{{username}}    <input type="checkbox" name="id" value="{{name}}"></p>
                 {{/members}}
             {{/simulation.countries}}
-            <a href="" id="create-new-channel">Confirm</a>
-            <a href="" id="create-new-channel">Cancel</a>
+            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Confirm</a>
+            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
         </div>
         </main>
     </body>

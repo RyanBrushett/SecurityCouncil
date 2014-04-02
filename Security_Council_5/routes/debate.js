@@ -5,8 +5,8 @@ exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
     var userCountry = db.helpers.getUserCountry(simulation, currentUser);
-    var debateResolution = simulation.resolution.inDebate || false;
-    var voteResolution = simulation.resolution.inVote || false;
+    var debateResolution = simulation.resolution.inDebate;
+    var voteResolution = simulation.resolution.inVote;
     var users = db.users;
     var countries = db.countries;
     
