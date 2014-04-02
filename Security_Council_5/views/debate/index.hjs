@@ -58,7 +58,7 @@
             {{/simulation.channels}}
             </ul>
         </div>
-            <a href="" id="create-new-channel">Create new channel</a>
+            <a href="#modal" id="create-new-channel">Create new channel</a>
         </section>
         <section class="debate">
             <div class="discussion">
@@ -134,6 +134,11 @@
             <p class="resolution-content">{{content}}</p>
             {{/simulation.resolution}}
         </section>
+        <div id="modal">
+        {{#simulation.users}}
+        <input type="checkbox" name="id" value="{{username}}">{{username}}
+        {{/simulation.users}}
+        </div>
         </main>
     </body>
 </html>

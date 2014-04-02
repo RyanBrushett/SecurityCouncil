@@ -81,7 +81,6 @@ body {
 }
 
 .debate {
-  overflow: auto;
   width: 40%;
   overflow: auto;
   overflow-x: hidden;
@@ -231,6 +230,24 @@ main section:first-of-type {
   font-size: 1em;
   font-family: Raleway, sans-serif;
   font-weight: 200;
+}
+
+#modal {
+  z-index: 999;
+  background-color: white;
+  display: none;
+  top: 25%;
+  left: 25%;
+  position: absolute;
+  margin: 0 auto 0 auto;
+  flex-direction: column;
+  width: 40%;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
+#modal:target {
+  display: block;
 }
 
 /**********
