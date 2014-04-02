@@ -3,29 +3,37 @@
     <head>
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/createmoderator.css">
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
-                    <li><a href="/">Dashboard</a></li>
+                <ul class="navigation__items">
+                    {{#user.pic}}
+                    <li><img src="/images/{{ user.pic }}" width="24px", height="24px"></li>
+                    {{/user.pic}}
+                    <li><a>{{ user.name }}</a></li>
+                    {{#user.flag}}
+                    <li><img src="/images/{{ user.flag }}" width="24px", height="24px"></li>
+                    {{/user.flag}}
+                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                </ul>
+                <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>
-                    <li><a href="/simulation/new">Create a new simulation</a></li>
                 </ul>
             </nav>
         </header>
         <main>
-            <h2>Create Moderator</h2>
+            <section class="moderator-form">
+            <h3>Create New Moderator</h3>
             <form action="/moderator/create" method="post">
-                <input type="text" name="name" placeholder="Full Name" />
-                <input type="text" name="username" placeholder="Username" />
-                <input type="password" name="password" placeholder="Password" />
+                <input type="text" class="textbox" name="name" placeholder="Full Name" />
+                <input type="text" class="textbox" name="username" placeholder="Username" />
+                <input type="password" class="textbox" name="password" placeholder="Password" />
                 <input class="button" type="submit" value="Create Moderator">
-            </form>    
+            </form>
+            </section>  
         </main>
     </body>
 </html>
