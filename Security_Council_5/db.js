@@ -226,6 +226,14 @@ helpers.createVote = function (votable, options) {
     module.exports.save(vote);
 };
 
+helpers.setPositionPaper = function (country, options) {
+    return;
+};
+
+helpers.setPositionPaperPlainText = function (country, text) {
+    return;
+};
+
 helpers.createUser = function (options) {
     options.id = module.exports.users.length;
     var user = new models.User(options);

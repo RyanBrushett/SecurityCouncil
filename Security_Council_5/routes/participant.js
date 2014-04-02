@@ -270,7 +270,7 @@ exports.submit = function(req, res) {
             file: path.basename(positionPaper.path)
         });
     } else if (req.body["position-paper-summary"]) {
-        // function to just set plain text
+        db.helpers.setPositionPaperPlainText(country, req.body["position-paper-summary"]);
     }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
