@@ -223,6 +223,12 @@ exports.country = function(req, res) {
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
+    var plainTextPP = false;
+    if (typeof country.positionPaper != 'undefined') {
+        if (country.positionPaper.file === null){
+            plainTextPP = true;
+        }
+    }
     res.render('participant/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -233,6 +239,7 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.id,
         positionPaper: country.positionPaper,
+        plainTextPP: plainTextPP,
         positionPaperVisible: simulation.paperIsViewable,
         directives: country.directives,
         userIsAmbassador: userIsAmbassador
