@@ -308,9 +308,12 @@ helpers.isUserCountryPermanent = function(simulation, user) {
 helpers.getUserCountry = function(simulation, user) {
     var countries = simulation.countries;
     var i;
+    var j;
     for (i = 0; i < countries.length; i++) {
-        if (countries[i].members.indexOf(user) >= 0) {
-            return countries[i];
+        for (j = 0; j < countries[i].members.length; j++) {
+            if (countries[i].members[j].id == user.id) {
+                return countries[i];
+            }
         }
     }
 };
