@@ -100,11 +100,6 @@ app.get('/debate/:id/:chid', session.require, debate.viewChannel);
 app.post('/debate/comment/:id/:chid', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
-/* app.post('/debate/:id/:cid', session.require, session.restrictToModerator, debate.deleteComment); */
-
-// Communication Channels
-app.post('/debate/:id/communication/create', session.require, debate.createChannel);
-app.post('/debate/:id/communication/delete', session.require, debate.deleteChannel);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {

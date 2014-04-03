@@ -254,9 +254,3 @@ exports.voteResolution = function(req, res) {
         userCanRead: chPerm.userCanRead
     });
 };
-
-exports.createChannel = function (req, res) {
-};
-
-exports.deleteChannel = function (req, res) {
-};

@@ -1,5 +1,7 @@
 # Testing the Application
 
+## General Stuff
+
 ### Initial Set up:
 
 1. The first thing you'll want to do is log in as moderator using the password Education--01 (that's two dashes)
@@ -37,3 +39,48 @@
 5. Scroll to the teams and select the team to which you'd like to appoint an ambassador.
 6. You'll see a dropdown with the members of the team listed.
 7. Select a user and click "Set Ambassador"
+
+### Debate Begins
+
+1. Technically, as soon as a user joins the simulation, they can access the debate screen. However, only Ambassadors can talk in the main channel.
+2. The debate is joined by logging in as a user, navigating to a simulation in which you are registered, and clicking the "Debate" button.
+3. Once in the debate screen, users can see the resolution, create communication channels (more on this in a second), and (if they are an ambassador) begin discussion.
+4. There is no character limit on comments!
+5. If a user wants to check for new comments, they can reload the debate using the reload button.
+
+### Creating Communication Channels
+
+1. A user can open a new communication channel with a subset of the members of the simulation by clicking the "Create New Channel" button.
+2. A window will pop up and users can select from the list the people (or countries) they'd like to have added. Be sure to name the channel in the bar at the top!
+    *NOTE* that adding a whole country adds all of the team members from that country.
+3. Once the chanel is created, it can be accessed on the left side of the debate view. Comment as normal!
+
+- - -
+
+## Being The Chair
+
+### You've Been Appointed. What now?
+
+1. Being the chair means you've been removed from your team _temporarily_ for however long you're the chair.
+2. You have been given some extra responsibility in place!
+    - You have a separate chair-only page to conduct official chair business.
+    - Your comments are special in the debate view (and are auto-generated).
+3. You are responsible for managing the flow of debate. When motions are put forward, it is up to you to receive and sort them.
+4. You will select what goes up for debate next, when motions are brought to a vote (or responding to a motion to vote) etc.
+
+### Accessing the Chair Page
+
+1. Once logged in, navigate to the simulation in which you are the chairperson.
+2. You'll see a button enabled at the top of the page called "Chair". Click that!
+3. From the chair screen, you'll see a list of motions (if there are any!) and the resolution.
+    - The buttons control the flow of debate/voting. You can also trash garbage motions, for example if a team forwards something blatantly silly.
+    - Be careful with that trash button! There is no undo.
+    *NOTE* to moderators: Motion metrics are tracked. We feel it's safe to assume deleted motions are redundant or silly and this is noted by team in the metrics page.
+4. When a motion has received enough debate, you'll be able to put it to a vote. This is left purposely vague and up to the chair as debate should flow organically.
+
+### Once You Click Vote
+
+1. When Vote is clicked, a notification is automatically generated on your behalf in the debate view and the main channel changes. Rather than commenting, users will be presented with the option to vote.
+2. When enough votes are put through, the result will be indicated and the chair page will change again slightly. Debate will default back to the resolution itself.
+    *NOTE* that th resolution will have to be manually updated to reflect the change forwarded by the motion. This, again, was left vague and general to allow motions to be organic.
+3. Only one motion can be debated at a time and, of course, voted upon at a time. 
