@@ -501,7 +501,7 @@ helpers.createCommunicationChannel = function (simulation, options) {
 
 helpers.addUserToChannel = function (channel, user) {
     channel.participants.push(user);
-    //module.exports.save(channel);
+    module.exports.save(channel);
 };
 
 helpers.getVisibleChannels = function (simulation, user) {
