@@ -26,7 +26,8 @@ exports.view = function(req, res) {
         debateReso: debateResolution,
         voteReso: voteResolution,
         users: users,
-        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });
 };
 
@@ -56,7 +57,8 @@ exports.viewChannel = function (req, res) {
         debateReso: debateResolution,
         voteReso: voteResolution,
         users: users,
-        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });    
 };
 
@@ -201,7 +203,7 @@ exports.vote = function(req, res) {
         }
     }
     
-    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.voteResolution = function(req, res) {
@@ -290,7 +292,7 @@ exports.voteResolution = function(req, res) {
         }
     }
     
-    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.deleteChannel = function (req, res) {
