@@ -63,6 +63,7 @@ a {
 
 img {
     vertical-align: middle;
+    border-radius: 16px;
 }
 
 em {
@@ -123,6 +124,8 @@ h3, h4 {
     font-family: Raleway, sans-serif;
     font-weight: 100;
     font-size: 1.4rem;
+    display: flex;
+    align-items: center;
 }
 
 .main {
@@ -137,6 +140,15 @@ h3, h4 {
 
 .section p,
 .button {
+    margin-top: 15px;
+}
+
+label,
+select {
+    display: block;
+}
+
+select {
     margin-top: 15px;
 }
 

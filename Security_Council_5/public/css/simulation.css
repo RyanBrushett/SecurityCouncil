@@ -59,6 +59,26 @@ body {
     display: block;
 }
 
+.countries {
+    width: 100%;
+}
+
+.country {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.country td {
+    flex: 1;
+}
+
 .country__name {
     font-weight: bold;
+}
+
+.resolution {
+    color: white;
+    background-color: #464646;
 }
