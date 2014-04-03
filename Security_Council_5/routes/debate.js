@@ -54,7 +54,7 @@ exports.viewChannel = function (req, res) {
      * Redirect just makes it reload the debate after it's done everything.
      * req.body contains all the info passed through in the forms and because
      * of the way the HTML has been cleaned up (e.g. countrycheck and usercheck
-     * with IDs for everything) this will return three thing:
+     * with IDs for everything) this will return three things:
      * req.body.channelname
      * req.body.countrycheck
      * req.body.usercheck
