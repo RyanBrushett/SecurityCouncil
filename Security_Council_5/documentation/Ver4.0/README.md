@@ -108,6 +108,6 @@ A major component of the final iteration is going to be design and usability but
 
 Navigate to the documentation/Ver4.0/ directory and:
 
-- See Testing.md
+- See UsingTheSoftware.md
 - See TechnicalNotes.md
 - See WhwreWeWouldGoFromHere.md
