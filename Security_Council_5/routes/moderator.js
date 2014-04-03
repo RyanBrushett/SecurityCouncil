@@ -86,6 +86,12 @@ exports.create = function (req, res) {
         username: username,
         password: password
     });
+    
+    for (var i = 0; i < db.simulations.length; i++) {
+        for (var j = 0; j < db.simulations[i].communicationChannels.length; j++) {
+            db.helpers.addUserToChannel(db.simulations[i].communicationChannels[j], moderator);
+        }
+    }
 
     res.redirect('/moderator/dashboard');
 };

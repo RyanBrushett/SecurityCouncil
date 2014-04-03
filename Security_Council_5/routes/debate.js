@@ -82,8 +82,14 @@ exports.createChannel = function (req, res) {
         permissions: true
     });
     
+    for (var i = 0; i < db.users.length; i++) {
+        if (db.users[i].moderator === true) {
+            db.helpers.addUserToChannel(channel, db.users[i]);
+        }
+    }    
+    
     for (var i = 0; i < req.body.usercheck.length; i++) {
-        channel.participants.push(db.users[req.body.usercheck[i]]);
+        db.helpers.addUserToChannel(channel, db.users[req.body.usercheck[i]]);
     }
     
     /*for (var i = 0; i < req.body.countrycheck.length; i++) {
