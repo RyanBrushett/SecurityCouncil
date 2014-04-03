@@ -3,27 +3,26 @@
     <head>
         <title>Login or register &middot; Council</title>
         <meta charset="utf-8">
+        <link href="http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800" rel="stylesheet" type="text/css">
         <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" href="/css/lr.css">
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
         </header>
-        <main>
+        <main class="main">
             <form class="section" action="/login" method="post">
                 <h2>Login</h2>
-                <h3>Already have an account</h3>
                 {{#lerror}}
                 <p class="error">{{lerror}}</p>
                 {{/lerror}}
                 <p><input type="text" name="username" placeholder="Username"></p>
                 <p><input type="password" name="password" placeholder="Password"></p>
-                <p><input class="button" type="submit" value="Login"></p>
+                <input class="button" type="submit" value="Login">
             </form>
             <form class="section" action="/signup" method="post">
                 <h2>Register</h2>
-                <h3>It only takes a moment</h3>
                 {{#rerror}}
                 <p class="error">{{rerror}}</p>
                 {{/rerror}}
