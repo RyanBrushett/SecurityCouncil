@@ -14,12 +14,12 @@
                     {{#user.pic}}
                     <li class="navigation__item"><img src="/images/{{ user.pic }}" width="24px", height="24px"></li>
                     {{/user.pic}}
-                    <li class="navigation__item"><a>{{ user.name }}</a></li>
+                    <li class="navigation__item"><a>{{user.name}}</a></li>
                     {{#user.flag}}
                     <li class="navigation__item"><img src="/images/{{ user.flag }}" width="24px", height="24px"></li>
                     {{/user.flag}}
                     <li class="navigation__item"><a href="/">Dashboard</a></li>
-                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li class="navigation__item"><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
                 <ul class="navigation__items logout">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>

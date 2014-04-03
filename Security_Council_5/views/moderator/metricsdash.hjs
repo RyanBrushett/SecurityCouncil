@@ -11,13 +11,13 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#user.pic}}
-                    <li><img src="/images/{{ user.pic }}" width="24px", height="24px"></li>
+                    <li><img src="/images/{{user.pic}}" width="24px", height="24px"></li>
                     {{/user.pic}}
-                    <li><a>{{ user.name }}</a></li>
+                    <li><a>{{user.name}}</a></li>
                     {{#user.flag}}
-                    <li><img src="/images/{{ user.flag }}" width="24px", height="24px"></li>
+                    <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
                     {{/user.flag}}
-                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                 </ul>
                 <ul class="navigation__items logout">
@@ -26,7 +26,7 @@
             </nav>
         </header>
         <section class="infobar">
-            <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            <a id="simulation-name" href="/moderator/simulation/{{simulation.id}}">{{simulation.name}}</a>
             <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
