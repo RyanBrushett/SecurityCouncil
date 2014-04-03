@@ -121,6 +121,8 @@ exports.metricsPage = function (req, res) {
             users.push(_tempUser);
         }
     }
+    
+    // gross
     commChannels.forEach(function(commChannel){
         for (var i = 0; i < commChannel.comments.length; i++){
             for (var j = 0; j < users.length; j++) {
