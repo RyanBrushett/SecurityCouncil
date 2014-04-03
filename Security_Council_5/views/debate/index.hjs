@@ -147,9 +147,9 @@
         <div id="modal">
             <input type="text" class="textbox-small" placeholder="New channel name">
             {{#simulation.countries}}
-                <h4><input type="checkbox" name="{{id}}" value="{{name}}">    {{name}}</h4>
+                <h4><input type="checkbox" name="{{id}}" value="{{id}}">{{name}}</h4>
                 {{#members}}
-                <p class="channel-user-option">{{username}}    <input type="checkbox" name="id" value="{{name}}"></p>
+                <p class="channel-user-option">{{username}}<input type="checkbox" name="id" value="{{name}}"></p>
                 {{/members}}
             {{/simulation.countries}}
             <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Confirm</a>
