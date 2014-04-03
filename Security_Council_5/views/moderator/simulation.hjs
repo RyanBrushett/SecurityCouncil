@@ -71,9 +71,6 @@
                     </select>
                     <input type="submit" class="button" value="Set mode">
                 </form>
-                <form>
-                    <button type="button" class="button">Sort teams</button>
-                </form>
             </section>
             <section class="section">
                 <h3>Countries</h3>
