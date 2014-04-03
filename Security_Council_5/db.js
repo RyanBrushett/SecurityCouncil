@@ -501,15 +501,15 @@ helpers.createCommunicationChannel = function (simulation, options) {
 
 helpers.addUserToChannel = function (channel, user) {
     channel.participants.push(user);
-    module.exports.save(channel);
+    //module.exports.save(channel);
 };
 
 helpers.getVisibleChannels = function (simulation, user) {
     var c = [];
     
-    for (var i = 0; i < simulation.communicationChannels.length; i++) {
-        if (simulation.communicationChannels[i].participants.indexOf(user) >= 0) {
-            if (i != 0) {
+    for (var i = 1; i < simulation.communicationChannels.length; i++) {
+        for (var j = 0; j < simulation.communicationChannels[i].participants.length; j++) {
+            if (simulation.communicationChannels[i].participants[j].id == user.id) {
                 c.push(simulation.communicationChannels[i]);
             }
         }
