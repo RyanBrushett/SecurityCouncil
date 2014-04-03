@@ -48,6 +48,27 @@ exports.viewChannel = function (req, res) {
     });    
 };
 
+exports.createChannel = function (req, res) {
+    var simulation = db.simulations[req.params.id];
+    var commChannel = simulation.communicationChannels[req.params.chid];
+    var currentUser = db.users[req.session.userId];
+    db.helpers.setUserFlag(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
+    //Right here is where some things should happen that do some other things
+    
+    res.render('debate/index', {
+        simulation: simulation,
+        currentUser: currentUser,
+        permissions: perm,
+        channel: commChannel,
+        userCanComment: chPerm.userCanComment,
+        userCanRead: chPerm.userCanRead
+    });        
+};
+
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var commChannel = simulation.communicationChannels[req.params.chid];

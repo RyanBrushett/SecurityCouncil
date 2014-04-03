@@ -4,7 +4,7 @@
         <title>{{simulation.name}} Debate &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/debate.css">
-        <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>     
     </head>
     <body>
         <header class="header">
@@ -145,15 +145,17 @@
             {{/simulation.resolution}}
         </section>
         <div id="modal">
-            <input type="text" class="textbox-small" placeholder="New channel name">
-            {{#simulation.countries}}
-                <h4><input type="checkbox" name="{{id}}" value="{{name}}">    {{name}}</h4>
-                {{#members}}
-                <p class="channel-user-option">{{username}}    <input type="checkbox" name="id" value="{{name}}"></p>
-                {{/members}}
-            {{/simulation.countries}}
-            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Confirm</a>
-            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
+            <form action="/debate/createchannel/{{simulation.id}}/{{channel.id}}" method="post" name="createchannel">
+                <input type="text" name="channelname" class="textbox-small" placeholder="New channel name">
+                {{#simulation.countries}}
+                    <h4><input type="checkbox" name="{{id}}" value="{{name}}">    {{name}}</h4>
+                    {{#members}}
+                    <p class="channel-user-option">{{username}}    <input type="checkbox" name="usercheck" value="{{name}}"></p>
+                    {{/members}}
+                {{/simulation.countries}}
+                <a href="#" onclick="document.forms['createchannel'].submit(); return false;" id="create-new-channel">Confirm</a>
+                <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
+            </form>
         </div>
         </main>
     </body>
