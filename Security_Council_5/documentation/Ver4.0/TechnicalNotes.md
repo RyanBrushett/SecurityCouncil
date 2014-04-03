@@ -20,12 +20,6 @@
 - Other users that are part of that country log in, go to their Country view, and select an ambassador preference.
 - When a majority of members of that country select a particular person to be their "preferred" ambassador, that person becomes the ambassador. 
 
-### For example:
-- ryanb // password logs in, navigates to Political Science 2200, and selects his team, Argentina. He votes for ryanb.
-- gwyn // password logs in, navigates to Political Science 2200, and selects her team, Argentina. She votes for reedb.
-- reedb // password logs in,  navigates to Political Science 2200, and selects his team, Argentina. He votes for ryanb.
-- ryanb is now the ambassador of the SCSS.
-
 ### How it works:
 - When a user submits their vote, a form submission containing their vote is forwarded to the participant.js route.
 - This controller sets the user's ambassador preference and calls country.updateAmbassador().
