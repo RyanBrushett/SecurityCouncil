@@ -98,35 +98,18 @@ exports.viewCreate = function (req, res) {
 
 exports.metricsPage = function (req, res) {
     var simulation = db.simulations[req.params.sid];
-    var totalComments = simulation.comments.length;
+    var totalCommChannels = simulation.communicationChannels.length;
+    var commChannels = simulation.communicationChannels;
     var numTeams = simulation.countries.length;
     var numUsers = 0;
-    var numMotions = simulation.motions.length;
-    for (var i = 0; i < numTeams; i++) {
-        var _country = simulation.countries[i];
-        for (var j = 0; j < _country.members.length; j++) {
-            numUsers++;
-        }
-    }
-    
-    res.render('moderator/metricsdash', {
-        user : db.users[req.session.userId],
-        simId : simulation.id,
-        simulation : simulation,
-        simName : simulation.name,
-        totalComments : totalComments,
-        numTeams : numTeams,
-        numUsers : numUsers,
-        numMotions : numMotions
-    });
-};
-
-exports.metricsPageByUser = function (req, res) {
-    var simulation = db.simulations[req.params.sid];
-    var totalComments = simulation.comments.length;
-    var numTeams = simulation.countries.length;
-    var numUsers = 0;
-    var numMotions = simulation.motions.length;
+    var motions = simulation.motions;
+    var numMotions = motions.length;
+    var totalComments = 0;
+    var inDebate = 0;
+    var inVote = 0;
+    var numApproved = 0;
+    var numDenied = 0;
+    var numDeleted = 0;
     var users = [];
     for (var i = 0; i < numTeams; i++) {
         var _country = simulation.countries[i];
@@ -138,50 +121,18 @@ exports.metricsPageByUser = function (req, res) {
             users.push(_tempUser);
         }
     }
-    for (var i = 0; i < totalComments; i++) {
-        for (var j = 0; j < users.length; j++) {
-            if (simulation.comments[i].user.id === users[j].id) {
-                users[j].numberOfComments += 1;
-            }
-        }
-    }
     
-    res.render('moderator/usermetrics', {
-        user : db.users[req.session.userId],
-        users : users,
-        simId : simulation.id,
-        simulation : simulation,
-        simName : simulation.name,
-        totalComments : totalComments,
-        numTeams : numTeams,
-        numUsers : numUsers
-    });
-};
-
-exports.metricsPageByTeam = function (req, res) {
-    var simulation = db.simulations[req.params.sid];
-    var totalComments = simulation.comments.length;
-    var numTeams = simulation.countries.length;
-    var numUsers = 0;
-    var numMotions = simulation.motions.length;
-    var users = [];
-    for (var i = 0; i < numTeams; i++) {
-        var _country = simulation.countries[i];
-        for (var j = 0; j < _country.members.length; j++) {
-            numUsers++;
-            var _tempUser = _country.members[j];
-            _tempUser.teamname = _country.name;
-            _tempUser.numberOfComments = 0;
-            users.push(_tempUser);
-        }
-    }
-    for (var i = 0; i < totalComments; i++) {
-        for (var j = 0; j < users.length; j++) {
-            if (simulation.comments[i].user.id === users[j].id) {
-                users[j].numberOfComments += 1;
+    // gross
+    commChannels.forEach(function(commChannel){
+        for (var i = 0; i < commChannel.comments.length; i++){
+            for (var j = 0; j < users.length; j++) {
+                if (commChannel.comments[i].user.id === users[j].id) {
+                    users[j].numberOfComments += 1;
+                    totalComments += 1;
+                }
             }
         }
-    }
+    });
     for (var i = 0; i < numTeams; i++) {
         var _country = simulation.countries[i];
         _country.comments = 0;
@@ -213,28 +164,6 @@ exports.metricsPageByTeam = function (req, res) {
             }
         }
     }
-    
-    res.render('moderator/teammetrics', {
-        user : db.users[req.session.userId],
-        users : users,
-        simId : simulation.id,
-        simulation : simulation,
-        simName : simulation.name,
-        totalComments : totalComments,
-        numTeams : numTeams,
-        numUsers : numUsers
-    });
-};
-
-exports.metricsPageMotions = function (req, res) {
-    var simulation = db.simulations[req.params.sid];
-    var motions = simulation.motions;
-    var numMotions = motions.length;
-    var inDebate = 0;
-    var inVote = 0;
-    var numApproved = 0;
-    var numDenied = 0;
-    var numDeleted = 0;
     for (var i = 0; i < numMotions; i++) {
         if (motions[i].inDebate) {
             inDebate++;
@@ -250,15 +179,22 @@ exports.metricsPageMotions = function (req, res) {
             continue;
         }
     }
-    res.render('moderator/motionmetrics', {
+    res.render('moderator/metricsdash', {
         user : db.users[req.session.userId],
         simId : simulation.id,
+        simulation : simulation,
+        simName : simulation.name,
+        totalComments : totalComments,
+        numTeams : numTeams,
+        numUsers : numUsers,
+        numMotions : numMotions,
         indebate : inDebate,
         invote : inVote,
         numapproved : numApproved,
         numdenied : numDenied,
         numdeleted : numDeleted,
         totalMotions : numMotions,
-        motions : motions
+        motions : motions,
+        users : users,
     });
 };

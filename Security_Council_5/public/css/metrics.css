@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+      box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -10,7 +10,7 @@ html {
 
 a {
   cursor: pointer;
-  color: white;
+  color:white;
   text-decoration: none;
 }
 
@@ -48,64 +48,63 @@ body {
   font-weight: 400;
 }
 
-
-input[type="checkbox"] {
-    display:inline-block;
-    width: 2em;
-    height: 2em;
-    margin:-1px 4px 0 0;
-    vertical-align:middle;
-    background: #464646 left top no-repeat;
-    cursor:pointer;
-}
-input[type="checkbox"]:checked {
-    background: #464646 -19px top no-repeat;
+td {
+    border-bottom-color: #464646;
+    border-bottom-width: 1px;
+    border-bottom-style: solid; 
+    padding-right: 20px;
+    text-align: right;
 }
 
 #simulation-name {
   padding-left: 1rem;
 }
 
-.channels {
+.metrics-options {
   overflow: auto;
   overflow-x: hidden;
   flex: 0 0 20%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
-#create-new-channel {
-  background-color: #464646;
-  font-family: Raleway, sans-serif;
-  font-weight: 200;
-  padding: 10px;
-  border: none;
-  border-radius: 12px;
-  color: white;
-  text-align: center;
-
+#overview {
+    display: none;
 }
 
-#channel-list {
-
+#overview:target {
+    display: flex;
 }
 
-#a-channel {
-  background-color: #464646;
-  font-family: Raleway, sans-serif;
-  font-weight: 200;
-  padding: 2px;
-  border-radius: 6px;
-  color: white;
-  text-align: center;
+#user {
+    display: none;
 }
 
-.debate {
-  width: 40%;
+#user:target {
+    display: flex;
+}
+
+#team {
+    display: none;
+}
+
+#team:target {
+    display: flex;
+}
+
+#motion {
+    display: none;
+}
+
+#motion:target {
+    display: flex;
+}
+
+.metrics-view {
+  display: flex;
   overflow: auto;
   overflow-x: hidden;
-  flex: 0 0 40%;
+  flex: 0 0 80%;
 }
 
 .header {
@@ -213,7 +212,11 @@ main section:first-of-type {
 }
 
 .menu {
-  
+  display: flex;
+}
+
+.menu-option {
+    color: #464646;
 }
 
 .menu li {
@@ -253,37 +256,6 @@ main section:first-of-type {
   font-weight: 200;
 }
 
-#modal {
-  z-index: 999;
-  padding: 20px;
-  background-color: #6db0fa;
-  color: white;
-  display: none;
-  top: 25%;
-  left: 25%;
-  position: absolute;
-  margin: 0 auto 0 auto;
-  width: 60%;
-  height: 60%;
-  overflow: auto;
-  overflow-x: hidden;
-  border: @gray solid 1px;
-  border-radius: 5px;
-}
-
-#modal:target {
-  display: block;
-}
-
-.channel-user-option {
-  font-family: Raleway, sans-serif;
-  text-align: right;
-}
-
-.new-simulation-form {
-  flex: 0 0 100%;
-}
-
 /**********
  DISCUSSION
  **********/
@@ -291,13 +263,6 @@ main section:first-of-type {
 .textbox {
     width: 100%;
     height: 6em;
-    font-family: Raleway, sans-serif;
-    font-size: 1em;
-}
-
-.textbox-small {
-    width: 100%;
-    height: 2em;
     font-family: Raleway, sans-serif;
     font-size: 1em;
 }
@@ -311,14 +276,14 @@ main section:first-of-type {
     margin-bottom: 1rem;
     padding: 1rem;
     width: 100%;
-    height: 8em;
-    overflow: auto;
-    overflow-x: hidden;
 }
 
 .card-content {
+    overflow: auto;
+    overflow-x: hidden;
     font-family: Raleway, sans-serif;
     font-size: 1em;
+    height: 8em;
 }
 
 .card-info {

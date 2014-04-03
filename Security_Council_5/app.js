@@ -69,9 +69,6 @@ app.post('/moderator/directives/:sid/:cid', session.require, session.restrictToM
 app.get('/moderator/create', session.require, session.restrictToModerator, moderator.viewCreate);
 app.post('/moderator/create', session.require, session.restrictToModerator, moderator.create);
 app.get('/moderator/metrics/:sid', session.require, session.restrictToModerator, moderator.metricsPage);
-app.get('/moderator/metrics/peruser/:sid', session.require, session.restrictToModerator, moderator.metricsPageByUser);
-app.get('/moderator/metrics/perteam/:sid', session.require, session.restrictToModerator, moderator.metricsPageByTeam);
-app.get('/moderator/metrics/motions/:sid', session.require, session.restrictToModerator, moderator.metricsPageMotions);
 
 // Participant
 app.get('/participant/dashboard', session.require, participant.dashboard);
@@ -97,6 +94,7 @@ app.post('/participant/ambassador/:sid/:cid', session.require, participant.ambas
 // Debate view
 app.get('/debate/:id', session.require, debate.view);
 app.get('/debate/:id/:chid', session.require, debate.viewChannel);
+app.post('/debate/createchannel/:sid/:chid', session.require, debate.createChannel);
 app.post('/debate/comment/:id/:chid', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);

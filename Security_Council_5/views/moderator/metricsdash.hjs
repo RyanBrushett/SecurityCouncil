@@ -3,54 +3,157 @@
     <head>
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/metrics.css">
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/debate/{{simulation.id}}">View the Debate</a></li>
-                    <li><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                <ul class="navigation__items">
+                    {{#user.pic}}
+                    <li><img src="/images/{{user.pic}}" width="24px", height="24px"></li>
+                    {{/user.pic}}
+                    <li><a>{{user.name}}</a></li>
+                    {{#user.flag}}
+                    <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
+                    {{/user.flag}}
+                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
+                </ul>
+                <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>
-                    <li><a href="/simulation/new">Create a new simulation</a></li>
                 </ul>
             </nav>
         </header>
+        <section class="infobar">
+            <a id="simulation-name" href="/moderator/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p></a>
+        </section>
         <main>
-            <h2><a href="/moderator/metrics/peruser/{{simId}}">Metrics By User</a></h2>
-            <h2><a href="/moderator/metrics/perteam/{{simId}}">Metrics By Team</a></h2>
-            <h2><a href="/moderator/metrics/motions/{{simId}}">Motion Metrics</a></h2>
-            <h2><a href="/moderator/metrics/{{simId}}">Metrics Overview</a></h2>
+            <section class="metrics-options">
+            <h3>Reports</h3>
+            <a class="menu-option" href="#overview">Overview</a>
+            <a class="menu-option" href="#user">Per-user</a>
+            <a class="menu-option" href="#team">Per-team</a>
+            <a class="menu-option" href="#motion">Motions</a>
+            </section>
+            <section class="metrics-view" id="overview">
             <table>
                 <tr>
-                    <td>Sim ID</td>
+                    <td><h4>Sim ID</h4></td>
                     <td>{{simId}}</td>
                 </tr>
                 <tr>
-                    <td>Sim Name</td>
+                    <td><h4>Sim Name</h4></td>
                     <td>{{simName}}</td>
                 </tr>
                 <tr>
-                    <td>Total Comments</td>
+                    <td><h4>Total Comments</h4></td>
                     <td>{{totalComments}}</td>
                 </tr>
                 <tr>
-                    <td>Total Teams</td>
+                    <td><h4>Total Teams</h4></td>
                     <td>{{numTeams}}</td>
                 </tr>
                 <tr>
-                    <td>Total Participants</td>
+                    <td><h4>Total Participants</h4></td>
                     <td>{{numUsers}}</td>
                 </tr>
                 <tr>
-                    <td>Total Motions Put Forward</td>
+                    <td><h4>Total Motions Put Forward</h4></td>
                     <td>{{numMotions}}</td>
                 </tr>
             </table>
+            </section>
+            <section class="metrics-view" id="user">
+            <table>
+                <tr>
+                    <td><h4>Username</h4></td>
+                    <td><h4>Full Name</h4></td>
+                    <td><h4>Team Name</h4></td>
+                    <td><h4>Number of Comments</h4></td>
+                </tr>
+                {{#users}}
+                <tr>
+                    <td>{{username}}</td>
+                    <td>{{name}}</td>
+                    <td>{{teamname}}</td>
+                    <td>{{numberOfComments}}</td>
+                </tr>
+                {{/users}}
+            </table>
+            </section>
+            <section class="metrics-view" id="team">
+            <table>
+                <tr>
+                    <td><h4>Team Name</h4></td>
+                    <td><h4>Members</h4></td>
+                    <td><h4>Comments Made</h4></td>
+                    <td><h4>Motions</h4></td>
+                    <td><h4>Motions Approved</h4></td>
+                    <td><h4>Motions Denied</h4></td>
+                    <td><h4>Motions Deleted</h4></td>
+                </tr>
+                {{#simulation.countries}}
+                <tr>
+                    <td>{{name}}</td>
+                    <td>{{members.length}}</td>
+                    <td>{{comments}}</td>
+                    <td>{{numMotions}}</td>
+                    <td>{{motionsApproved}}</td>
+                    <td>{{motionsDenied}}</td>
+                    <td>{{motionsDeleted}}</td>
+                </tr>
+                {{/simulation.countries}}
+            </table>
+            </section>
+            <section class="metrics-view" id="motion">
+            <table>
+                <tr>
+                    <td><h4>Approved</h4></td>
+                    <td>{{numapproved}}</td>
+                </tr>
+                <tr>
+                    <td><h4>Denied</h4></td>
+                    <td>{{numdenied}}</td>
+                </tr>
+                <tr>
+                    <td><h4>Deleted</h4></td>
+                    <td>{{numdeleted}}</td>
+                </tr>
+                <tr>
+                    <td><h4>In Vote Now</h4></td>
+                    <td>{{invote}}</td>
+                </tr>
+                <tr>
+                    <td><h4>In Debate Now</h4></td>
+                    <td>{{indebate}}</td>
+                </tr>
+                <tr>
+                    <td><h4>Total Motions Put Forward</h4></td>
+                    <td>{{totalMotions}}</td>
+                </tr>
+            </table>
+            </section>
         </main>
     </body>
 </html>

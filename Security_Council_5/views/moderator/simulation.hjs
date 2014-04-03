@@ -10,22 +10,49 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/debate/{{simulation.id}}">View the Debate</a></li>
-                    <li><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{user.name}}</li>
+                    <!--
+                    This is a link to the "participant" page that shows the view. This breaks all links out of the page.
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
+                    -->
+                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <h2>{{simulation.name}}</h2>
-            {{#simulation.chairperson}}
-            <p>Current Chair: {{name}}</p>
-            {{/simulation.chairperson}}
-            <form action="/moderator/simulation/chairperson/{{simulation.id}}" method="post">
-                <p>
+        <section class="infobar">
+            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <p><span class="status">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h3>Simulation</h3>
+                {{#simulation.chairperson}}
+                <p>Current Chair: {{name}}</p>
+                {{/simulation.chairperson}}
+                <form class="form" action="/moderator/simulation/chairperson/{{simulation.id}}" method="post">
                     <label>Select a chairperson:</label>
                     <select name="chairperson">
                         {{#simulation.countries}}
@@ -35,46 +62,44 @@
                         {{/simulation.countries}}
                     </select>
                     <input type="submit" class="button" value="Set Chairperson">
-                </p>
-            </form>
-            <form action="/moderator/simulation/visible-paper/{{simulation.id}}" method="post">
-                <p>
+                </form>
+                <form class="form" action="/moderator/simulation/visible-paper/{{simulation.id}}" method="post">
                     <label>Set the visibility of member's position paper:</label>
                     <select name="paperIsVisible">
                         <option value="hidden" {{^simulation.paperIsViewable}} selected="true" {{/simulation.paperIsViewable}}>Hidden</option>
                         <option value="visible" {{#simulation.paperIsViewable}} selected="true" {{/simulation.paperIsViewable}}>Visible</option>
                     </select>
                     <input type="submit" class="button" value="Set mode">
-                    (Sets whether participants can view other nations' position papers.)
+                    <p>(Sets whether participants can view other nations' position papers.)</p>
+                </form>
+            </section>
+            <section class="section">
+                <h3>Countries</h3>
+                <table class="countries">
+                    {{#simulation.countries}}
+                    <tr class="country">
+                        <td class="country__name"><a href="/moderator/simulation/{{simulation.id}}/{{id}}/">{{name}}</a></td>
+                        <td>
+                            <ul class="country__members">
+                                {{#members}}
+                                <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
+                                {{/members}}
+                            </ul>
+                        </td>
+                    </tr>
+                    {{/simulation.countries}}
+                </table>
+            </section>
+            <section class="section resolution">
+                {{#simulation.resolution}}
+                <h3>{{title}}</h3>
+                <p>
+                    {{#content}}
+                        {{.}}<br>
+                    {{/content}}
                 </p>
-            </form>
-            {{#simulation.resolution}}
-            <hr class="separator">
-            <h2>{{title}}</h2>
-            <form action="/moderator/submit/{{simulation.id}}" method="post">
-                <textarea name="resolution" class="textbox">{{{content}}}</textarea>
-                <input type="submit" class="button" value="Set Resolution">
-            </form>
-            {{/simulation.resolution}}
-            <hr class="separator">
-            <table class="countries">
-                <tr>
-                    <th>Country</th>
-                    <th>Members</th>
-                </tr>
-                {{#simulation.countries}}
-                <tr class="country">
-                    <td class="country__name"><a href="/moderator/simulation/{{simulation.id}}/{{id}}/">{{name}}</a></td>
-                    <td>
-                        <ul class="country__members">
-                            {{#members}}
-                            <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
-                            {{/members}}
-                        </ul>
-                    </td>
-                </tr>
-                {{/simulation.countries}}
-            </table>
+                {{/simulation.resolution}}
+            </section>
         </main>
     </body>
 </html>

@@ -4,6 +4,12 @@ var Motion = require('../models/motion.js');
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
+    var userCountry = db.helpers.getUserCountry(simulation, currentUser);
+    var debateResolution = simulation.resolution.inDebate;
+    var voteResolution = simulation.resolution.inVote;
+    var users = db.users;
+    var countries = db.countries;
+    
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
@@ -15,13 +21,17 @@ exports.view = function(req, res) {
         permissions: perm,
         channel: simulation.communicationChannels[0],
         userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
+        userCanRead: chPerm.userCanRead,
+        userCountry: userCountry,
+        debateReso: debateResolution,
+        voteReso: voteResolution,
+        users: users
     });
 };
 
 exports.viewChannel = function (req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
     
@@ -38,9 +48,53 @@ exports.viewChannel = function (req, res) {
     });    
 };
 
+    /*
+     * Deleted a duplicate channel at the bottom.
+     * Removed the res.render and replced it with a much more usable redirect.
+     * Redirect just makes it reload the debate after it's done everything.
+     * req.body contains all the info passed through in the forms and because
+     * of the way the HTML has been cleaned up (e.g. countrycheck and usercheck
+     * with IDs for everything) this will return three things:
+     * req.body.channelname
+     * req.body.countrycheck
+     * req.body.usercheck
+     * The first of which is a string of the channel name and the other two
+     * are arrays of IDs.
+     */
+exports.createChannel = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
+    var currentUser = db.users[req.session.userId];
+    db.helpers.setUserFlag(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
+    var channel = db.helpers.createCommunicationChannel(simulation, {
+        label: req.body.channelname,
+        permissions: false
+    });
+    
+    for (var i = 0; i < req.body.usercheck.length; i++) {
+        channel.participants.push(db.users[req.body.usercheck[i]]);
+    }
+    
+    /*for (var i = 0; i < req.body.countrycheck.length; i++) {
+        for (var j = 0; j < simulation.countries.length; j++) {
+            if (j === req.body.countrycheck[i]) {
+                for (var k = 0; k < simulation.countries[j].members.length; k++) {
+                    channel.participants.push(simulation.countries[j].members[k]);
+                }
+            }
+        }
+    }*/
+    
+    res.redirect('/debate/' + req.params.sid + '/' + req.params.chid);
+};
+
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
     db.helpers.createComment(commChannel, {
@@ -253,4 +307,7 @@ exports.voteResolution = function(req, res) {
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
     });
+};
+
+exports.deleteChannel = function (req, res) {
 };

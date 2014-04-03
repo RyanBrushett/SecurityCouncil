@@ -1,3 +1,4 @@
+<!doctype html>
 <html>
     <head>
         <title>{{simulation.name}} &middot; Council</title>
@@ -9,53 +10,89 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{currentUser.name}}</li>
-                    <li><a href="/">Dashboard</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{user.name}}</li>
+                    {{#user.flag}}
+                    <li><img src="/images/{{ user.flag }}" width="24px" height="24px"></li>
+                    {{/user.flag}}
+                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                     {{#simulationJoined}}
-                    <li><a href="/debate/{{simulation.id}}">Debate!</a></li>
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
                     {{/simulationJoined}}
                     {{#isChair}}
-                    <li><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                     {{/isChair}}
                     {{^simulationJoined}}
-                    <li><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
+                    <li class="navigation__item"><a href="/participant/join/simulation/{{simulation.id}}">
+                        Join this simulation!
+                    </a></li>
                     {{/simulationJoined}}
-                    <li><a href="/logout">Logout</a></li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <h2>{{simulation.name}}</h2>
-            {{#simulation.chairperson}}
-            <p>Current Chair: {{name}}</p>
-            {{/simulation.chairperson}}
-            {{^simulation.chairperson}}
-            <p>No chairperson has been selected yet. Ask your moderator to select a chairperson.</p>
-            {{/simulation.chairperson}}
-            {{#simulation.resolution}}
-            <hr class="separator">
-            <h2>{{title}}</h2>
-            <p>{{{content}}}</p>
-            {{/simulation.resolution}}
-            <table class="countries">
-                <tr>
-                    <th>Country</th>
-                    <th>Members</th>
-                </tr>
-                {{#simulation.countries}}
-                <tr class="country">
-                    <td class="country__name"><a href="/participant/simulation/{{simulation.id}}/{{id}}/">{{name}}</a></td>
-                    <td>
-                        <ul class="country__members">
-                            {{#members}}
-                            <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
-                            {{/members}}
-                        </ul>
-                    </td>
-                </tr>
-                {{/simulation.countries}}
-            </table>
+        <section class="infobar">
+            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p></a>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h3>Simulation</h3>
+                {{#simulation.chairperson}}
+                <p>Current Chair: {{name}}</p>
+                {{/simulation.chairperson}}
+                {{^simulation.chairperson}}
+                <p>No chairperson has been selected yet</p>
+                {{/simulation.chairperson}}
+            </section>
+            <section class="section">
+                <h3>Countries</h3>
+                <table class="countries">
+                    {{#simulation.countries}}
+                    <tr class="country">
+                        <td class="country__name"><a href="/participant/simulation/{{simulation.id}}/{{id}}/">{{name}}</a></td>
+                        <td>
+                            <ul class="country__members">
+                                {{#members}}
+                                <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
+                                {{/members}}
+                            </ul>
+                        </td>
+                    </tr>
+                    {{/simulation.countries}}
+                </table>
+            </section>
+            <section class="section resolution">
+                {{#simulation.resolution}}
+                <h3>{{title}}</h3>
+                <p>
+                    {{#content}}
+                        {{.}}<br>
+                    {{/content}}
+                </p>
+                {{/simulation.resolution}}
+            </section>
         </main>
     </body>
 </html>
