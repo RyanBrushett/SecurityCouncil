@@ -70,7 +70,9 @@
                         <option value="visible" {{#simulation.paperIsViewable}} selected="true" {{/simulation.paperIsViewable}}>Visible</option>
                     </select>
                     <input type="submit" class="button" value="Set mode">
-                    <p>(Sets whether participants can view other nations' position papers.)</p>
+                </form>
+                <form>
+                    <button type="button" class="button">Sort teams</button>
                 </form>
             </section>
             <section class="section">
