@@ -147,6 +147,15 @@ input[type="email"] {
     width: 13rem;
 }
 
+textarea {
+    padding: 5px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+    vertical-align: middle;
+}
+
 .button {
     background-color: #464646;
     font-family: Raleway, sans-serif;

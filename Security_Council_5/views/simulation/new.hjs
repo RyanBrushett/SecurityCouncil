@@ -3,6 +3,7 @@
     <head>
         <title>Create a new simulation &middot; Council</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/new.css">
     </head>
     <body>
@@ -11,44 +12,33 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#currentUser.pic}}
-                    <li><img src="/images/{{ currentUser.pic }}" width="24px", height="24px"></li>
+                    <li class="navigation__item"><img src="/images/{{ currentUser.pic }}" width="24px", height="24px"></li>
                     {{/currentUser.pic}}
-                    <li><a>{{ currentUser.name }}</a></li>
+                    <li class="navigation__item"><a>{{ currentUser.name }}</a></li>
                     {{#currentUser.flag}}
-                    <li><img src="/images/{{ currentUser.flag }}" width="24px", height="24px"></li>
+                    <li class="navigation__item"><img src="/images/{{ currentUser.flag }}" width="24px", height="24px"></li>
                     {{/currentUser.flag}}
-                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li class="navigation__item"><a href="/">Dashboard</a></li>
                 </ul>
                 <ul class="navigation__items logout">
-                    <li><a href="/logout">Logout</a></li>
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <section class="new-simulation-form">
-            <form action="/simulation/new" method="post">
+        <main class="main">
+            <form class="section" action="/simulation/new" method="post">
                 <h3>Create a new simulation</h3>
-                <p>
-                    <input type="text" class="textbox-small" name="name" placeholder="The name of the simulation">
-                </p>
-                <p>
-                    <input type="text" class="textbox-small" name="title" placeholder="The title of the resolution up for debate">
-                </p>
-                <p>
-                    <textarea name="content" class="textbox">The text of the resolution up for debate</textarea>
-                </p>
-                    <input type="text" class="textbox-small" name="perteam" placeholder="The ideal number of users on each team">
-                </p>
+                <p><input type="text" class="textbox-small" name="name" placeholder="The name of the simulation"></p>
+                <p><input type="text" class="textbox-small" name="title" placeholder="The title of the resolution up for debate"></p>
+                <p><textarea name="content" class="textbox">The text of the resolution up for debate</textarea></p>
+                <p><input type="text" class="textbox-small" name="perteam" placeholder="The ideal number of users on each team"></p>
                 <p>Choose a sort method:</p>
                 <p>
                     <input type="radio" id="priority-sort" name="sort" value="priority" checked>
                     <label for="priorityteam">According to user preferences</label>
                 </p>
-                <p>
-                    <input type="submit" value="Create new simulation" class="button">
-                </p>
+                <input type="submit" value="Create new simulation" class="button">
             </form>
-            </section>
         </main>
     </body>
 </html>
