@@ -12,11 +12,11 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#currentUser.pic}}
-                    <li><img src="/images/{{ currentUser.pic }}" width="24px", height="24px"></li>
+                    <li><img src="/images/{{ currentUser.pic }}" width="24px" height="24px"></li>
                     {{/currentUser.pic}}
-                    <li><a>{{ currentUser.name }}</a></li>
+                    <li>{{ currentUser.name }}</li>
                     {{#currentUser.flag}}
-                    <li><img src="/images/{{ currentUser.flag }}" width="24px", height="24px"></li>
+                    <li><img src="/images/{{ currentUser.flag }}" width="24px" height="24px"></li>
                     {{/currentUser.flag}}
                     <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
@@ -141,11 +141,14 @@
         <section class="resolution">
             {{#simulation.resolution}}
             <h3>{{title}}</h3>
-            <p class="resolution-content">{{content}}</p>
+            <p class="resolution-content">
+                {{#content}}
+                    {{.}}<br>
+                {{/content}}
+            </p>
             {{/simulation.resolution}}
         </section>
         <div id="modal">
-        
             <!--
                 Form action is fine. Had to clean up a duplicate route in the app.js which was causing problems
                 Also had to remove a duplicate function from debate.js
@@ -167,7 +170,6 @@
                 <input class="input-button" type="submit" id="create-new-channel" value="confirm">
                 <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
             </form>
-            
         </div>
         </main>
     </body>

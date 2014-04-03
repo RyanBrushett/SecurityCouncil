@@ -24,10 +24,29 @@
             <section class="simulation">
                 <div class="simulation__bar">
                     <h3 class="simulation__title">
-                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                        <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                     </h3>
-                    <p>Resolution title</p>
-                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                    <p>{{name}}</p>
+                    <p class="simulation__status"><a href="/debate/{{id}}">
+                        {{#resolution.inDebate}}
+                        Debating the resolution
+                        {{/resolution.inDebate}}
+                        {{^resolution.inDebate}}
+                            {{#resolution.inVote}}
+                            Voting on the resolution
+                            {{/resolution.inVote}}
+                            {{^resolution.inVote}}
+                            {{/resolution.inVote}}
+                            {{#simulation.motions}}
+                                {{#inDebate}}
+                                Debating motion {{{id}}}
+                                {{/inDebate}}
+                                {{#inVote}}
+                                Voting on motion {{{id}}}
+                                {{/inVote}}
+                            {{/simulation.motions}}
+                        {{/resolution.inDebate}}
+                    </a></p>
                 </div>
                 <ul class="simulation__metadata">
                     {{#chairperson}}
@@ -44,10 +63,10 @@
             <section class="simulation">
                 <div class="simulation__bar">
                     <h3 class="simulation__title">
-                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                        <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                     </h3>
                     <p>Resolution title</p>
-                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                    <p class="simulation__status"><a href="/debate/{{id}}">Status thingy</a></p>
                 </div>
                 <ul class="simulation__metadata">
                     {{#chairperson}}

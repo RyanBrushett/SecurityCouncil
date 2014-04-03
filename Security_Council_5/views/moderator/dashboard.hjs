@@ -11,7 +11,7 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    <li class="navigation__item">{{user.name}}</li>
+                    <li class="navigation__item"><a>{{user.name}}</a></li>
                     <li class="navigation__item"><a href="/simulation/new">Create a new simulation</a></li>
                     <li class="navigation__item"><a href="/moderator/create">Create a moderator</a></li>
                 </ul>
@@ -28,8 +28,27 @@
                     <h3 class="simulation__title">
                         <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
                     </h3>
-                    <p>Resolution title</p>
-                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                    <p>{{resolution.title}}</p>
+                    <p class="simulation__status">
+                        {{#resolution.inDebate}}
+                        Debating the resolution
+                        {{/resolution.inDebate}}
+                        {{^resolution.inDebate}}
+                            {{#resolution.inVote}}
+                            Voting on the resolution
+                            {{/resolution.inVote}}
+                            {{^resolution.inVote}}
+                            {{/resolution.inVote}}
+                            {{#simulation.motions}}
+                                {{#inDebate}}
+                                Debating motion {{{id}}}
+                                {{/inDebate}}
+                                {{#inVote}}
+                                Voting on motion {{{id}}}
+                                {{/inVote}}
+                            {{/simulation.motions}}
+                        {{/resolution.inDebate}}
+                    </p>
                 </div>
                 <ul class="simulation__metadata">
                     {{#chairperson}}

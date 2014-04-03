@@ -1,11 +1,64 @@
-th, td {
-    padding: 1rem 1rem 1rem 0;
+html {
+    height: 100%;
 }
 
-.country__members {
-    list-style: none;
+body {
+    height: 100%;
+    overflow: hidden;
 }
 
-.country__member {
-    cursor: move;
+.header {
+    flex: 0 0 auto;
+}
+
+.infobar {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #6db0fa;
+}
+
+.simulation__name {
+    padding: 15px;
+    color: white;
+}
+
+.infobar p {
+    padding: 15px;
+    font-family: Raleway, sans-serif;
+    font-weight: 100;
+    font-size: 1.4rem;
+}
+
+.active {
+    background-color: #fac76d;
+    color: white;
+}
+
+.status {
+    background-color: #fac76d;
+    font-family: Raleway, sans-serif;
+    font-weight: 400;
+    padding: 10px;
+    border-radius: 12px;
+    color: white;
+}
+
+.section {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.form {
+    padding-top: 15px;
+}
+
+.button {
+    display: block;
+}
+
+.country__name {
+    font-weight: bold;
 }
