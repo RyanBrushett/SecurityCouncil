@@ -55,7 +55,7 @@
                 <ul class="menu">
                 <li id="a-channel"><a href="/debate/{{simulation.id}}/{{defaultChannelId}}">Default</a></li>
                 {{#visibleChannels}}
-                    <li id="a-channel"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a></li>
+                    <li id="a-channel"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a><input type="button" id="channel-button" onClick="deleteChannel({{simulation.id}},{{id}})" value="x"></li>
                 {{/visibleChannels}}
                 </ul>
             </div>

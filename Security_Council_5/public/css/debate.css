@@ -93,12 +93,26 @@ input[type="checkbox"]:checked {
 
 #a-channel {
   background-color: #464646;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
   font-family: Raleway, sans-serif;
   font-weight: 200;
+  font-size: 1em;
   padding: 2px;
   border-radius: 6px;
   color: white;
   text-align: center;
+  width: 100%;
+}
+
+#channel-button {
+  height: 1em;
+  width: 1em;
+  font-size: 1em;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: .15em;
 }
 
 .debate {
