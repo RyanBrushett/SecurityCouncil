@@ -149,7 +149,8 @@
             <!--
                 Form action is fine. Had to clean up a duplicate route in the app.js which was causing problems
                 Also had to remove a duplicate function from debate.js
-                I switched around the HTML a fair amount here. No point in having every country name there and username.
+                I switched around the HTML a fair amount here. No point in having every country ID there
+                and selecting them by username. If we set all the boxes to the one name, we get an array returned.
                 Also: Doing selections by ID is 100% infinitely better than any other method ever.
              -->
             <form action="/debate/createchannel/{{simulation.id}}/{{channel.id}}" method="post" name="createchannel">
