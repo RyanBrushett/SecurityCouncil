@@ -499,6 +499,20 @@ helpers.createCommunicationChannel = function (simulation, options) {
     return comm;
 };
 
+helpers.getVisibleChannels = function (simulation, user) {
+    var c = [];
+    
+    for (var i = 0; i < simulation.communicationChannels.length; i++) {
+        if (simulation.communicationChannels[i].participants.indexOf(user) >= 0) {
+            if (simulation.communicationChannels[i].id != 0) {
+                c.push(simulation.communicationChannels[i]);
+            }
+        }
+    }
+    
+    return c;
+};
+
 helpers.getCommunicationChannelById = function (simulation, chid) {
     var commChannel = undefined;
 

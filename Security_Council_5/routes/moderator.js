@@ -86,7 +86,7 @@ exports.create = function (req, res) {
         username: username,
         password: password
     });
-    
+
     res.redirect('/moderator/dashboard');
 };
 

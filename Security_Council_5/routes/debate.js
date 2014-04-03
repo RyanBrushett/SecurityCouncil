@@ -25,7 +25,8 @@ exports.view = function(req, res) {
         userCountry: userCountry,
         debateReso: debateResolution,
         voteReso: voteResolution,
-        users: users
+        users: users,
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
     });
 };
 
@@ -33,6 +34,12 @@ exports.viewChannel = function (req, res) {
     var simulation = db.simulations[req.params.id];
     var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
+    var userCountry = db.helpers.getUserCountry(simulation, currentUser);
+    var debateResolution = simulation.resolution.inDebate;
+    var voteResolution = simulation.resolution.inVote;
+    var users = db.users;
+    var countries = db.countries;
+    
     db.helpers.setUserFlag(simulation, currentUser);
     
     console.log(commChannel);
@@ -47,23 +54,15 @@ exports.viewChannel = function (req, res) {
         permissions: perm,
         channel: commChannel,
         userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
+        userCanRead: chPerm.userCanRead,
+        userCountry: userCountry,
+        debateReso: debateResolution,
+        voteReso: voteResolution,
+        users: users,
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
     });    
 };
 
-    /*
-     * Deleted a duplicate channel at the bottom.
-     * Removed the res.render and replced it with a much more usable redirect.
-     * Redirect just makes it reload the debate after it's done everything.
-     * req.body contains all the info passed through in the forms and because
-     * of the way the HTML has been cleaned up (e.g. countrycheck and usercheck
-     * with IDs for everything) this will return three things:
-     * req.body.channelname
-     * req.body.countrycheck
-     * req.body.usercheck
-     * The first of which is a string of the channel name and the other two
-     * are arrays of IDs.
-     */
 exports.createChannel = function (req, res) {
     var simulation = db.simulations[req.params.sid];
     var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
@@ -73,9 +72,14 @@ exports.createChannel = function (req, res) {
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
     
+    var channelName = req.body.channelname;
+    if (channelName == "") {
+        channelName = "Untitled";
+    }
+    
     var channel = db.helpers.createCommunicationChannel(simulation, {
-        label: req.body.channelname,
-        permissions: false
+        label: channelName,
+        permissions: true
     });
     
     for (var i = 0; i < req.body.usercheck.length; i++) {
@@ -108,14 +112,15 @@ exports.comment = function(req, res) {
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
     
-    res.render('debate/index', {
+    /*res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
         permissions: perm,
         channel: commChannel,
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
-    });
+    });*/
+    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
 
 exports.vote = function(req, res) {
@@ -203,14 +208,15 @@ exports.vote = function(req, res) {
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
     
-    res.render('debate/index', {
+    /*res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
         permissions: perm,
         channel: commChannel,
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
-    });
+    });*/
+    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
 
 exports.voteResolution = function(req, res) {
@@ -302,14 +308,15 @@ exports.voteResolution = function(req, res) {
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
     
-    res.render('debate/index', {
+    /*res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
         permissions: perm,
         channel: commChannel,
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
-    });
+    });*/
+    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
 
 exports.deleteChannel = function (req, res) {
