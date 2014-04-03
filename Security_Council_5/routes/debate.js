@@ -31,9 +31,12 @@ exports.view = function(req, res) {
 
 exports.viewChannel = function (req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
+    
+    console.log(commChannel);
+    console.log(req.params.chid);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
@@ -63,21 +66,38 @@ exports.viewChannel = function (req, res) {
      */
 exports.createChannel = function (req, res) {
     var simulation = db.simulations[req.params.sid];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
     
-    console.log(req.body);
+    var channel = db.helpers.createCommunicationChannel(simulation, {
+        label: req.body.channelname,
+        permissions: false
+    });
     
-    res.redirect('/debate/' + req.params.sid);
+    for (var i = 0; i < req.body.usercheck.length; i++) {
+        channel.participants.push(db.users[req.body.usercheck[i]]);
+    }
+    
+    /*for (var i = 0; i < req.body.countrycheck.length; i++) {
+        for (var j = 0; j < simulation.countries.length; j++) {
+            if (j === req.body.countrycheck[i]) {
+                for (var k = 0; k < simulation.countries[j].members.length; k++) {
+                    channel.participants.push(simulation.countries[j].members[k]);
+                }
+            }
+        }
+    }*/
+    
+    res.redirect('/debate/' + req.params.sid + '/' + req.params.chid);
 };
 
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
     db.helpers.createComment(commChannel, {

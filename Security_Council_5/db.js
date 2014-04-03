@@ -498,6 +498,18 @@ helpers.createCommunicationChannel = function (simulation, options) {
     return comm;
 };
 
+helpers.getCommunicationChannelById = function (simulation, chid) {
+    var commChannel = undefined;
+    
+    for (var i = 0; i < simulation.communicationChannels.length; i++) {
+        if (simulation.communicationChannels[i].id == chid) {
+            commChannel = simulation.communicationChannels[i];
+        }
+    }
+    
+    return commChannel;
+};
+
 // Filler data
 
 module.exports.fillWithData = function () {

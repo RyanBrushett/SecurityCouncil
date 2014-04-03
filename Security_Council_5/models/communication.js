@@ -5,6 +5,7 @@ function CommunicationChannel(options) {
     this.label = options.label;
     this.participants = options.participants || [];
     this.permissions = options.permissions;
+    this.isDeleted = false;
 }
 
 module.exports = CommunicationChannel;
