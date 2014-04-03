@@ -1,4 +1,6 @@
-# Testing the Application
+# Using the Application
+
+- - -
 
 ## General Stuff
 
@@ -54,6 +56,11 @@
 2. A window will pop up and users can select from the list the people (or countries) they'd like to have added. Be sure to name the channel in the bar at the top!
     *NOTE* that adding a whole country adds all of the team members from that country.
 3. Once the chanel is created, it can be accessed on the left side of the debate view. Comment as normal!
+
+- - -
+
+## Being An Ambassador
+
 
 - - -
 
