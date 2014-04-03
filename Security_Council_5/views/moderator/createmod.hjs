@@ -3,6 +3,7 @@
     <head>
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/createmoderator.css">
     </head>
     <body>
@@ -11,29 +12,30 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#user.pic}}
-                    <li><img src="/images/{{ user.pic }}" width="24px", height="24px"></li>
+                    <li class="navigation__item"><img src="/images/{{ user.pic }}" width="24px", height="24px"></li>
                     {{/user.pic}}
-                    <li><a>{{ user.name }}</a></li>
+                    <li class="navigation__item"><a>{{ user.name }}</a></li>
                     {{#user.flag}}
-                    <li><img src="/images/{{ user.flag }}" width="24px", height="24px"></li>
+                    <li class="navigation__item"><img src="/images/{{ user.flag }}" width="24px", height="24px"></li>
                     {{/user.flag}}
-                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li class="navigation__item"><a href="/">Dashboard</a></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
                 <ul class="navigation__items logout">
-                    <li><a href="/logout">Logout</a></li>
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <section class="moderator-form">
-            <h3>Create New Moderator</h3>
-            <form action="/moderator/create" method="post">
-                <input type="text" class="textbox" name="name" placeholder="Full Name" />
-                <input type="text" class="textbox" name="username" placeholder="Username" />
-                <input type="password" class="textbox" name="password" placeholder="Password" />
-                <input class="button" type="submit" value="Create Moderator">
-            </form>
-            </section>  
+        <main class="main">
+            <section class="section moderator-form">
+                <h3>Create a new moderator</h3>
+                <form class="form" action="/moderator/create" method="post">
+                    <input type="text" class="textbox" name="name" placeholder="Full Name">
+                    <input type="text" class="textbox" name="username" placeholder="Username">
+                    <input type="password" class="textbox" name="password" placeholder="Password">
+                    <input class="button" type="submit" value="Create Moderator">
+                </form>
+            </section>
         </main>
     </body>
 </html>

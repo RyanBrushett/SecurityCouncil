@@ -61,6 +61,10 @@ a {
     text-decoration: none;
 }
 
+img {
+    vertical-align: middle;
+}
+
 em {
     font-style: italic;
 }
@@ -141,4 +145,16 @@ input[type="password"],
 input[type="email"] {
     padding: 5px;
     width: 13rem;
+}
+
+.button {
+    background-color: #464646;
+    font-family: Raleway, sans-serif;
+    font-weight: 200;
+    font-size: inherit;
+    padding: 10px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    text-align: center;
 }
