@@ -145,15 +145,28 @@
             {{/simulation.resolution}}
         </section>
         <div id="modal">
-            <input type="text" class="textbox-small" placeholder="New channel name">
-            {{#simulation.countries}}
-                <h4><input type="checkbox" name="{{id}}" value="{{id}}">{{name}}</h4>
-                {{#members}}
-                <p class="channel-user-option">{{username}}<input type="checkbox" name="id" value="{{name}}"></p>
-                {{/members}}
-            {{/simulation.countries}}
-            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Confirm</a>
-            <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
+        
+            <!--
+                Form action is fine. Had to clean up a duplicate route in the app.js which was causing problems
+                Also had to remove a duplicate function from debate.js
+                I wished around the HTML a fair amount here. No point in having every country name there and username.
+                Also: Doing selections by ID is 100% infinitely better than any other method ever.
+             -->
+            <form action="/debate/createchannel/{{simulation.id}}/{{channel.id}}" method="post" name="createchannel">
+                <input type="text" name="channelname" class="textbox-small" placeholder="New channel name">
+                {{#simulation.countries}}
+                    <!-- Selected by ID (value="id" there) -->
+                    <h4><input type="checkbox" name="countrycheck" value="{{id}}">{{name}}</h4>
+                    {{#members}}
+                    <!-- Selected by ID again -->
+                    <p class="channel-user-option">{{username}}<input type="checkbox" name="usercheck" value="{{id}}"></p>
+                    {{/members}}
+                {{/simulation.countries}}
+                <!-- No need for wacky submit links. The CSS will need to be updated to account for class called input-button -->
+                <input class="input-button" type="submit" id="create-new-channel" value="confirm">
+                <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
+            </form>
+            
         </div>
         </main>
     </body>

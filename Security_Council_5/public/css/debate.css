@@ -80,6 +80,7 @@ input[type="checkbox"]:checked {
   font-family: Raleway, sans-serif;
   font-weight: 200;
   padding: 10px;
+  border: none;
   border-radius: 12px;
   color: white;
   text-align: center;

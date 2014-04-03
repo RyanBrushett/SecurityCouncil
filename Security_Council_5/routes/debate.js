@@ -48,6 +48,33 @@ exports.viewChannel = function (req, res) {
     });    
 };
 
+    /*
+     * Deleted a duplicate channel at the bottom.
+     * Removed the res.render and replced it with a much more usable redirect.
+     * Redirect just makes it reload the debate after it's done everything.
+     * req.body contains all the info passed through in the forms and because
+     * of the way the HTML has been cleaned up (e.g. countrycheck and usercheck
+     * with IDs for everything) this will return three thing:
+     * req.body.channelname
+     * req.body.countrycheck
+     * req.body.usercheck
+     * The first of which is a string of the channel name and the other two
+     * are arrays of IDs.
+     */
+exports.createChannel = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var commChannel = simulation.communicationChannels[req.params.chid];
+    var currentUser = db.users[req.session.userId];
+    db.helpers.setUserFlag(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
+    console.log(req.body);
+    
+    res.redirect('/debate/' + req.params.sid);
+};
+
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var commChannel = simulation.communicationChannels[req.params.chid];
@@ -263,9 +290,6 @@ exports.voteResolution = function(req, res) {
         userCanComment: chPerm.userCanComment,
         userCanRead: chPerm.userCanRead
     });
-};
-
-exports.createChannel = function (req, res) {
 };
 
 exports.deleteChannel = function (req, res) {
