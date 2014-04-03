@@ -10,24 +10,30 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/simulation/new">Create a new simulation</a></li>
-                    <li><a href="/moderator/create">Create a moderator</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{user.name}}</li>
+                    <li class="navigation__item"><a href="/simulation/new">Create a new simulation</a></li>
+                    <li class="navigation__item"><a href="/moderator/create">Create a moderator</a></li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
+        <main class="main">
+            <h2>All simulations</h2>
             {{#simulations}}
             <section class="simulation">
-                <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
-                </h3>
-                <ul class="statistics">
+                <div class="simulation__bar">
+                    <h3 class="simulation__title">
+                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                    </h3>
+                    <p>Resolution title</p>
+                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                </div>
+                <ul class="simulation__metadata">
                     {{#chairperson}}
-                    <li>Chair: {{name}}</li>
+                    <li>Chair: <strong>{{name}}</strong></li>
                     {{/chairperson}}
                     {{^chairperson}}
                     <li>No chairperson has been selected</li>
@@ -35,7 +41,6 @@
                 </ul>
             </section>
             {{/simulations}}
-            
         </main>
     </body>
 </html>

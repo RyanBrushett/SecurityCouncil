@@ -10,26 +10,31 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}</li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{user.name}}</li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
+        <main class="main">
             <h2>Simulations you are a participant in</h2>
             {{#joinedSimulations}}
             <section class="simulation">
-                <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
-                </h3>
-                <ul class="statistics">
+                <div class="simulation__bar">
+                    <h3 class="simulation__title">
+                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                    </h3>
+                    <p>Resolution title</p>
+                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                </div>
+                <ul class="simulation__metadata">
                     {{#chairperson}}
-                    <li>Chair: {{name}}</li>
+                    <li>Chair: <strong>{{name}}</strong></li>
                     {{/chairperson}}
                     {{^chairperson}}
-                    <li>No chairperson has been selected for this simulation yet</li>
+                    <li>No chairperson has been selected</li>
                     {{/chairperson}}
                 </ul>
             </section>
@@ -37,15 +42,19 @@
             <h2>Simulations you are not a participant in</h2>
             {{#notJoinedSimulations}}
             <section class="simulation">
-                <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
-                </h3>
-                <ul class="statistics">
+                <div class="simulation__bar">
+                    <h3 class="simulation__title">
+                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                    </h3>
+                    <p>Resolution title</p>
+                    <p class="simulation__status"><a href="/debate/{{simulation.id}}">Status thingy</a></p>
+                </div>
+                <ul class="simulation__metadata">
                     {{#chairperson}}
-                    <li>Chair: {{name}}</li>
+                    <li>Chair: <strong>{{name}}</strong></li>
                     {{/chairperson}}
                     {{^chairperson}}
-                    <li>No chairperson has been selected for this simulation yet</li>
+                    <li>No chairperson has been selected</li>
                     {{/chairperson}}
                 </ul>
             </section>
