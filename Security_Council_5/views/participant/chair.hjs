@@ -74,6 +74,28 @@
                 {{/simulation.chairperson}}
             </section>
             <section class="section">
+                <h3>Resolution</h3>
+                {{#simulation.resolution}}
+                <blockquote id="{{id}}" class="card">
+                    {{#isDenied}}
+                    <p class="error">Status: DENIED</p>
+                    {{/isDenied}}
+                    {{#inDebate}}
+                    <p class="gtg">Status: DEBATE</p>
+                    {{/inDebate}}
+                    {{#inVote}}
+                    <p class="voting">Status: VOTING</p>
+                    {{/inVote}}
+                    {{^inDebate}}
+                    <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
+                    {{/inDebate}}
+                    {{^inVote}}
+                    {{#inDebate}}
+                    <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+                    {{/inDebate}}
+                    {{/inVote}}
+                </blockquote>                
+                {{/simulation.resolution}}
                 <h3>Motions</h3>
                 {{#simulation.motions}}
                 {{^isDeleted}}

@@ -226,6 +226,31 @@ helpers.createVote = function (votable, options) {
     module.exports.save(vote);
 };
 
+var POSITION_PAPER_ID = 0;
+helpers.setPositionPaper = function (country, options) {
+    var id = POSITION_PAPER_ID++;
+    options.id = id;
+    var positionPaper = new models.PositionPaper(options);
+    country.positionPaper = positionPaper;
+    module.exports.save(positionPaper);
+    module.exports.save(country);
+    return positionPaper;
+};
+
+helpers.setPositionPaperPlainText = function (country, text) {
+    var id = POSITION_PAPER_ID++;
+    var options = {
+        id : id,
+        summary : text,
+        file : null
+    };
+    var positionPaper = new models.PositionPaper(options);
+    country.positionPaper = positionPaper;
+    module.exports.save(positionPaper);
+    module.exports.save(country);
+    return positionPaper;
+};
+
 helpers.createUser = function (options) {
     options.id = module.exports.users.length;
     var user = new models.User(options);
@@ -282,10 +307,49 @@ helpers.createMotion = function (simulation, options) {
     return motion;
 };
 
-helpers.setChairperson = function (simulation, chairperson) {
-    chairperson.chair = true;
-    simulation.chairperson = chairperson;
-    module.exports.save(chairperson);
+helpers.setChairperson = function (sid, uid) {
+    for (var i = 0; i < module.exports.users.length; i++) {
+        module.exports.users[i].chair = false;
+    }
+    var simulation = module.exports.simulations[sid];
+    var countries = simulation.countries;
+    var country;
+    var user = module.exports.users[uid];
+    
+    if (simulation.chairpersonPrevTeam !== null) {
+        for (var i = 0; i < countries.length; i++) {
+            if (countries[i].id == simulation.chairpersonPrevTeam) {
+                countries[i].members.push(simulation.chairperson);
+            }
+        }
+        simulation.chairpersonPrevTeam = null;
+    }
+    
+    countries.forEach(function(cntry){
+        for (var i = 0; i < cntry.members.length; i++) {
+            if (cntry.members[i].id == uid) {
+                country = cntry;
+                break;
+            }
+        } 
+    });
+    var members = country.members;
+    var idx = -1;
+    for (var i = 0; i < country.members.length; i++){
+        if (country.members[i].id == user.id) {
+            idx = i;
+            break;
+        }
+    }
+    if (idx > -1) {
+        members.splice(idx, 1);
+    }
+    country.members = members;
+    user.chair = true;
+    simulation.chairperson = user;
+    simulation.chairpersonPrevTeam = country.id;
+    module.exports.save(user);
+    module.exports.save(country);
     module.exports.save(simulation);
 };
 
@@ -335,10 +399,38 @@ helpers.setUserFlag = function (simulation, user) {
         members = simulation.countries[i].members;
         for (j = 0; j < members.length; j++) {
             if (user.id == members[j].id) {
-                user.flag = simulation.countries[i].flag;
+                if (!user.chair) {
+                    user.userFlag = simulation.countries[i].flag;
+                }
+                else {
+                    user.userFlag = 'united-nations.svg';
+                }
             }
         }
     }
+    
+    module.exports.save(user);
+};
+
+helpers.setCommentFlag = function (simulation, comment, user) {
+    var i, j, members;
+    for (i = 0; i < simulation.countries.length; i++) {
+        members = simulation.countries[i].members;
+        for (j = 0; j < members.length; j++) {
+            if (user.id == members[j].id) {
+                if (!user.chair) {
+                    comment.commentFlag = simulation.countries[i].flag;
+                    console.log(comment.commentFlag);
+                }
+                else {
+                    comment.commentFlag = 'united-nations.svg';
+                    console.log(comment.commentFlag);
+                }
+            }
+        }
+    }
+    
+    module.exports.save(comment);
 };
 
 helpers.hasUserVoted = function(votable, user) {

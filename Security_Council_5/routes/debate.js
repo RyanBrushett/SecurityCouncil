@@ -126,10 +126,12 @@ exports.comment = function(req, res) {
     var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
-    db.helpers.createComment(commChannel, {
+    var comment = db.helpers.createComment(commChannel, {
         content: req.body.comment,
         user: currentUser
     });
+    
+    db.helpers.setCommentFlag(simulation, comment, currentUser);
 
     res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
@@ -180,10 +182,12 @@ exports.vote = function(req, res) {
                 motion.inDebate = false;
                 motion.inVote = false;
                 
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Vote on motion passed!\nNow debating the resolution.',
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
+                
                 simulation.resolution.inDebate = true;
             }
             else {
@@ -193,10 +197,11 @@ exports.vote = function(req, res) {
                 
                 var commentContent = 'Vote on motion failed!\n';
                 commentContent += 'Now debating the resolution.';
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: commentContent,
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                 simulation.resolution.inDebate = true;
             }
         }
@@ -209,10 +214,11 @@ exports.vote = function(req, res) {
             commentContent += 'Continuing debate on the motion.\n';
             commentContent += motion.body + '\n';
             commentContent += 'Moved by: ' + motion.mover.name + '\n';
-            db.helpers.createComment(simulation.communicationChannels[0], {
+            var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
+            db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
         }
     }
     
@@ -243,10 +249,11 @@ exports.voteResolution = function(req, res) {
             simulation.resolution.isDenied = true;
             var country = db.helpers.getUserCountry(simulation, currentUser).name;
             var commentContent = 'Vote on resolution failed due to veto by ' + country + '!\n';
-            db.helpers.createComment(simulation.communicationChannels[0], {
+            var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
+            db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
             simulation.resolution.inDebate = false;
             simulation.resolution.inVote = false;
         }
@@ -277,18 +284,20 @@ exports.voteResolution = function(req, res) {
                 var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
                 if (votesFor >= requiredVotes) {
                     simulation.resolution.isApproved = true;
-                    db.helpers.createComment(simulation.communicationChannels[0], {
+                    var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution passed!\n',
                         user: simulation.chairperson
                     });
+                    db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                     simulation.resolution.inDebate = false;
                 }
                 else {
                     simulation.resolution.isDenied = true;
-                    db.helpers.createComment(simulation.communicationChannels[0], {
+                    var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution failed!\n',
                         user: simulation.chairperson
                     });
+                    db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                     simulation.resolution.inDebate = false;
                 }
             }
@@ -297,10 +306,11 @@ exports.voteResolution = function(req, res) {
                 simulation.resolution.inDebate = true;
                 simulation.resolution.votes = [];
                 simulation.resolution.inVote = false;
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Quorum not met!\nContinuing debate on the resolution.\n',
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
             }
         }
     }

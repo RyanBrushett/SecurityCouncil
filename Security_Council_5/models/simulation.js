@@ -1,6 +1,7 @@
 function Simulation(options) {
     options = options || {};
     this.chairperson = options.chairperson;
+    this.chairpersonPrevTeam = options.chairpersoonPrevTeam || null;
     this.comments = options.comments || [];
     this.countries = options.countries || [];
     this.countriesSize = options.countriesSize || 2;

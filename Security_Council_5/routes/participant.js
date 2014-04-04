@@ -87,7 +87,7 @@ exports.chair = function(req, res) {
 exports.debateMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
-    user.flag = 'united-nations.svg';
+
     var i, m, motion;
     for (i = 0; i < simulation.motions.length; i++) {
         m = simulation.motions[i];
@@ -107,17 +107,18 @@ exports.debateMotion = function(req, res) {
         }
     }
     simulation.resolution.inDebate = false;
-    db.helpers.createComment(simulation.communicationChannels[0], {
+    var newComment = db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'New motion under debate!\n' + motion.body + '\n' + 'Moved by: ' + motion.mover.name + '\n',
         user: user
     });
+    db.helpers.setCommentFlag(simulation, newComment, simulation.chairperson);
     res.send(200);
 };
 
 exports.debateResolution = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
-    user.flag = 'united-nations.svg';
+   
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
         m.inDebate = false;
@@ -134,13 +135,14 @@ exports.debateResolution = function(req, res) {
         content: 'Resolution is now up for debate!',
         user: user
     });
+    db.helpers.setCommentFlag(simulation, newComment, simulation.chairperson);
     res.send(200);
 };
 
 exports.voteMotion = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
-    user.flag = 'united-nations.svg';
+
     var motion;
     for (var i = 0; i < simulation.motions.length; i++) {
         var m = simulation.motions[i];
@@ -163,10 +165,11 @@ exports.voteMotion = function(req, res) {
         }
     }
     simulation.resolution.inDebate = false;
-    db.helpers.createComment(simulation.communicationChannels[0], {
+    var newComment = db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Motion open for voting!\n' + motion.body + '\nMoved by: ' + motion.mover.name,
         user: user
     });
+    db.helpers.setCommentFlag(simulation, newComment, simulation.chairperson);
     res.send(200);
 };
 
@@ -174,7 +177,7 @@ exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.body.sid];
     var user = db.users[req.body.userId];
     var resolution = simulation.resolution;
-    user.flag = 'united-nations.svg';
+
     resolution.inDebate = false;
     resolution.inVote = true;
     // TEMP
@@ -185,10 +188,11 @@ exports.voteResolution = function(req, res) {
             user: undefined
         });
     }
-    db.helpers.createComment(simulation.communicationChannels[0], {
+    var newComment = db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Resolution open for voting!',
         user: user
     });
+    db.helpers.setCommentFlag(simulation, newComment, user);
 
     res.send(200);
 };
@@ -219,9 +223,16 @@ exports.deleteMotion = function(req, res) {
 exports.country = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var countries = simulation.countries;
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
+    var plainTextPP = false;
+    if (typeof country.positionPaper != 'undefined') {
+        if (country.positionPaper.file === null){
+            plainTextPP = true;
+        }
+    }
     res.render('participant/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -232,6 +243,7 @@ exports.country = function(req, res) {
         userIsMember: userIsMember,
         countryId: country.id,
         positionPaper: country.positionPaper,
+        plainTextPP: plainTextPP,
         positionPaperVisible: simulation.paperIsViewable,
         directives: country.directives,
         userIsAmbassador: userIsAmbassador
@@ -267,6 +279,8 @@ exports.submit = function(req, res) {
             summary: req.body["position-paper-summary"],
             file: path.basename(positionPaper.path)
         });
+    } else if (req.body["position-paper-summary"]) {
+        db.helpers.setPositionPaperPlainText(country, req.body["position-paper-summary"]);
     }
     res.redirect('/participant/simulation/' + simulationId + '/' + countryId);
 };
