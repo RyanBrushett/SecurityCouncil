@@ -262,7 +262,7 @@ helpers.createUser = function (options) {
 helpers.createModerator = function (options) {
     options.id = module.exports.users.length;
     var user = new models.Moderator(options);
-    user.flag="moderator.png";
+    user.flag="moderator.svg";
     module.exports.save(user);
     module.exports.users.push(user);
     return user;
@@ -334,6 +334,7 @@ helpers.setChairperson = function (sid, uid) {
         } 
     });
     var members = country.members;
+    country.ambassador = null;
     var idx = -1;
     for (var i = 0; i < country.members.length; i++){
         if (country.members[i].id == user.id) {

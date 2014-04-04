@@ -3,6 +3,7 @@
     <head>
         <title>{{simulation.name}} Debate &middot; Council</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/debate.css">
         <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>
         <script type="text/javascript" src="/js/ajax.js"></script>
@@ -166,8 +167,8 @@
                     {{/members}}
                 {{/simulation.countries}}
                 <!-- No need for wacky submit links. The CSS will need to be updated to account for class called input-button -->
-                <input class="input-button" type="submit" id="create-new-channel" value="confirm">
-                <a href="/debate/{{simulation.id}}/{{channel.id}}" id="create-new-channel">Cancel</a>
+                <input class="input-button" type="submit" id="create-new-channel" value="Confirm">
+                <a href="/debate/{{simulation.id}}/{{channel.id}}" class="input-button" id="create-new-channel">Cancel</a>
             </form>
         </div>
         </main>
