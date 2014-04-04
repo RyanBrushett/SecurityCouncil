@@ -396,15 +396,15 @@ helpers.userIsAmbassadorOfCountry = function (country, user) {
 
 helpers.setUserFlag = function (simulation, user) {
     var i, j, members;
-    for (i = 0; i < simulation.countries.length; i++) {
-        members = simulation.countries[i].members;
-        for (j = 0; j < members.length; j++) {
-            if (user.id == members[j].id) {
-                if (!user.chair) {
+    if (user.chair) {
+        user.userFlag = 'united-nations.svg';
+    }
+    else {
+        for (i = 0; i < simulation.countries.length; i++) {
+            members = simulation.countries[i].members;
+            for (j = 0; j < members.length; j++) {
+                if (user.id == members[j].id) {
                     user.userFlag = simulation.countries[i].flag;
-                }
-                else {
-                    user.userFlag = 'united-nations.svg';
                 }
             }
         }
@@ -415,17 +415,15 @@ helpers.setUserFlag = function (simulation, user) {
 
 helpers.setCommentFlag = function (simulation, comment, user) {
     var i, j, members;
-    for (i = 0; i < simulation.countries.length; i++) {
-        members = simulation.countries[i].members;
-        for (j = 0; j < members.length; j++) {
-            if (user.id == members[j].id) {
-                if (!user.chair) {
+    if (user.chair) {
+        comment.commentFlag = 'united-nations.svg';
+    }
+    else {
+        for (i = 0; i < simulation.countries.length; i++) {
+            members = simulation.countries[i].members;
+            for (j = 0; j < members.length; j++) {
+                if (user.id == members[j].id) {
                     comment.commentFlag = simulation.countries[i].flag;
-                    console.log(comment.commentFlag);
-                }
-                else {
-                    comment.commentFlag = 'united-nations.svg';
-                    console.log(comment.commentFlag);
                 }
             }
         }

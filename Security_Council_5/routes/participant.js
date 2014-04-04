@@ -111,7 +111,7 @@ exports.debateMotion = function(req, res) {
         content: 'New motion under debate!\n' + motion.body + '\n' + 'Moved by: ' + motion.mover.name + '\n',
         user: user
     });
-    db.helpers.setCommentFlag(simulation, newComment, user);
+    db.helpers.setCommentFlag(simulation, newComment, simulation.chairperson);
     res.send(200);
 };
 
