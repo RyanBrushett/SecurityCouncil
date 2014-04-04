@@ -46,7 +46,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p></a>
+            </a></span></p>
         </section>
         <main>
             <section class="metrics-options">
