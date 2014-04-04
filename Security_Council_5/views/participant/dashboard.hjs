@@ -37,14 +37,14 @@
                             {{/resolution.inVote}}
                             {{^resolution.inVote}}
                             {{/resolution.inVote}}
-                            {{#simulation.motions}}
+                            {{#motions}}
                                 {{#inDebate}}
                                 Debating motion {{{id}}}
                                 {{/inDebate}}
                                 {{#inVote}}
                                 Voting on motion {{{id}}}
                                 {{/inVote}}
-                            {{/simulation.motions}}
+                            {{/motions}}
                         {{/resolution.inDebate}}
                     </a></p>
                 </div>

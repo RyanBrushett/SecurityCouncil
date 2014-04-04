@@ -5,6 +5,8 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/debate.css">
         <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="/js/ajax.js"></script>
+        <script type="text/javascript" src="/js/debate.js"></script>
     </head>
     <body>
         <header class="header">
@@ -12,11 +14,11 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#currentUser.pic}}
-                    <li><img src="/images/{{ currentUser.pic }}" width="24px" height="24px"></li>
+                    <li><img src="/images/{{currentUser.pic}}" width="24px" height="24px"></li>
                     {{/currentUser.pic}}
-                    <li>{{ currentUser.name }}</li>
+                    <li>{{currentUser.name}}</li>
                     {{#currentUser.flag}}
-                    <li><img src="/images/{{ currentUser.flag }}" width="24px" height="24px"></li>
+                    <li><img src="/images/{{currentUser.flag}}" width="24px" height="24px"></li>
                     {{/currentUser.flag}}
                     <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
@@ -53,9 +55,9 @@
             <div id="channel-list">
                 <h3>Channels</h3>
                 <ul class="menu">
-                <li id="a-channel"><a href="/debate/{{simulation.id}}/0">Default</a></li>
+                <li id="0" class="a-channel"><a href="/debate/{{simulation.id}}/{{defaultChannelId}}">Default</a></li>
                 {{#visibleChannels}}
-                    <li id="a-channel"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a></li>
+                    <li class="a-channel" id="{{id}}"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a><input type="button" id="channel-button" onClick="deleteChannel({{simulation.id}},{{currentUser.id}},{{id}})" value="x"></li>
                 {{/visibleChannels}}
                 </ul>
             </div>

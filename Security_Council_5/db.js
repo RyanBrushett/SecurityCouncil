@@ -499,12 +499,23 @@ helpers.createCommunicationChannel = function (simulation, options) {
     return comm;
 };
 
+helpers.deleteCommunicationChannel = function (channel) {
+    channel.participants.length = 0;
+    module.exports.save(channel);
+    return channel.participants.length;
+};
+
+helpers.addUserToChannel = function (channel, user) {
+    channel.participants.push(user);
+    module.exports.save(channel);
+};
+
 helpers.getVisibleChannels = function (simulation, user) {
     var c = [];
     
-    for (var i = 0; i < simulation.communicationChannels.length; i++) {
-        if (simulation.communicationChannels[i].participants.indexOf(user) >= 0) {
-            if (simulation.communicationChannels[i].id != 0) {
+    for (var i = 1; i < simulation.communicationChannels.length; i++) {
+        for (var j = 0; j < simulation.communicationChannels[i].participants.length; j++) {
+            if (simulation.communicationChannels[i].participants[j].id == user.id) {
                 c.push(simulation.communicationChannels[i]);
             }
         }
@@ -675,24 +686,14 @@ module.exports.fillWithData = function () {
             preferences: ['Jordan', 'United Kingdom', 'Republic of Korea']
         }
     ];
-    // Create filler users
-    users.map(helpers.createUser);
-    helpers.createModerator({
-        name: 'Dr. Fiech',
-        username: 'fiech'
-    });
-    helpers.createModerator({
-        name: 'moderator',
-        username: 'moderator',
-        password: 'Education--01'
-    });
+
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
-    helpers.createCommunicationChannel(s1, {
+    var c1 = helpers.createCommunicationChannel(s1, {
         label: "Default",
         permissions: false
     });
-    helpers.createCommunicationChannel(s2, {
+    var c2 = helpers.createCommunicationChannel(s2, {
         label: "Default",
         permissions: false
     });
@@ -704,6 +705,22 @@ module.exports.fillWithData = function () {
         title: 'S/RES/2133(2013)',
         content: 'The General Assembly,\n\nReminding all nations of the celebration of the 50th anniversary of the Universal Declaration of Human Rights, which recognizes the inherent dignity, equality and inalienable rights of all global citizens,\n\nReaffirming its Resolution 33/1996 of 25 July 1996, which encourages Governments to work with UN bodies aimed at improving the coordination and effectiveness of humanitarian assistance,\n\nNoting with satisfaction the past efforts of various relevant UN bodies and nongovernmental organizations,\n\nStressing the fact that the United Nations faces significant financial obstacles and is in need of reform, particularly in the humanitarian realm,\n\nEncourages all relevant agencies of the United Nations to collaborate more closely with countries at the grassroots level to enhance the carrying out of relief efforts;\n\nUrges member states to comply with the goals of the UN Department of Humanitarian Affairs to streamline efforts of humanitarian aid;<br/>Requests that all nations develop rapid deployment forces to better enhance the coordination of relief efforts of humanitarian assistance in complex emergencies;\n\nCalls for the development of a United Nations Trust Fund that encourages voluntary donations from the private transnational sector to aid in funding the implementation of rapid deployment forces;\n\nStresses the continuing need for impartial and objective information on the political, economic and social situations and events of all countries;\n\nCalls upon states to respond quickly and generously to consolidated appeals for humanitarian assistance; and \n\n Requests the expansion of preventive actions and assurance of post-conflict assistance through reconstruction and development.'
     });
+    
+    // Create filler users
+    users.map(helpers.createUser);
+    var m1 = helpers.createModerator({
+        name: 'Dr. Fiech',
+        username: 'fiech'
+    });
+    helpers.addUserToChannel(c1, m1);
+    helpers.addUserToChannel(c2, m1);
+    var m2 = helpers.createModerator({
+        name: 'moderator',
+        username: 'moderator',
+        password: 'Education--01'
+    });
+    helpers.addUserToChannel(c1, m2);
+    helpers.addUserToChannel(c2, m2);
     users.forEach(function (user) {
         user.numberOfComments = 0;
         helpers.addUserToSimulation(s1, user);

@@ -11,11 +11,10 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    <li class="navigation__item">{{user.name}}</li>
-                    {{#user.flag}}
-                    <li><img src="/images/{{ user.flag }}" width="24px" height="24px"></li>
-                    {{/user.flag}}
-                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    {{#currentUser.flag}}
+                    <li class="navigation__item"><img src="/images/{{currentUser.flag}}" width="32px" height="32px"></li>
+                    {{/currentUser.flag}}
+                    <li class="navigation__item">{{currentUser.name}}</li>
                     {{#simulationJoined}}
                     <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
                     {{/simulationJoined}}
@@ -23,9 +22,7 @@
                     <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                     {{/isChair}}
                     {{^simulationJoined}}
-                    <li class="navigation__item"><a href="/participant/join/simulation/{{simulation.id}}">
-                        Join this simulation!
-                    </a></li>
+                    <li class="navigation__item"><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
                     {{/simulationJoined}}
                 </ul>
                 <ul class="navigation__items">

@@ -26,7 +26,8 @@ exports.view = function(req, res) {
         debateReso: debateResolution,
         voteReso: voteResolution,
         users: users,
-        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });
 };
 
@@ -56,7 +57,8 @@ exports.viewChannel = function (req, res) {
         debateReso: debateResolution,
         voteReso: voteResolution,
         users: users,
-        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser)
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });    
 };
 
@@ -79,19 +81,42 @@ exports.createChannel = function (req, res) {
         permissions: true
     });
     
-    for (var i = 0; i < req.body.usercheck.length; i++) {
-        channel.participants.push(db.users[req.body.usercheck[i]]);
-    }
+    db.helpers.addUserToChannel(channel, currentUser);
     
-    /*for (var i = 0; i < req.body.countrycheck.length; i++) {
-        for (var j = 0; j < simulation.countries.length; j++) {
-            if (j === req.body.countrycheck[i]) {
-                for (var k = 0; k < simulation.countries[j].members.length; k++) {
-                    channel.participants.push(simulation.countries[j].members[k]);
+    for (var i = 0; i < db.users.length; i++) {
+        if (db.users[i].moderator === true) {
+            db.helpers.addUserToChannel(channel, db.users[i]);
+        }
+    }    
+    
+    if (req.body.usercheck !== undefined) {
+        for (var i = 0; i < req.body.usercheck.length; i++) {
+            db.helpers.addUserToChannel(channel, db.users[req.body.usercheck[i]]);
+        }
+    }
+
+    if (Array.isArray(req.body.countrycheck)) {
+        if (req.body.countrycheck !== undefined) {
+            for (var i = 0; i < req.body.countrycheck.length; i++) {
+                for (var j = 0; j < simulation.countries.length; j++) {
+                    if (simulation.countries[j].id == req.body.countrycheck[i]) {
+                        for (var k = 0; k < simulation.countries[j].members.length; k++) {
+                            db.helpers.addUserToChannel(channel, simulation.countries[j].members[k]);
+                        }
+                    }
                 }
             }
         }
-    }*/
+    }
+    else {
+        for (var i = 0; i < simulation.countries.length; i++) {
+            if (simulation.countries[i].id == req.body.countrycheck) {
+                for (var j = 0; j < simulation.countries[i].members.length; j++) {
+                    db.helpers.addUserToChannel(channel, simulation.countries[i].members[j]);
+                }
+            }
+        }       
+    }
     
     res.redirect('/debate/' + req.params.sid + '/' + req.params.chid);
 };
@@ -105,18 +130,7 @@ exports.comment = function(req, res) {
         content: req.body.comment,
         user: currentUser
     });
-    
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    /*res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });*/
+
     res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
 
@@ -202,18 +216,7 @@ exports.vote = function(req, res) {
         }
     }
     
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    /*res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });*/
-    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.voteResolution = function(req, res) {
@@ -302,19 +305,27 @@ exports.voteResolution = function(req, res) {
         }
     }
     
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    /*res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });*/
-    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.deleteChannel = function (req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.uid];
+    var channels = simulation.communicationChannels;
+    var channel;
+    channels.forEach(function(ch){
+        if (ch.id === req.body.chid){
+            channel = ch;
+        }
+    });
+    if (user !== undefined && simulation !== undefined && channel !== undefined) {
+        var length = db.helpers.deleteCommunicationChannel(channel);
+        if (length === 0){
+            res.send(200);
+        } else {
+            res.send(404);
+        }
+    } else {
+        res.send(404);
+    }
 };
