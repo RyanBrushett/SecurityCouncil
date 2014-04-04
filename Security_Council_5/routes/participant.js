@@ -59,6 +59,7 @@ exports.simulation = function(req, res) {
     var country;
     var joined = false;
     var i, j;
+    
     for (i = 0; i < simulation.countries.length; i++) {
         for (j = 0; j < simulation.countries[i].members.length; j++) {
             if(simulation.countries[i].members[j].id == user.id){
@@ -67,6 +68,9 @@ exports.simulation = function(req, res) {
             }
         }
     }
+    
+    db.helpers.setUserFlag(simulation, user);
+    
     res.render('participant/simulation', {
         currentUser: user,
         isChair: (simulation.chairperson && simulation.chairperson.id === user.id),
