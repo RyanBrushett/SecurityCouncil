@@ -89,13 +89,15 @@
                 </table>
             </section>
             <section class="section resolution">
+            <!-- needs a form-->
                 {{#simulation.resolution}}
                 <h3>{{title}}</h3>
-                <p>
-                    {{#content}}
-                        {{.}}<br />
-                    {{/content}}
-                </p>
+                <textarea name="content" class="textbox">
+                {{#content}}
+                {{{.}}}
+                {{/content}}
+                </textarea>
+                <input type="submit" class="button" value="Save Resolution">
                 {{/simulation.resolution}}
             </section>
         </main>

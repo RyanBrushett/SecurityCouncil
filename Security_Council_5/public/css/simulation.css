@@ -57,6 +57,9 @@ body {
 
 .button {
     display: block;
+    background-color: white;
+    color: #464646;
+    border: solid;
 }
 
 .countries {
