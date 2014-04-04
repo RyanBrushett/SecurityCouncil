@@ -238,12 +238,22 @@ exports.country = function(req, res) {
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
+    var userCountry;
     var plainTextPP = false;
     if (typeof country.positionPaper != 'undefined') {
         if (country.positionPaper.file === null){
             plainTextPP = true;
         }
     }
+    
+    for (var i = 0; i < countries.length; i++) {
+        for (var j = 0; j < countries[i].members.length; j++) {
+            if (user.id === countries[i].members[j].id) {
+                userCountry = countries[i];
+            }
+        }
+    }
+    
     res.render('participant/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -251,6 +261,7 @@ exports.country = function(req, res) {
         simulation: simulation,
         simulationId: simulation.id,
         user: user,
+        country: userCountry,
         userIsMember: userIsMember,
         countryId: country.id,
         positionPaper: country.positionPaper,
