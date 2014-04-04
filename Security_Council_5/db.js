@@ -426,6 +426,8 @@ helpers.setCommentFlag = function (simulation, comment, user) {
     var i, j, members;
     if (user.chair) {
         comment.commentFlag = 'united-nations.svg';
+    } else if (user.moderator) {
+        comment.commentFlag = 'moderator.svg';
     }
     else {
         for (i = 0; i < simulation.countries.length; i++) {
