@@ -27,11 +27,10 @@ module.exports.users = [];
 var database = undefined;
 module.exports.use = function (filename) {
     var exists = fs.existsSync(filename);
-    database = new SQLite3.Database(filename);
     if (exists) {
-        module.exports.load();
-        return;
+        fs.unlinkSync(filename);
     }
+    database = new SQLite3.Database(filename);
     database.serialize(function () {
         Object.keys(models).forEach(function (e, i, a) {
             var tmp = new models[e]();
