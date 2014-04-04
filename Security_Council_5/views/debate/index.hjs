@@ -20,7 +20,12 @@
                     {{#currentUser.userFlag}}
                     <li><img src="/images/{{currentUser.userFlag}}" width="24px" height="24px"></li>
                     {{/currentUser.userFlag}}
+                    {{#isModerator}}
+                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    {{/isModerator}}
+                    {{^isModerator}}
                     <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    {{/isModerator}}
                 </ul>
                 <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>
@@ -28,7 +33,12 @@
             </nav>
         </header>
         <section class="infobar">
+            {{#isModerator}}
+            <a id="simulation-name" href="/moderator/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            {{/isModerator}}
+            {{^isModerator}}
             <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            {{/isModerator}}
             <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#debateReso}}
                 Debating the resolution

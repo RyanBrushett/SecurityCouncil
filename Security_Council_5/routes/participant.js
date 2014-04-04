@@ -213,7 +213,15 @@ exports.deleteMotion = function(req, res) {
     }
     
     var isLast = false;
-    if(simulation.motions.length === 0) {
+    
+    var motionsClear = true;
+    for (var i = 0; i < simulation.motions.length; i++) {
+        if (simulation.motions[i].isDeleted !== true) {
+            motionsClear = false;
+        }
+    }
+    
+    if (motionsClear) {
         isLast = true;
         simulation.resolution.inDebate = true;
     }
