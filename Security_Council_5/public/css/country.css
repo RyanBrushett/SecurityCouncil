@@ -1,8 +1,7 @@
-form p,
-textarea + p {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+.section .textbox {
+    width: 100%;
 }
-.members {
-    list-style: none;
+
+.section .form {
+    margin-bottom: 15px;
 }

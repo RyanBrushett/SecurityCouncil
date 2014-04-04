@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/simulation.css">
+        <link rel="stylesheet" href="/css/country.css">
     </head>
     <body>
         <header class="header">
@@ -47,6 +48,7 @@
         </section>
         <main class="main">
             <section class="section">
+                <h2>Ambassador</h2>
                 {{#ambassador}}
                 <p>Ambassador: {{name}}</p>
                 {{/ambassador}}
@@ -77,7 +79,7 @@
                 <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
                 <h2>Country directives</h2>
                 <p>Set directives for this country, based on their position paper.</p>
-                <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
+                <form class="form" action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
                     <textarea name="directives" class="textbox">{{{directives}}}</textarea>
                     <input type="submit" class="button" value="Set Directives">
                 </form>
@@ -87,7 +89,7 @@
                     <textarea disabled="true" class="textbox"></textarea>
                     <h2>Country directives</h2>
                     <p>Set directives for this country, based on their position paper.</p>
-                    <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
+                    <form class="form" action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
                         <textarea name="directives" class="textbox">{{{directives}}}</textarea>
                         <input type="submit" class="button" value="Set Directives">
                     </form>
