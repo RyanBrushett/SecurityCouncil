@@ -16,10 +16,10 @@
                 <ul class="navigation__items">
                     <li>{{currentUser.name}}</li>
                     {{#currentUser.userFlag}}
-                    <li><img src="/images/{{currentUser.userFlag}}" width="24px" height="24px"></li>
+                    <li><img src="/images/{{currentUser.userFlag}}" width="32px" height="32px"></li>
                     {{/currentUser.userFlag}}
                     {{#isModerator}}
-                    <li><img src="/images/moderator.svg" width="24px" height="24px"></li>
+                    <li><img src="/images/moderator.svg" width="32px" height="32px"></li>
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                     {{/isModerator}}
                     {{^isModerator}}

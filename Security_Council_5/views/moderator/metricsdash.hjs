@@ -13,7 +13,7 @@
                 <ul class="navigation__items">
                     <li>{{user.name}}</li>
                     {{#user.flag}}
-                    <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
+                    <li><img src="/images/{{user.flag}}" width="32px" height="32px"></li>
                     {{/user.flag}}
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                 </ul>
