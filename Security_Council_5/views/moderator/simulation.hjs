@@ -94,7 +94,7 @@
                 <h3>{{title}}</h3>
                 <p>
                     {{#content}}
-                        {{.}}<br>
+                        {{.}}<br />
                     {{/content}}
                 </p>
                 {{/simulation.resolution}}

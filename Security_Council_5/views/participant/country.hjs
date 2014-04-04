@@ -11,8 +11,17 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
+                    {{#user.pic}}
+                    <li class="navigation__item"><img src="/images/{{user.pic}}" width="24px" height="24px"></li>
+                    {{/user.pic}}
                     <li class="navigation__item">{{user.name}}</li>
-                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
+                    {{#user.userFlag}}
+                    <li class="navigation__item"><img src="/images/{{user.userFlag}}" width="24px" height="24px"></li>
+                    {{/user.userFlag}}
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{name}}</a></li>
+                    {{#isChair}}
+                    <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    {{/isChair}}
                 </ul>
                 <ul class="navigation__items">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>
@@ -20,7 +29,7 @@
             </nav>
         </header>
         <section class="infobar">
-            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <h2 class="simulation__name"><a href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a></h2>
             <p><span class="status">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution

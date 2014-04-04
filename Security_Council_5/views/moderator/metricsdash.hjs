@@ -3,6 +3,7 @@
     <head>
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/metrics.css">
     </head>
     <body>
@@ -17,7 +18,6 @@
                     {{#user.flag}}
                     <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
                     {{/user.flag}}
-                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                 </ul>
                 <ul class="navigation__items logout">
