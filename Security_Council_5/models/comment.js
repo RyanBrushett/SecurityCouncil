@@ -3,7 +3,7 @@ function Comment(options) {
     this.content = options.content;
     this.id = options.id;
     this.user = options.user;
-    this.flag = options.flag;
+    this.commentFlag = options.commmentFlag;
 };
 
 module.exports = Comment;

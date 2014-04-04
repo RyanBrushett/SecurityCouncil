@@ -8,7 +8,7 @@ function User(options) {
     this.preferences = options.preferences || [];
     this.username = options.username;
     this.numberOfComments = 0;
-    this.flag = options.flag || '';
+    this.userFlag = options.userFlag;
 }
 
 module.exports = User;
