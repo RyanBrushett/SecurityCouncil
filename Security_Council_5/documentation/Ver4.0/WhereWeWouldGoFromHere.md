@@ -10,7 +10,7 @@
     - Hashed and salted passwords
     - Secure the routes a little further to prevent cross-contamination of users w/ moderators, etc.
 3. More ability to moderate
-    - Have the moderator be able to remove users from channels
+    - Have the moderator be able to remove users from channels and simulations.
     - Fully delete simulation spaces to minimize DB footprint
     - Control more closely the teams, number of members, etc.
     - Undos for various things (like appointing a chair, deleting a motion, etc.)
