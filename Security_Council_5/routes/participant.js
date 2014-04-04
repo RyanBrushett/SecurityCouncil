@@ -56,11 +56,13 @@ exports.dashboard = function(req, res) {
 exports.simulation = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var country;
     var joined = false;
     var i, j;
     for (i = 0; i < simulation.countries.length; i++) {
         for (j = 0; j < simulation.countries[i].members.length; j++) {
             if(simulation.countries[i].members[j].id == user.id){
+                country = simulation.countries[i];
                 joined = true;
             }
         }
@@ -69,6 +71,7 @@ exports.simulation = function(req, res) {
         currentUser: user,
         isChair: (simulation.chairperson && simulation.chairperson.id === user.id),
         simulation: simulation,
+        country: country,
         simulationJoined: joined
     });
 };

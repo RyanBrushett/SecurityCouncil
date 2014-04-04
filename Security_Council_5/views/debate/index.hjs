@@ -23,10 +23,15 @@
                     {{/currentUser.userFlag}}
                     {{#isModerator}}
                     <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    {{#user.flag}}
+                    <li><img src="/images/{{user.flag}}" width="24px" height="24px"></li>
+                    {{/user.flag}}
+                    <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                     {{/isModerator}}
                     {{^isModerator}}
                     <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                     {{/isModerator}}
+
                 </ul>
                 <ul class="navigation__items logout">
                     <li><a href="/logout">Logout</a></li>
