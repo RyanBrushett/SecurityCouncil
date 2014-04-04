@@ -282,10 +282,36 @@ helpers.createMotion = function (simulation, options) {
     return motion;
 };
 
-helpers.setChairperson = function (simulation, chairperson) {
-    chairperson.chair = true;
-    simulation.chairperson = chairperson;
-    module.exports.save(chairperson);
+helpers.setChairperson = function (sid, uid) {
+    var simulation = module.exports.simulations[sid];
+    var countries = simulation.countries;
+    var country;
+    var user = module.exports.users[uid];
+    countries.forEach(function(cntry){
+        for (var i = 0; i < cntry.members.length; i++) {
+            if (cntry.members[i].id == uid) {
+                country = cntry;
+                break;
+            }
+        } 
+    });
+    var members = country.members;
+    var idx = -1;
+    for (var i = 0; i < country.members.length; i++){
+        if (country.members[i].id == user.id) {
+            idx = i;
+            break;
+        }
+    }
+    if (idx > -1) {
+        members.splice(idx, 1);
+    }
+    country.members = members;
+    user.chair = true;
+    simulation.chairperson = user;
+    simulation.chairpersonPrevTeam = country.id;
+    module.exports.save(user);
+    module.exports.save(country);
     module.exports.save(simulation);
 };
 

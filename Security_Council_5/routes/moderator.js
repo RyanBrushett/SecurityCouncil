@@ -44,9 +44,7 @@ exports.submit = function (req, res) {
 exports.chairperson = function (req, res) {
     var simulationId = req.params.sid;
     var chairpersonId = req.body["chairperson"];
-    var simulation = db.simulations[simulationId];
-    var chairperson = db.users[chairpersonId];
-    db.helpers.setChairperson(simulation, chairperson);
+    db.helpers.setChairperson(simulationId, chairpersonId);
     res.redirect('/moderator/simulation/' + simulationId);
 };
 
