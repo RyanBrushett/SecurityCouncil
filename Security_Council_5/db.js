@@ -426,6 +426,8 @@ helpers.setCommentFlag = function (simulation, comment, user) {
     var i, j, members;
     if (user.chair) {
         comment.commentFlag = 'united-nations.svg';
+    } else if (user.moderator) {
+        comment.commentFlag = 'moderator.svg';
     }
     else {
         for (i = 0; i < simulation.countries.length; i++) {
@@ -790,11 +792,11 @@ module.exports.fillWithData = function () {
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
     var c1 = helpers.createCommunicationChannel(s1, {
-        label: "Default",
+        label: "Caucus",
         permissions: false
     });
     var c2 = helpers.createCommunicationChannel(s2, {
-        label: "Default",
+        label: "Caucus",
         permissions: false
     });
     helpers.createResolution(s1, {

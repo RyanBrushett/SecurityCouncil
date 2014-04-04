@@ -85,7 +85,7 @@
                 {{#userIsMember}}
                 <h2>Position paper</h2>
                 <form class="form" action="/participant/submit/{{simulation.id}}/{{countryId}}" enctype="multipart/form-data" method="post">
-                    <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaperSummary}}}</textarea>
+                    <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaper.summary}}}</textarea>
                     {{#positionPaper}}
                     <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
                     {{/positionPaper}}
