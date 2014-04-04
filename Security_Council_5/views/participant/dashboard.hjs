@@ -26,7 +26,7 @@
                     <h3 class="simulation__title">
                         <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                     </h3>
-                    <p>{{name}}</p>
+                    <p>{{resolution.title}}</p>
                     <p class="simulation__status"><a href="/debate/{{id}}">
                         {{#resolution.inDebate}}
                         Debating the resolution
@@ -65,8 +65,27 @@
                     <h3 class="simulation__title">
                         <a class="simulation__title__link" href="/participant/simulation/{{id}}">{{name}}</a>
                     </h3>
-                    <p>Resolution title</p>
-                    <p class="simulation__status"><a href="/debate/{{id}}">Status thingy</a></p>
+                    <p>{{resolution.title}}</p>
+                    <p class="simulation__status"><a href="/debate/{{id}}"><a href="/debate/{{id}}">
+                        {{#resolution.inDebate}}
+                        Debating the resolution
+                        {{/resolution.inDebate}}
+                        {{^resolution.inDebate}}
+                            {{#resolution.inVote}}
+                            Voting on the resolution
+                            {{/resolution.inVote}}
+                            {{^resolution.inVote}}
+                            {{/resolution.inVote}}
+                            {{#motions}}
+                                {{#inDebate}}
+                                Debating motion {{{id}}}
+                                {{/inDebate}}
+                                {{#inVote}}
+                                Voting on motion {{{id}}}
+                                {{/inVote}}
+                            {{/motions}}
+                        {{/resolution.inDebate}}
+                    </a></p>
                 </div>
                 <ul class="simulation__metadata">
                     {{#chairperson}}
