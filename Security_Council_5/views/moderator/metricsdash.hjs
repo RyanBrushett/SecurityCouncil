@@ -11,7 +11,7 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    <li><a>{{user.name}}</a></li>
+                    <li>{{user.name}}</li>
                     {{#user.flag}}
                     <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
                     {{/user.flag}}
@@ -43,7 +43,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p></a>
+            </a></span></p>
         </section>
         <main>
             <section class="metrics-options">

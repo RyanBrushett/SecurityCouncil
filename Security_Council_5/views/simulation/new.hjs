@@ -29,11 +29,11 @@
                 <p><input type="text" class="textbox-small" name="title" placeholder="The title of the resolution up for debate"></p>
                 <p><textarea name="content" class="textbox">The text of the resolution up for debate</textarea></p>
                 <p><input type="text" class="textbox-small" name="perteam" placeholder="The ideal number of users on each team"></p>
-                <p>Choose a sort method:</p>
+                <!--<p>Choose a sort method:</p>
                 <p>
                     <input type="radio" id="priority-sort" name="sort" value="priority" checked>
                     <label for="priorityteam">According to user preferences</label>
-                </p>
+                </p>!-->
                 <input type="submit" value="Create new simulation" class="button">
             </form>
         </main>

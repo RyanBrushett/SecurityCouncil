@@ -79,6 +79,7 @@ input[type="checkbox"]:checked {
   background-color: #464646;
   font-family: Raleway, sans-serif;
   font-weight: 200;
+  font-size: 1em;
   padding: 10px;
   border: none;
   border-radius: 12px;
