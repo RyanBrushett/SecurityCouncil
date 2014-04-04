@@ -1,10 +1,33 @@
 <!doctype html>
 <html>
     <head>
-        <title>Chair Agenda &middot; Council</title>
+        <title>Chair &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/simulation.css">
+        <style>
+.card {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    font: inherit;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+.card .error {
+    color: red;
+}
+.card .gtg {
+    color: green;
+}
+.card .voting {
+    color: purple;
+}
+.card .approved {
+    color: blue;
+}
+        </style>
         <script type="text/javascript" src="/js/ajax.js"></script>
         <script type="text/javascript" src="/js/participant/chair.js"></script>
     </head>
@@ -12,70 +35,115 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{username}}</li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{currentUser.name}}</li>
+                    <li class="navigation__item"><img src="/images/{{currentUser.userFlag}}" width="32px" height="32px"></li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <h2>{{getName}} &middot; Council</h2>
-            {{#isChair}}
-                {{#getResolution}}
-                <div>
-                    <h3>{{getTitle}}</h3>
-                    {{#isInDebate}}
-                    In Debate
-                    {{/isInDebate}}
-                    {{^isInDebate}}
-                    <button type="button" class="button" onclick="debateResolution({{sid}}, {{userId}})">Debate</button>
-                    {{/isInDebate}}
-                    {{#canVoteResolution}}
-                        {{#isInDebate}}
-                        <button type="button" class="button" onclick="voteResolution({{sid}}, {{userId}})">Vote</button>
-                        {{/isInDebate}}
-                        {{#isInVote}}
-                        In Vote
-                        {{/isInVote}}
-                    {{/canVoteResolution}}
-                </div>
-                <br />
-                {{/getResolution}}
-                {{#getMotions}}
-                <div id="{{getId}}">
-                    <div>
-                        <!-- this should be changed so that it doesn't look ridiculous -->       
-                        {{#isInDebate}}
-                        In Debate
-                        {{/isInDebate}}
-                        {{^isInDebate}} 
-                        <button type="button" class="button" onclick="debateMotion({{sid}}, {{userId}}, {{getId}})">Debate</button>
-                        {{/isInDebate}}
-                        
-                        {{#isInVote}}
-                        In Vote
-                        {{/isInVote}}
-                        {{^isInVote}}
-                            {{#isInDebate}}
-                            <button type="button" class="button" onclick="voteMotion({{sid}}, {{userId}}, {{getId}})">Vote</button>
-                            {{/isInDebate}}
-                        {{/isInVote}}
-                        
-                        <button type="button" class="button" onclick="deleteMotion({{sid}}, {{userId}}, {{getId}})">Trash</button>
-                    </div>
-                    <div>
-                        {{#getMover}}
-                        <p>Moved By: {{getName}}</p>
-                        {{/getMover}}
-                        <p>{{getBody}}</p>
-                    </div>
-                </div>
-                {{/getMotions}} 
-            {{/isChair}}
-            {{^isChair}}
-            Afraid not, friend.
-            {{/isChair}}
+        <section class="infobar">
+            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <p><span class="status" id="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p></a>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h3>Simulation</h3>
+                {{#simulation.chairperson}}
+                <p>Current Chair: {{name}}</p>
+                {{/simulation.chairperson}}
+                {{^simulation.chairperson}}
+                <p>No chairperson has been selected yet</p>
+                {{/simulation.chairperson}}
+            </section>
+            <section class="section">
+                <h3>Resolution</h3>
+                {{#simulation.resolution}}
+                <blockquote id="resolution-{{id}}" class="card">
+                    {{#isDenied}}
+                    <p class="error">Status: DENIED</p>
+                    {{/isDenied}}
+                    {{#inDebate}}
+                    <p class="gtg">Status: DEBATE</p>
+                    {{/inDebate}}
+                    {{#inVote}}
+                    <p class="voting">Status: VOTING</p>
+                    {{/inVote}}
+                    {{#isApproved}}
+                    <p class="approved">Status: APPROVED</p>
+                    {{/isApproved}}
+                    {{^inDebate}}
+                    <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
+                    {{/inDebate}}
+                    {{^inVote}}
+                    {{#inDebate}}
+                    <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+                    {{/inDebate}}
+                    {{/inVote}}
+                </blockquote>                
+                {{/simulation.resolution}}
+                <h3>Motions</h3>
+                {{#simulation.motions}}
+                {{^isDeleted}}
+                <blockquote id="{{id}}" class="card">
+                    <p>Moved By: {{mover.name}}</p>
+                    <p>{{body}}</p>
+                    {{#isDenied}}
+                    <p class="error">Status: DENIED</p>
+                    {{/isDenied}}
+                    {{#inDebate}}
+                    <p class="gtg">Status: DEBATE</p>
+                    {{/inDebate}}
+                    {{#inVote}}
+                    <p class="voting">Status: VOTING</p>
+                    {{/inVote}}
+                    {{#isApproved}}
+                    <p class="approved">Status: APPROVED</p>
+                    {{/isApproved}}                    
+                    {{^inDebate}}
+                    <button type="button" class="button" onclick="debateMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Debate</button>
+                    {{/inDebate}}
+                    {{^inVote}}
+                    {{#inDebate}}
+                    <button type="button" class="button" onclick="voteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Vote</button>
+                    {{/inDebate}}
+                    {{/inVote}}
+                    <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}}, {{simulation.resolution.id}})">Trash</button>
+                </blockquote>
+                {{/isDeleted}}
+                {{/simulation.motions}}
+            </section>
+            <section class="section resolution">
+                {{#simulation.resolution}}
+                <h3>{{title}}</h3>
+                <p>
+                    {{#content}}
+                        {{.}}<br>
+                    {{/content}}
+                </p>
+                {{/simulation.resolution}}
+            </section>
         </main>
     </body>
 </html>

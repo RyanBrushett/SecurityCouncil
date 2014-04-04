@@ -10,41 +10,58 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/simulation/new">Create a new simulation</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a>{{user.name}}</a></li>
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="32px" height="32px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a href="/simulation/new">Create a new simulation</a></li>
+                    <li class="navigation__item"><a href="/moderator/create">Create a moderator</a></li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
+        <main class="main">
+            <h2>All simulations</h2>
             {{#simulations}}
             <section class="simulation">
-                <h3 class="simulation__title">
-                    <a class="simulation__title__link" href="/moderator/simulation/{{ getId }}">{{ getName }}</a>
-                </h3>
-                <ul class="statistics">
-                    {{#getChairperson}}
-                    <li>Chair: {{getName}}</li>
-                    {{/getChairperson}}
-                    {{^getChairperson}}
+                <div class="simulation__bar">
+                    <h3 class="simulation__title">
+                        <a class="simulation__title__link" href="/moderator/simulation/{{id}}">{{name}}</a>
+                    </h3>
+                    <p>{{resolution.title}}</p>
+                    <p class="simulation__status">
+                        {{#resolution.inDebate}}
+                        Debating the resolution
+                        {{/resolution.inDebate}}
+                        {{^resolution.inDebate}}
+                            {{#resolution.inVote}}
+                            Voting on the resolution
+                            {{/resolution.inVote}}
+                            {{^resolution.inVote}}
+                            {{/resolution.inVote}}
+                            {{#motions}}
+                                {{#inDebate}}
+                                Debating motion {{{id}}}
+                                {{/inDebate}}
+                                {{#inVote}}
+                                Voting on motion {{{id}}}
+                                {{/inVote}}
+                            {{/motions}}
+                        {{/resolution.inDebate}}
+                    </p>
+
+                </div>
+                <ul class="simulation__metadata">
+                    {{#chairperson}}
+                    <li>Chair: <strong>{{name}}</strong></li>
+                    {{/chairperson}}
+                    {{^chairperson}}
                     <li>No chairperson has been selected</li>
-                    {{/getChairperson}}
-                    <li>Number of participants: {{ getNumberOfParticipants }}</li>
+                    {{/chairperson}}
                 </ul>
-                <!-- this should be somewhere else, probably. - Dan -->
-                Approved motions: <br />
-                {{#getMotions}}
-                    {{#isApproved}}
-                    {{getBody}}
-                    {{/isApproved}}
-                {{/getMotions}}
-                Denied motions: <br />
-                {{#getMotions}}
-                    {{#isDenied}}
-                    {{getBody}}
-                    {{/isDenied}}
-                {{/getMotions}}
             </section>
             {{/simulations}}
         </main>

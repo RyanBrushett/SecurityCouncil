@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>{{ getName }} &middot; Council</title>
+        <title>{{simulation.name}} &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/simulation.css">
@@ -10,54 +10,85 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{ username }}</li>
-                    <li><a href="/">Dashboard</a></li>
-                    {{#joined}}
-                    <li><a href="/debate/{{ getId }}">Debate!</a></li>
-                        {{#isChair}}
-                        <li><a href="/participant/chair/{{sid}}">Chair</a></li>
-                        {{/isChair}}
-                    {{/joined}}
-                    {{^joined}}
-                    <li><a href="/participant/join/simulation/{{ getId }}">Join this simulation!</a></li>
-                    {{/joined}}
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{currentUser.name}}</li>
+                    <li class="navigation__item"><img src="/images/{{currentUser.userFlag}}" width="32px" height="32px"></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{country.id}}/">{{country.name}}</a></li>
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">Debate</a></li>
+                    {{#isChair}}
+                    <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    {{/isChair}}
+                    {{^simulationJoined}}
+                    {{^isChair}}
+                    <li class="navigation__item"><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
+                    {{/isChair}}
+                    {{/simulationJoined}}
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <h2>Security Council &middot; {{ getName }}</h2>
-            {{#getChairperson}}
-            <p>Current Chair: {{getName}}</p>
-            {{/getChairperson}}
-            {{^getChairperson}}
-            <p>No chairperson has been selected yet. Ask your moderator to select a chairperson.</p>
-            {{/getChairperson}}
-            <p>Number of participants: {{ getNumberOfParticipants }}</p>
-            {{#getResolution}}
-            <hr class="separator">
-            <h2>{{ getTitle }}</h2>
-            <p>{{{ getContent }}}</p>
-            {{/getResolution}}
-            <table class="countries">
-                <tr>
-                    <th>Country</th>
-                    <th>Members</th>
-                </tr>
-                {{#getCountries}}
-                <tr class="country">
-                    <td class="country__name"><a href="/participant/simulation/{{sid}}/{{getId}}/">{{getName}}</a></td>
-                    <td>
-                        <ul class="country__members">
-                            {{#getMembers}}
-                            <li data-id="{{ getId }}" class="country__member">{{ getName }}</li>
-                            {{/getMembers}}
-                        </ul>
-                    </td>
-                </tr>
-                {{/getCountries}}
-            </table>
+        <section class="infobar">
+            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p></a>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h3>Simulation</h3>
+                {{#simulation.chairperson}}
+                <p>Current Chair: {{name}}</p>
+                {{/simulation.chairperson}}
+                {{^simulation.chairperson}}
+                <p>No chairperson has been selected yet</p>
+                {{/simulation.chairperson}}
+            </section>
+            <section class="section">
+                <h3>Countries</h3>
+                <table class="countries">
+                    {{#simulation.countries}}
+                    <tr class="country">
+                        <td class="country__name"><a href="/participant/simulation/{{simulation.id}}/{{id}}/">{{name}}</a></td>
+                        <td>
+                            <ul class="country__members">
+                                {{#members}}
+                                <li data-id="{{id}}" class="country__member">{{name}} <em>(@{{username}})</em></li>
+                                {{/members}}
+                            </ul>
+                        </td>
+                    </tr>
+                    {{/simulation.countries}}
+                </table>
+            </section>
+            <section class="section resolution">
+                {{#simulation.resolution}}
+                <h3>{{title}}</h3>
+                <p>
+                    {{#content}}
+                        {{.}}<br>
+                    {{/content}}
+                </p>
+                {{/simulation.resolution}}
+            </section>
         </main>
     </body>
 </html>

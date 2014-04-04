@@ -1,19 +1,9 @@
-var Comment = function (options){
-    this._id = options.id;
-    this._content = options.content;
-    this._user = options.user;
-};
-
-Comment.prototype.getId = function () {
-    return this._id;
-};
-
-Comment.prototype.getContent = function () {
-    return this._content;
-};
-
-Comment.prototype.getUser = function () {
-    return this._user;
+function Comment(options) {
+    options = options || {};
+    this.content = options.content;
+    this.id = options.id;
+    this.user = options.user;
+    this.commentFlag = options.commmentFlag;
 };
 
 module.exports = Comment;

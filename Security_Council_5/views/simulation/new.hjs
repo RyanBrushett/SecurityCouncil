@@ -10,35 +10,31 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a>{{user.name}}</a></li>
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="32px" height="32px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a href="/">Dashboard</a></li>
+                </ul>
+                <ul class="navigation__items logout">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <form action="/simulation/new" method="post">
-                <p>
-                    <input type="text" name="name" placeholder="Simulation name">
-                </p>
-                <p>
-                    <input type="text" name="title" placeholder="The title of the resolution">
-                </p>
-                <p>
-                    <textarea name="content" class="textbox">Sample resolution. Replace this with your resolution.</textarea>
-                </p>
-                <p>Enter ideal number of participants per team:</p>
-                <p>
-                    <input type="text" name="perteam" placeholder="Enter a number">
-                </p>
-                <p>Choose a sort method:</p>
+        <main class="main">
+            <form class="section" action="/simulation/new" method="post">
+                <h3>Create a new simulation</h3>
+                <p><input type="text" class="textbox-small" name="name" placeholder="The name of the simulation"></p>
+                <p><input type="text" class="textbox-small" name="title" placeholder="The title of the resolution up for debate"></p>
+                <p><textarea name="content" class="textbox">The text of the resolution up for debate</textarea></p>
+                <p><input type="text" class="textbox-small" name="perteam" placeholder="The ideal number of users on each team"></p>
+                <!--<p>Choose a sort method:</p>
                 <p>
                     <input type="radio" id="priority-sort" name="sort" value="priority" checked>
-                    <label for="priorityteam">Priority Registration Assign</label>
-                </p>
-                <p>
-                    <input type="submit" value="Create new simulation" class="button">
-                </p>
+                    <label for="priorityteam">According to user preferences</label>
+                </p>!-->
+                <input type="submit" value="Create new simulation" class="button">
             </form>
         </main>
     </body>

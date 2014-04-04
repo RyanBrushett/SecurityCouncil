@@ -1,84 +1,113 @@
 <!doctype html>
 <html>
     <head>
-        <title>{{ name }} &middot; Council</title>
+        <title>{{name}} &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/simulation.css">
         <link rel="stylesheet" href="/css/country.css">
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{ user.getName }}</li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/participant/simulation/{{ simulation.getId }}">Back to {{ simulation.getName }}</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{user.name}}</li>
+                    <li class="navigation__item"><img src="/images/{{user.userFlag}}" width="32px" height="32px"></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{country.id}}/">{{country.name}}</a></li>
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">Debate</a></li>
+                    {{#isChair}}
+                    <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    {{/isChair}}
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main data-member="{{#userIsMember}}true{{/userIsMember}}">
-            <h2>{{ name }}</h2>
-            {{#ambassador}}
-            <p>Ambassador: {{ getName }}</p>
-            <p>Ambassador Preference: {{ user.getAmbassadorPreference }}</p>
-            {{/ambassador}}
-            {{#userIsMember}}
-            <form action="/participant/ambassador/{{simulation.getId }}/{{ countryId }}" method="post">
-                <p>
-                    <label>Select an ambassador:</label>
-                    <select name="ambassador">
-                        {{#members}}
-                        <option value="{{ getId }}">{{ getName }}</option>
-                        {{/members}}
-                    </select>
-                    <input type="submit" class="button" value="Vote Ambassador">
-                </p>
-            </form> 
-            {{/userIsMember}}           
-            <hr class="separator">
-            <h2>Members of {{ name }}</h2>
-            <ul class="members">
-                {{#members}}
-                <li>{{ getName }}</li>
-                {{/members}}
-            </ul>
-            <hr class="separator">
-            {{#userIsMember}}
-            <h2>Position paper</h2>
-            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}" enctype="multipart/form-data" method="post">
-                <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{ positionPaperSummary }}}</textarea>
-                {{#positionPaper}}
-                <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
-                {{/positionPaper}}
-                <input type="file" name="position-paper">
-                <input type="submit" class="button" value="Submit Position Paper">
-            </form>
-            <hr class="separator">
-            <h2>Country directives</h2>
-            <textarea name="directives" disabled="true" class="textbox">{{{directives}}}</textarea>
-            {{/userIsMember}}
-            {{^userIsMember}}
-                {{#positionPaperVisible}}
+        <section class="infobar">
+            <h2 class="simulation__name"><a href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a></h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </a></span></p>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h2>Ambassador</h2>
+                {{#ambassador}}
+                <p>Ambassador: {{name}}</p>
+                {{/ambassador}}
+                <form action="/participant/ambassador/{{simulation.id}}/{{countryId}}" method="post">
+                    <p>
+                        <label>Select an ambassador:</label>
+                        <select name="ambassador">
+                            {{#members}}
+                            <option value="{{id}}">{{name}}</option>
+                            {{/members}}
+                        </select>
+                        <input type="submit" class="button" value="Vote Ambassador">
+                    </p>
+                </form>
+            </section>
+            <section class="section">
+                <h2>Members of {{name}}</h2>
+                <ul class="members">
+                    {{#members}}
+                    <li>{{name}}  <em>(@{{username}})</em></li>
+                    {{/members}}
+                </ul>
+            </section>
+            <section class="section">
+                {{#userIsAmbassador}}
+                <h2>Forward Motion</h2>
+                <form class="form" action="/participant/submit/{{simulation.id}}/{{countryId}}/motion" method="post">
+                    <textarea name="motion" class="textbox" placeholder="Motion text"></textarea>
+                    <input type="submit" class="button" value="Put forward this motion">
+                </form>
+                {{/userIsAmbassador}}
+                {{#userIsMember}}
                 <h2>Position paper</h2>
-                <textarea disabled="true" class="textbox">{{{ positionPaperSummary }}}</textarea>
-                {{#positionPaper}}
-                <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
-                {{/positionPaper}}
-                {{/positionPaperVisible}}
-            {{/userIsMember}}
-            {{#userIsAmbassador}}
-            <hr class="separator">
-            <h2>Forward Motion</h2>
-            <form action="/participant/submit/{{ simulation.getId }}/{{ countryId }}/motion" method="post">
-                <textarea name="motion" class="textbox"></textarea><br />
-                <input type="submit" class="button" value="Put Forward">
-            </form>
-            {{/userIsAmbassador}}
-            {{^userIsAmbassador}}
-            <br />
-            {{/userIsAmbassador}}
+                <form class="form" action="/participant/submit/{{simulation.id}}/{{countryId}}" enctype="multipart/form-data" method="post">
+                    <textarea name="position-paper-summary" class="textbox" placeholder="Summarize the position you country will take">{{{positionPaper.summary}}}</textarea>
+                    {{#positionPaper}}
+                    <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+                    {{/positionPaper}}
+                    <input type="file" name="position-paper">
+                    <input type="submit" class="button" value="Submit Position Paper">
+                </form>
+                <h2>Country directives</h2>
+                <textarea name="directives" disabled="true" class="textbox" placeholder="Your country directives have not yet been set">{{{directives}}}</textarea>
+                {{/userIsMember}}
+                {{^userIsMember}}
+                    {{#positionPaperVisible}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox">{{{positionPaperSummary}}}</textarea>
+                    {{#positionPaper}}
+                    <p><a href="/uploads/{{positionPaper}}">Download full position paper</a></p>
+                    {{/positionPaper}}
+                    {{/positionPaperVisible}}
+                    {{#positionPaperVisible}}
+                    Other countries' positon papers are not yet visible. Your moderator has control of the visibility.
+                    {{/positionPaperVisible}}
+                {{/userIsMember}}
+            </section>
         </main>
     </body>
 </html>

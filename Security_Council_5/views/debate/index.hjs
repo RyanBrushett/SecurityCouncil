@@ -1,127 +1,175 @@
 <!doctype html>
 <html>
     <head>
-        <title>{{ getName }} Debate &middot; Council</title>
+        <title>{{simulation.name}} Debate &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/debate.css">
+        <link href='http://fonts.googleapis.com/css?family=Bitter:400,700,400italic|Montserrat:400,700|Raleway:200,800' rel='stylesheet' type='text/css'>
+        <script type="text/javascript" src="/js/ajax.js"></script>
+        <script type="text/javascript" src="/js/debate.js"></script>
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{ currentUser.getName }}</li>
-                    {{#currentUser.flag}}
-                    <li><img src="/images/{{ currentUser.flag }}" width="32px", height="32px"></li>
-                    {{/currentUser.flag}}
-                    <li><a href="/">Dashboard</a></li>
+                <ul class="navigation__items">
+                    <li>{{currentUser.name}}</li>
+                    {{#currentUser.userFlag}}
+                    <li><img src="/images/{{currentUser.userFlag}}" width="32px" height="32px"></li>
+                    {{/currentUser.userFlag}}
+                    {{#isModerator}}
+                    <li><img src="/images/moderator.svg" width="32px" height="32px"></li>
+                    <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
+                    {{/isModerator}}
+                    {{^isModerator}}
+                    <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    {{/isModerator}}
+
+                </ul>
+                <ul class="navigation__items logout">
+                    <li><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main class="content">
-            {{#getResolution}}
-            <section class="sidebar">
-                <h2>{{ getTitle }}</h2>
-                <div class="sidebar__content">{{{ getContent }}}</div>
+        <section class="infobar">
+            {{#isModerator}}
+            <a id="simulation-name" href="/moderator/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            {{/isModerator}}
+            {{^isModerator}}
+            <a id="simulation-name" href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a>
+            {{/isModerator}}
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#debateReso}}
+                Debating the resolution
+                {{/debateReso}}
+                {{^debateReso}}
+                {{#voteReso}}
+                Voting on the resolution
+                {{/voteReso}}
+                {{^voteReso}}
+                {{/voteReso}}
+                {{#simulation.motions}}
+                {{#inDebate}}
+                Debating motion {{{id}}}
+                {{/inDebate}}
+                {{#inVote}}
+                Voting on motion {{{id}}}
+                {{/inVote}}
+                {{/simulation.motions}}
+                {{/debateReso}}
+            </span></p></a>
+        </section>
+        <main>
+            <section class="channels">
+            <div id="channel-list">
+                <h3>Channels</h3>
+                <ul class="menu">
+                <li id="0" class="a-channel"><a href="/debate/{{simulation.id}}/{{defaultChannelId}}">Caucus</a></li>
+                {{#visibleChannels}}
+                    <li class="a-channel" id="{{id}}"><a href="/debate/{{simulation.id}}/{{id}}">{{label}}</a><input type="button" id="channel-button" onClick="deleteChannel({{simulation.id}},{{currentUser.id}},{{id}})" value="x"></li>
+                {{/visibleChannels}}
+                </ul>
+            </div>
+                <a href="#modal" id="create-new-channel">Create new channel</a>
             </section>
-            {{/getResolution}}
-            <section class="sidebar">
-                <h2>Channels</h2>
-                <nav class="sidebar__content">
-                    <ul class="conversations">
-                        <li><a>All members (entire cacus)</a></li>
-                        <li><a>Nigeria</a></li>
-                        <li><a>Russia, Chad</a></li>
-                    </ul>
-                </nav>
-            </section>
-            <section class="section">
-                <h2>Debate</h2>
-                <div class="discussion">
-                    {{#votingMotion}}
-                    {{#motionToVote}}
-                        {{#hasNotVoted}}
-                            {{#userCanVote}}
-                            <form action="/debate/vote/{{sid}}/{{getId}}" method="post">
-                                <input type="radio" name="vote" value="yay" checked>Yay</input>
-                                <input type="radio" name="vote" value="nay">Nay</input>
-                                <input type="radio" name="vote" value="absent">Not Present</input>
-                                <input type="submit" value="Vote!" class="button" />
-                            </form>
-                            {{/userCanVote}}
-                            {{^userCanVote}}
-                            There is a motion up for voting.<br />
-                            {{getBody}}
-                            {{/userCanVote}}
-                        {{/hasNotVoted}}
-                        {{^hasNotVoted}}
-                            You have already voted on this motion.
-                        {{/hasNotVoted}}
-                    {{/motionToVote}}
-                    {{/votingMotion}}
-                    
-                    {{#votingResolution}}
-                        {{#hasNotVoted}}
-                            {{#userCanVote}}
-                            <form action="/debate/vote/{{sid}}" method="post">
-                                <input type="radio" name="vote" value="yay" checked>Yay</input>
-                                <input type="radio" name="vote" value="nay">Nay</input>
-                                <input type="radio" name="vote" value="absent">Not Present</input>
-                                <input type="submit" value="Vote!" class="button" />
-                            </form>
-                            {{/userCanVote}}
-                            {{^userCanVote}}
-                            The resolution is up for voting.<br />
-                            {{getBody}}
-                            {{/userCanVote}}
-                        {{/hasNotVoted}}
-                        {{^hasNotVoted}}
-                            You have already voted on this resolution.
-                        {{/hasNotVoted}}                    
-                    {{/votingResolution}}
-                    
-                    {{^voting}}
-                    <form action="/debate/{{ getId }}" method="post">
+        <section class="debate">
+                {{#permissions.votingMotion}}
+                {{#permissions.motionToVote}}
+                    {{#permissions.hasNotVoted}}
+                        {{#permissions.userCanVote}}
+                        <form action="/debate/vote/{{simulation.id}}/{{id}}" method="post">
+                            <input type="radio" name="vote" value="yay" checked>Yay</input>
+                            <input type="radio" name="vote" value="nay">Nay</input>
+                            <input type="radio" name="vote" value="absent">Not Present</input>
+                            <input type="submit" value="Vote!" class="button" />
+                        </form>
+                        {{/permissions.userCanVote}}
+                        {{^permissions.userCanVote}}
+                        There is a motion up for voting.<br />
+                        {{getBody}}
+                        {{/permissions.userCanVote}}
+                    {{/permissions.hasNotVoted}}
+                    {{^permissions.hasNotVoted}}
+                        You have already voted on this motion.
+                    {{/permissions.hasNotVoted}}
+                {{/permissions.motionToVote}}
+                {{/permissions.votingMotion}}
+                {{#permissions.votingResolution}}
+                    {{#permissions.hasNotVoted}}
+                        {{#permissions.userCanVote}}
+                        <form action="/debate/vote/{{simulation.id}}" method="post">
+                            <input type="radio" name="vote" value="yay" checked>Yay</input>
+                            <input type="radio" name="vote" value="nay">Nay</input>
+                            <input type="radio" name="vote" value="absent">Not Present</input>
+                            <input type="submit" value="Vote!" class="button" />
+                        </form>
+                        {{/permissions.userCanVote}}
+                        {{^permissions.userCanVote}}
+                        The resolution is up for voting.<br>
+                        {{body}}
+                        {{/permissions.userCanVote}}
+                    {{/permissions.hasNotVoted}}
+                    {{^permissions.hasNotVoted}}
+                        You have already voted on this resolution.
+                    {{/permissions.hasNotVoted}}
+                {{/permissions.votingResolution}}
+                {{^permissions.voting}}
+                    {{#userCanComment}}
+                    <form action="/debate/comment/{{simulation.id}}/{{channel.id}}" method="post">
                         <textarea name="comment" class="textbox" placeholder="Add something"></textarea>
                         <input type="submit" value="Comment" class="button">
-                    </form>                    
-                    {{/voting}}
-                    
-                    {{#getComments}}
+                    </form>
+                    {{/userCanComment}}
+                    {{^userCanComment}}
+                    You do not have permission to write on this channel.
+                    {{/userCanComment}}
+                {{/permissions.voting}}
+                {{#userCanRead}}
+                    {{#channel.comments}}
                     <blockquote class="card">
-                        <p>{{{getContent}}}</p>
+                        <p>{{{content}}}</p>
                         <footer class="card-info">
-                            {{#getUser}}
-                            {{#isChair}}
-                            <p class="card-info__name--chair">{{getName}}</p>
-                            <p class="card-info__name--chair">Council Chair</p>
-                            <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">
-                            {{/isChair}}
-                            {{^isChair}}
-                            <p>{{getName}}</p>
-                            <img class="card-info__flag" src="/images/{{getFlag}}" alt="Flag of --">                            
-                            {{/isChair}}
-                            {{/getUser}}
+                            {{#user}}
+                            <p>{{name}}</p>
+                            <img class="card-info__flag" src="/images/{{commentFlag}}" alt="Country Flag">
+                            {{/user}}
                         </footer>
                     </blockquote>
-                    {{/getComments}}                        
-                    <blockquote class="card">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                        <footer class="card-info">
-                            <p class="card-info__name">Adamu</p>
-                            <img class="card-info__flag" src="/images/nigeria.svg" alt="Flag of Nigeria">
-                        </footer>
-                    </blockquote>
-                    <blockquote class="card">
-                        <p>Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                        <footer class="card-info">
-                            <p class="card-info__name">Mangaral</p>
-                            <img class="card-info__flag" src="/images/chad.svg" alt="Flag of Chad">
-                        </footer>
-                    </blockquote>
-                </div>
-            </section>
+                    {{/channel.comments}}
+                {{/userCanRead}}
+                {{^userCanRead}}
+                <blockquote class="card">
+                    <p>You do not have permission to read this channel.</p>
+                </blockquote>
+                {{/userCanRead}}
+        </section>
+        <section class="resolution">
+            {{#simulation.resolution}}
+            <h3>{{title}}</h3>
+            <p class="resolution-content">
+                {{#content}}
+                    {{.}}<br>
+                {{/content}}
+            </p>
+            {{/simulation.resolution}}
+        </section>
+        <div id="modal">
+            <form action="/debate/createchannel/{{simulation.id}}/{{channel.id}}" method="post" name="createchannel">
+                <input type="text" name="channelname" class="textbox-small" placeholder="New channel name">
+                {{#simulation.countries}}
+                    <!-- Selected by ID (value="id" there) -->
+                    <h4><input type="checkbox" name="countrycheck" value="{{id}}">{{name}}</h4>
+                    {{#members}}
+                    <!-- Selected by ID again -->
+                    <p class="channel-user-option">{{username}}<input type="checkbox" name="usercheck" value="{{id}}"></p>
+                    {{/members}}
+                {{/simulation.countries}}
+                <!-- No need for wacky submit links. The CSS will need to be updated to account for class called input-button -->
+                <input class="input-button" type="submit" id="create-new-channel" value="Confirm">
+                <a href="/debate/{{simulation.id}}/{{channel.id}}" class="input-button" id="create-new-channel">Cancel</a>
+            </form>
+        </div>
         </main>
     </body>
 </html>

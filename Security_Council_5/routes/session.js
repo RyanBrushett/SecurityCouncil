@@ -1,4 +1,5 @@
 var db = require('../db');
+var Moderator = require('../models/moderator');
 
 exports.view = function(req, res) {
     res.render('lr', {
@@ -10,7 +11,7 @@ exports.view = function(req, res) {
 
 exports.redirect = function(req, res) {
     var user = db.users[req.session.userId];
-    var prefix = (user.isModerator()) ? '/moderator/' : '/participant/';
+    var prefix = user.moderator ? '/moderator/' : '/participant/';
     res.redirect(prefix + 'dashboard');
 };
 
@@ -22,33 +23,6 @@ exports.require = function(req, res, next) {
     }
 };
 
-exports.restrictToMod = function(req, res, next) {
-    var user = db.users[req.session.userId];
-    if (user.isModerator()) {
-        next();
-    } else {
-        res.redirect('/participant/dashboard');
-    }
-};
-
-exports.restrictToUser = function(req, res, next) {
-    var user = db.users[req.session.userId];
-    if (user.isModerator()) {
-        res.redirect('/moderator/dashboard');
-    } else {
-        next();
-    }
-};
-
-exports.restrictToChair = function(req, res, next) {
-    var user = db.users[req.session.userId];
-    if (user.isChair()){
-        next();
-    } else {
-        res.redirect('/participant/dashboard');
-    }
-};
-
 exports.create = function(req, res) {
     var i;
     var password = req.body.password;
@@ -56,8 +30,8 @@ exports.create = function(req, res) {
     var users = db.users;
     var user;
     req.session.rerror = undefined;
-    for (i = 0; i < users.length; i++) {
-        if (username === users[i].getUsername() && users[i].checkPassword(password)) {
+    for (i = 0; i < users.length; i++) {     
+        if (username === users[i].username && users[i].password === password) {
             user = users[i];
             break;
         }
@@ -67,9 +41,18 @@ exports.create = function(req, res) {
         res.redirect('/login');
     } else {
         req.session.regenerate(function() {
-            req.session.userId = user.getId();
+            req.session.userId = user.id;
             res.redirect('/');
         });
+    }
+};
+
+exports.restrictToModerator = function(req, res, next) {
+    var user = db.users[req.session.userId];
+    if (user.moderator) {
+        next();
+    } else {
+        res.redirect('/participant/dashboard');
     }
 };
 

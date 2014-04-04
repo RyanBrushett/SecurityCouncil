@@ -1,11 +1,106 @@
-th, td {
-    padding: 1rem 1rem 1rem 0;
+html {
+    height: 100%;
 }
 
-.country__members {
-    list-style: none;
+body {
+    height: 100%;
+    overflow: hidden;
 }
 
-.country__member {
-    cursor: move;
+.header {
+    flex: 0 0 auto;
+}
+
+.infobar {
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #6db0fa;
+}
+
+.simulation__name {
+    padding: 15px;
+    color: white;
+}
+
+.infobar p {
+    padding: 15px;
+    font-family: Raleway, sans-serif;
+    font-weight: 100;
+    font-size: 1.4rem;
+}
+
+.active {
+    background-color: #fac76d;
+    color: white;
+}
+
+.status {
+    background-color: #fac76d;
+    font-family: Raleway, sans-serif;
+    font-weight: 400;
+    padding: 10px;
+    border-radius: 12px;
+    color: white;
+}
+
+.section {
+    flex: 1;
+    overflow-y: scroll;
+}
+
+.form {
+    padding-top: 15px;
+}
+
+.button {
+    display: block;
+    background-color: white;
+    color: #464646;
+    border: solid;
+}
+
+.countries {
+    width: 100%;
+}
+
+.country {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.country td {
+    flex: 1;
+}
+
+.country__name {
+    font-weight: bold;
+}
+
+.resolution {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    background-color: #464646;
+}
+
+.resolution .form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.resolution .textbox {
+    /* Make the form look like the resolution */
+    background-color: transparent;
+    border: none;
+    resize: none;
+    color: inherit;
+    flex: 1;
+    font: inherit;
+    width: 100%;
 }
