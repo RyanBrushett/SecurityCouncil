@@ -290,6 +290,16 @@ helpers.setChairperson = function (sid, uid) {
     var countries = simulation.countries;
     var country;
     var user = module.exports.users[uid];
+    
+    if (simulation.chairpersonPrevTeam !== null) {
+        for (var i = 0; i < countries.length; i++) {
+            if (countries[i].id == simulation.chairpersonPrevTeam) {
+                countries[i].members.push(simulation.chairperson);
+            }
+        }
+        simulation.chairpersonPrevTeam = null;
+    }
+    
     countries.forEach(function(cntry){
         for (var i = 0; i < cntry.members.length; i++) {
             if (cntry.members[i].id == uid) {
