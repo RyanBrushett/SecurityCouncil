@@ -63,7 +63,7 @@
                     <input type="submit" class="button" value="Set Chairperson">
                 </form>
                 <form class="form" action="/moderator/simulation/visible-paper/{{simulation.id}}" method="post">
-                    <label>Set the visibility of member's position paper:</label>
+                    <label>Set the visibility of members' position paper:</label>
                     <select name="paperIsVisible">
                         <option value="hidden" {{^simulation.paperIsViewable}} selected="true" {{/simulation.paperIsViewable}}>Hidden</option>
                         <option value="visible" {{#simulation.paperIsViewable}} selected="true" {{/simulation.paperIsViewable}}>Visible</option>

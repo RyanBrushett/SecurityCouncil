@@ -343,11 +343,7 @@ exports.deleteChannel = function (req, res) {
     });
     if (user !== undefined && simulation !== undefined && channel !== undefined) {
         var length = db.helpers.deleteCommunicationChannel(channel);
-        if (length === 0){
-            res.send(200);
-        } else {
-            res.send(404);
-        }
+        res.send(200);
     } else {
         res.send(404);
     }

@@ -603,6 +603,11 @@ helpers.createCommunicationChannel = function (simulation, options) {
 
 helpers.deleteCommunicationChannel = function (channel) {
     channel.participants.length = 0;
+    for (var i = 0; i < module.exports.users.length; i++) {
+        if (module.exports.users[i].moderator) {
+            channel.participants.push(module.exports.users[i]);
+        }
+    }
     module.exports.save(channel);
     return channel.participants.length;
 };

@@ -56,12 +56,44 @@
 2. A window will pop up and users can select from the list the people (or countries) they'd like to have added. Be sure to name the channel in the bar at the top!
     *NOTE* that adding a whole country adds all of the team members from that country.
 3. Once the chanel is created, it can be accessed on the left side of the debate view. Comment as normal!
+4. You can also embed youtube videos to represet events (as the moderator) or if you film yourself making a video submission.
+    *NOTE* on embedded youtube links. Please be sure to copy the EMBED link. That is, on the video page, click on share, followed by embed, and copy the link which should look something like this:
+    
+            <iframe width="560" height="315" src="//www.youtube.com/embed/tjvfgPyRDa4" frameborder="0" allowfullscreen></iframe>
 
 - - -
 
 ## Being An Ambassador
 
-TODO:
+### You've Been Appointed Or Elected! What now?
+
+1. Being the ambassador means you're the voice of your team. You'll have access to putting forward motions and uploading position papers. You'll also be the member of the team who can comment in the caucus communication channel.
+2. Assuming you're logged in as the ambassador, select your country from the list of countries in the simulation landing page.
+3. In the country screen, you'll notice the sections for position papers and forwarding motions.
+
+### Forwarding a Motion
+
+1. From the country page, type the motion you'd like to forward in the box and click "Forward Motion".
+    *NOTE* that we purposely left this general / flexible so that you could motion to do anything. For example, you can say "We motion to ammend ... " or "We motion to challenge the chair ... " and so on - anything goes.
+    *NOTE* that we are confident this approach is viable because of the slight moderation ability posessed by the chair. E.g. the chair can select which motions are sent for debate and which ones are to silly to see and are trashed.
+    *NOTE* that ALL motions are recorded by the system so repeated deleted motions may indicate an issue with group understanding or level of seriousness. 
+2. The page will reload meaning the motion has been sent. It is now in the hands of the chair.
+
+### Uploading a Position Paper
+
+1. From the country page described above, notice the Postion Paper box. There are two ways to use this box:
+2. To upload a plain-text position paper, simply type out or copy-and-paste the position paper into the box and click submit. You do not have to upload a file with the paper. The most recent submission is kept so feel free to update it!
+3. To upload a .doc or .pdf (or .md or .txt so on and so forth) position paper, simply type a summary of the paper in the box (even just a few lines) and select the file using the upload button. The file will be uploaded to the server and the moderator will be able to download the file. Again, most recent submission counts.
+
+### Debate on Behalf of Your Country
+
+1. When logged in as a moderator, enter the debate screen by clicking "Debate" in the nav bar.
+2. You'll notice that you now how permission to comment on the caucus channel. This is the debate view and should only be used for serious conversation about motions / the resolution / etc.
+3. When a vote is called, the comment box will be removed and replace with the voting interface. Be sure to cast your vote! You won't be able to vote a second time so make sure to talk to your team about it before hand.
+    *NOTE* that just like in real life, you can't undo a vote. Be sure!
+4. Your options are Yay, Nay, or Not Present (meaning you left the room and refused to vote).
+    *NOTE* that quorum requires a certain number of present ambassadors for a vote to be considered valid. If quorum is not met, debate will be resumed on the motion/resolution and the vote will have failed.
+    *NOTE* on veto: Veto only applies on the resolution and is automatic. If one of the permanent members votes "no" on a resolution vote, the resolution is vetoed and does not pass. Debate does not resume and there are no more votes.
 
 - - -
 
@@ -92,3 +124,43 @@ TODO:
 2. When enough votes are put through, the result will be indicated and the chair page will change again slightly. Debate will default back to the resolution itself.
     *NOTE* that th resolution will have to be manually updated to reflect the change forwarded by the motion. This, again, was left vague and general to allow motions to be organic.
 3. Only one motion can be debated at a time and, of course, voted upon at a time. 
+
+- - -
+
+## Moderating
+
+### Accessing Country Info and Setting Directives
+
+1. When logged in as a moderator, you'll be able to select each country and set directives for that country which they'll see privately. You'll also be able to download their position papers.
+2. From within the simulation, select a country. Note the box regarding Country Directives.
+3. You can type out some notes and click Set Directives. As mentioned, the team will be the only ones to see these.
+4. From the same view, you can also view / download the position papers for that team.
+
+### Setting Position Papers as Visible to Other Teams
+
+1. To make things interesting, you can set position papers as visible to other teams.
+2. When logged in as the moderator, from the simulation screen, there is a dropdown you can select as Hidden or Visible under "Set the visibility of member's position paper"
+3. When set to hidden, other teams will NOT be able to see someone's position paper. They will only see their own.
+4. When set to visible, other teams can see the position papers that others have uploaded.
+
+###  Editing The Resolution (as needed)
+
+1. From the simulation screen, the resolution is editable at the right side of the screen.
+2. Click Set Resolution when ready!
+    *NOTE* that there is no undo here. Be sure!
+    
+### Joining the Debate and Communicating With Others
+
+1. From the simulation screen, the debate can be accessed by clicking the orange debate status link to the right of every page.
+2. Once in the debate, you can see *ALL* of the communication going on between members and comment in them yourself. Simply select the channel you'd like to view on the left and the centre will change to reflect that channel.
+    *NOTE* that we felt this was extremely important not only for evaluating discussion but also for controlling anything inappropriate. The comments are permanent and can be accessed by the moderator even if the channel is deleted by the user.
+3. You can also post as moderator and embed youtube events using the Embed link for those videos:
+    *NOTE* on embedded youtube links. Please be sure to copy the EMBED link. That is, on the video page, click on share, followed by embed, and copy the link which should look something like this:
+    
+            <iframe width="560" height="315" src="//www.youtube.com/embed/tjvfgPyRDa4" frameborder="0" allowfullscreen></iframe>
+
+### Reporting / Metrics
+
+1. You can access some reports regarding the status of the simulation and the activity so far by clicking the "Reports" link in the nav bar from within the simulation.
+2. These are broken down by User, Team, Motions, or just a general overview. Be sure to scroll! At times these tables can get large.
+3. Note that on top of reports and metrics, you can visit the debate at any point by clicking the debate status box (the orange box) on the right of every screen. From here you'll be able to enter communication channels and see the discussion first-hand.
