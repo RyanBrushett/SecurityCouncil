@@ -45,7 +45,7 @@
             </nav>
         </header>
         <section class="infobar">
-            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <a href="/participant/simulation/{{simulation.id}}"><h2 class="simulation__name">{{simulation.name}}</h2></a>
             <p><span class="status" id="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
