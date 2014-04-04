@@ -11,13 +11,10 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    {{#currentUser.flag}}
-                    <li class="navigation__item"><img src="/images/{{currentUser.flag}}" width="32px" height="32px"></li>
-                    {{/currentUser.flag}}
                     <li class="navigation__item">{{currentUser.name}}</li>
-                    {{#simulationJoined}}
-                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
-                    {{/simulationJoined}}
+                    <li class="navigation__item"><img src="/images/{{currentUser.userFlag}}" width="24px" height="24px"></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{country.id}}/">{{country.name}}</a></li>
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">Debate</a></li>
                     {{#isChair}}
                     <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                     {{/isChair}}

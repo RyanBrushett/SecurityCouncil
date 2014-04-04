@@ -12,6 +12,10 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     <li class="navigation__item">{{user.name}}</li>
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="24px" height="24px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                 </ul>
                 <ul class="navigation__items">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>
@@ -19,8 +23,8 @@
             </nav>
         </header>
         <section class="infobar">
-            <h2 class="simulation__name">{{simulation.name}}</h2>
-            <p><span class="status">
+            <h2 class="simulation__name"><a href="/moderator/simulation/{{simulation.id}}">{{simulation.name}}</a></h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
                 {{/simulation.resolution.inDebate}}
@@ -39,7 +43,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p>
+            </a></span></p>
         </section>
         <main class="main">
             <section class="section">
@@ -78,6 +82,16 @@
                     <input type="submit" class="button" value="Set Directives">
                 </form>
                 {{/positionPaper}}
+                {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <p>Set directives for this country, based on their position paper.</p>
+                    <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
+                        <textarea name="directives" class="textbox">{{{directives}}}</textarea>
+                        <input type="submit" class="button" value="Set Directives">
+                    </form>
+                    {{/positionPaper}}
             </section>
         </main>
     </body>

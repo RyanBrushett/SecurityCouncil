@@ -12,7 +12,12 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     <li class="navigation__item">{{user.name}}</li>
-                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
+                    <li class="navigation__item"><img src="/images/{{user.userFlag}}" width="24px" height="24px"></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{country.id}}/">{{country.name}}</a></li>
+                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">Debate</a></li>
+                    {{#isChair}}
+                    <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
+                    {{/isChair}}
                 </ul>
                 <ul class="navigation__items">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>
@@ -20,8 +25,8 @@
             </nav>
         </header>
         <section class="infobar">
-            <h2 class="simulation__name">{{simulation.name}}</h2>
-            <p><span class="status">
+            <h2 class="simulation__name"><a href="/participant/simulation/{{simulation.id}}">{{simulation.name}}</a></h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
                 {{/simulation.resolution.inDebate}}
@@ -40,7 +45,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p>
+            </a></span></p>
         </section>
         <main class="main">
             <section class="section">
@@ -68,18 +73,45 @@
                 </ul>
             </section>
             <section class="section">
+                {{#userIsAmbassador}}
                 <h2>Put Forward Motion</h2>
                 <form action="/participant/submit/{{simulation.id}}/{{countryId}}/motion" method="post">
                     <p><textarea name="motion" class="textbox"></textarea></p>
                     <p><input type="submit" class="button" value="Put Forward"></p>
                 </form>
-                {{#positionPaper}}
-                <h2>Position paper</h2>
-                <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
-                <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
-                <h2>Country directives</h2>
-                <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
-                {{/positionPaper}}
+                {{/userIsAmbassador}}
+                
+                {{#userIsAmbassador}}
+                    {{#positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea class="textbox">{{{positionPaper.summary}}}</textarea>
+                    <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                    {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}                
+                {{/userIsAmbassador}}
+                {{^userIsAmbassador}}
+                    {{#positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
+                    <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                    {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                {{/userIsAmbassador}}                
+                
             </section>
         </main>
     </body>

@@ -56,19 +56,26 @@ exports.dashboard = function(req, res) {
 exports.simulation = function(req, res) {
     var user = db.users[req.session.userId];
     var simulation = db.simulations[req.params.sid];
+    var country;
     var joined = false;
     var i, j;
+    
     for (i = 0; i < simulation.countries.length; i++) {
         for (j = 0; j < simulation.countries[i].members.length; j++) {
             if(simulation.countries[i].members[j].id == user.id){
+                country = simulation.countries[i];
                 joined = true;
             }
         }
     }
+    
+    db.helpers.setUserFlag(simulation, user);
+    
     res.render('participant/simulation', {
         currentUser: user,
         isChair: (simulation.chairperson && simulation.chairperson.id === user.id),
         simulation: simulation,
+        country: country,
         simulationJoined: joined
     });
 };
@@ -213,7 +220,15 @@ exports.deleteMotion = function(req, res) {
     }
     
     var isLast = false;
-    if(simulation.motions.length === 0) {
+    
+    var motionsClear = true;
+    for (var i = 0; i < simulation.motions.length; i++) {
+        if (simulation.motions[i].isDeleted !== true) {
+            motionsClear = false;
+        }
+    }
+    
+    if (motionsClear) {
         isLast = true;
         simulation.resolution.inDebate = true;
     }
@@ -227,12 +242,22 @@ exports.country = function(req, res) {
     var country = simulation.countries[req.params.cid];
     var userIsMember = db.helpers.userIsMemberOfCountry(country, user);
     var userIsAmbassador = db.helpers.userIsAmbassadorOfCountry(country, user);
+    var userCountry;
     var plainTextPP = false;
     if (typeof country.positionPaper != 'undefined') {
         if (country.positionPaper.file === null){
             plainTextPP = true;
         }
     }
+    
+    for (var i = 0; i < countries.length; i++) {
+        for (var j = 0; j < countries[i].members.length; j++) {
+            if (user.id === countries[i].members[j].id) {
+                userCountry = countries[i];
+            }
+        }
+    }
+    
     res.render('participant/country', {
         ambassador: country.ambassador,
         members: country.members,
@@ -240,6 +265,7 @@ exports.country = function(req, res) {
         simulation: simulation,
         simulationId: simulation.id,
         user: user,
+        country: userCountry,
         userIsMember: userIsMember,
         countryId: country.id,
         positionPaper: country.positionPaper,
