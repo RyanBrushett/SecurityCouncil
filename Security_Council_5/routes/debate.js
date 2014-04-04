@@ -11,7 +11,7 @@ exports.view = function(req, res) {
     var users = db.users;
     var countries = db.countries;
     
-    db.helpers.setUserFlag(simulation, currentUser);
+    //db.helpers.setUserFlag(simulation, currentUser);
     
     if (currentUser.moderator) {
         isModerator = true;
@@ -48,7 +48,7 @@ exports.viewChannel = function (req, res) {
     var users = db.users;
     var countries = db.countries;
     
-    db.helpers.setUserFlag(simulation, currentUser);
+    // db.helpers.setUserFlag(simulation, currentUser);
     
     if (currentUser.moderator) {
         isModerator = true;
@@ -78,7 +78,7 @@ exports.createChannel = function (req, res) {
     var simulation = db.simulations[req.params.sid];
     var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
-    db.helpers.setUserFlag(simulation, currentUser);
+    // db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
@@ -137,7 +137,7 @@ exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
-    db.helpers.setUserFlag(simulation, currentUser);
+    // db.helpers.setUserFlag(simulation, currentUser);
     var comment = db.helpers.createComment(commChannel, {
         content: req.body.comment,
         user: currentUser
