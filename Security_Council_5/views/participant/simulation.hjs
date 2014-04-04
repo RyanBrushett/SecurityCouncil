@@ -11,14 +11,9 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    {{#currentUser.pic}}
-                    <li class="navigation__item"><img src="/images/{{currentUser.pic}}" width="24px" height="24px"></li>
-                    {{/currentUser.pic}}
                     <li class="navigation__item">{{currentUser.name}}</li>
-                    {{#currentUser.userFlag}}
                     <li class="navigation__item"><img src="/images/{{currentUser.userFlag}}" width="24px" height="24px"></li>
-                    {{/currentUser.userFlag}}
-                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                    <li class="navigation__item"><a href="/participant/simulation/{{simulation.id}}/{{country.id}}/">{{country.name}}</a></li>
                     {{#isChair}}
                     <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                     {{/isChair}}
