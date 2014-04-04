@@ -113,7 +113,9 @@ exports.createChannel = function (req, res) {
                 for (var j = 0; j < simulation.countries.length; j++) {
                     if (simulation.countries[j].id == req.body.countrycheck[i]) {
                         for (var k = 0; k < simulation.countries[j].members.length; k++) {
-                            db.helpers.addUserToChannel(channel, simulation.countries[j].members[k]);
+                            if (simulation.countries[j].members[k] != currentUser) {
+                                db.helpers.addUserToChannel(channel, simulation.countries[j].members[k]);
+                            }
                         }
                     }
                 }
@@ -300,6 +302,7 @@ exports.voteResolution = function(req, res) {
                     });
                     db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                     simulation.resolution.inDebate = false;
+                    simulation.resolution.isApproved = true;
                 }
                 else {
                     simulation.resolution.isDenied = true;
