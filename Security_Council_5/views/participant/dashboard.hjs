@@ -58,12 +58,7 @@
                 </ul>
             </section>
             {{/joinedSimulations}}
-            {{#user.chair}}
-            <h2>Simulations you are a chairing</h2>
-            {{/user.chair}}
-            {{^user.chair}}
             <h2>Simulations you are not a participant in</h2>
-            {{/user.chair}}
             {{#notJoinedSimulations}}
             <section class="simulation">
                 <div class="simulation__bar">
