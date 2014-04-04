@@ -73,13 +73,38 @@
                     <p><textarea name="motion" class="textbox"></textarea></p>
                     <p><input type="submit" class="button" value="Put Forward"></p>
                 </form>
-                {{#positionPaper}}
-                <h2>Position paper</h2>
-                <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
-                <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
-                <h2>Country directives</h2>
-                <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
-                {{/positionPaper}}
+                
+                {{#userIsAmbassador}}
+                    {{#positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea class="textbox">{{{positionPaper.summary}}}</textarea>
+                    <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                    {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}                
+                {{/userIsAmbassador}}
+                {{^userIsAmbassador}}
+                    {{#positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox">{{{positionPaper.summary}}}</textarea>
+                    <p><a href="/uploads/{{positionPaper.file}}">Download full position paper</a></p>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                    {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <textarea disabled="true" name="directives" class="textbox">{{{directives}}}</textarea>
+                    {{/positionPaper}}
+                {{/userIsAmbassador}}                
+                
             </section>
         </main>
     </body>
