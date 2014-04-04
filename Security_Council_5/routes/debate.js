@@ -95,7 +95,6 @@ exports.createChannel = function (req, res) {
         }
     }
 
-    console.log(req.body.countrycheck);
     if (Array.isArray(req.body.countrycheck)) {
         if (req.body.countrycheck !== undefined) {
             for (var i = 0; i < req.body.countrycheck.length; i++) {
@@ -310,4 +309,23 @@ exports.voteResolution = function(req, res) {
 };
 
 exports.deleteChannel = function (req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.uid];
+    var channels = simulation.communicationChannels;
+    var channel;
+    channels.forEach(function(ch){
+        if (ch.id === req.body.chid){
+            channel = ch;
+        }
+    });
+    if (user !== undefined && simulation !== undefined && channel !== undefined) {
+        var length = db.helpers.deleteCommunicationChannel(channel);
+        if (length === 0){
+            res.send(200);
+        } else {
+            res.send(404);
+        }
+    } else {
+        res.send(404);
+    }
 };

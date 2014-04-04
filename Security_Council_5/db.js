@@ -499,6 +499,12 @@ helpers.createCommunicationChannel = function (simulation, options) {
     return comm;
 };
 
+helpers.deleteCommunicationChannel = function (channel) {
+    channel.participants.length = 0;
+    module.exports.save(channel);
+    return channel.participants.length;
+};
+
 helpers.addUserToChannel = function (channel, user) {
     channel.participants.push(user);
     module.exports.save(channel);
