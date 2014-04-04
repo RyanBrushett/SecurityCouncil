@@ -19,9 +19,9 @@
                     <li class="navigation__item"><a href="/participant/chair/{{simulation.id}}">Chair</a></li>
                     {{/isChair}}
                     {{^simulationJoined}}
-                    {{^currentUser.chair}}
+                    {{^isChair}}
                     <li class="navigation__item"><a href="/participant/join/simulation/{{simulation.id}}">Join this simulation!</a></li>
-                    {{/currentUser.chair}}
+                    {{/isChair}}
                     {{/simulationJoined}}
                 </ul>
                 <ul class="navigation__items">

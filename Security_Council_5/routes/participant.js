@@ -157,13 +157,6 @@ exports.voteMotion = function(req, res) {
             m.inVote = true;
             m.inDebate = false;
             motion = m;
-            for (var j = 0; j < simulation.countries.length - 1; j++) {
-                var v = Math.floor(Math.random() * 3 + 1);
-                db.helpers.createVote(motion, {
-                    vote: v,
-                    user: undefined
-                });
-            }
         }
         else {
             m.inDebate = false;
@@ -187,14 +180,7 @@ exports.voteResolution = function(req, res) {
 
     resolution.inDebate = false;
     resolution.inVote = true;
-    // TEMP
-    for (var j = 0; j < simulation.countries.length - 1; j++) {
-        var v = Math.floor(Math.random() * 3 + 1);
-        db.helpers.createVote(resolution, {
-            vote: v,
-            user: undefined
-        });
-    }
+
     var newComment = db.helpers.createComment(simulation.communicationChannels[0], {
         content: 'Resolution open for voting!',
         user: user

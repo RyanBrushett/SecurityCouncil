@@ -90,7 +90,7 @@
                     {{#inVote}}
                     <p class="voting">Status: VOTING</p>
                     {{/inVote}}
-                    {{#isApproved}
+                    {{#isApproved}}
                     <p class="approved">Status: APPROVED</p>
                     {{/isApproved}}
                     {{^inDebate}}
@@ -118,7 +118,7 @@
                     {{#inVote}}
                     <p class="voting">Status: VOTING</p>
                     {{/inVote}}
-                    {{#isApproved}
+                    {{#isApproved}}
                     <p class="approved">Status: APPROVED</p>
                     {{/isApproved}}                    
                     {{^inDebate}}
