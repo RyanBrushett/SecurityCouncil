@@ -98,6 +98,7 @@ app.post('/debate/createchannel/:sid/:chid', session.require, debate.createChann
 app.post('/debate/comment/:id/:chid', session.require, debate.comment);
 app.post('/debate/vote/:sid/:mid', session.require, debate.vote);
 app.post('/debate/vote/:sid', session.require, debate.voteResolution);
+app.post('/debate/deletechannel', session.require, debate.deleteChannel);
 
 // Create server
 http.createServer(app).listen(app.get('port'), function() {
