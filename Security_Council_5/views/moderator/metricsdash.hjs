@@ -3,6 +3,7 @@
     <head>
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/metrics.css">
     </head>
     <body>
@@ -10,14 +11,10 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    {{#user.pic}}
-                    <li><img src="/images/{{user.pic}}" width="24px", height="24px"></li>
-                    {{/user.pic}}
-                    <li><a>{{user.name}}</a></li>
+                    <li>{{user.name}}</li>
                     {{#user.flag}}
                     <li><img src="/images/{{user.flag}}" width="24px", height="24px"></li>
                     {{/user.flag}}
-                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                 </ul>
                 <ul class="navigation__items logout">
@@ -46,7 +43,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p></a>
+            </a></span></p>
         </section>
         <main>
             <section class="metrics-options">

@@ -262,7 +262,7 @@ helpers.createUser = function (options) {
 helpers.createModerator = function (options) {
     options.id = module.exports.users.length;
     var user = new models.Moderator(options);
-    user.flag="moderator.png";
+    user.flag="moderator.svg";
     module.exports.save(user);
     module.exports.users.push(user);
     return user;
@@ -334,6 +334,7 @@ helpers.setChairperson = function (sid, uid) {
         } 
     });
     var members = country.members;
+    country.ambassador = null;
     var idx = -1;
     for (var i = 0; i < country.members.length; i++){
         if (country.members[i].id == user.id) {
@@ -395,15 +396,15 @@ helpers.userIsAmbassadorOfCountry = function (country, user) {
 
 helpers.setUserFlag = function (simulation, user) {
     var i, j, members;
-    for (i = 0; i < simulation.countries.length; i++) {
-        members = simulation.countries[i].members;
-        for (j = 0; j < members.length; j++) {
-            if (user.id == members[j].id) {
-                if (!user.chair) {
+    if (user.chair) {
+        user.userFlag = 'united-nations.svg';
+    }
+    else {
+        for (i = 0; i < simulation.countries.length; i++) {
+            members = simulation.countries[i].members;
+            for (j = 0; j < members.length; j++) {
+                if (user.id == members[j].id) {
                     user.userFlag = simulation.countries[i].flag;
-                }
-                else {
-                    user.userFlag = 'united-nations.svg';
                 }
             }
         }
@@ -414,17 +415,15 @@ helpers.setUserFlag = function (simulation, user) {
 
 helpers.setCommentFlag = function (simulation, comment, user) {
     var i, j, members;
-    for (i = 0; i < simulation.countries.length; i++) {
-        members = simulation.countries[i].members;
-        for (j = 0; j < members.length; j++) {
-            if (user.id == members[j].id) {
-                if (!user.chair) {
+    if (user.chair) {
+        comment.commentFlag = 'united-nations.svg';
+    }
+    else {
+        for (i = 0; i < simulation.countries.length; i++) {
+            members = simulation.countries[i].members;
+            for (j = 0; j < members.length; j++) {
+                if (user.id == members[j].id) {
                     comment.commentFlag = simulation.countries[i].flag;
-                    console.log(comment.commentFlag);
-                }
-                else {
-                    comment.commentFlag = 'united-nations.svg';
-                    console.log(comment.commentFlag);
                 }
             }
         }

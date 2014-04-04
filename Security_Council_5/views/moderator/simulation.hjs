@@ -12,11 +12,10 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     <li class="navigation__item">{{user.name}}</li>
-                    <!--
-                    This is a link to the "participant" page that shows the view. This breaks all links out of the page.
-                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
-                    -->
-                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="24px" height="24px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}">Reports</a></li>
                 </ul>
                 <ul class="navigation__items">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>
@@ -25,7 +24,7 @@
         </header>
         <section class="infobar">
             <h2 class="simulation__name">{{simulation.name}}</h2>
-            <p><span class="status">
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
                 {{/simulation.resolution.inDebate}}
@@ -44,7 +43,7 @@
                         {{/inVote}}
                     {{/simulation.motions}}
                 {{/simulation.resolution.inDebate}}
-            </span></p>
+            </a></span></p>
         </section>
         <main class="main">
             <section class="section">
@@ -94,7 +93,7 @@
                 <h3>{{title}}</h3>
                 <p>
                     {{#content}}
-                        {{.}}<br>
+                        {{.}}<br />
                     {{/content}}
                 </p>
                 {{/simulation.resolution}}
