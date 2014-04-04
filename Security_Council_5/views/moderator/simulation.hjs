@@ -12,11 +12,10 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     <li class="navigation__item">{{user.name}}</li>
-                    <!--
-                    This is a link to the "participant" page that shows the view. This breaks all links out of the page.
-                    <li class="navigation__item"><a href="/debate/{{simulation.id}}">View the Debate</a></li>
-                    -->
-                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}">Metrics</a></li>
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="24px" height="24px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a href="/moderator/metrics/{{simulation.id}}">Reports</a></li>
                 </ul>
                 <ul class="navigation__items">
                     <li class="navigation__item"><a href="/logout">Logout</a></li>
