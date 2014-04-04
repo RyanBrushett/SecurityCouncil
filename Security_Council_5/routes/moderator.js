@@ -42,9 +42,8 @@ exports.country = function (req, res) {
 
 exports.submit = function (req, res) {
     var simulationId = req.params.sid;
-    var resolutionContent = req.body["resolution"];
     var simulation = db.simulations[simulationId];
-    simulation.resolution.content = resolutionContent;
+    db.helpers.setResolutionContent(simulation, req.body["resolution"]);
     res.redirect('/moderator/simulation/' + simulationId);
 };
 

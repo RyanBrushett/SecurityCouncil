@@ -307,6 +307,12 @@ helpers.createMotion = function (simulation, options) {
     return motion;
 };
 
+helpers.setResolutionContent = function (simulation, content) {
+    simulation.resolution.content = content;
+    module.exports.save(simulation.resolution);
+    simulation.resolution.content = content.split('\n');
+};
+
 helpers.setChairperson = function (sid, uid) {
     for (var i = 0; i < module.exports.users.length; i++) {
         module.exports.users[i].chair = false;

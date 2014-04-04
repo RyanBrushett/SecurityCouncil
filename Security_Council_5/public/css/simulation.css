@@ -82,6 +82,25 @@ body {
 }
 
 .resolution {
+    display: flex;
+    flex-direction: column;
     color: white;
     background-color: #464646;
+}
+
+.resolution .form {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.resolution .textbox {
+    /* Make the form look like the resolution */
+    background-color: transparent;
+    border: none;
+    resize: none;
+    color: inherit;
+    flex: 1;
+    font: inherit;
+    width: 100%;
 }

@@ -89,15 +89,12 @@
                 </table>
             </section>
             <section class="section resolution">
-            <!-- needs a form-->
                 {{#simulation.resolution}}
                 <h3>{{title}}</h3>
-                <textarea name="content" class="textbox">
-                {{#content}}
-                {{{.}}}
-                {{/content}}
-                </textarea>
-                <input type="submit" class="button" value="Save Resolution">
+                <form class="form" action="/moderator/submit/{{simulation.id}}" method="post">
+                <textarea name="resolution" class="textbox">{{#content}}{{.}}&#13;{{/content}}</textarea>
+                <input type="submit" class="button" value="Set Resolution">
+                </form>
                 {{/simulation.resolution}}
             </section>
         </main>
