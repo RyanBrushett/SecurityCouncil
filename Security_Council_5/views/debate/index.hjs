@@ -12,11 +12,11 @@
             <nav class="navigation">
                 <ul class="navigation__items">
                     {{#currentUser.pic}}
-                    <li><img src="/images/{{ currentUser.pic }}" width="24px" height="24px"></li>
+                    <li><img src="/images/{{currentUser.pic}}" width="24px" height="24px"></li>
                     {{/currentUser.pic}}
-                    <li>{{ currentUser.name }}</li>
+                    <li>{{currentUser.name}}</li>
                     {{#currentUser.flag}}
-                    <li><img src="/images/{{ currentUser.flag }}" width="24px" height="24px"></li>
+                    <li><img src="/images/{{currentUser.flag}}" width="24px" height="24px"></li>
                     {{/currentUser.flag}}
                     <li><a href="/participant/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
                 </ul>
