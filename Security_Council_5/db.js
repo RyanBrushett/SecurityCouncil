@@ -334,6 +334,7 @@ helpers.setChairperson = function (sid, uid) {
         } 
     });
     var members = country.members;
+    country.ambassador = null;
     var idx = -1;
     for (var i = 0; i < country.members.length; i++){
         if (country.members[i].id == user.id) {
