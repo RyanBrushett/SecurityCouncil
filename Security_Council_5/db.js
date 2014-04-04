@@ -401,6 +401,9 @@ helpers.userIsAmbassadorOfCountry = function (country, user) {
 };
 
 helpers.setUserFlag = function (simulation, user) {
+    if (user.userFlag || user.flag) {
+        return;
+    }
     var i, j, members;
     if (user.chair) {
         user.userFlag = 'united-nations.svg';

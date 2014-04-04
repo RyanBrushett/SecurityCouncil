@@ -155,7 +155,6 @@ exports.vote = function(req, res) {
     var commChannel = simulation.communicationChannels[0];
     var currentVotes = motion.votes;
     var numericVote = 0;
-    currentUser.flag = 'united-nations.svg';
 
     if (req.body.vote == 'yay') {
         numericVote = 1;
@@ -241,7 +240,6 @@ exports.voteResolution = function(req, res) {
     var simulation = db.simulations[req.params.sid];
     var currentUser = db.users[req.session.userId];
     var commChannel = simulation.communicationChannels[0];
-    currentUser.flag = 'united-nations.svg';
 
     var currentVotes = simulation.resolution.votes;
     var numericVote = 0;
