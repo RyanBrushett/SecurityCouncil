@@ -84,6 +84,8 @@ A major component of the final iteration is going to be design and usability but
 
 #### BACKEND:
 
+On top of all of the additions from our previous three iterations:
+
 - SQLite3 Database
     - Everything starts in memory.
     - Objects are mirrored onto the database by looking at the object and using its properties as "columns".
@@ -96,8 +98,12 @@ A major component of the final iteration is going to be design and usability but
     - Default admin account.
     - Moderators can access debate and post events/communicate with users.
     - Tracked metrics, viewable by the moderator.
+- Polish.
+    - Lots of testing and bug fixes ranging from one-line changes to entire re-thinks of our logic.
 
 #### FRONTEND:
+
+On top of all of the additions from our previous three iterations:
 
 - Dramatically updated views and user experience.
 - Added the ability to view metrics about the system.
