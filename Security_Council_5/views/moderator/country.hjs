@@ -82,6 +82,16 @@
                     <input type="submit" class="button" value="Set Directives">
                 </form>
                 {{/positionPaper}}
+                {{^positionPaper}}
+                    <h2>Position paper</h2>
+                    <textarea disabled="true" class="textbox"></textarea>
+                    <h2>Country directives</h2>
+                    <p>Set directives for this country, based on their position paper.</p>
+                    <form action="/moderator/directives/{{simulation.id}}/{{countryId}}" method="post">
+                        <textarea name="directives" class="textbox">{{{directives}}}</textarea>
+                        <input type="submit" class="button" value="Set Directives">
+                    </form>
+                    {{/positionPaper}}
             </section>
         </main>
     </body>
