@@ -283,6 +283,9 @@ helpers.createMotion = function (simulation, options) {
 };
 
 helpers.setChairperson = function (sid, uid) {
+    for (var i = 0; i < module.exports.users.length; i++) {
+        module.exports.users[i].chair = false;
+    }
     var simulation = module.exports.simulations[sid];
     var countries = simulation.countries;
     var country;
@@ -361,10 +364,38 @@ helpers.setUserFlag = function (simulation, user) {
         members = simulation.countries[i].members;
         for (j = 0; j < members.length; j++) {
             if (user.id == members[j].id) {
-                user.flag = simulation.countries[i].flag;
+                if (!user.chair) {
+                    user.userFlag = simulation.countries[i].flag;
+                }
+                else {
+                    user.userFlag = 'united-nations.svg';
+                }
             }
         }
     }
+    
+    module.exports.save(user);
+};
+
+helpers.setCommentFlag = function (simulation, comment, user) {
+    var i, j, members;
+    for (i = 0; i < simulation.countries.length; i++) {
+        members = simulation.countries[i].members;
+        for (j = 0; j < members.length; j++) {
+            if (user.id == members[j].id) {
+                if (!user.chair) {
+                    comment.commentFlag = simulation.countries[i].flag;
+                    console.log(comment.commentFlag);
+                }
+                else {
+                    comment.commentFlag = 'united-nations.svg';
+                    console.log(comment.commentFlag);
+                }
+            }
+        }
+    }
+    
+    module.exports.save(comment);
 };
 
 helpers.hasUserVoted = function(votable, user) {
