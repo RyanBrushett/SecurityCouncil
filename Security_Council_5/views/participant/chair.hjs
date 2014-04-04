@@ -42,7 +42,7 @@
         </header>
         <section class="infobar">
             <h2 class="simulation__name">{{simulation.name}}</h2>
-            <p><span class="status"><a href="/debate/{{simulation.id}}">
+            <p><span class="status" id="status"><a href="/debate/{{simulation.id}}">
                 {{#simulation.resolution.inDebate}}
                 Debating the resolution
                 {{/simulation.resolution.inDebate}}
@@ -76,7 +76,7 @@
             <section class="section">
                 <h3>Resolution</h3>
                 {{#simulation.resolution}}
-                <blockquote id="{{id}}" class="card">
+                <blockquote id="resolution-{{id}}" class="card">
                     {{#isDenied}}
                     <p class="error">Status: DENIED</p>
                     {{/isDenied}}
@@ -119,7 +119,7 @@
                     <button type="button" class="button" onclick="voteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Vote</button>
                     {{/inDebate}}
                     {{/inVote}}
-                    <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Trash</button>
+                    <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}}, {{simulation.resolution.id}})">Trash</button>
                 </blockquote>
                 {{/isDeleted}}
                 {{/simulation.motions}}

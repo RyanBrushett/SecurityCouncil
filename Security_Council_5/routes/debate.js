@@ -7,10 +7,15 @@ exports.view = function(req, res) {
     var userCountry = db.helpers.getUserCountry(simulation, currentUser);
     var debateResolution = simulation.resolution.inDebate;
     var voteResolution = simulation.resolution.inVote;
+    var isModerator = false;
     var users = db.users;
     var countries = db.countries;
     
     db.helpers.setUserFlag(simulation, currentUser);
+    
+    if (currentUser.moderator) {
+        isModerator = true;
+    }
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(simulation.communicationChannels[0], currentUser);
@@ -25,6 +30,7 @@ exports.view = function(req, res) {
         userCountry: userCountry,
         debateReso: debateResolution,
         voteReso: voteResolution,
+        isModerator: isModerator,
         users: users,
         visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
         defaultChannelId: simulation.communicationChannels[0].id
@@ -38,10 +44,15 @@ exports.viewChannel = function (req, res) {
     var userCountry = db.helpers.getUserCountry(simulation, currentUser);
     var debateResolution = simulation.resolution.inDebate;
     var voteResolution = simulation.resolution.inVote;
+    var isModerator = false;
     var users = db.users;
     var countries = db.countries;
     
     db.helpers.setUserFlag(simulation, currentUser);
+    
+    if (currentUser.moderator) {
+        isModerator = true;
+    }
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
@@ -56,6 +67,7 @@ exports.viewChannel = function (req, res) {
         userCountry: userCountry,
         debateReso: debateResolution,
         voteReso: voteResolution,
+        isModerator: isModerator,
         users: users,
         visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
         defaultChannelId: simulation.communicationChannels[0].id
