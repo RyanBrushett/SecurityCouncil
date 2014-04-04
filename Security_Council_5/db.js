@@ -792,11 +792,11 @@ module.exports.fillWithData = function () {
     var s1 = helpers.createSimulation({name: 'Political Science 2200'});
     var s2 = helpers.createSimulation({name: 'Political Science 3220'});
     var c1 = helpers.createCommunicationChannel(s1, {
-        label: "Default",
+        label: "Caucus",
         permissions: false
     });
     var c2 = helpers.createCommunicationChannel(s2, {
-        label: "Default",
+        label: "Caucus",
         permissions: false
     });
     helpers.createResolution(s1, {
