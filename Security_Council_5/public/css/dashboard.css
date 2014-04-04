@@ -1,14 +1,50 @@
+/** DASHBOARD **/
+
+.main {
+    flex-direction: column;
+    padding: 15px;
+}
+
+h2:not(:first-of-type) {
+    padding-top: 15px;
+}
+
 .simulation {
-    box-shadow: 0 1px 2px #aaa;
-    margin-bottom: 1rem;
-    padding: 1rem;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
 }
 
-.simulation__title { }
-.simulation__title__link {
-    color: inherit;
+.simulation__bar {
+    background-color: #6db0fa;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.statistics {
-    list-style: none;
+.simulation__title {
+    color: #252525;
+    padding: 15px;
+    background-color: #fac76d;
+}
+
+.simulation__metadata {
+    display: flex;
+    flex-direction: row;
+    font-family: Raleway, sans-serif;
+    font-weight: 100;
+    font-size: 1.4rem;
+}
+
+.simulation__status {
+    background-color: #252525;
+    color: white;
+    padding: 5px;
+    margin-right: 15px;
+    border-radius: 5px;
+    font-family: Raleway, sans-serif;
+    font-weight: 100;
+    font-size: 1.4rem;
 }

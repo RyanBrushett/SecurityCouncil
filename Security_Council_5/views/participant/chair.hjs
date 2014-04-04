@@ -4,7 +4,27 @@
         <title>Chair &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/simulation.css">
+        <style>
+.card {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    display: flex;
+    flex-direction: column;
+    font: inherit;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    width: 100%;
+}
+.card .error {
+    color: red;
+}
+.card .gtg {
+    color: green;
+}
+.card .voting {
+    color: purple;
+}
+        </style>
         <script type="text/javascript" src="/js/ajax.js"></script>
         <script type="text/javascript" src="/js/participant/chair.js"></script>
     </head>
@@ -12,61 +32,108 @@
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}</li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/participant/simulation/{{simulation.id}}">Back to {{simulation.name}}</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                <ul class="navigation__items">
+                    <li class="navigation__item">{{currentUser.name}}</li>
+                </ul>
+                <ul class="navigation__items">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            {{#simulation.resolution}}
-            <h2>{{simulation.name}} - {{title}}</h2>
-            <div id="resolution">
-                {{#inDebate}}In Debate{{/inDebate}}
-                {{^inDebate}}
-                <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
-                {{/inDebate}}
-                {{#canVoteResolution}}
-                    {{#inVote}}In Vote{{/inVote}}
-                    {{^inVote}}
-                    <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+        <section class="infobar">
+            <h2 class="simulation__name">{{simulation.name}}</h2>
+            <p><span class="status"><a href="/debate/{{simulation.id}}">
+                {{#simulation.resolution.inDebate}}
+                Debating the resolution
+                {{/simulation.resolution.inDebate}}
+                {{^simulation.resolution.inDebate}}
+                    {{#simulation.resolution.inVote}}
+                    Voting on the resolution
+                    {{/simulation.resolution.inVote}}
+                    {{^simulation.resolution.inVote}}
+                    {{/simulation.resolution.inVote}}
+                    {{#simulation.motions}}
+                        {{#inDebate}}
+                        Debating motion {{{id}}}
+                        {{/inDebate}}
+                        {{#inVote}}
+                        Voting on motion {{{id}}}
+                        {{/inVote}}
+                    {{/simulation.motions}}
+                {{/simulation.resolution.inDebate}}
+            </span></p></a>
+        </section>
+        <main class="main">
+            <section class="section">
+                <h3>Simulation</h3>
+                {{#simulation.chairperson}}
+                <p>Current Chair: {{name}}</p>
+                {{/simulation.chairperson}}
+                {{^simulation.chairperson}}
+                <p>No chairperson has been selected yet</p>
+                {{/simulation.chairperson}}
+            </section>
+            <section class="section">
+                <h3>Resolution</h3>
+                {{#simulation.resolution}}
+                <blockquote id="{{id}}" class="card">
+                    {{#isDenied}}
+                    <p class="error">Status: DENIED</p>
+                    {{/isDenied}}
+                    {{#inDebate}}
+                    <p class="gtg">Status: DEBATE</p>
+                    {{/inDebate}}
+                    {{#inVote}}
+                    <p class="voting">Status: VOTING</p>
                     {{/inVote}}
-                {{/canVoteResolution}}
-            </div>
-            {{/simulation.resolution}}
-            {{#simulation.motions}}
-            {{#isDeleted}}
-            <div></div>
-            {{/isDeleted}}
-            {{^isDeleted}}
-            <div id="{{id}}">
-                {{#isDenied}}
-                <h3>Motion was rejected</h3>
-                {{/isDenied}}
-                {{^isDenied}}
-                <div>
-                    {{#inDebate}}In Debate{{/inDebate}}
+                    {{^inDebate}}
+                    <button type="button" class="button" onclick="debateResolution({{simulation.id}}, {{currentUser.id}})">Debate</button>
+                    {{/inDebate}}
+                    {{^inVote}}
+                    {{#inDebate}}
+                    <button type="button" class="button" onclick="voteResolution({{simulation.id}}, {{currentUser.id}})">Vote</button>
+                    {{/inDebate}}
+                    {{/inVote}}
+                </blockquote>                
+                {{/simulation.resolution}}
+                <h3>Motions</h3>
+                {{#simulation.motions}}
+                {{^isDeleted}}
+                <blockquote id="{{id}}" class="card">
+                    <p>Moved By: {{mover.name}}</p>
+                    <p>{{body}}</p>
+                    {{#isDenied}}
+                    <p class="error">Status: DENIED</p>
+                    {{/isDenied}}
+                    {{#inDebate}}
+                    <p class="gtg">Status: DEBATE</p>
+                    {{/inDebate}}
+                    {{#inVote}}
+                    <p class="voting">Status: VOTING</p>
+                    {{/inVote}}
                     {{^inDebate}}
                     <button type="button" class="button" onclick="debateMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Debate</button>
                     {{/inDebate}}
-                    {{#inVote}}In Vote{{/inVote}}
                     {{^inVote}}
-                        {{#inDebate}}
-                        <button type="button" class="button" onclick="voteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Vote</button>
-                        {{/inDebate}}
+                    {{#inDebate}}
+                    <button type="button" class="button" onclick="voteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Vote</button>
+                    {{/inDebate}}
                     {{/inVote}}
                     <button type="button" class="button" onclick="deleteMotion({{simulation.id}}, {{currentUser.id}}, {{id}})">Trash</button>
-                </div>
-                {{/isDenied}}
-                <div>
-                    {{#mover}}<p>Moved By: {{name}}</p>{{/mover}}
-                    <p>{{body}}</p>
-                </div>
-            </div>
-            {{/isDeleted}}
-            {{/simulation.motions}}
+                </blockquote>
+                {{/isDeleted}}
+                {{/simulation.motions}}
+            </section>
+            <section class="section resolution">
+                {{#simulation.resolution}}
+                <h3>{{title}}</h3>
+                <p>
+                    {{#content}}
+                        {{.}}<br>
+                    {{/content}}
+                </p>
+                {{/simulation.resolution}}
+            </section>
         </main>
     </body>
 </html>

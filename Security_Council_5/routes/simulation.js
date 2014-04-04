@@ -16,9 +16,16 @@ exports.create = function(req, res) {
         title: req.body.title,
         content: req.body.content
     });
-    db.helpers.createCommunicationChannel(simulation, {
+    var chan = db.helpers.createCommunicationChannel(simulation, {
         label: "Default", //I have no idea what to label the default channel -- Dan
         permissions: false
-    }); 
+    });
+    
+    for (var i = 0; i < db.users.length; i++) {
+        if (db.users[i].moderator === true) {
+            db.helpers.addUserToChannel(chan, db.users[i]);
+        }
+    }
+    
     res.redirect('/');
 };

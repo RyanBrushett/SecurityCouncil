@@ -4,28 +4,35 @@
         <title>Moderator dashboard &middot; Council</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/css/global.css">
-        <link rel="stylesheet" href="/css/dashboard.css">
+        <link rel="stylesheet" href="/css/createmoderator.css">
     </head>
     <body>
         <header class="header">
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
-                <ul>
-                    <li>You are {{user.name}}, and&nbsp;<strong>you are a moderator</strong></li>
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/logout">Logout</a></li>
-                    <li><a href="/simulation/new">Create a new simulation</a></li>
+                <ul class="navigation__items">
+                    {{#user.flag}}
+                    <li class="navigation__item"><img src="/images/{{user.flag}}" width="32px" height="32px"></li>
+                    {{/user.flag}}
+                    <li class="navigation__item"><a>{{user.name}}</a></li>
+                    <li class="navigation__item"><a href="/">Dashboard</a></li>
+                    <li class="navigation__item"><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
+                </ul>
+                <ul class="navigation__items logout">
+                    <li class="navigation__item"><a href="/logout">Logout</a></li>
                 </ul>
             </nav>
         </header>
-        <main>
-            <h2>Create Moderator</h2>
-            <form action="/moderator/create" method="post">
-                <input type="text" name="name" placeholder="Full Name" />
-                <input type="text" name="username" placeholder="Username" />
-                <input type="password" name="password" placeholder="Password" />
-                <input class="button" type="submit" value="Create Moderator">
-            </form>    
+        <main class="main">
+            <section class="section moderator-form">
+                <h3>Create a new moderator</h3>
+                <form class="form" action="/moderator/create" method="post">
+                    <input type="text" class="textbox" name="name" placeholder="Full Name">
+                    <input type="text" class="textbox" name="username" placeholder="Username">
+                    <input type="password" class="textbox" name="password" placeholder="Password">
+                    <input class="button" type="submit" value="Create Moderator">
+                </form>
+            </section>
         </main>
     </body>
 </html>

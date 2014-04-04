@@ -4,35 +4,43 @@ var Motion = require('../models/motion.js');
 exports.view = function(req, res) {
     var simulation = db.simulations[req.params.id];
     var currentUser = db.users[req.session.userId];
-    var debateResolution = false;
-    var voteResolution = false;
+    var userCountry = db.helpers.getUserCountry(simulation, currentUser);
+    var debateResolution = simulation.resolution.inDebate;
+    var voteResolution = simulation.resolution.inVote;
+    var users = db.users;
+    var countries = db.countries;
+    
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
     var chPerm = db.helpers.checkPostingPermissions(simulation.communicationChannels[0], currentUser);
-    
-    if (simulation.resolution.inVote) {
-        voteResolution = true;
-    } else if (simulation.resolution.inDebate) {
-        debateResolution = true;
-    }
     
     res.render('debate/index', {
         simulation: simulation,
         currentUser: currentUser,
         permissions: perm,
         channel: simulation.communicationChannels[0],
-        voteReso: voteResolution,
-        debateReso: debateResolution,
         userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
+        userCanRead: chPerm.userCanRead,
+        userCountry: userCountry,
+        debateReso: debateResolution,
+        voteReso: voteResolution,
+        users: users,
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });
 };
 
 exports.viewChannel = function (req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
+    var userCountry = db.helpers.getUserCountry(simulation, currentUser);
+    var debateResolution = simulation.resolution.inDebate;
+    var voteResolution = simulation.resolution.inVote;
+    var users = db.users;
+    var countries = db.countries;
+    
     db.helpers.setUserFlag(simulation, currentUser);
     
     var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
@@ -44,31 +52,88 @@ exports.viewChannel = function (req, res) {
         permissions: perm,
         channel: commChannel,
         userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
+        userCanRead: chPerm.userCanRead,
+        userCountry: userCountry,
+        debateReso: debateResolution,
+        voteReso: voteResolution,
+        users: users,
+        visibleChannels: db.helpers.getVisibleChannels(simulation, currentUser),
+        defaultChannelId: simulation.communicationChannels[0].id
     });    
+};
+
+exports.createChannel = function (req, res) {
+    var simulation = db.simulations[req.params.sid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
+    var currentUser = db.users[req.session.userId];
+    db.helpers.setUserFlag(simulation, currentUser);
+    
+    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
+    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
+    
+    var channelName = req.body.channelname;
+    if (channelName == "") {
+        channelName = "Untitled";
+    }
+    
+    var channel = db.helpers.createCommunicationChannel(simulation, {
+        label: channelName,
+        permissions: true
+    });
+    
+    db.helpers.addUserToChannel(channel, currentUser);
+    
+    for (var i = 0; i < db.users.length; i++) {
+        if (db.users[i].moderator === true) {
+            db.helpers.addUserToChannel(channel, db.users[i]);
+        }
+    }    
+    
+    if (req.body.usercheck !== undefined) {
+        for (var i = 0; i < req.body.usercheck.length; i++) {
+            db.helpers.addUserToChannel(channel, db.users[req.body.usercheck[i]]);
+        }
+    }
+
+    if (Array.isArray(req.body.countrycheck)) {
+        if (req.body.countrycheck !== undefined) {
+            for (var i = 0; i < req.body.countrycheck.length; i++) {
+                for (var j = 0; j < simulation.countries.length; j++) {
+                    if (simulation.countries[j].id == req.body.countrycheck[i]) {
+                        for (var k = 0; k < simulation.countries[j].members.length; k++) {
+                            db.helpers.addUserToChannel(channel, simulation.countries[j].members[k]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    else {
+        for (var i = 0; i < simulation.countries.length; i++) {
+            if (simulation.countries[i].id == req.body.countrycheck) {
+                for (var j = 0; j < simulation.countries[i].members.length; j++) {
+                    db.helpers.addUserToChannel(channel, simulation.countries[i].members[j]);
+                }
+            }
+        }       
+    }
+    
+    res.redirect('/debate/' + req.params.sid + '/' + req.params.chid);
 };
 
 exports.comment = function(req, res) {
     var simulation = db.simulations[req.params.id];
-    var commChannel = simulation.communicationChannels[req.params.chid];
+    var commChannel = db.helpers.getCommunicationChannelById(simulation, req.params.chid);
     var currentUser = db.users[req.session.userId];
     db.helpers.setUserFlag(simulation, currentUser);
-    db.helpers.createComment(commChannel, {
+    var comment = db.helpers.createComment(commChannel, {
         content: req.body.comment,
         user: currentUser
     });
     
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });
+    db.helpers.setCommentFlag(simulation, comment, currentUser);
+
+    res.redirect('/debate/' + req.params.id + '/' + req.params.chid);
 };
 
 exports.vote = function(req, res) {
@@ -117,10 +182,12 @@ exports.vote = function(req, res) {
                 motion.inDebate = false;
                 motion.inVote = false;
                 
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Vote on motion passed!\nNow debating the resolution.',
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
+                
                 simulation.resolution.inDebate = true;
             }
             else {
@@ -130,10 +197,11 @@ exports.vote = function(req, res) {
                 
                 var commentContent = 'Vote on motion failed!\n';
                 commentContent += 'Now debating the resolution.';
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: commentContent,
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                 simulation.resolution.inDebate = true;
             }
         }
@@ -146,24 +214,15 @@ exports.vote = function(req, res) {
             commentContent += 'Continuing debate on the motion.\n';
             commentContent += motion.body + '\n';
             commentContent += 'Moved by: ' + motion.mover.name + '\n';
-            db.helpers.createComment(simulation.communicationChannels[0], {
+            var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
+            db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
         }
     }
     
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.voteResolution = function(req, res) {
@@ -190,10 +249,11 @@ exports.voteResolution = function(req, res) {
             simulation.resolution.isDenied = true;
             var country = db.helpers.getUserCountry(simulation, currentUser).name;
             var commentContent = 'Vote on resolution failed due to veto by ' + country + '!\n';
-            db.helpers.createComment(simulation.communicationChannels[0], {
+            var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                 content: commentContent,
                 user: simulation.chairperson
             });
+            db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
             simulation.resolution.inDebate = false;
             simulation.resolution.inVote = false;
         }
@@ -224,18 +284,20 @@ exports.voteResolution = function(req, res) {
                 var requiredVotes = Math.floor(simulation.countries.length / 2) + 1;
                 if (votesFor >= requiredVotes) {
                     simulation.resolution.isApproved = true;
-                    db.helpers.createComment(simulation.communicationChannels[0], {
+                    var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution passed!\n',
                         user: simulation.chairperson
                     });
+                    db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                     simulation.resolution.inDebate = false;
                 }
                 else {
                     simulation.resolution.isDenied = true;
-                    db.helpers.createComment(simulation.communicationChannels[0], {
+                    var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                         content: 'Vote on resolution failed!\n',
                         user: simulation.chairperson
                     });
+                    db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
                     simulation.resolution.inDebate = false;
                 }
             }
@@ -244,29 +306,36 @@ exports.voteResolution = function(req, res) {
                 simulation.resolution.inDebate = true;
                 simulation.resolution.votes = [];
                 simulation.resolution.inVote = false;
-                db.helpers.createComment(simulation.communicationChannels[0], {
+                var comment = db.helpers.createComment(simulation.communicationChannels[0], {
                     content: 'Quorum not met!\nContinuing debate on the resolution.\n',
                     user: simulation.chairperson
                 });
+                db.helpers.setCommentFlag(simulation, comment, simulation.chairperson);
             }
         }
     }
     
-    var perm = db.helpers.checkVotingPermissions(simulation, currentUser);
-    var chPerm = db.helpers.checkPostingPermissions(commChannel, currentUser);
-    
-    res.render('debate/index', {
-        simulation: simulation,
-        currentUser: currentUser,
-        permissions: perm,
-        channel: commChannel,
-        userCanComment: chPerm.userCanComment,
-        userCanRead: chPerm.userCanRead
-    });
-};
-
-exports.createChannel = function (req, res) {
+    res.redirect('/debate/' + req.params.sid);
 };
 
 exports.deleteChannel = function (req, res) {
+    var simulation = db.simulations[req.body.sid];
+    var user = db.users[req.body.uid];
+    var channels = simulation.communicationChannels;
+    var channel;
+    channels.forEach(function(ch){
+        if (ch.id === req.body.chid){
+            channel = ch;
+        }
+    });
+    if (user !== undefined && simulation !== undefined && channel !== undefined) {
+        var length = db.helpers.deleteCommunicationChannel(channel);
+        if (length === 0){
+            res.send(200);
+        } else {
+            res.send(404);
+        }
+    } else {
+        res.send(404);
+    }
 };
