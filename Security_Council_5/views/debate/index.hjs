@@ -14,18 +14,12 @@
             <h1><a href="/">Council</a></h1>
             <nav class="navigation">
                 <ul class="navigation__items">
-                    {{#currentUser.pic}}
-                    <li><img src="/images/{{currentUser.pic}}" width="24px" height="24px"></li>
-                    {{/currentUser.pic}}
                     <li>{{currentUser.name}}</li>
                     {{#currentUser.userFlag}}
                     <li><img src="/images/{{currentUser.userFlag}}" width="24px" height="24px"></li>
                     {{/currentUser.userFlag}}
                     {{#isModerator}}
-                    <li><a href="/moderator/simulation/{{simulation.id}}/{{userCountry.id}}/">{{userCountry.name}}</a></li>
-                    {{#user.flag}}
-                    <li><img src="/images/{{user.flag}}" width="24px" height="24px"></li>
-                    {{/user.flag}}
+                    <li><img src="/images/moderator.svg" width="24px" height="24px"></li>
                     <li><a href="/moderator/metrics/{{simulation.id}}#overview">Reports</a></li>
                     {{/isModerator}}
                     {{^isModerator}}
