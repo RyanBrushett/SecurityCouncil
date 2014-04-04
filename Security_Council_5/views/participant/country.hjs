@@ -68,11 +68,13 @@
                 </ul>
             </section>
             <section class="section">
+                {{#userIsAmbassador}}
                 <h2>Put Forward Motion</h2>
                 <form action="/participant/submit/{{simulation.id}}/{{countryId}}/motion" method="post">
                     <p><textarea name="motion" class="textbox"></textarea></p>
                     <p><input type="submit" class="button" value="Put Forward"></p>
                 </form>
+                {{/userIsAmbassador}}
                 
                 {{#userIsAmbassador}}
                     {{#positionPaper}}
