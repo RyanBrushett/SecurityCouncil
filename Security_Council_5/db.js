@@ -262,9 +262,9 @@ helpers.createUser = function (options) {
 helpers.createModerator = function (options) {
     options.id = module.exports.users.length;
     var user = new models.Moderator(options);
+    user.flag="moderator.png";
     module.exports.save(user);
     module.exports.users.push(user);
-    user.flag="moderator.png";
     return user;
 };
 
